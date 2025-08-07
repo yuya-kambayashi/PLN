@@ -8,4 +8,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\" />
+    <Folder Include="Drawables\" />
+    <Folder Include="Editor\" />
+    <Folder Include="Geometry\" />
+    <Folder Include="Graphics\" />
+    <Folder Include="View\" />
+  </ItemGroup>
+
 </Project>

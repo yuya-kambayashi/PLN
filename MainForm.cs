@@ -1,33 +1,22 @@
-﻿using System;
+﻿using BaseCAD.Document;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BaseCAD
 {
-    internal class MainForm : Form
+    public partial class MainForm : Form
     {
-        CADWindow cadWindow1;
-        //CADDocument doc;
-
+        private CADDocument doc;
         public MainForm()
         {
             InitializeComponent();
-        }
-        private void InitializeComponent()
-        {
-            cadWindow1 = new CADWindow();
-
-            this.SuspendLayout();
-            // 
-            // MainForm
-            // 
-            this.ClientSize = new System.Drawing.Size(1008, 516);
-            this.Name = "MainForm";
-            this.Text = "BaseCAD Application";
-            this.ResumeLayout(false);
-            this.BackColor = System.Drawing.Color.Black;
         }
     }
 }
