@@ -17,4 +17,32 @@
     <Folder Include="View\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="FillStyles.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>FillStyles.cs</LastGenOutput>
+    </None>
+    <None Update="OutlineStyles.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>OutlineStyles.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="FillStyles.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FillStyles.tt</DependentUpon>
+    </Compile>
+    <Compile Update="OutlineStyles.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OutlineStyles.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>
