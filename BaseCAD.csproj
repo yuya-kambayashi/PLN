@@ -9,12 +9,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
-    <Folder Include="Drawables\" />
-    <Folder Include="Editor\" />
-    <Folder Include="Geometry\" />
-    <Folder Include="Graphics\" />
-    <Folder Include="View\" />
+    <Compile Remove="Commands\**" />
+    <Compile Remove="Drawables\**" />
+    <Compile Remove="Editor\**" />
+    <Compile Remove="Geometry\**" />
+    <Compile Remove="Graphics\**" />
+    <Compile Remove="View\**" />
+    <EmbeddedResource Remove="Commands\**" />
+    <EmbeddedResource Remove="Drawables\**" />
+    <EmbeddedResource Remove="Editor\**" />
+    <EmbeddedResource Remove="Geometry\**" />
+    <EmbeddedResource Remove="Graphics\**" />
+    <EmbeddedResource Remove="View\**" />
+    <None Remove="Commands\**" />
+    <None Remove="Drawables\**" />
+    <None Remove="Editor\**" />
+    <None Remove="Geometry\**" />
+    <None Remove="Graphics\**" />
+    <None Remove="View\**" />
   </ItemGroup>
 
   <ItemGroup>
