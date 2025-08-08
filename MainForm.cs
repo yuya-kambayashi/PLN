@@ -232,5 +232,48 @@ namespace BaseCAD
             //    ResetCommand();
             //}
         }
+        private void BeginCommand(string name)
+        {
+            currentCommand = name;
+            commandStep = 0;
+            ApplyCommand();
+        }
+        private void ResetCommand()
+        {
+            currentCommand = "";
+            commandStep = 0;
+            statusLabel.Text = "Ready";
+            newItem = null;
+            cadWindow1.Refresh();
+        }
+        private void btnDrawLine_Click(object sender, EventArgs e)
+        {
+            BeginCommand("LINE");
+        }
+
+        private void btnDrawArc_Click(object sender, EventArgs e)
+        {
+            BeginCommand("ARC");
+        }
+
+        private void btnDrawCircle_Click(object sender, EventArgs e)
+        {
+            BeginCommand("CIRCLE");
+        }
+
+        private void btnDrawEllipse_Click(object sender, EventArgs e)
+        {
+            BeginCommand("ELLIPSE");
+        }
+
+        private void btnDrawEllipticArc_Click(object sender, EventArgs e)
+        {
+            BeginCommand("ELLIPTIC_ARC");
+        }
+
+        private void btnDrawText_Click(object sender, EventArgs e)
+        {
+            BeginCommand("TEXT");
+        }
     }
 }
