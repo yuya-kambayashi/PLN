@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -21,10 +22,15 @@ namespace BaseCAD
         Drawable newItem;
         Drawable hoverItem;
         OutlineStyle hoverItemStyle;
+        Circle trPoint;
 
         public MainForm()
         {
             InitializeComponent();
+            trPoint = new Circle(0, 0, 20);
+            trPoint.FillStyle = FillStyle.Orange;
+            trPoint.OutlineStyle = new OutlineStyle(Color.Red, 3);
+            cadWindow1.Model.Add(trPoint);
         }
 
         private void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
@@ -45,7 +51,7 @@ namespace BaseCAD
             else
             {
                 Drawable sel = cadWindow1.FindItemAtScreenCoordinates(e.X, e.Y, 5);
-                if (sel != hoverItem)
+                if (sel != trPoint && sel != hoverItem)
                 {
                     if (hoverItem != null)
                     {
@@ -70,6 +76,11 @@ namespace BaseCAD
             {
                 commandStep++;
                 ApplyCommand();
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                trPoint.Center = new Point2D(cadWindow1.View.ScreenToWorld(e.X, e.Y));
+                cadWindow1.Refresh();
             }
         }
         private void ApplyCommand()
@@ -274,6 +285,48 @@ namespace BaseCAD
         private void btnDrawText_Click(object sender, EventArgs e)
         {
             BeginCommand("TEXT");
+        }
+        private void MainForm_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (hoverItem != null)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Right:
+                        hoverItem.TransformBy(TransformationMatrix2D.Translation(20, 0));
+                        break;
+                    case Keys.Left:
+                        hoverItem.TransformBy(TransformationMatrix2D.Translation(-20, 0));
+                        break;
+                    case Keys.Down:
+                        hoverItem.TransformBy(TransformationMatrix2D.Translation(0, -20));
+                        break;
+                    case Keys.Up:
+                        hoverItem.TransformBy(TransformationMatrix2D.Translation(0, 20));
+                        break;
+                    case Keys.PageDown:
+                        hoverItem.TransformBy(TransformationMatrix2D.Translation(-trPoint.X, -trPoint.Y));
+                        hoverItem.TransformBy(TransformationMatrix2D.Rotation(5 * (float)Math.PI / 180));
+                        hoverItem.TransformBy(TransformationMatrix2D.Translation(trPoint.X, trPoint.Y));
+                        break;
+                    case Keys.PageUp:
+                        hoverItem.TransformBy(TransformationMatrix2D.Translation(-trPoint.X, -trPoint.Y));
+                        hoverItem.TransformBy(TransformationMatrix2D.Rotation(-5 * (float)Math.PI / 180));
+                        hoverItem.TransformBy(TransformationMatrix2D.Translation(trPoint.X, trPoint.Y));
+                        break;
+                    case Keys.Home:
+                        hoverItem.TransformBy(TransformationMatrix2D.Translation(-trPoint.X, -trPoint.Y));
+                        hoverItem.TransformBy(TransformationMatrix2D.Scale(0.8f, 0.8f));
+                        hoverItem.TransformBy(TransformationMatrix2D.Translation(trPoint.X, trPoint.Y));
+                        break;
+                    case Keys.End:
+                        hoverItem.TransformBy(TransformationMatrix2D.Translation(-trPoint.X, -trPoint.Y));
+                        hoverItem.TransformBy(TransformationMatrix2D.Scale(1.2f, 1.2f));
+                        hoverItem.TransformBy(TransformationMatrix2D.Translation(trPoint.X, trPoint.Y));
+                        break;
+                }
+                cadWindow1.Refresh();
+            }
         }
     }
 }
