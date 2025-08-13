@@ -16,6 +16,7 @@ namespace BaseCAD
 
         public Composite()
         {
+            ;
         }
 
         public override void Draw(DrawParams param)
