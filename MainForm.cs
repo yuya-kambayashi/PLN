@@ -337,6 +337,7 @@ namespace BaseCAD
                     }
                     break;
             }
+            propertyGrid1.Refresh();
             cadWindow1.Refresh();
         }
         private void TransformItems(IEnumerable<Drawable> items, TransformationMatrix2D trans)
