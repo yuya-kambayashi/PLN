@@ -37,9 +37,18 @@ namespace BaseCAD
 
         public Pen CreatePen(DrawParams param)
         {
-            Pen pen = new Pen(Color, param.GetScaledLineWeight(LineWeight));
-            pen.DashStyle = DashStyle;
-            return pen;
+            if (param.SelectionMode)
+            {
+                Pen pen = new Pen(param.SelectionColor, param.GetScaledLineWeight(LineWeight + 6));
+                pen.DashStyle = DashStyle.Solid;
+                return pen;
+            }
+            else
+            {
+                Pen pen = new Pen(Color, param.GetScaledLineWeight(LineWeight));
+                pen.DashStyle = DashStyle;
+                return pen;
+            }
         }
     }
 }

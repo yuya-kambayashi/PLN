@@ -59,10 +59,12 @@ namespace BaseCAD
         public int Height { get; private set; }
 
         public Composite Model { get; private set; }
+        public Editor Editor { get; private set; }
 
-        public CADView(Composite model, int width, int height)
+        public CADView(Composite model, Editor editor, int width, int height)
         {
             Model = model;
+            Editor = editor;
 
             Width = width;
             Height = height;
@@ -90,6 +92,14 @@ namespace BaseCAD
 
             // Render drawing objects
             Model.Draw(param);
+
+            param.SelectionColor = Editor.SelectionHighlight;
+            param.SelectionMode = true;
+            foreach (Drawable selected in Editor.Selection)
+            {
+                selected.Draw(param);
+            }
+            param.SelectionMode = false;
         }
 
         /// <summary>
