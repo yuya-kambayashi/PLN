@@ -219,26 +219,33 @@ namespace BaseCAD
             }
             else if (currentCommand == "TEXT" && commandStep == 0)
             {
-                statusLabel.Text = "Select insertion point of text";
                 newItem = new Text(pickedPoints[0], "abc", 1);
                 cadWindow1.Model.Add(newItem);
                 cadWindow1.Refresh();
+                commandStep++;
             }
             else if (currentCommand == "TEXT" && commandStep == 1)
             {
-                statusLabel.Text = "Select text rotation";
+                statusLabel.Text = "Select insertion point of text";
                 Text txt = newItem as Text;
-                txt.Rotation = (pickedPoints[1] - pickedPoints[0]).Angle;
+                txt.P = pickedPoints[1];
                 cadWindow1.Refresh();
             }
             else if (currentCommand == "TEXT" && commandStep == 2)
             {
-                statusLabel.Text = "Select text height";
+                statusLabel.Text = "Select text rotation";
                 Text txt = newItem as Text;
-                txt.Height = (pickedPoints[2] - pickedPoints[0]).Length;
+                txt.Rotation = (pickedPoints[2] - pickedPoints[1]).Angle;
                 cadWindow1.Refresh();
             }
             else if (currentCommand == "TEXT" && commandStep == 3)
+            {
+                statusLabel.Text = "Select text height";
+                Text txt = newItem as Text;
+                txt.Height = (pickedPoints[3] - pickedPoints[1]).Length;
+                cadWindow1.Refresh();
+            }
+            else if (currentCommand == "TEXT" && commandStep == 4)
             {
                 ResetCommand();
             }
@@ -288,44 +295,55 @@ namespace BaseCAD
         }
         private void MainForm_KeyUp(object sender, KeyEventArgs e)
         {
-            if (hoverItem != null)
+            switch (e.KeyCode)
             {
-                switch (e.KeyCode)
-                {
-                    case Keys.Right:
-                        hoverItem.TransformBy(TransformationMatrix2D.Translation(20, 0));
-                        break;
-                    case Keys.Left:
-                        hoverItem.TransformBy(TransformationMatrix2D.Translation(-20, 0));
-                        break;
-                    case Keys.Down:
-                        hoverItem.TransformBy(TransformationMatrix2D.Translation(0, -20));
-                        break;
-                    case Keys.Up:
-                        hoverItem.TransformBy(TransformationMatrix2D.Translation(0, 20));
-                        break;
-                    case Keys.PageDown:
-                        hoverItem.TransformBy(TransformationMatrix2D.Translation(-trPoint.X, -trPoint.Y));
-                        hoverItem.TransformBy(TransformationMatrix2D.Rotation(5 * (float)Math.PI / 180));
-                        hoverItem.TransformBy(TransformationMatrix2D.Translation(trPoint.X, trPoint.Y));
-                        break;
-                    case Keys.PageUp:
-                        hoverItem.TransformBy(TransformationMatrix2D.Translation(-trPoint.X, -trPoint.Y));
-                        hoverItem.TransformBy(TransformationMatrix2D.Rotation(-5 * (float)Math.PI / 180));
-                        hoverItem.TransformBy(TransformationMatrix2D.Translation(trPoint.X, trPoint.Y));
-                        break;
-                    case Keys.Home:
-                        hoverItem.TransformBy(TransformationMatrix2D.Translation(-trPoint.X, -trPoint.Y));
-                        hoverItem.TransformBy(TransformationMatrix2D.Scale(0.8f, 0.8f));
-                        hoverItem.TransformBy(TransformationMatrix2D.Translation(trPoint.X, trPoint.Y));
-                        break;
-                    case Keys.End:
-                        hoverItem.TransformBy(TransformationMatrix2D.Translation(-trPoint.X, -trPoint.Y));
-                        hoverItem.TransformBy(TransformationMatrix2D.Scale(1.2f, 1.2f));
-                        hoverItem.TransformBy(TransformationMatrix2D.Translation(trPoint.X, trPoint.Y));
-                        break;
-                }
-                cadWindow1.Refresh();
+                case Keys.Right:
+                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(20, 0));
+                    break;
+                case Keys.Left:
+                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(-20, 0));
+                    break;
+                case Keys.Down:
+                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(0, -20));
+                    break;
+                case Keys.Up:
+                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(0, 20));
+                    break;
+                case Keys.PageDown:
+                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(-trPoint.X, -trPoint.Y));
+                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Rotation(5 * (float)Math.PI / 180));
+                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(trPoint.X, trPoint.Y));
+                    break;
+                case Keys.PageUp:
+                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(-trPoint.X, -trPoint.Y));
+                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Rotation(-5 * (float)Math.PI / 180));
+                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(trPoint.X, trPoint.Y));
+                    break;
+                case Keys.Home:
+                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(-trPoint.X, -trPoint.Y));
+                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Scale(0.8f, 0.8f));
+                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(trPoint.X, trPoint.Y));
+                    break;
+                case Keys.End:
+                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(-trPoint.X, -trPoint.Y));
+                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Scale(1.2f, 1.2f));
+                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(trPoint.X, trPoint.Y));
+                    break;
+                case Keys.Delete:
+                    Drawable[] toDelete = cadWindow1.Editor.Selection.ToArray();
+                    foreach (Drawable item in toDelete)
+                    {
+                        cadWindow1.Model.Remove(item);
+                    }
+                    break;
+            }
+            cadWindow1.Refresh();
+        }
+        private void TransformItems(IEnumerable<Drawable> items, TransformationMatrix2D trans)
+        {
+            foreach (Drawable item in items)
+            {
+                item.TransformBy(trans);
             }
         }
     }

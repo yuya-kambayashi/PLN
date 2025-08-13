@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BaseCAD
 {
-    public class Composite : Drawable, ICollection<Drawable>
+    public class Composite : Drawable, ICollection<Drawable>, INotifyCollectionChanged
     {
         List<Drawable> items = new List<Drawable>();
+
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+
 
         public Composite()
         {
@@ -52,11 +56,13 @@ namespace BaseCAD
         public void Add(Drawable item)
         {
             items.Add(item);
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item));
         }
 
         public void Clear()
         {
             items.Clear();
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
 
         public bool Contains(Drawable item)
@@ -81,7 +87,12 @@ namespace BaseCAD
 
         public bool Remove(Drawable item)
         {
-            return items.Remove(item);
+            bool check = items.Remove(item);
+            if (check)
+            {
+                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item));
+            }
+            return check;
         }
 
         public IEnumerator<Drawable> GetEnumerator()
@@ -92,6 +103,10 @@ namespace BaseCAD
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+        protected void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
+        {
+            CollectionChanged?.Invoke(this, e);
         }
     }
 }
