@@ -20,8 +20,6 @@ namespace BaseCAD
         int commandStep = 0;
         Point2D[] pickedPoints = new Point2D[20];
         Drawable newItem;
-        Drawable hoverItem;
-        OutlineStyle hoverItemStyle;
         Circle trPoint;
 
         public MainForm()
@@ -30,10 +28,16 @@ namespace BaseCAD
             trPoint = new Circle(0, 0, 20);
             trPoint.FillStyle = FillStyle.Orange;
             trPoint.OutlineStyle = new OutlineStyle(Color.Red, 3);
-            cadWindow1.Model.Add(trPoint);
+            cadWindow1.Document.Model.Add(trPoint);
+            cadWindow1.Document.SelectionChanged += CadWindow1_SelectionChanged;
         }
 
-        private void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        private void CadWindow1_SelectionChanged(object s, EventArgs e)
+        {
+            propertyGrid1.SelectedObjects = cadWindow1.Document.Editor.Selection.ToArray();
+        }
+
+        private void propertyGrid1_PropertyValueChanged(object s, EventArgs e)
         {
             cadWindow1.Refresh();
         }
@@ -47,26 +51,6 @@ namespace BaseCAD
             {
                 pickedPoints[commandStep] = pt;
                 ApplyCommand();
-            }
-            else
-            {
-                Drawable sel = cadWindow1.FindItemAtScreenCoordinates(e.X, e.Y, 5);
-                if (sel != trPoint && sel != hoverItem)
-                {
-                    if (hoverItem != null)
-                    {
-                        hoverItem.OutlineStyle = hoverItemStyle;
-                        cadWindow1.Refresh();
-                    }
-                    hoverItem = sel;
-                    if (hoverItem != null)
-                    {
-                        hoverItemStyle = hoverItem.OutlineStyle;
-                        hoverItem.OutlineStyle = OutlineStyle.CornflowerBlue;
-                        propertyGrid1.SelectedObject = hoverItem;
-                        cadWindow1.Refresh();
-                    }
-                }
             }
         }
 
@@ -87,140 +71,165 @@ namespace BaseCAD
         {
             if (currentCommand == "LINE" && commandStep == 0)
             {
-                statusLabel.Text = "Select start point of line";
                 newItem = new Line(pickedPoints[0], pickedPoints[0]);
-                cadWindow1.Model.Add(newItem);
+                cadWindow1.Document.Model.Add(newItem);
                 cadWindow1.Refresh();
+                commandStep++;
             }
             else if (currentCommand == "LINE" && commandStep == 1)
             {
-                statusLabel.Text = "Select end point of line";
+                statusLabel.Text = "Select start point of line";
                 Line line = newItem as Line;
+                line.P1 = pickedPoints[1];
                 line.P2 = pickedPoints[1];
                 cadWindow1.Refresh();
             }
             else if (currentCommand == "LINE" && commandStep == 2)
             {
+                statusLabel.Text = "Select end point of line";
+                Line line = newItem as Line;
+                line.P2 = pickedPoints[2];
+                cadWindow1.Refresh();
+            }
+            else if (currentCommand == "LINE" && commandStep == 3)
+            {
                 ResetCommand();
             }
             else if (currentCommand == "ARC" && commandStep == 0)
             {
-                statusLabel.Text = "Select center point of arc";
                 newItem = new Arc(pickedPoints[0], 0, 0, 2 * (float)Math.PI);
-                cadWindow1.Model.Add(newItem);
+                cadWindow1.Document.Model.Add(newItem);
                 cadWindow1.Refresh();
+                commandStep++;
             }
             else if (currentCommand == "ARC" && commandStep == 1)
             {
-                statusLabel.Text = "Select radius of arc";
+                statusLabel.Text = "Select center point of arc";
                 Arc arc = newItem as Arc;
-                arc.Radius = (pickedPoints[1] - pickedPoints[0]).Length;
+                arc.Center = pickedPoints[1];
                 cadWindow1.Refresh();
             }
             else if (currentCommand == "ARC" && commandStep == 2)
             {
-                statusLabel.Text = "Select start angle of arc";
+                statusLabel.Text = "Select radius of arc";
                 Arc arc = newItem as Arc;
-                arc.StartAngle = (pickedPoints[2] - pickedPoints[0]).Angle;
+                arc.Radius = (pickedPoints[2] - pickedPoints[1]).Length;
                 cadWindow1.Refresh();
             }
             else if (currentCommand == "ARC" && commandStep == 3)
             {
-                statusLabel.Text = "Select end angle of arc";
+                statusLabel.Text = "Select start angle of arc";
                 Arc arc = newItem as Arc;
-                arc.EndAngle = (pickedPoints[3] - pickedPoints[0]).Angle;
+                arc.StartAngle = (pickedPoints[3] - pickedPoints[1]).Angle;
                 cadWindow1.Refresh();
-            }
-            else if (currentCommand == "ARC" && commandStep == 4)
-            {
-                ResetCommand();
             }
             else if (currentCommand == "CIRCLE" && commandStep == 0)
             {
-                statusLabel.Text = "Select center point of circle";
-                newItem = new Circle(pickedPoints[0], 0);
-                cadWindow1.Model.Add(newItem);
+                newItem = new Circle(pickedPoints[0], 1);
+                cadWindow1.Document.Model.Add(newItem);
                 cadWindow1.Refresh();
+                commandStep++;
             }
             else if (currentCommand == "CIRCLE" && commandStep == 1)
             {
-                statusLabel.Text = "Select radius of circle";
+                statusLabel.Text = "Select center point of circle";
                 Circle cir = newItem as Circle;
-                cir.Radius = (pickedPoints[1] - pickedPoints[0]).Length;
+                cir.Center = pickedPoints[1];
                 cadWindow1.Refresh();
             }
             else if (currentCommand == "CIRCLE" && commandStep == 2)
+            {
+                statusLabel.Text = "Select radius of circle";
+                Circle cir = newItem as Circle;
+                cir.Radius = (pickedPoints[2] - pickedPoints[1]).Length;
+                cadWindow1.Refresh();
+            }
+            else if (currentCommand == "CIRCLE" && commandStep == 3)
             {
                 ResetCommand();
             }
             else if (currentCommand == "ELLIPSE" && commandStep == 0)
             {
-                statusLabel.Text = "Select center point of ellipse";
-                newItem = new Ellipse(pickedPoints[0], 0, 0);
-                cadWindow1.Model.Add(newItem);
+                newItem = new Ellipse(pickedPoints[0], 1, 1);
+                cadWindow1.Document.Model.Add(newItem);
                 cadWindow1.Refresh();
+                commandStep++;
             }
             else if (currentCommand == "ELLIPSE" && commandStep == 1)
             {
-                statusLabel.Text = "Select semi-major axis of ellipse";
+                statusLabel.Text = "Select center point of ellipse";
                 Ellipse eli = newItem as Ellipse;
-                eli.SemiMajorAxis = (pickedPoints[1] - pickedPoints[0]).Length;
+                eli.Center = pickedPoints[1];
                 cadWindow1.Refresh();
             }
             else if (currentCommand == "ELLIPSE" && commandStep == 2)
             {
-                statusLabel.Text = "Select semi-minor axis of ellipse";
+                statusLabel.Text = "Select semi-major axis of ellipse";
                 Ellipse eli = newItem as Ellipse;
-                eli.SemiMinorAxis = (pickedPoints[2] - pickedPoints[0]).Length;
+                eli.SemiMajorAxis = (pickedPoints[2] - pickedPoints[1]).Length;
                 cadWindow1.Refresh();
             }
             else if (currentCommand == "ELLIPSE" && commandStep == 3)
+            {
+                statusLabel.Text = "Select semi-minor axis of ellipse";
+                Ellipse eli = newItem as Ellipse;
+                eli.SemiMinorAxis = (pickedPoints[3] - pickedPoints[1]).Length;
+                cadWindow1.Refresh();
+            }
+            else if (currentCommand == "ELLIPSE" && commandStep == 4)
             {
                 ResetCommand();
             }
             else if (currentCommand == "ELLIPTIC_ARC" && commandStep == 0)
             {
-                statusLabel.Text = "Select center point of elliptic arc";
-                newItem = new EllipticArc(pickedPoints[0], 0, 0, 0, 2 * (float)Math.PI);
-                cadWindow1.Model.Add(newItem);
+                newItem = new EllipticArc(pickedPoints[0], 1, 1, 0, 2 * (float)Math.PI);
+                cadWindow1.Document.Model.Add(newItem);
                 cadWindow1.Refresh();
+                commandStep++;
             }
             else if (currentCommand == "ELLIPTIC_ARC" && commandStep == 1)
             {
-                statusLabel.Text = "Select semi-major axis of elliptic arc";
+                statusLabel.Text = "Select center point of elliptic arc";
                 EllipticArc eli = newItem as EllipticArc;
-                eli.SemiMajorAxis = (pickedPoints[1] - pickedPoints[0]).Length;
+                eli.Center = pickedPoints[1];
                 cadWindow1.Refresh();
             }
             else if (currentCommand == "ELLIPTIC_ARC" && commandStep == 2)
             {
-                statusLabel.Text = "Select semi-minor axis of elliptic arc";
+                statusLabel.Text = "Select semi-major axis of elliptic arc";
                 EllipticArc eli = newItem as EllipticArc;
-                eli.SemiMinorAxis = (pickedPoints[2] - pickedPoints[0]).Length;
+                eli.SemiMajorAxis = (pickedPoints[2] - pickedPoints[1]).Length;
                 cadWindow1.Refresh();
             }
             else if (currentCommand == "ELLIPTIC_ARC" && commandStep == 3)
             {
-                statusLabel.Text = "Select start angle of elliptic arc";
-                EllipticArc arc = newItem as EllipticArc;
-                arc.StartAngle = (pickedPoints[3] - pickedPoints[0]).Angle;
+                statusLabel.Text = "Select semi-minor axis of elliptic arc";
+                EllipticArc eli = newItem as EllipticArc;
+                eli.SemiMinorAxis = (pickedPoints[3] - pickedPoints[1]).Length;
                 cadWindow1.Refresh();
             }
             else if (currentCommand == "ELLIPTIC_ARC" && commandStep == 4)
             {
-                statusLabel.Text = "Select end angle of elliptic arc";
+                statusLabel.Text = "Select start angle of elliptic arc";
                 EllipticArc arc = newItem as EllipticArc;
-                arc.EndAngle = (pickedPoints[4] - pickedPoints[0]).Angle;
+                arc.StartAngle = (pickedPoints[4] - pickedPoints[1]).Angle;
                 cadWindow1.Refresh();
             }
             else if (currentCommand == "ELLIPTIC_ARC" && commandStep == 5)
+            {
+                statusLabel.Text = "Select end angle of elliptic arc";
+                EllipticArc arc = newItem as EllipticArc;
+                arc.EndAngle = (pickedPoints[5] - pickedPoints[1]).Angle;
+                cadWindow1.Refresh();
+            }
+            else if (currentCommand == "ELLIPTIC_ARC" && commandStep == 6)
             {
                 ResetCommand();
             }
             else if (currentCommand == "TEXT" && commandStep == 0)
             {
                 newItem = new Text(pickedPoints[0], "abc", 1);
-                cadWindow1.Model.Add(newItem);
+                cadWindow1.Document.Model.Add(newItem);
                 cadWindow1.Refresh();
                 commandStep++;
             }
@@ -298,42 +307,42 @@ namespace BaseCAD
             switch (e.KeyCode)
             {
                 case Keys.Right:
-                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(20, 0));
+                    TransformItems(cadWindow1.Document.Editor.Selection, TransformationMatrix2D.Translation(20, 0));
                     break;
                 case Keys.Left:
-                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(-20, 0));
+                    TransformItems(cadWindow1.Document.Editor.Selection, TransformationMatrix2D.Translation(-20, 0));
                     break;
                 case Keys.Down:
-                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(0, -20));
+                    TransformItems(cadWindow1.Document.Editor.Selection, TransformationMatrix2D.Translation(0, -20));
                     break;
                 case Keys.Up:
-                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(0, 20));
+                    TransformItems(cadWindow1.Document.Editor.Selection, TransformationMatrix2D.Translation(0, 20));
                     break;
                 case Keys.PageDown:
-                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(-trPoint.X, -trPoint.Y));
-                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Rotation(5 * (float)Math.PI / 180));
-                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(trPoint.X, trPoint.Y));
+                    TransformItems(cadWindow1.Document.Editor.Selection, TransformationMatrix2D.Translation(-trPoint.X, -trPoint.Y));
+                    TransformItems(cadWindow1.Document.Editor.Selection, TransformationMatrix2D.Rotation(5 * (float)Math.PI / 180));
+                    TransformItems(cadWindow1.Document.Editor.Selection, TransformationMatrix2D.Translation(trPoint.X, trPoint.Y));
                     break;
                 case Keys.PageUp:
-                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(-trPoint.X, -trPoint.Y));
-                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Rotation(-5 * (float)Math.PI / 180));
-                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(trPoint.X, trPoint.Y));
+                    TransformItems(cadWindow1.Document.Editor.Selection, TransformationMatrix2D.Translation(-trPoint.X, -trPoint.Y));
+                    TransformItems(cadWindow1.Document.Editor.Selection, TransformationMatrix2D.Rotation(-5 * (float)Math.PI / 180));
+                    TransformItems(cadWindow1.Document.Editor.Selection, TransformationMatrix2D.Translation(trPoint.X, trPoint.Y));
                     break;
                 case Keys.Home:
-                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(-trPoint.X, -trPoint.Y));
-                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Scale(0.8f, 0.8f));
-                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(trPoint.X, trPoint.Y));
+                    TransformItems(cadWindow1.Document.Editor.Selection, TransformationMatrix2D.Translation(-trPoint.X, -trPoint.Y));
+                    TransformItems(cadWindow1.Document.Editor.Selection, TransformationMatrix2D.Scale(0.8f, 0.8f));
+                    TransformItems(cadWindow1.Document.Editor.Selection, TransformationMatrix2D.Translation(trPoint.X, trPoint.Y));
                     break;
                 case Keys.End:
-                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(-trPoint.X, -trPoint.Y));
-                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Scale(1.2f, 1.2f));
-                    TransformItems(cadWindow1.Editor.Selection, TransformationMatrix2D.Translation(trPoint.X, trPoint.Y));
+                    TransformItems(cadWindow1.Document.Editor.Selection, TransformationMatrix2D.Translation(-trPoint.X, -trPoint.Y));
+                    TransformItems(cadWindow1.Document.Editor.Selection, TransformationMatrix2D.Scale(1.2f, 1.2f));
+                    TransformItems(cadWindow1.Document.Editor.Selection, TransformationMatrix2D.Translation(trPoint.X, trPoint.Y));
                     break;
                 case Keys.Delete:
-                    Drawable[] toDelete = cadWindow1.Editor.Selection.ToArray();
+                    Drawable[] toDelete = cadWindow1.Document.Editor.Selection.ToArray();
                     foreach (Drawable item in toDelete)
                     {
-                        cadWindow1.Model.Remove(item);
+                        cadWindow1.Document.Model.Remove(item);
                     }
                     break;
             }
@@ -345,6 +354,24 @@ namespace BaseCAD
             foreach (Drawable item in items)
             {
                 item.TransformBy(trans);
+            }
+        }
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            cadWindow1.Document.Save(SaveFileName);
+        }
+
+        private void ReadFile()
+        {
+            cadWindow1.Document.Open(SaveFileName);
+        }
+
+        private string SaveFileName
+        {
+            get
+            {
+                string path = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+                return Path.Combine(path, "save.bin");
             }
         }
     }

@@ -18,15 +18,11 @@ namespace BaseCAD
         private Point lastMouse;
         private Drawable mouseDownItem;
 
-        public event SelectionChangedEventHandler SelectionChanged;
-
 
         [Browsable(false)]
         public CADView View { get; private set; }
         [Browsable(false)]
-        public Composite Model { get; private set; }
-        [Browsable(false)]
-        public Editor Editor { get; private set; }
+        public CADDocument Document { get; private set; }
         [Browsable(false)]
         public float DrawingScale { get { return View.ZoomFactor; } }
         public bool AllowZoomAndPan { get; set; } = true;
@@ -41,9 +37,8 @@ namespace BaseCAD
 
             DoubleBuffered = true;
 
-            Model = new Composite();
-            Editor = new Editor();
-            View = new CADView(Model, Editor, ClientRectangle.Width, ClientRectangle.Height);
+            Document = new CADDocument();
+            View = new CADView(Document, ClientRectangle.Width, ClientRectangle.Height);
 
             panning = false;
 
@@ -60,22 +55,19 @@ namespace BaseCAD
             KeyDown += CADWindow_KeyDown;
             Paint += CadView_Paint;
 
-            Model.CollectionChanged += Model_CollectionChanged;
+            Document.DocumentChanged += Document_Changed;
+            Document.SelectionChanged += Document_SelectionChanged;
+
+
         }
 
-        private void Model_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void Document_SelectionChanged(object sender, EventArgs e)
         {
-            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
-            {
-                foreach (Drawable item in e.OldItems)
-                {
-                    Editor.Selection.Remove(item);
-                }
-            }
-            else if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Reset)
-            {
-                Editor.Selection.Clear();
-            }
+            Invalidate();
+        }
+        private void Document_Changed(object sender, EventArgs e)
+        {
+            Invalidate();
         }
 
         public void ZoomIn()
@@ -133,11 +125,9 @@ namespace BaseCAD
                 if (mouseUpItem != null && ReferenceEquals(mouseDownItem, mouseUpItem))
                 {
                     if ((ModifierKeys & Keys.Shift) != Keys.None)
-                        Editor.Selection.Remove(mouseDownItem);
+                        Document.Editor.Selection.Remove(mouseDownItem);
                     else
-                        Editor.Selection.Add(mouseDownItem);
-                    Invalidate();
-                    OnSelectionChanged(new SelectionChangedEventArgs(Editor.Selection));
+                        Document.Editor.Selection.Add(mouseDownItem);
                 }
             }
         }
@@ -187,9 +177,7 @@ namespace BaseCAD
         {
             if (e.KeyCode == Keys.Escape)
             {
-                Editor.Selection.Clear();
-                Invalidate();
-                OnSelectionChanged(new SelectionChangedEventArgs(Editor.Selection));
+                Document.Editor.Selection.Clear();
             }
         }
 
@@ -207,16 +195,11 @@ namespace BaseCAD
         {
             PointF pt = View.ScreenToWorld(x, y);
             float pickBoxWorld = View.ScreenToWorld(new Size(pickBox, 0)).Width;
-            foreach (Drawable d in Model)
+            foreach (Drawable d in Document.Model)
             {
                 if (d.Contains(new Point2D(pt), pickBoxWorld)) return d;
             }
             return null;
-        }
-        protected void OnSelectionChanged(SelectionChangedEventArgs e)
-        {
-            if (SelectionChanged != null)
-                SelectionChanged.Invoke(this, e);
         }
     }
 }

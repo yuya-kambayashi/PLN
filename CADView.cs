@@ -58,29 +58,17 @@ namespace BaseCAD
         public int Width { get; private set; }
         public int Height { get; private set; }
 
-        public Composite Model { get; private set; }
-        public Editor Editor { get; private set; }
+        public CADDocument Document { get; private set; }
 
-        public CADView(Composite model, Editor editor, int width, int height)
+        public CADView(CADDocument document,  int width, int height)
         {
-            Model = model;
-            Editor = editor;
+            Document = document;
 
             Width = width;
             Height = height;
 
             mZoomFactor = 5.0f / 3.0f;
             mCameraPosition = new PointF(0, 0);
-        }
-
-        public Extents GetExtents()
-        {
-            Extents extents = new Extents();
-            foreach (Drawable item in Model)
-            {
-                if (item.Visible) extents.Add(item.GetExtents());
-            }
-            return extents;
         }
 
         public void Render(Graphics graphics)
@@ -91,11 +79,11 @@ namespace BaseCAD
             ScaleGraphics(graphics);
 
             // Render drawing objects
-            Model.Draw(param);
+            Document.Model.Draw(param);
 
-            param.SelectionColor = Editor.SelectionHighlight;
+            param.SelectionColor = Document.Editor.SelectionHighlight;
             param.SelectionMode = true;
-            foreach (Drawable selected in Editor.Selection)
+            foreach (Drawable selected in Document.Editor.Selection)
             {
                 selected.Draw(param);
             }
@@ -193,7 +181,7 @@ namespace BaseCAD
         /// </summary>
         public void ZoomToExtents()
         {
-            RectangleF limits = GetExtents();
+            RectangleF limits = Document.Model.GetExtents();
 
             if (limits.IsEmpty) limits = new RectangleF(-250, -250, 500, 500);
 
