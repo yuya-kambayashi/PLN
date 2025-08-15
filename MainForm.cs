@@ -30,6 +30,8 @@ namespace BaseCAD
             trPoint.OutlineStyle = new OutlineStyle(Color.Red, 3);
             cadWindow1.Document.Model.Add(trPoint);
             cadWindow1.Document.SelectionChanged += CadWindow1_SelectionChanged;
+            
+            cadWindow2.Document = cadWindow1.Document;
         }
 
         private void CadWindow1_SelectionChanged(object s, EventArgs e)

@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            CADDocument cadDocument2 = new CADDocument();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            CADDocument cadDocument1 = new CADDocument();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -37,23 +39,20 @@
             this.cadWindow1 = new CADWindow();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.btnSave = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDrawLine = new System.Windows.Forms.ToolStripButton();
-            this.btnDrawArc = new System.Windows.Forms.ToolStripButton();
             this.btnDrawCircle = new System.Windows.Forms.ToolStripButton();
             this.btnDrawEllipse = new System.Windows.Forms.ToolStripButton();
             this.btnDrawArc = new System.Windows.Forms.ToolStripButton();
             this.btnDrawEllipticArc = new System.Windows.Forms.ToolStripButton();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.btnDrawText = new System.Windows.Forms.ToolStripButton();
-            this.btnSave = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.cadWindow2 = new CADWindow();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -117,6 +116,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.cadWindow2);
             this.splitContainer1.Panel1.Controls.Add(this.cadWindow1);
             // 
             // splitContainer1.Panel2
@@ -131,10 +131,10 @@
             this.cadWindow1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(40)))), ((int)(((byte)(48)))));
             this.cadWindow1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.cadWindow1.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.cadWindow1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cadWindow1.Document = cadDocument2;
             this.cadWindow1.Location = new System.Drawing.Point(0, 0);
             this.cadWindow1.Name = "cadWindow1";
-            this.cadWindow1.Size = new System.Drawing.Size(759, 469);
+            this.cadWindow1.Size = new System.Drawing.Size(349, 344);
             this.cadWindow1.TabIndex = 0;
             this.cadWindow1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cadWindow1_MouseClick);
             this.cadWindow1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.cadWindow1_MouseMove);
@@ -251,6 +251,19 @@
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
+            // cadWindow2
+            // 
+            this.cadWindow2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(40)))), ((int)(((byte)(48)))));
+            this.cadWindow2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.cadWindow2.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.cadWindow2.Document = cadDocument1;
+            this.cadWindow2.Location = new System.Drawing.Point(367, 31);
+            this.cadWindow2.Name = "cadWindow2";
+            this.cadWindow2.Size = new System.Drawing.Size(349, 344);
+            this.cadWindow2.TabIndex = 0;
+            this.cadWindow2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cadWindow1_MouseClick);
+            this.cadWindow2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.cadWindow1_MouseMove);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -299,5 +312,6 @@
         private System.Windows.Forms.ToolStripButton btnDrawText;
         private System.Windows.Forms.ToolStripButton btnSave;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private CADWindow cadWindow2;
     }
 }
