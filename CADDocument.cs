@@ -22,7 +22,7 @@ namespace BaseCAD
 
         public CADDocument()
         {
-            Editor = new Editor();
+            Editor = new Editor(this);
             Model = new Composite();
             Editor.Selection.CollectionChanged += Selection_CollectionChanged;
             Model.CollectionChanged += Model_CollectionChanged;

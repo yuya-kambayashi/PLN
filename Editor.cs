@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,6 +9,8 @@ namespace BaseCAD
 {
     public partial class Editor
     {
+        public static Dictionary<string, Command> Commands { get; private set; }
+        public CADDocument Document { get; private set; }
         internal InputMode Mode { get; private set; }
 
         private TaskCompletionSource<PointResult> pointCompletion;
@@ -15,11 +18,46 @@ namespace BaseCAD
         public SelectionSet Selection { get; private set; } = new SelectionSet();
         public Color SelectionHighlight { get; set; } = Color.FromArgb(64, 46, 116, 251);
 
+        static Editor()
+        {
+            Commands = new Dictionary<string, Command>();
+            // Search the assembly for commands
+            Assembly assembly = Assembly.GetAssembly(typeof(CADDocument));
+            foreach (Type type in assembly.GetTypes())
+            {
+                if (type.BaseType == typeof(Command))
+                {
+                    Command com = (Command)assembly.CreateInstance(type.FullName);
+                    if (com == null)
+                    {
+                        assembly = Assembly.GetExecutingAssembly();
+                        com = (Command)Assembly.GetExecutingAssembly().CreateInstance(type.FullName);
+                    }
+                    if (com != null)
+                    {
+                        Commands.Add(com.RegisteredName, com);
+                    }
+                }
+            }
+        }
+
+        public Editor(CADDocument doc)
+        {
+            Document = doc;
+        }
+
+        public void RunCommand(string registeredName)
+        {
+            Command com = Commands[registeredName];
+            com.Apply(Document);
+        }
         public async Task<PointResult> GetPoint(string message)
         {
             Mode = InputMode.Point;
             pointCompletion = new TaskCompletionSource<PointResult>();
-            return await pointCompletion.Task;
+            PointResult res = await pointCompletion.Task;
+            Mode = InputMode.None;
+            return res;
         }
 
         internal void OnViewMouseMove(object sender, MouseEventArgs e, Point2D point)
