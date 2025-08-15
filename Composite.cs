@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -107,7 +108,24 @@ namespace BaseCAD
         }
         protected void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
         {
+            if (e.NewItems != null)
+            {
+                foreach (Drawable item in e.NewItems)
+                    item.PropertyChanged += Drawable_PropertyChanged;
+            }
+            if (e.OldItems != null)
+            {
+                foreach (Drawable item in e.OldItems)
+                    item.PropertyChanged -= Drawable_PropertyChanged;
+            }
+
             CollectionChanged?.Invoke(this, e);
+        }
+
+        void Drawable_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, sender));
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, sender));
         }
     }
 }

@@ -9,8 +9,11 @@ namespace BaseCAD
 {
     public class Circle : Drawable
     {
-        public Point2D Center { get; set; }
-        public float Radius { get; set; }
+        private Point2D center;
+        private float radius;
+
+        public Point2D Center { get => center; set { center = value; NotifyPropertyChanged(); } }
+        public float Radius { get => radius; set { radius = value; NotifyPropertyChanged(); } }
 
         [Browsable(false)]
         public float X { get { return Center.X; } }

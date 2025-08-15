@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BaseCAD
 {
-    public class Point2DCollection : ICollection<Point2D>
+    public class Point2DCollection : ICollection<Point2D>, INotifyCollectionChanged
     {
         private List<Point2D> items;
+
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
 
         public Point2DCollection()
         {
@@ -18,6 +21,7 @@ namespace BaseCAD
         public Point2DCollection(IEnumerable<Point2D> elements)
         {
             items = new List<Point2D>(elements);
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, items));
         }
 
         public Point2DCollection(IEnumerable<System.Drawing.PointF> elements)
@@ -27,6 +31,7 @@ namespace BaseCAD
             {
                 items.Add(new Point2D(item));
             }
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, items));
         }
 
         public Extents GetExtents()
@@ -47,28 +52,36 @@ namespace BaseCAD
             }
             set
             {
+                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, items[index]));
                 items[index] = value;
+                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, items[index]));
             }
         }
 
         public void Add(float x, float y)
         {
             items.Add(new Point2D(x, y));
+            Point2D item = new Point2D(x, y);
+            items.Add(item);
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item));
         }
 
         public void Add(Point2D item)
         {
             items.Add(item);
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item));
         }
 
         public void AddRange(IEnumerable<Point2D> list)
         {
             items.AddRange(items);
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, items));
         }
 
         public void Clear()
         {
             items.Clear();
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
 
         public bool Contains(Point2D item)
@@ -93,7 +106,9 @@ namespace BaseCAD
 
         public bool Remove(Point2D item)
         {
-            return items.Remove(item);
+            bool check = items.Remove(item);
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item));
+            return check;
         }
 
         public IEnumerator<Point2D> GetEnumerator()
@@ -124,6 +139,11 @@ namespace BaseCAD
                 pt.TransformBy(transformation);
                 items[i] = pt;
             }
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        }
+        protected void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
+        {
+            CollectionChanged?.Invoke(this, e);
         }
     }
 }

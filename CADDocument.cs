@@ -15,17 +15,23 @@ namespace BaseCAD
         [Browsable(false)]
         public Composite Model { get; private set; }
         [Browsable(false)]
+        public Composite Transients { get; private set; }
+        [Browsable(false)]
         public Editor Editor { get; private set; }
 
+
         public event DocumentChangedEventHandler DocumentChanged;
+        public event TransientsChangedEventHandler TransientsChanged;
         public event SelectionChangedEventHandler SelectionChanged;
 
         public CADDocument()
         {
             Editor = new Editor(this);
             Model = new Composite();
+            Transients = new Composite();
             Editor.Selection.CollectionChanged += Selection_CollectionChanged;
             Model.CollectionChanged += Model_CollectionChanged;
+            Transients.CollectionChanged += Transients_CollectionChanged;
         }
 
         public void Open(string filename)
@@ -40,8 +46,10 @@ namespace BaseCAD
 
                 var json = File.ReadAllText(filename);
                 Model.CollectionChanged -= Model_CollectionChanged;
+                Transients.CollectionChanged -= Transients_CollectionChanged;
                 //Model = JsonSerializer.Deserialize<Composite>(json);
                 Model.CollectionChanged += Model_CollectionChanged;
+                Transients.CollectionChanged += Transients_CollectionChanged;
             }
         }
         public void Save(string filename)
@@ -73,9 +81,17 @@ namespace BaseCAD
                     break;
             }
         }
+        private void Transients_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            OnTransientsChanged(new EventArgs());
+        }
         private void OnDocumentChanged(EventArgs e)
         {
             DocumentChanged?.Invoke(this, e);
+        }
+        protected void OnTransientsChanged(EventArgs e)
+        {
+            TransientsChanged?.Invoke(this, e);
         }
         private void Selection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {

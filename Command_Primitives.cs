@@ -18,7 +18,7 @@ namespace BaseCAD
                 Editor ed = doc.Editor;
                 Editor.PointResult p1 = await ed.GetPoint("Start point: ");
                 if (!p1.Success) return;
-                Editor.PointResult p2 = await ed.GetPoint("End point: ");
+                Editor.PointResult p2 = await ed.GetPoint("End point: ", p1.Location);
                 if (!p2.Success) return;
                 Drawable newItem = new Line(p1.Location, p2.Location);
                 doc.Model.Add(newItem);
@@ -130,7 +130,7 @@ namespace BaseCAD
                 if (!p1.Success) return;
                 Editor.AngleResult a1 = await ed.GetAngle("Rotation: ", p1.Location);
                 if (!a1.Success) return;
-                Editor.PointResult p2 = await ed.GetPoint("Text height: ");
+                Editor.PointResult p2 = await ed.GetPoint("Text height: ", p1.Location);
                 if (!p2.Success) return;
                 Editor.TextResult t1 = await ed.GetText("Text string: ");
                 if (!t1.Success) return;

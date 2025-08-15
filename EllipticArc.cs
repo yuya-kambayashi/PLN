@@ -9,8 +9,9 @@ namespace BaseCAD
 {
     public class EllipticArc : Drawable
     {
-        public Point2D Center { get; set; }
+        private Point2D center;
 
+        public Point2D Center { get => center; set { center = value; NotifyPropertyChanged(); } }
         [Browsable(false)]
         public float X { get { return Center.X; } }
         [Browsable(false)]
@@ -18,11 +19,17 @@ namespace BaseCAD
 
         private Vector2D dir;
 
-        public float SemiMajorAxis { get; set; }
-        public float SemiMinorAxis { get; set; }
+        private float semiMajorAxis;
+        private float semiMinorAxis;
 
-        public float StartAngle { get; set; }
-        public float EndAngle { get; set; }
+        public float SemiMajorAxis { get => semiMajorAxis; set { semiMajorAxis = value; NotifyPropertyChanged(); } }
+        public float SemiMinorAxis { get => semiMinorAxis; set { semiMinorAxis = value; NotifyPropertyChanged(); } }
+
+        private float startAngle;
+        private float endAngle;
+
+        public float StartAngle { get => startAngle; set { startAngle = value; NotifyPropertyChanged(); } }
+        public float EndAngle { get => endAngle; set { endAngle = value; NotifyPropertyChanged(); } }
 
         public EllipticArc(Point2D center, float semiMajor, float semiMinor, float startAngle, float endAngle)
         {

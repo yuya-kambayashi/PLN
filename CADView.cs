@@ -89,6 +89,7 @@ namespace BaseCAD
             panning = false;
 
             Document.DocumentChanged += Document_Changed;
+            Document.TransientsChanged += Document_TransientsChanged;
             Document.SelectionChanged += Document_SelectionChanged;
         }
 
@@ -152,6 +153,9 @@ namespace BaseCAD
                 selected.Draw(param);
             }
             param.SelectionMode = false;
+
+            // Render transient objects
+            Document.Transients.Draw(param);
         }
 
         /// <summary>
@@ -299,6 +303,10 @@ namespace BaseCAD
         }
 
         private void Document_Changed(object sender, EventArgs e)
+        {
+            control.Invalidate();
+        }
+        private void Document_TransientsChanged(object sender, EventArgs e)
         {
             control.Invalidate();
         }
