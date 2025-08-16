@@ -28,6 +28,13 @@ namespace BaseCAD
             cadWindow1.Document.SelectionChanged += CadWindow1_SelectionChanged;
             
             cadWindow2.Document = cadWindow1.Document;
+
+            cadWindow1.Document.Editor.Prompt += Editor_Prompt;
+        }
+
+        private void Editor_Prompt(object sender, EditorPromptEventArgs e)
+        {
+            statusLabel.Text = string.IsNullOrEmpty(e.Status) ? "Ready" : e.Status;
         }
 
         private void CadWindow1_SelectionChanged(object s, EventArgs e)
