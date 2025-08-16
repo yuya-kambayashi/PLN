@@ -79,6 +79,10 @@ namespace BaseCAD
                     Editor.Selection.Clear();
                     OnDocumentChanged(new EventArgs());
                     break;
+                case NotifyCollectionChangedAction.Move:
+                case NotifyCollectionChangedAction.Replace:
+                    OnDocumentChanged(new EventArgs());
+                    break;
             }
         }
         private void Transients_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
