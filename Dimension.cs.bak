@@ -49,8 +49,6 @@ namespace BaseCAD
             String = "<>";
             FontFamily = "Arial";
             FontStyle = FontStyle.Regular;
-            Scale = 1;
-            Precision = 2;
         }
 
         public Dimension(float x1, float y1, float x2, float y2, float textHeight)
@@ -132,8 +130,7 @@ namespace BaseCAD
             // Text
             float dist = (P1 - P2).Length * Scale;
             string txt = String.Replace("<>", dist.ToString("F" + Precision.ToString()));
-            Text textObj = new Text(len / 2, Offset, txt, TextHeight);
-            textObj.FontFamily = FontFamily;
+            Text textObj = new Text(len / 2, Offset, txt, TextHeight); textObj.FontFamily = FontFamily;
             textObj.FontStyle = FontStyle;
             textObj.HorizontalAlignment = StringAlignment.Center;
             textObj.VerticalAlignment = StringAlignment.Center;

@@ -60,6 +60,7 @@ namespace BaseCAD
 
         public void Add(float x, float y)
         {
+            items.Add(new Point2D(x, y));
             Point2D item = new Point2D(x, y);
             items.Add(item);
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item));

@@ -37,12 +37,12 @@ namespace BaseCAD
             statusLabel.Text = string.IsNullOrEmpty(e.Status) ? "Ready" : e.Status;
         }
 
-        private void CadWindow1_SelectionChanged(object sender, EventArgs e)
+        private void CadWindow1_SelectionChanged(object s, EventArgs e)
         {
             propertyGrid1.SelectedObjects = cadWindow1.Document.Editor.Selection.ToArray();
         }
 
-        private void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        private void propertyGrid1_PropertyValueChanged(object s, EventArgs e)
         {
             cadWindow1.Refresh();
         }

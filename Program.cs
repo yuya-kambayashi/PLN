@@ -8,10 +8,8 @@ namespace BaseCAD
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
             Application.EnableVisualStyles();
-            ApplicationConfiguration.Initialize();
+            Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
         }
     }

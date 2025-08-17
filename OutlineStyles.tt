@@ -1,7 +1,7 @@
 <#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ assembly name="System.Drawing" #>
 <#@ output extension=".cs" #>
-namespace SimpleCAD
+namespace BaseCAD
 {
     public partial struct OutlineStyle
     {
