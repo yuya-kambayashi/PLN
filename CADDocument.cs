@@ -89,7 +89,7 @@ namespace BaseCAD
         {
             OnTransientsChanged(new EventArgs());
         }
-        private void OnDocumentChanged(EventArgs e)
+        protected void OnDocumentChanged(EventArgs e)
         {
             DocumentChanged?.Invoke(this, e);
         }
@@ -99,9 +99,9 @@ namespace BaseCAD
         }
         private void Selection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            OnDocumentChanged(new EventArgs());
+            OnSelectionChanged(new EventArgs());
         }
-        private void OnSelectionChanged(EventArgs e)
+        protected void OnSelectionChanged(EventArgs e)
         {
             SelectionChanged?.Invoke(this, e);
         }
