@@ -292,10 +292,13 @@ namespace BaseCAD
                     textChanged = true;
                 }
             }
-            else if (e.KeyChar == ' ' && Mode == InputMode.Text)
+            else if (e.KeyChar == ' ')
             {
-                currentText += e.KeyChar;
-                textChanged = true;
+                if (Mode == InputMode.Text)
+                {
+                    currentText += e.KeyChar;
+                    textChanged = true;
+                }
             }
             else if (!char.IsControl(e.KeyChar))
             {

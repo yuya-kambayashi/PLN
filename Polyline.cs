@@ -19,6 +19,11 @@ namespace BaseCAD
             Points = new Point2DCollection();
             Points.CollectionChanged += Points_CollectionChanged;
         }
+        public Polyline(Point2DCollection pts)
+        {
+            Points = new Point2DCollection(pts);
+            Points.CollectionChanged += Points_CollectionChanged;
+        }
 
         public Polyline(Point2D[] pts)
         {
