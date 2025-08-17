@@ -309,7 +309,7 @@
             this.Controls.Add(this.toolStripContainer1);
             this.KeyPreview = true;
             this.Name = "MainForm";
-            this.Text = "SimpleCAD Test Form";
+            this.Text = "BaseCAD Test Form";
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
             this.toolStripContainer1.BottomToolStripPanel.ResumeLayout(false);
             this.toolStripContainer1.BottomToolStripPanel.PerformLayout();
