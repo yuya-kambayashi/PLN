@@ -56,7 +56,7 @@ namespace BaseCAD
             }
         }
 
-        public override Extents GetExtents()
+        public override Extents2D GetExtents()
         {
             return Points.GetExtents();
         }

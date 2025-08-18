@@ -28,9 +28,9 @@ namespace BaseCAD
             }
         }
 
-        public override Extents GetExtents()
+        public override Extents2D GetExtents()
         {
-            Extents extents = new Extents();
+            Extents2D extents = new Extents2D();
             foreach (Drawable item in items)
             {
                 if (item.Visible) extents.Add(item.GetExtents());
@@ -59,6 +59,18 @@ namespace BaseCAD
             Composite newComposite = (Composite)base.Clone();
             newComposite.items = items.Select(d => d.Clone()).ToList();
             return newComposite;
+        }
+
+        public void CopyStyleToChildren()
+        {
+            foreach (Drawable item in items)
+            {
+                item.Outline = Outline;
+                if (item is Composite comp)
+                {
+                    comp.CopyStyleToChildren();
+                }
+            }
         }
         public void Add(Drawable item)
         {

@@ -12,6 +12,7 @@ namespace BaseCAD
         internal enum InputMode
         {
             None,
+            Selection,
             Point,
             Angle,
             Text
@@ -36,6 +37,12 @@ namespace BaseCAD
                 Value = value;
                 Keyword = keyword;
             }
+        }
+        public class SelectionResult : InputResult<SelectionSet>
+        {
+            internal SelectionResult(ResultMode result) : base(result, new SelectionSet(), "") { }
+            internal SelectionResult(SelectionSet value) : base(ResultMode.OK, value, "") { }
+            internal SelectionResult(string keyword) : base(ResultMode.Keyword, new SelectionSet(), keyword) { }
         }
 
         public class PointResult : InputResult<Point2D>
@@ -146,7 +153,13 @@ namespace BaseCAD
                 Jig = jig;
             }
         }
-
+        public class SelectionOptions : InputOptions
+        {
+            public SelectionOptions(string message) : base(message)
+            {
+                ;
+            }
+        }
         public class PointOptions : JigOptions<Point2D>
         {
             public bool HasBasePoint { get; private set; }
