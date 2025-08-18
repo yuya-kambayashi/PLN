@@ -47,14 +47,6 @@ namespace BaseCAD
             if (Points.Count > 0)
             {
                 PointF[] pts = Points.ToPointF();
-                if (Closed)
-                {
-                    using (Brush brush = FillStyle.CreateBrush(param))
-                    {
-                        param.Graphics.FillPolygon(brush, pts);
-                    }
-                }
-
                 using (Pen pen = OutlineStyle.CreatePen(param))
                 {
                     if (Closed)

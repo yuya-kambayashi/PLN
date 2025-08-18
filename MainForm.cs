@@ -22,7 +22,6 @@ namespace BaseCAD
         {
             InitializeComponent();
             trPoint = new Circle(0, 0, 20);
-            trPoint.FillStyle = FillStyle.Orange;
             trPoint.OutlineStyle = new OutlineStyle(Color.Red, 3);
             cadWindow1.Document.Model.Add(trPoint);
             cadWindow1.Document.SelectionChanged += CadWindow1_SelectionChanged;

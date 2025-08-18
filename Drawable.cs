@@ -13,7 +13,6 @@ namespace BaseCAD
     public abstract class Drawable : INotifyPropertyChanged
     {
         public virtual OutlineStyle OutlineStyle { get; set; } = OutlineStyle.White;
-        public virtual FillStyle FillStyle { get; set; } = FillStyle.Transparent;
         public virtual bool Visible { get; set; } = true;
 
         public event PropertyChangedEventHandler PropertyChanged;

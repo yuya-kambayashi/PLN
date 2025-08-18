@@ -137,7 +137,6 @@ namespace BaseCAD
             textObj.FontStyle = FontStyle;
             textObj.HorizontalAlignment = StringAlignment.Center;
             textObj.VerticalAlignment = StringAlignment.Center;
-            textObj.FillStyle = FillStyle;
             textObj.OutlineStyle = OutlineStyle;
             items.Add(textObj);
 
