@@ -100,6 +100,10 @@ namespace BaseCAD
         {
             cadWindow1.Document.Editor.RunCommand("Transform.Move");
         }
+        private void btnCopy_Click(object sender, EventArgs e)
+        {
+            cadWindow1.Document.Editor.RunCommand("Transform.Copy");
+        }
         private void btnRotate_Click(object sender, EventArgs e)
         {
             cadWindow1.Document.Editor.RunCommand("Transform.Rotate");
