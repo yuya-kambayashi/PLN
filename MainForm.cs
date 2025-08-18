@@ -21,8 +21,6 @@ namespace BaseCAD
             InitializeComponent();
 
             cadWindow1.Document.SelectionChanged += CadWindow1_SelectionChanged;
-            
-            cadWindow2.Document = cadWindow1.Document;
             cadWindow1.Document.Editor.Prompt += Editor_Prompt;
         }
 
@@ -119,6 +117,10 @@ namespace BaseCAD
                 string path = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
                 return Path.Combine(path, "save.bin");
             }
+        }
+        private void cadWindow1_MouseClick(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }
