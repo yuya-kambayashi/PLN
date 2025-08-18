@@ -15,7 +15,8 @@ namespace BaseCAD
             Selection,
             Point,
             Angle,
-            Text
+            Text,
+            Distance
         }
 
         public enum ResultMode
@@ -64,7 +65,12 @@ namespace BaseCAD
             internal TextResult(ResultMode result) : base(result, "", "") { }
             internal TextResult(string value) : base(ResultMode.OK, value, "") { }
         }
-
+        public class DistanceResult : InputResult<float>
+        {
+            internal DistanceResult(ResultMode result) : base(result, 0, "") { }
+            internal DistanceResult(float value) : base(ResultMode.OK, value, "") { }
+            internal DistanceResult(string keyword) : base(ResultMode.Keyword, 0, keyword) { }
+        }
         public class InputOptions
         {
             private static Regex upperOnly = new Regex("[^A-Z]", RegexOptions.Compiled);
@@ -202,7 +208,20 @@ namespace BaseCAD
                 ;
             }
         }
+        public class DistanceOptions : JigOptions<Vector2D>
+        {
+            public Point2D BasePoint { get; private set; }
 
+            public DistanceOptions(string message, Point2D basePoint, Action<Vector2D> jig) : base(message, jig)
+            {
+                BasePoint = basePoint;
+            }
+
+            public DistanceOptions(string message, Point2D basePoint) : this(message, basePoint, (p) => { })
+            {
+                ;
+            }
+        }
         public class TextOptions : JigOptions<string>
         {
             public TextOptions(string message, Action<string> jig) : base(message, jig)
