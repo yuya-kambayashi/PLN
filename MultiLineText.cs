@@ -98,7 +98,7 @@ namespace BaseCAD
         {
             float thHeight = Height * Lines.Length * 1.425f;
             float thWidth = Width;
-            float angle = Rotation / 180 * (float)Math.PI;
+            float angle = Rotation / 180 * MathF.PI;
             Point2D p1 = new Point2D(0, 0);
             Point2D p2 = new Point2D(thWidth, 0);
             Point2D p3 = new Point2D(0, -thHeight);
@@ -127,7 +127,7 @@ namespace BaseCAD
             dir.TransformBy(transformation);
             Height = dir.Length;
 
-            Rotation += transformation.RotationAngle * 180 / (float)Math.PI;
+            Rotation += transformation.RotationAngle * 180 / MathF.PI;
         }
     }
 }
