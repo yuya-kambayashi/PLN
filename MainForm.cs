@@ -107,6 +107,12 @@ namespace BaseCAD
         {
             cadWindow1.Document.Editor.RunCommand("Primitives.Rectangle");
         }
+
+        private void btnDrawTriangle_Click(object sender, EventArgs e)
+        {
+            cadWindow1.Document.Editor.RunCommand("Primitives.Triangle");
+        }
+
         private void MainForm_KeyUp(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
