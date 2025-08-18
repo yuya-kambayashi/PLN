@@ -100,6 +100,15 @@ namespace BaseCAD
         {
             cadWindow1.Document.Editor.RunCommand("Transform.Move");
         }
+        private void btnRotate_Click(object sender, EventArgs e)
+        {
+            cadWindow1.Document.Editor.RunCommand("Transform.Rotate");
+        }
+
+        private void btnScale_Click(object sender, EventArgs e)
+        {
+            cadWindow1.Document.Editor.RunCommand("Transform.Scale");
+        }
         private void btnSave_Click(object sender, EventArgs e)
         {
             cadWindow1.Document.Save(SaveFileName);
@@ -117,10 +126,6 @@ namespace BaseCAD
                 string path = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
                 return Path.Combine(path, "save.bin");
             }
-        }
-        private void cadWindow1_MouseClick(object sender, MouseEventArgs e)
-        {
-
         }
     }
 }

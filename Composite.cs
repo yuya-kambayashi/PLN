@@ -57,7 +57,10 @@ namespace BaseCAD
         public override Drawable Clone()
         {
             Composite newComposite = (Composite)base.Clone();
-            newComposite.items = items.Select(d => d.Clone()).ToList();
+            foreach (Drawable d in items)
+            {
+                newComposite.Add(d.Clone());
+            }
             return newComposite;
         }
 
