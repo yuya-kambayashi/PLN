@@ -54,7 +54,12 @@ namespace BaseCAD
                 item.TransformBy(transformation);
             }
         }
-
+        public override Drawable Clone()
+        {
+            Composite newComposite = (Composite)base.Clone();
+            newComposite.items = items.Select(d => d.Clone()).ToList();
+            return newComposite;
+        }
         public void Add(Drawable item)
         {
             items.Add(item);
