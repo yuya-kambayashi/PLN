@@ -34,7 +34,7 @@ namespace BaseCAD
 
         public override void Draw(DrawParams param)
         {
-            using (Pen pen = OutlineStyle.CreatePen(param))
+            using (Pen pen = Outline.CreatePen(param))
             {
                 param.Graphics.DrawEllipse(pen, X - Radius, Y - Radius, 2f * Radius, 2f * Radius);
             }

@@ -86,7 +86,7 @@ namespace BaseCAD
                 curveLength = newCurveLength;
                 UpdatePolyline();
             }
-            poly.OutlineStyle = OutlineStyle;
+            poly.Outline = Outline;
             poly.Draw(param);
         }
 

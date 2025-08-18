@@ -12,7 +12,7 @@ namespace BaseCAD
 {
     public abstract class Drawable : INotifyPropertyChanged
     {
-        public virtual OutlineStyle OutlineStyle { get; set; } = OutlineStyle.White;
+        public virtual Outline Outline { get; set; } = Outline.White;
         public virtual bool Visible { get; set; } = true;
 
         public event PropertyChangedEventHandler PropertyChanged;
