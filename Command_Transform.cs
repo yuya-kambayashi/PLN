@@ -26,14 +26,14 @@ namespace BaseCAD
                 {
                     consItems.Add(item.Clone());
                 }
-                doc.Jigged.Add(consItems);
+                doc.Transients.Add(consItems);
                 Point2D lastPt = p1.Value;
                 Editor.PointResult p2 = await ed.GetPoint("Second point: ", p1.Value,
                     (p) => {
                         consItems.TransformBy(TransformationMatrix2D.Translation(p - lastPt));
                         lastPt = p;
                     });
-                doc.Jigged.Remove(consItems);
+                doc.Transients.Remove(consItems);
                 if (p2.Result != Editor.ResultMode.OK) return;
 
                 foreach (Drawable item in s.Value)
@@ -62,7 +62,7 @@ namespace BaseCAD
                 {
                     consItems.Add(item.Clone());
                 }
-                doc.Jigged.Add(consItems);
+                doc.Transients.Add(consItems);
                 Point2D lastPt = p1.Value;
                 bool flag = true;
                 while (flag)
@@ -89,7 +89,7 @@ namespace BaseCAD
                     }
                 }
 
-                doc.Jigged.Remove(consItems);
+                doc.Transients.Remove(consItems);
                 ed.Selection.Clear();
             }
         }
@@ -111,7 +111,7 @@ namespace BaseCAD
                 {
                     consItems.Add(item.Clone());
                 }
-                doc.Jigged.Add(consItems);
+                doc.Transients.Add(consItems);
                 float lastAngle = 0;
                 Editor.AngleResult p2 = await ed.GetAngle("Rotation angle: ", p1.Value,
                     (p) =>
@@ -119,7 +119,7 @@ namespace BaseCAD
                         consItems.TransformBy(TransformationMatrix2D.Rotation(p1.Value, p.Angle - lastAngle));
                         lastAngle = p.Angle;
                     });
-                doc.Jigged.Remove(consItems);
+                doc.Transients.Remove(consItems);
                 if (p2.Result != Editor.ResultMode.OK) return;
 
                 foreach (Drawable item in s.Value)
@@ -149,7 +149,7 @@ namespace BaseCAD
                 {
                     consItems.Add(item.Clone());
                 }
-                doc.Jigged.Add(consItems);
+                doc.Transients.Add(consItems);
                 float lastScale = 1;
                 Editor.DistanceResult p2 = await ed.GetDistance("Scale: ", p1.Value,
                     (p) =>
@@ -157,7 +157,7 @@ namespace BaseCAD
                         consItems.TransformBy(TransformationMatrix2D.Scale(p1.Value, p.Length / lastScale));
                         lastScale = p.Length;
                     });
-                doc.Jigged.Remove(consItems);
+                doc.Transients.Remove(consItems);
                 if (p2.Result != Editor.ResultMode.OK) return;
 
                 foreach (Drawable item in s.Value)

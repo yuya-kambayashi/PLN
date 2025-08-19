@@ -409,7 +409,7 @@ namespace BaseCAD
                         int index = mouseDownCP.Index;
                         Point2D basePoint = mouseDownCP.P;
                         Drawable consItem = item.Clone();
-                        Document.Jigged.Add(consItem);
+                        Document.Transients.Add(consItem);
                         Point2D lastPt = basePoint;
                         Editor.PointResult p2 = await Document.Editor.GetPoint("New point: ", lastPt,
                             (p) =>
@@ -423,7 +423,7 @@ namespace BaseCAD
                             Document.Editor.ControlPoints.RemoveAll(p => ReferenceEquals(p.Parent, item));
                             Document.Editor.ControlPoints.AddRange(ControlPoint.FromDrawable(item));
                         }
-                        Document.Jigged.Remove(consItem);
+                        Document.Transients.Remove(consItem);
                     }
                 }
             }
