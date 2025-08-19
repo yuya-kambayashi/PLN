@@ -12,6 +12,7 @@ namespace BaseCAD
         {
             Normal,
             Selection,
+            ControlPoint,
             Jigged,
             Transients,
             Cursor

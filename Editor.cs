@@ -6,6 +6,7 @@ using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static BaseCAD.Editor;
 
 namespace BaseCAD
@@ -34,6 +35,7 @@ namespace BaseCAD
         private bool selectionClickedFirstPoint;
 
         public SelectionSet Selection { get; private set; } = new SelectionSet();
+        internal List<ControlPoint> ControlPoints { get; private set; } = new List<ControlPoint>();
 
         static Editor()
         {
