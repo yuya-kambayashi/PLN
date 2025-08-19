@@ -74,5 +74,14 @@ namespace BaseCAD
         {
             return poly.Contains(pt, pickBoxSize);
         }
+        public override ControlPoint[] GetControlPoints(float size)
+        {
+            return new[]
+            {
+                new ControlPoint("Point1"),
+                new ControlPoint("Point2"),
+                new ControlPoint("Point3"),
+            };
+        }
     }
 }
