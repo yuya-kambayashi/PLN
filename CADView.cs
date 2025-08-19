@@ -179,7 +179,7 @@ namespace BaseCAD
         }
         private void DrawControlPoint(DrawParams param, ControlPoint pt)
         {
-            using (Pen pen = pt.IsHot ? Outline.HotControlPointStyle.CreatePen(param) : Outline.ControlPointStyle.CreatePen(param))
+            using (Pen pen = Outline.ControlPointStyle.CreatePen(param))
             {
                 pen.Width = param.GetScaledLineWeight(2);
                 float cpSize = ScreenToWorld(new Size(ControlPointSize, ControlPointSize)).Width;
