@@ -12,12 +12,12 @@ namespace BaseCAD
     {
         private Point2D p;
 
-        public Point2D P { get => p; set { p = value; NotifyPropertyChanged(); } }
+        public Point2D Location { get => p; set { p = value; NotifyPropertyChanged(); } }
 
         [Browsable(false)]
-        public float X { get { return P.X; } }
+        public float X { get { return Location.X; } }
         [Browsable(false)]
-        public float Y { get { return P.Y; } }
+        public float Y { get { return Location.Y; } }
 
         private string str;
         private string fontFamily;
@@ -38,7 +38,7 @@ namespace BaseCAD
 
         public Text(Point2D p, string text, float height)
         {
-            P = p;
+            Location = p;
             Height = height;
             Width = height;
             String = text;
@@ -121,7 +121,7 @@ namespace BaseCAD
             p2 = p2 + offset;
             p3 = p3 + offset;
             p4 = p4 + offset;
-            TransformationMatrix2D trans = TransformationMatrix2D.Transformation(1, 1, angle, P.X, P.Y);
+            TransformationMatrix2D trans = TransformationMatrix2D.Transformation(1, 1, angle, Location.X, Location.Y);
             p1.TransformBy(trans);
             p2.TransformBy(trans);
             p3.TransformBy(trans);
@@ -137,9 +137,9 @@ namespace BaseCAD
 
         public override void TransformBy(TransformationMatrix2D transformation)
         {
-            Point2D p = P;
+            Point2D p = Location;
             p.TransformBy(transformation);
-            P = p;
+            Location = p;
 
             Vector2D dir = Vector2D.XAxis * Height;
             dir.TransformBy(transformation);

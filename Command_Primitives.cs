@@ -298,7 +298,7 @@ namespace BaseCAD
                 if (p2.Result != Editor.ResultMode.OK) return;
                 Triangle consTri = new Triangle(p1.Value, p2.Value, p2.Value);
                 doc.Jigged.Add(consTri);
-                Editor.PointResult p3 = await ed.GetPoint("Third point: ", p1.Value, (p) => consTri.P3 = p);
+                Editor.PointResult p3 = await ed.GetPoint("Third point: ", p1.Value, (p) => consTri.Point3 = p);
                 doc.Jigged.Remove(consTri);
                 if (p3.Result != Editor.ResultMode.OK) return;
 

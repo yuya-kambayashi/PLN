@@ -445,7 +445,7 @@ namespace BaseCAD
                     else if (e.KeyCode == Keys.Escape)
                     {
                         inputCompleted = true;
-                        angleCompletion.SetResult(new AngleResult(ResultMode.Cancel));
+                        distanceCompletion.SetResult(new DistanceResult(ResultMode.Cancel));
                     }
                     break;
                 case InputMode.Text:
