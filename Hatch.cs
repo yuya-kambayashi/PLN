@@ -41,6 +41,12 @@ namespace BaseCAD
                 {
                     param.Graphics.FillPolygon(brush, pts);
                 }
+                // The graphics engine overrides CreatePen to highlight the hatch boundary
+                // during selection. Normally a transparent boundary is drawn.s
+                using (Pen pen = Outline.Transparent.CreatePen(param))
+                {
+                    param.Graphics.DrawPolygon(pen, pts);
+                }
             }
         }
     }
