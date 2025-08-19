@@ -63,18 +63,6 @@ namespace BaseCAD
             }
             return newComposite;
         }
-
-        public void CopyStyleToChildren()
-        {
-            foreach (Drawable item in items)
-            {
-                item.Outline = Outline;
-                if (item is Composite comp)
-                {
-                    comp.CopyStyleToChildren();
-                }
-            }
-        }
         public void Add(Drawable item)
         {
             items.Add(item);

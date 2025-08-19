@@ -15,6 +15,8 @@ namespace BaseCAD
         [Browsable(false)]
         public Composite Model { get; private set; }
         [Browsable(false)]
+        public Composite Jigged { get; private set; }
+        [Browsable(false)]
         public Composite Transients { get; private set; }
         [Browsable(false)]
         public Editor Editor { get; private set; }
@@ -28,10 +30,11 @@ namespace BaseCAD
         {
             Editor = new Editor(this);
             Model = new Composite();
+            Jigged = new Composite();
             Transients = new Composite();
             Editor.Selection.CollectionChanged += Selection_CollectionChanged;
             Model.CollectionChanged += Model_CollectionChanged;
-            Transients.CollectionChanged += Transients_CollectionChanged;
+            Jigged.CollectionChanged += Transients_CollectionChanged;
         }
 
         public void Open(string filename)
@@ -46,10 +49,10 @@ namespace BaseCAD
 
                 var json = File.ReadAllText(filename);
                 Model.CollectionChanged -= Model_CollectionChanged;
-                Transients.CollectionChanged -= Transients_CollectionChanged;
+                Jigged.CollectionChanged -= Transients_CollectionChanged;
                 //Model = JsonSerializer.Deserialize<Composite>(json);
                 Model.CollectionChanged += Model_CollectionChanged;
-                Transients.CollectionChanged += Transients_CollectionChanged;
+                Jigged.CollectionChanged += Transients_CollectionChanged;
             }
         }
         public void Save(string filename)

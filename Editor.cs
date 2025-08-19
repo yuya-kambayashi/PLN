@@ -13,6 +13,7 @@ namespace BaseCAD
     public partial class Editor
     {
         public static Dictionary<string, Command> Commands { get; private set; }
+
         public CADDocument Document { get; private set; }
         internal InputMode Mode { get; private set; }
 
@@ -33,10 +34,6 @@ namespace BaseCAD
         private bool selectionClickedFirstPoint;
 
         public SelectionSet Selection { get; private set; } = new SelectionSet();
-        public Color SelectionBorder { get; set; } = Color.White;
-        public Color SelectionHighlight { get; set; } = Color.FromArgb(64, 46, 116, 251);
-        public Color ReverseSelectionHighlight { get; set; } = Color.FromArgb(64, 46, 251, 116);
-        public Outline TransientStyle { get; set; } = new Outline(Color.Orange, 1, DashStyle.Dash);
 
         static Editor()
         {
@@ -71,6 +68,7 @@ namespace BaseCAD
             Command com = Commands[registeredName];
             com.Apply(Document);
         }
+
         public async Task<SelectionResult> GetSelection(string message)
         {
             return await GetSelection(new SelectionOptions(message));
@@ -109,10 +107,12 @@ namespace BaseCAD
                 return res;
             }
         }
+
         public async Task<PointResult> GetPoint(string message)
         {
             return await GetPoint(new PointOptions(message));
         }
+
         public async Task<PointResult> GetPoint(string message, Action<Point2D> jig)
         {
             return await GetPoint(new PointOptions(message, jig));
@@ -122,6 +122,7 @@ namespace BaseCAD
         {
             return await GetPoint(new PointOptions(message, basePoint));
         }
+
         public async Task<PointResult> GetPoint(string message, Point2D basePoint, Action<Point2D> jig)
         {
             return await GetPoint(new PointOptions(message, basePoint, jig));
@@ -142,12 +143,11 @@ namespace BaseCAD
                 if (options.HasBasePoint)
                 {
                     consLine = new Polyline(options.BasePoint, options.BasePoint);
-                    consLine.Outline = TransientStyle;
-                    Document.Transients.Add(consLine);
+                    Document.Jigged.Add(consLine);
                 }
                 pointCompletion = new TaskCompletionSource<PointResult>();
                 res = await pointCompletion.Task;
-                Document.Transients.Remove(consLine);
+                Document.Jigged.Remove(consLine);
             }
 
             Mode = InputMode.None;
@@ -155,10 +155,12 @@ namespace BaseCAD
 
             return res;
         }
+
         public async Task<AngleResult> GetAngle(string message, Point2D basePoint, Action<Vector2D> jig)
         {
             return await GetAngle(new AngleOptions(message, basePoint, jig));
         }
+
         public async Task<AngleResult> GetAngle(string message, Point2D basePoint)
         {
             return await GetAngle(new AngleOptions(message, basePoint));
@@ -172,16 +174,15 @@ namespace BaseCAD
             currentText = "";
             currentOptions = options;
             OnPrompt(new EditorPromptEventArgs(options.GetFullPrompt()));
+
             inputCompleted = false;
-            
             while (!inputCompleted)
             {
                 consLine = new Polyline(options.BasePoint, options.BasePoint);
-                consLine.Outline = TransientStyle;
-                Document.Transients.Add(consLine);
+                Document.Jigged.Add(consLine);
                 angleCompletion = new TaskCompletionSource<AngleResult>();
                 res = await angleCompletion.Task;
-                Document.Transients.Remove(consLine);
+                Document.Jigged.Remove(consLine);
             }
 
             Mode = InputMode.None;
@@ -189,6 +190,7 @@ namespace BaseCAD
 
             return res;
         }
+
         public async Task<DistanceResult> GetDistance(string message, Point2D basePoint, Action<Vector2D> jig)
         {
             return await GetDistance(new DistanceOptions(message, basePoint, jig));
@@ -212,11 +214,10 @@ namespace BaseCAD
             while (!inputCompleted)
             {
                 consLine = new Polyline(options.BasePoint, options.BasePoint);
-                consLine.Outline = TransientStyle;
-                Document.Transients.Add(consLine);
+                Document.Jigged.Add(consLine);
                 distanceCompletion = new TaskCompletionSource<DistanceResult>();
                 res = await distanceCompletion.Task;
-                Document.Transients.Remove(consLine);
+                Document.Jigged.Remove(consLine);
             }
 
             Mode = InputMode.None;
@@ -224,10 +225,12 @@ namespace BaseCAD
 
             return res;
         }
+
         public async Task<TextResult> GetText(string message, Action<string> jig)
         {
             return await GetText(new TextOptions(message, jig));
         }
+
         public async Task<TextResult> GetText(string message)
         {
             return await GetText(new TextOptions(message));
@@ -241,6 +244,13 @@ namespace BaseCAD
             currentText = "";
             currentOptions = options;
             OnPrompt(new EditorPromptEventArgs(options.GetFullPrompt()));
+
+            inputCompleted = false;
+            while (!inputCompleted)
+            {
+                textCompletion = new TaskCompletionSource<TextResult>();
+                res = await textCompletion.Task;
+            }
 
             Mode = InputMode.None;
             OnPrompt(new EditorPromptEventArgs(""));
@@ -271,13 +281,13 @@ namespace BaseCAD
                         consHatch.Points[3] = p4;
                         if (point.X > p1.X)
                         {
-                            consHatch.Outline = new Outline(SelectionHighlight);
-                            consLine.Outline = new Outline(SelectionBorder, 1, DashStyle.Solid);
+                            consHatch.Outline = Outline.SelectionWindowStyle;
+                            consLine.Outline = Outline.SelectionBorderStyle;
                         }
                         else
                         {
-                            consHatch.Outline = new Outline(ReverseSelectionHighlight);
-                            consLine.Outline = new Outline(SelectionBorder, 1, DashStyle.Dash);
+                            consHatch.Outline = Outline.ReverseSelectionWindowStyle;
+                            consLine.Outline = Outline.ReverseSelectionBorderStyle;
                         }
                     }
                     break;
@@ -309,11 +319,11 @@ namespace BaseCAD
                             selectionClickedFirstPoint = true;
                             // Create the selection window
                             consHatch = new Hatch(point, point, point, point);
-                            consHatch.Outline = new Outline(SelectionHighlight);
+                            consHatch.Outline = Outline.SelectionWindowStyle;
                             Document.Transients.Add(consHatch);
                             consLine = new Polyline(point, point, point, point);
                             consLine.Closed = true;
-                            consLine.Outline = new Outline(SelectionBorder, 1, DashStyle.Dash);
+                            consLine.Outline = Outline.SelectionBorderStyle;
                             Document.Transients.Add(consLine);
                         }
                         else
@@ -345,7 +355,6 @@ namespace BaseCAD
                         inputCompleted = true;
                         distanceCompletion.SetResult(new DistanceResult((point - ((DistanceOptions)currentOptions).BasePoint).Length));
                         break;
-
                 }
             }
         }
@@ -353,7 +362,6 @@ namespace BaseCAD
         internal void OnViewKeyDown(object sender, KeyEventArgs e)
         {
             string keyword = currentOptions.MatchKeyword(currentText);
-
             switch (Mode)
             {
                 case InputMode.Point:
@@ -452,6 +460,7 @@ namespace BaseCAD
                     break;
             }
         }
+
         internal void OnViewKeyPress(object sender, KeyPressEventArgs e)
         {
             bool textChanged = false;
@@ -486,6 +495,7 @@ namespace BaseCAD
                     ((TextOptions)currentOptions).Jig(currentText);
             }
         }
+
         protected void OnPrompt(EditorPromptEventArgs e)
         {
             Prompt?.Invoke(this, e);

@@ -25,9 +25,6 @@ namespace BaseCAD
         public bool Interactive { get; set; } = true;
         [Category("Behavior"), DefaultValue(4), Description("Determines the size of the pick box around the selection cursor.")]
         public int PickBoxSize { get; set; } = 4;
-        [Category("Appearance"), DefaultValue(typeof(Color), "White"), Description("Determines color of the cursor.")]
-        public Color CursorColor { get; set; } = Color.White;
-
         [Category("Appearance"), DefaultValue(5f / 3f), Description("Determines the zoom factor of the view.")]
 
         public float ZoomFactor
@@ -154,18 +151,22 @@ namespace BaseCAD
             // Render drawing objects
             Document.Model.Draw(param);
 
-            param.SelectionColor = Document.Editor.SelectionHighlight;
-            param.SelectionMode = true;
+            param.Mode = DrawParams.DrawingMode.Selection;
             foreach (Drawable selected in Document.Editor.Selection)
             {
                 selected.Draw(param);
             }
-            param.SelectionMode = false;
 
             // Render transient objects
+            param.Mode = DrawParams.DrawingMode.Jigged;
+            Document.Jigged.Draw(param);
+
+            // Render jigged objects
+            param.Mode = DrawParams.DrawingMode.Transients;
             Document.Transients.Draw(param);
 
             // Render cursor
+            param.Mode = DrawParams.DrawingMode.Cursor;
             DrawCursor(param);
         }
 
@@ -173,7 +174,7 @@ namespace BaseCAD
         {
             if (hasMouse)
             {
-                using (Pen pen = new Pen(CursorColor))
+                using (Pen pen = Outline.CursorStyle.CreatePen(param))
                 {
                     RectangleF ex = GetViewPort();
                     param.Graphics.DrawLine(pen, ex.Left, currentMouseLocationWorld.Y, ex.Right, currentMouseLocationWorld.Y);
