@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
@@ -402,7 +403,8 @@ namespace BaseCAD
                         }
                         else
                         {
-                            Document.Editor.ControlPoints.AddRange(ControlPoint.FromDrawable(mouseDownItem));
+                            float cpSize = ScreenToWorld(new Size(ControlPointSize + 4, 0)).Width;
+                            Document.Editor.ControlPoints.AddRange(ControlPoint.FromDrawable(mouseDownItem, cpSize));
                             Document.Editor.Selection.Add(mouseDownItem);
                         }
                     }
@@ -457,9 +459,10 @@ namespace BaseCAD
                         }
                         if (result == Editor.ResultMode.OK)
                         {
+                            float cpSize = ScreenToWorld(new Size(ControlPointSize + 4, 0)).Width;
                             cp.Owner.TransformControlPoint(cp, trans);
                             Document.Editor.ControlPoints.RemoveAll(p => ReferenceEquals(p.Owner, cp.Owner));
-                            Document.Editor.ControlPoints.AddRange(ControlPoint.FromDrawable(cp.Owner));
+                            Document.Editor.ControlPoints.AddRange(ControlPoint.FromDrawable(cp.Owner, cpSize));
                         }
                         Document.Transients.Remove(consItem);
                     }
@@ -579,13 +582,14 @@ namespace BaseCAD
             return null;
         }
 
-        private ControlPoint FindControlPointAtScreenCoordinates(int x, int y, int pickBox)
+        private ControlPoint FindControlPointAtScreenCoordinates(int x, int y, int controlPointSize)
         {
             PointF pt = ScreenToWorld(x, y);
+            float size = ScreenToWorld(new Size(controlPointSize, 0)).Width;
             foreach (ControlPoint cp in Document.Editor.ControlPoints)
             {
-                if (pt.X >= cp.Location.X - pickBox / 2 && pt.X <= cp.Location.X + pickBox / 2 &&
-                    pt.Y >= cp.Location.Y - pickBox / 2 && pt.Y <= cp.Location.Y + pickBox / 2)
+                if (pt.X >= cp.Location.X - size / 2 && pt.X <= cp.Location.X + size / 2 &&
+                    pt.Y >= cp.Location.Y - size / 2 && pt.Y <= cp.Location.Y + size / 2)
                     return cp;
             }
             return null;

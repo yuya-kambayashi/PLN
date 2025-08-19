@@ -135,5 +135,13 @@ namespace BaseCAD
         {
             return a1 * b2 - a2 * b1;
         }
+        //public override ControlPoint[] GetControlPoints(float size)
+        //{
+        //    return new[]
+        //    {
+        //        new ControlPoint("StartPoint", ControlPoint.ControlPointType.Point, StartPoint, StartPoint),
+        //        new ControlPoint("EndPoint", ControlPoint.ControlPointType.Point, EndPoint, EndPoint),
+        //    };
+        //}
     }
 }
