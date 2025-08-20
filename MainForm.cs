@@ -46,16 +46,16 @@ namespace BaseCAD
         }
         private void btnNew_Click(object sender, EventArgs e)
         {
-            cadWindow1.Document.New();
+            cadWindow1.Document.Editor.RunCommand("Document.New");
         }
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            cadWindow1.Document.Open(SaveFileName);
+            cadWindow1.Document.Editor.RunCommand("Document.Open", SaveFileName);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            cadWindow1.Document.Save(SaveFileName);
+            cadWindow1.Document.Editor.RunCommand("Document.Save", SaveFileName);
         }
 
         private string SaveFileName
@@ -63,7 +63,7 @@ namespace BaseCAD
             get
             {
                 string path = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-                return Path.Combine(path, "save.bin");
+                return Path.Combine(path, "save.scf");
             }
         }
 
