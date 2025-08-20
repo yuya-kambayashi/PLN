@@ -16,6 +16,8 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc)
             {
                 Editor ed = doc.Editor;
+                ed.Selection.Clear();
+
                 Editor.PointResult p1 = await ed.GetPoint("Start point: ");
                 if (p1.Result != Editor.ResultMode.OK) return;
                 Editor.PointResult p2 = await ed.GetPoint("End point: ", p1.Value);
@@ -32,6 +34,7 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc)
             {
                 Editor ed = doc.Editor;
+                ed.Selection.Clear();
 
                 Editor.PointResult p1 = await ed.GetPoint("Center point: ");
                 if (p1.Result != Editor.ResultMode.OK) return;
@@ -58,6 +61,7 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc)
             {
                 Editor ed = doc.Editor;
+                ed.Selection.Clear();
 
                 Editor.PointResult p1 = await ed.GetPoint("Center point: ");
                 if (p1.Result != Editor.ResultMode.OK) return;
@@ -80,6 +84,7 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc)
             {
                 Editor ed = doc.Editor;
+                ed.Selection.Clear();
 
                 Editor.PointResult p1 = await ed.GetPoint("Center point: ");
                 if (p1.Result != Editor.ResultMode.OK) return;
@@ -106,6 +111,7 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc)
             {
                 Editor ed = doc.Editor;
+                ed.Selection.Clear();
 
                 Editor.PointResult p1 = await ed.GetPoint("Center point: ");
                 if (p1.Result != Editor.ResultMode.OK) return;
@@ -138,6 +144,7 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc)
             {
                 Editor ed = doc.Editor;
+                ed.Selection.Clear();
 
                 Editor.PointResult p1 = await ed.GetPoint("Base point: ");
                 if (p1.Result != Editor.ResultMode.OK) return;
@@ -165,6 +172,7 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc)
             {
                 Editor ed = doc.Editor;
+                ed.Selection.Clear();
 
                 Editor.PointResult p1 = await ed.GetPoint("Start point: ");
                 if (p1.Result != Editor.ResultMode.OK) return;
@@ -186,6 +194,7 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc)
             {
                 Editor ed = doc.Editor;
+                ed.Selection.Clear();
 
                 Editor.PointResult p1 = await ed.GetPoint("Start point: ");
                 if (p1.Result != Editor.ResultMode.OK) return;
@@ -210,6 +219,7 @@ namespace BaseCAD
                 public override async Task Apply(CADDocument doc)
                 {
                     Editor ed = doc.Editor;
+                    ed.Selection.Clear();
 
                     Editor.PointResult p1 = await ed.GetPoint("First point: ");
                     if (p1.Result != Editor.ResultMode.OK) return;
@@ -268,6 +278,7 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc)
             {
                 Editor ed = doc.Editor;
+                ed.Selection.Clear();
 
                 Editor.PointResult p1 = await ed.GetPoint("First point: ");
                 if (p1.Result != Editor.ResultMode.OK) return;
@@ -322,6 +333,7 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc)
             {
                 Editor ed = doc.Editor;
+                ed.Selection.Clear();
 
                 Editor.PointResult p1 = await ed.GetPoint("Center point: ");
                 if (p1.Result != Editor.ResultMode.OK) return;
@@ -345,6 +357,7 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc)
             {
                 Editor ed = doc.Editor;
+                ed.Selection.Clear();
 
                 Editor.PointResult p1 = await ed.GetPoint("First point: ");
                 if (p1.Result != Editor.ResultMode.OK) return;
