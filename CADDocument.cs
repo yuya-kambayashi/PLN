@@ -75,7 +75,10 @@ namespace BaseCAD
                     OnDocumentChanged(new EventArgs());
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    Editor.Selection.ExceptWith(e.OldItems.Cast<Drawable>());
+                    foreach (Drawable item in e.OldItems.Cast<Drawable>())
+                    {
+                        Editor.Selection.Remove(item);
+                    }
                     OnDocumentChanged(new EventArgs());
                     break;
                 case NotifyCollectionChangedAction.Reset:

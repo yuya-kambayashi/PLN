@@ -143,7 +143,7 @@ namespace BaseCAD
         }
         public override ControlPoint[] GetControlPoints(float size)
         {
-            Vector2D upDir = Vector2D.FromAngle(Rotation).Perpendicular();
+            Vector2D upDir = Vector2D.FromAngle(Rotation).Perpendicular;
             return new[]
             {
                 new ControlPoint("Location"),
