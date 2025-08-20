@@ -145,7 +145,7 @@ namespace BaseCAD
             dir.TransformBy(transformation);
             Height = dir.Length;
 
-            Rotation += transformation.RotationAngle;
+            Rotation += dir.Angle;
         }
         public override ControlPoint[] GetControlPoints(float size)
         {
