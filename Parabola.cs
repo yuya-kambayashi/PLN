@@ -89,12 +89,8 @@ namespace BaseCAD
 
         public override void TransformBy(TransformationMatrix2D transformation)
         {
-            Point2D p1 = StartPoint;
-            Point2D p2 = EndPoint;
-            p1.TransformBy(transformation);
-            p2.TransformBy(transformation);
-            StartPoint = p1;
-            EndPoint = p2;
+            StartPoint = StartPoint.Transform(transformation);
+            EndPoint = EndPoint.Transform(transformation);
 
             Vector2D a1 = Vector2D.FromAngle(StartAngle);
             Vector2D a2 = Vector2D.FromAngle(EndAngle);

@@ -89,7 +89,7 @@ namespace BaseCAD
 
         public override void TransformBy(TransformationMatrix2D transformation)
         {
-            Center.TransformBy(transformation);
+            Center = Center.Transform(transformation);
             Vector2D dir = Vector2D.FromAngle(Rotation);
             dir.TransformBy(transformation);
             Rotation = dir.Angle;
