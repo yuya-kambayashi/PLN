@@ -28,8 +28,8 @@ namespace BaseCAD
 
         public CADDocument()
         {
-            Editor = new Editor(this);
             Model = new Composite();
+            Editor = new Editor(this);
             Jigged = new Composite();
             Transients = new Composite();
             Editor.Selection.CollectionChanged += Selection_CollectionChanged;
@@ -40,31 +40,30 @@ namespace BaseCAD
         public void Open(string filename)
         {
             using (Stream stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (BinaryReader reader = new BinaryReader(stream))
             {
-                // old Code
-                //IFormatter formatter = new BinaryFormatter();
-                //Model.CollectionChanged -= Model_CollectionChanged;
-                ////Model = (Composite)formatter.Deserialize(stream);
-                //Model.CollectionChanged += Model_CollectionChanged;
-
-                var json = File.ReadAllText(filename);
+                Editor.Selection.CollectionChanged -= Selection_CollectionChanged;
                 Model.CollectionChanged -= Model_CollectionChanged;
                 Jigged.CollectionChanged -= Transients_CollectionChanged;
-                //Model = JsonSerializer.Deserialize<Composite>(json);
+                Model = new Composite(reader);
+                Editor = new Editor(this);
+                Jigged = new Composite();
+                Transients = new Composite();
+                Editor.Selection.CollectionChanged += Selection_CollectionChanged;
                 Model.CollectionChanged += Model_CollectionChanged;
                 Jigged.CollectionChanged += Transients_CollectionChanged;
+                OnDocumentChanged(new EventArgs());
             }
         }
         public void Save(string filename)
         {
             using(Stream stream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.None))
             {
-                // old Code
-                //IFormatter formatter = new BinaryFormatter();
-                ////formatter.Serialize(stream, Model);
-
-                var json = JsonSerializer.Serialize(Model);
-                //File.WriteAllText(filename, json);
+                using (BinaryWriter writer = new BinaryWriter(stream))
+                {
+                    Model.Save(writer);
+                
+                }
             }
         }
         private void Model_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

@@ -19,6 +19,28 @@ namespace BaseCAD
         {
             ;
         }
+        public Composite(BinaryReader reader) : base(reader)
+        {
+            int count = reader.ReadInt32();
+            for (int i = 0; i < count; i++)
+            {
+                string name = reader.ReadString();
+                Type itemType = Type.GetType(name);
+                Drawable item = (Drawable)Activator.CreateInstance(itemType, reader);
+                items.Add(item);
+            }
+        }
+
+        public override void Save(BinaryWriter writer)
+        {
+            base.Save(writer);
+            writer.Write(items.Count);
+            foreach (Drawable item in items)
+            {
+                writer.Write(item.GetType().FullName);
+                item.Save(writer);
+            }
+        }
 
         public override void Draw(DrawParams param)
         {

@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace BaseCAD
 {
+    [Serializable]
     [TypeConverter(typeof(OutlineConverter))]
-    public partial struct Outline
+    public partial struct Outline : IPersistable
     {
         public Color Color { get; set; }
         public float LineWeight { get; set; }
@@ -63,6 +64,19 @@ namespace BaseCAD
                 pen.DashStyle = DashStyle;
                 return pen;
             }
+        }
+        public Outline(BinaryReader reader)
+        {
+            Color = Color.FromArgb(reader.ReadInt32());
+            LineWeight = reader.ReadSingle();
+            DashStyle = (DashStyle)reader.ReadInt32();
+        }
+
+        public void Save(BinaryWriter writer)
+        {
+            writer.Write(Color.ToArgb());
+            writer.Write(LineWeight);
+            writer.Write((int)DashStyle);
         }
     }
 }

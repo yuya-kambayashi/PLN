@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace BaseCAD
 {
     [TypeConverter(typeof(Vector2DConverter))]
-    public struct Vector2D
+    public struct Vector2D : IPersistable
     {
         private readonly float _x;
         private readonly float _y;
@@ -110,6 +110,17 @@ namespace BaseCAD
         public override string ToString()
         {
             return "{" + X.ToString() + ", " + Y.ToString() + "}";
+        }
+        public Vector2D(BinaryReader reader)
+        {
+            _x = reader.ReadSingle();
+            _y = reader.ReadSingle();
+        }
+
+        public void Save(BinaryWriter writer)
+        {
+            writer.Write(_x);
+            writer.Write(_y);
         }
     }
 }
