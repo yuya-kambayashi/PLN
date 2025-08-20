@@ -83,5 +83,20 @@ namespace BaseCAD
                 new ControlPoint("Point3"),
             };
         }
+        public Triangle(BinaryReader reader) : base(reader)
+        {
+            Point1 = new Point2D(reader);
+            Point2 = new Point2D(reader);
+            Point3 = new Point2D(reader);
+            UpdatePolyline();
+        }
+
+        public override void Save(BinaryWriter writer)
+        {
+            base.Save(writer);
+            Point1.Save(writer);
+            Point2.Save(writer);
+            Point3.Save(writer);
+        }
     }
 }

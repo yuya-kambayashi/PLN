@@ -30,7 +30,7 @@ namespace BaseCAD
         public string String { get => str; set { str = value; NotifyPropertyChanged(); } }
         public string FontFamily { get => fontFamily; set { fontFamily = value; NotifyPropertyChanged(); } }
         public FontStyle FontStyle { get => fontStyle; set { fontStyle = value; NotifyPropertyChanged(); } }
-        public float Height { get => textHeight; set { textHeight = value; NotifyPropertyChanged(); } }
+        public float TextHeight { get => textHeight; set { textHeight = value; NotifyPropertyChanged(); } }
         public float Width { get; private set; }
         public float Rotation { get => rotation; set { rotation = value; NotifyPropertyChanged(); } }
         public StringAlignment HorizontalAlignment { get => horizontalAlignment; set { horizontalAlignment = value; NotifyPropertyChanged(); } }
@@ -41,7 +41,7 @@ namespace BaseCAD
         public Text(Point2D p, string text, float height)
         {
             Location = p;
-            Height = height;
+            TextHeight = height;
             Width = height;
             String = text;
             Rotation = 0;
@@ -61,7 +61,7 @@ namespace BaseCAD
         {
             cpSize = param.ViewToModel(param.View.ControlPointSize);
 
-            float height = param.ModelToView(Height);
+            float height = param.ModelToView(TextHeight);
             using (Pen pen = Outline.CreatePen(param))
             using (Brush brush = new SolidBrush(pen.Color))
             using (Font font = new Font(FontFamily, height, FontStyle, GraphicsUnit.Pixel))
@@ -104,7 +104,7 @@ namespace BaseCAD
         public override Extents2D GetExtents()
         {
             float angle = Rotation;
-            float thHeight = Height;
+            float thHeight = TextHeight;
             float thWidth = Width;
             Point2D p1 = new Point2D(0, 0);
             Point2D p2 = new Point2D(thWidth, 0);
@@ -142,7 +142,7 @@ namespace BaseCAD
         public override void TransformBy(TransformationMatrix2D transformation)
         {
             Location = Location.Transform(transformation);
-            Height = (Vector2D.XAxis * Height).Transform(transformation).Length;
+            TextHeight = (Vector2D.XAxis * TextHeight).Transform(transformation).Length;
             Rotation += transformation.RotationAngle;
         }
         public override ControlPoint[] GetControlPoints()
@@ -152,8 +152,32 @@ namespace BaseCAD
             {
                 new ControlPoint("Location"),
                 new ControlPoint("Rotation", ControlPoint.ControlPointType.Angle, Location, Location + cpSize * Vector2D.FromAngle(Rotation)),
-                new ControlPoint("Height", ControlPoint.ControlPointType.Distance, Location, Location + Height * upDir),
+                new ControlPoint("Height", ControlPoint.ControlPointType.Distance, Location, Location + TextHeight * upDir),
             };
+        }
+        public Text(BinaryReader reader) : base(reader)
+        {
+            Location = new Point2D(reader);
+            TextHeight = reader.ReadSingle();
+            String = reader.ReadString();
+            FontFamily = reader.ReadString();
+            FontStyle = (FontStyle)reader.ReadInt32();
+            Rotation = reader.ReadSingle();
+            HorizontalAlignment = (StringAlignment)reader.ReadInt32();
+            VerticalAlignment = (StringAlignment)reader.ReadInt32();
+        }
+
+        public override void Save(BinaryWriter writer)
+        {
+            base.Save(writer);
+            Location.Save(writer);
+            writer.Write(TextHeight);
+            writer.Write(String);
+            writer.Write(FontFamily);
+            writer.Write((int)FontStyle);
+            writer.Write(Rotation);
+            writer.Write((int)HorizontalAlignment);
+            writer.Write((int)VerticalAlignment);
         }
     }
 }

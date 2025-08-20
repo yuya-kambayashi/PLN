@@ -66,5 +66,17 @@ namespace BaseCAD
                 new ControlPoint("Radius", ControlPoint.ControlPointType.Distance, Center, Center + Radius * Vector2D.XAxis),
             };
         }
+        public Circle(BinaryReader reader) : base(reader)
+        {
+            Center = new Point2D(reader);
+            Radius = reader.ReadSingle();
+        }
+
+        public override void Save(BinaryWriter writer)
+        {
+            base.Save(writer);
+            Center.Save(writer);
+            writer.Write(Radius);
+        }
     }
 }

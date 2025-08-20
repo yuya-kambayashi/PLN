@@ -49,5 +49,14 @@ namespace BaseCAD
                 }
             }
         }
+        public Hatch(BinaryReader reader) : base(reader)
+        {
+            ;
+        }
+
+        public override void Save(BinaryWriter writer)
+        {
+            base.Save(writer);
+        }
     }
 }

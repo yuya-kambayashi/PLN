@@ -105,5 +105,22 @@ namespace BaseCAD
                 new ControlPoint("Rotation", ControlPoint.ControlPointType.Angle, Center, Center + (SemiMajorAxis + cpSize) * Vector2D.FromAngle(Rotation)),
             };
         }
+        public Ellipse(BinaryReader reader) : base(reader)
+        {
+            Center = new Point2D(reader);
+            SemiMajorAxis = reader.ReadSingle();
+            SemiMinorAxis = reader.ReadSingle();
+            Rotation = reader.ReadSingle();
+            UpdatePolyline();
+        }
+
+        public override void Save(BinaryWriter writer)
+        {
+            base.Save(writer);
+            Center.Save(writer);
+            writer.Write(SemiMajorAxis);
+            writer.Write(SemiMinorAxis);
+            writer.Write(Rotation);
+        }
     }
 }

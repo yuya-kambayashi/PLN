@@ -97,5 +97,21 @@ namespace BaseCAD
                 new ControlPoint("EndAngle", ControlPoint.ControlPointType.Angle, Center, Center + Radius * Vector2D.FromAngle(EndAngle)),
             };
         }
+        public Arc(BinaryReader reader) : base(reader)
+        {
+            Center = new Point2D(reader);
+            Radius = reader.ReadSingle();
+            StartAngle = reader.ReadSingle();
+            EndAngle = reader.ReadSingle();
+        }
+
+        public override void Save(BinaryWriter writer)
+        {
+            base.Save(writer);
+            Center.Save(writer);
+            writer.Write(Radius);
+            writer.Write(StartAngle);
+            writer.Write(EndAngle);
+        }
     }
 }

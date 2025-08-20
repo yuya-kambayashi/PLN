@@ -140,5 +140,21 @@ namespace BaseCAD
                 new ControlPoint("EndAngle", ControlPoint.ControlPointType.Angle, EndPoint, EndPoint + cpSize * Vector2D.FromAngle(EndAngle)),
             };
         }
+        public Parabola(BinaryReader reader) : base(reader)
+        {
+            StartPoint = new Point2D(reader);
+            EndPoint = new Point2D(reader);
+            StartAngle = reader.ReadSingle();
+            EndAngle = reader.ReadSingle();
+        }
+
+        public override void Save(BinaryWriter writer)
+        {
+            base.Save(writer);
+            StartPoint.Save(writer);
+            EndPoint.Save(writer);
+            writer.Write(StartAngle);
+            writer.Write(EndAngle);
+        }
     }
 }
