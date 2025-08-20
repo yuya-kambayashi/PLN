@@ -109,7 +109,5 @@ namespace BaseCAD
             writer.Write(_x);
             writer.Write(_y);
         }
-        Commit 6332e36
-
     }
 }
