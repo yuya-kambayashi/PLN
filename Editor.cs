@@ -359,6 +359,11 @@ namespace BaseCAD
                         break;
                 }
             }
+            else if (e.Button == MouseButtons.Right)
+            {
+                // Right click equals return key
+                OnViewKeyDown(sender, new KeyEventArgs(Keys.Return));
+            }
         }
 
         internal void OnViewKeyDown(object sender, KeyEventArgs e)
