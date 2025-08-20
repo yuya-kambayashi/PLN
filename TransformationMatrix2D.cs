@@ -15,7 +15,7 @@ namespace BaseCAD
         public float M22 { get; set; }
         public float DX { get; set; }
         public float DY { get; set; }
-        public float RotationAngle { get { return -MathF.Asin(M12); } }
+        public float RotationAngle { get { Vector2D v = Vector2D.XAxis; v.TransformBy(this); return v.Angle; } }
 
         public static TransformationMatrix2D Identity
         {
