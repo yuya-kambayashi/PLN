@@ -35,6 +35,8 @@ namespace BaseCAD
         public float Rotation { get => rotation; set { rotation = value; NotifyPropertyChanged(); } }
         public StringAlignment HorizontalAlignment { get => horizontalAlignment; set { horizontalAlignment = value; NotifyPropertyChanged(); } }
         public StringAlignment VerticalAlignment { get => verticalAlignment; set { verticalAlignment = value; NotifyPropertyChanged(); } }
+        
+        private float cpSize = 0;
 
         public Text(Point2D p, string text, float height)
         {
@@ -57,6 +59,8 @@ namespace BaseCAD
 
         public override void Draw(DrawParams param)
         {
+            cpSize = param.ViewToModel(param.View.ControlPointSize);
+
             float height = param.ModelToView(Height);
             using (Pen pen = Outline.CreatePen(param))
             using (Brush brush = new SolidBrush(pen.Color))
@@ -141,13 +145,13 @@ namespace BaseCAD
             Height = (Vector2D.XAxis * Height).Transform(transformation).Length;
             Rotation += transformation.RotationAngle;
         }
-        public override ControlPoint[] GetControlPoints(float size)
+        public override ControlPoint[] GetControlPoints()
         {
             Vector2D upDir = Vector2D.FromAngle(Rotation).Perpendicular;
             return new[]
             {
                 new ControlPoint("Location"),
-                new ControlPoint("Rotation", ControlPoint.ControlPointType.Angle, Location, Location + size * Vector2D.FromAngle(Rotation)),
+                new ControlPoint("Rotation", ControlPoint.ControlPointType.Angle, Location, Location + cpSize * Vector2D.FromAngle(Rotation)),
                 new ControlPoint("Height", ControlPoint.ControlPointType.Distance, Location, Location + Height * upDir),
             };
         }

@@ -32,8 +32,8 @@ namespace BaseCAD
         public float EndAngle { get => endAngle; set { endAngle = value; UpdatePolyline(); NotifyPropertyChanged(); } }
 
         private Polyline poly;
-        float curveLength = 4;
-
+        private float curveLength = 4;
+        private float cpSize = 0;
         public EllipticArc(Point2D center, float semiMajor, float semiMinor, float startAngle, float endAngle, float rotation = 0)
         {
             Center = center;
@@ -78,6 +78,8 @@ namespace BaseCAD
         }
         public override void Draw(DrawParams param)
         {
+            cpSize = param.ViewToModel(param.View.ControlPointSize);
+
             // Approximate perimeter (Ramanujan)
             float p = 2 * MathF.PI * (3 * (SemiMajorAxis + SemiMinorAxis) - MathF.Sqrt((3 * SemiMajorAxis + SemiMinorAxis) * (SemiMajorAxis + 3 * SemiMinorAxis)));
             float newCurveLength = param.ModelToView(p);
@@ -107,14 +109,14 @@ namespace BaseCAD
         {
             return poly.Contains(pt, pickBoxSize);
         }
-        public override ControlPoint[] GetControlPoints(float size)
+        public override ControlPoint[] GetControlPoints()
         {
             return new[]
             {
                 new ControlPoint("Center"),
                 new ControlPoint("SemiMajorAxis", ControlPoint.ControlPointType.Distance, Center, Center + SemiMajorAxis * Vector2D.FromAngle(Rotation)),
                 new ControlPoint("SemiMinorAxis", ControlPoint.ControlPointType.Distance, Center, Center + SemiMinorAxis * Vector2D.FromAngle(Rotation).Perpendicular),
-                new ControlPoint("Rotation", ControlPoint.ControlPointType.Angle, Center, Center + (SemiMajorAxis + size) * Vector2D.FromAngle(Rotation)),
+                new ControlPoint("Rotation", ControlPoint.ControlPointType.Angle, Center, Center + (SemiMajorAxis + cpSize) * Vector2D.FromAngle(Rotation)),
             };
         }
     }

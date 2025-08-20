@@ -145,7 +145,7 @@ namespace BaseCAD
 
             return items;
         }
-        public override ControlPoint[] GetControlPoints(float size)
+        public override ControlPoint[] GetControlPoints()
         {
             return new[]
             {

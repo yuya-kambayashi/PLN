@@ -58,7 +58,7 @@ namespace BaseCAD
             float dist = (pt - Center).Length;
             return dist <= Radius + pickBoxSize / 2 && dist >= Radius - pickBoxSize / 2;
         }
-        public override ControlPoint[] GetControlPoints(float size)
+        public override ControlPoint[] GetControlPoints()
         {
             return new[]
             {

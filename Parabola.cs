@@ -45,6 +45,8 @@ namespace BaseCAD
         [Browsable(false)]
         public float YI { get { return IntersectionPoint.Y; } }
 
+        private float cpSize = 0;
+
         public Parabola(Point2D p1, Point2D p2, float startAngle, float endAngle)
         {
             StartPoint = p1;
@@ -61,6 +63,8 @@ namespace BaseCAD
 
         public override void Draw(DrawParams param)
         {
+            cpSize = param.ViewToModel(param.View.ControlPointSize);
+
             Point2D c1 = StartPoint * 1 / 3 + (IntersectionPoint * 2 / 3).ToVector2D();
             Point2D c2 = EndPoint * 1 / 3 + (IntersectionPoint * 2 / 3).ToVector2D();
 
@@ -126,14 +130,14 @@ namespace BaseCAD
         {
             return a1 * b2 - a2 * b1;
         }
-        public override ControlPoint[] GetControlPoints(float size)
+        public override ControlPoint[] GetControlPoints()
         {
             return new[]
             {
                 new ControlPoint("StartPoint"),
                 new ControlPoint("EndPoint"),
-                new ControlPoint("StartAngle", ControlPoint.ControlPointType.Angle, StartPoint, StartPoint + size * Vector2D.FromAngle(StartAngle)),
-                new ControlPoint("EndAngle", ControlPoint.ControlPointType.Angle, EndPoint, EndPoint + size * Vector2D.FromAngle(EndAngle)),
+                new ControlPoint("StartAngle", ControlPoint.ControlPointType.Angle, StartPoint, StartPoint + cpSize * Vector2D.FromAngle(StartAngle)),
+                new ControlPoint("EndAngle", ControlPoint.ControlPointType.Angle, EndPoint, EndPoint + cpSize * Vector2D.FromAngle(EndAngle)),
             };
         }
     }
