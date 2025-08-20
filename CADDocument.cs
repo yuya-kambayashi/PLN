@@ -20,7 +20,8 @@ namespace BaseCAD
         public Composite Transients { get; private set; }
         [Browsable(false)]
         public Editor Editor { get; private set; }
-
+        public string FileName { get; private set; }
+        public bool IsModified { get; private set; } = false;
 
         public event DocumentChangedEventHandler DocumentChanged;
         public event TransientsChangedEventHandler TransientsChanged;
@@ -50,6 +51,8 @@ namespace BaseCAD
             Model.CollectionChanged += Model_CollectionChanged;
             Jigged.CollectionChanged += Transients_CollectionChanged;
             OnDocumentChanged(new EventArgs());
+            IsModified = false;
+            FileName = "";
         }
         public void Open(Stream stream)
         {
@@ -66,6 +69,8 @@ namespace BaseCAD
                 Model.CollectionChanged += Model_CollectionChanged;
                 Jigged.CollectionChanged += Transients_CollectionChanged;
                 OnDocumentChanged(new EventArgs());
+                FileName = "";
+                IsModified = false;
             }
         }
         public void Open(string filename)
@@ -73,6 +78,8 @@ namespace BaseCAD
             using (Stream stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 Open(stream);
+                FileName = filename;
+                IsModified = false;
             }
         }
         public void Save(Stream stream)
@@ -80,6 +87,8 @@ namespace BaseCAD
             using (BinaryWriter writer = new BinaryWriter(stream))
             {
                 Model.Save(writer);
+                FileName = "";
+                IsModified = false;
             }
         }
         public void Save(string filename)
@@ -87,6 +96,8 @@ namespace BaseCAD
             using (Stream stream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.None))
             {
                 Save(stream);
+                FileName = filename;
+                IsModified = false;
             }
         }
         private void Model_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -119,6 +130,7 @@ namespace BaseCAD
         }
         protected void OnDocumentChanged(EventArgs e)
         {
+            IsModified = true;
             DocumentChanged?.Invoke(this, e);
         }
         protected void OnTransientsChanged(EventArgs e)

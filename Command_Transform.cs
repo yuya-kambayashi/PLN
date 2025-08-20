@@ -8,7 +8,7 @@ namespace BaseCAD
 {
     public partial class Commands
     {
-        public class TransformMove : AsyncCommand
+        public class TransformMove : Command
         {
             public override string RegisteredName => "Transform.Move";
             public override string Name => "Move";
@@ -44,7 +44,7 @@ namespace BaseCAD
                 ed.Selection.Clear();
             }
         }
-        public class TransformCopy : AsyncCommand
+        public class TransformCopy : Command
         {
             public override string RegisteredName => "Transform.Copy";
             public override string Name => "Copy";
@@ -93,7 +93,7 @@ namespace BaseCAD
                 ed.Selection.Clear();
             }
         }
-        public class TransformRotate : AsyncCommand
+        public class TransformRotate : Command
         {
             public override string RegisteredName => "Transform.Rotate";
             public override string Name => "Rotate";
@@ -131,7 +131,7 @@ namespace BaseCAD
             }
         }
 
-        public class TransformScale : AsyncCommand
+        public class TransformScale : Command
         {
             public override string RegisteredName => "Transform.Scale";
             public override string Name => "Scale";

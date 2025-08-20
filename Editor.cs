@@ -13,8 +13,7 @@ namespace BaseCAD
 {
     public partial class Editor
     {
-        private static Dictionary<string, AsyncCommand> asyncCommands = new Dictionary<string, AsyncCommand>();
-        private static Dictionary<string, SyncCommand> syncCommands = new Dictionary<string, SyncCommand>();
+        private static Dictionary<string, Command> commands = new Dictionary<string, Command>();
 
         public CADDocument Document { get; private set; }
         internal InputMode Mode { get; private set; }
@@ -37,36 +36,24 @@ namespace BaseCAD
 
         public SelectionSet PickedSelection { get; private set; } = new SelectionSet();
         public SelectionSet Selection { get; private set; } = new SelectionSet();
+
         static Editor()
         {
             // Search the assembly for commands
             Assembly assembly = Assembly.GetAssembly(typeof(CADDocument));
             foreach (Type type in assembly.GetTypes())
             {
-                if (type.BaseType == typeof(AsyncCommand))
+                if (type.BaseType == typeof(Command))
                 {
-                    AsyncCommand com = (AsyncCommand)assembly.CreateInstance(type.FullName);
+                    Command com = (Command)assembly.CreateInstance(type.FullName);
                     if (com == null)
                     {
                         assembly = Assembly.GetExecutingAssembly();
-                        com = (AsyncCommand)Assembly.GetExecutingAssembly().CreateInstance(type.FullName);
+                        com = (Command)Assembly.GetExecutingAssembly().CreateInstance(type.FullName);
                     }
                     if (com != null)
                     {
-                        asyncCommands.Add(com.RegisteredName, com);
-                    }
-                }
-                else if (type.BaseType == typeof(SyncCommand))
-                {
-                    SyncCommand com = (SyncCommand)assembly.CreateInstance(type.FullName);
-                    if (com == null)
-                    {
-                        assembly = Assembly.GetExecutingAssembly();
-                        com = (SyncCommand)Assembly.GetExecutingAssembly().CreateInstance(type.FullName);
-                    }
-                    if (com != null)
-                    {
-                        syncCommands.Add(com.RegisteredName, com);
+                        commands.Add(com.RegisteredName, com);
                     }
                 }
             }
@@ -79,20 +66,119 @@ namespace BaseCAD
 
         public void RunCommand(string registeredName, params string[] args)
         {
-            if (asyncCommands.ContainsKey(registeredName))
+            if (commands.ContainsKey(registeredName))
             {
-                AsyncCommand com = asyncCommands[registeredName];
-                com.Apply(Document, args);
-            }
-            else if (syncCommands.ContainsKey(registeredName))
-            {
-                SyncCommand com = syncCommands[registeredName];
+                Command com = commands[registeredName];
                 com.Apply(Document, args);
             }
             else
             {
                 throw new InvalidOperationException("Unknown command name: " + registeredName);
             }
+        }
+
+        public async Task<FilenameResult> GetOpenFilename(string message)
+        {
+            return await GetOpenFilename(new FilenameOptions(message));
+        }
+
+        public async Task<FilenameResult> GetOpenFilename(string message, string filename)
+        {
+            return await GetOpenFilename(new FilenameOptions(message, filename));
+        }
+
+        public async Task<FilenameResult> GetOpenFilename(string message, string filename, string filter)
+        {
+            return await GetOpenFilename(new FilenameOptions(message, filename, filter));
+        }
+
+        public async Task<FilenameResult> GetOpenFilename(string message, string filename, string filter, string ext)
+        {
+            return await GetOpenFilename(new FilenameOptions(message, filename, filter, ext));
+        }
+
+        public async Task<FilenameResult> GetOpenFilename(FilenameOptions options)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = options.Message;
+            ofd.Filter = options.Filter;
+            ofd.DefaultExt = "scf";
+            string filename = "";
+            string path = "";
+            try
+            {
+                filename = Path.GetFileName(options.FileName);
+                path = Path.GetDirectoryName(options.FileName);
+            }
+            catch
+            {
+                ;
+            }
+            if (!string.IsNullOrEmpty(filename)) ofd.FileName = filename;
+            if (!string.IsNullOrEmpty(path)) ofd.InitialDirectory = path;
+
+            TaskCompletionSource<FilenameResult> completion = new TaskCompletionSource<FilenameResult>();
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                completion.SetResult(new FilenameResult(ofd.FileName));
+            }
+            else
+            {
+                completion.SetResult(new FilenameResult(ResultMode.Cancel));
+            }
+            return await completion.Task;
+        }
+
+        public async Task<FilenameResult> GetSaveFilename(string message)
+        {
+            return await GetSaveFilename(new FilenameOptions(message));
+        }
+
+        public async Task<FilenameResult> GetSaveFilename(string message, string filename)
+        {
+            return await GetSaveFilename(new FilenameOptions(message, filename));
+        }
+
+        public async Task<FilenameResult> GetSaveFilename(string message, string filename, string filter)
+        {
+            return await GetSaveFilename(new FilenameOptions(message, filename, filter));
+        }
+
+        public async Task<FilenameResult> GetSaveFilename(string message, string filename, string filter, string ext)
+        {
+            return await GetSaveFilename(new FilenameOptions(message, filename, filter, ext));
+        }
+
+        public async Task<FilenameResult> GetSaveFilename(FilenameOptions options)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Title = options.Message;
+            sfd.Filter = options.Filter;
+            sfd.DefaultExt = "scf";
+            string filename = "";
+            string path = "";
+            try
+            {
+                filename = Path.GetFileName(options.FileName);
+                path = Path.GetDirectoryName(options.FileName);
+            }
+            catch
+            {
+                ;
+            }
+            if (!string.IsNullOrEmpty(filename)) sfd.FileName = filename;
+            if (!string.IsNullOrEmpty(path)) sfd.InitialDirectory = path;
+
+            TaskCompletionSource<FilenameResult> completion = new TaskCompletionSource<FilenameResult>();
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                completion.SetResult(new FilenameResult(sfd.FileName));
+            }
+            else
+            {
+                completion.SetResult(new FilenameResult(ResultMode.Cancel));
+            }
+            return await completion.Task;
         }
 
         public async Task<SelectionResult> GetSelection(string message)
@@ -371,7 +457,6 @@ namespace BaseCAD
                         }
                         break;
                     case InputMode.Point:
-
                         inputCompleted = true;
                         pointCompletion.SetResult(new PointResult(point));
                         break;

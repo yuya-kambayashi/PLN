@@ -39,6 +39,17 @@ namespace BaseCAD
                 Keyword = keyword;
             }
         }
+        public class FilenameResult : InputResult<string>
+        {
+            internal FilenameResult(ResultMode result) : base(result, "", "") { }
+            internal FilenameResult(string value) : base(ResultMode.OK, value, "") { }
+        }
+
+        public class SaveFilenameResult : InputResult<string>
+        {
+            internal SaveFilenameResult(ResultMode result) : base(result, "", "") { }
+            internal SaveFilenameResult(string value) : base(ResultMode.OK, value, "") { }
+        }
         public class SelectionResult : InputResult<SelectionSet>
         {
             internal SelectionResult(ResultMode result) : base(result, new SelectionSet(), "") { }
@@ -157,6 +168,37 @@ namespace BaseCAD
             public JigOptions(string message, Action<T> jig) : base(message)
             {
                 Jig = jig;
+            }
+        }
+        public class FilenameOptions : InputOptions
+        {
+            public string FileName { get; private set; }
+            public string Filter { get; private set; }
+            public string Extension { get; private set; }
+
+            public FilenameOptions(string message, string filename, string filter, string ext) : base(message)
+            {
+                FileName = filename;
+                Filter = filter;
+                Extension = ext;
+            }
+
+            public FilenameOptions(string message, string filename, string filter)
+                : this(message, filename, filter, "scf")
+            {
+                ;
+            }
+
+            public FilenameOptions(string message, string filename)
+                : this(message, filename, "SimpleCAD file (*.scf)|*.scf|All files (*.*)|*.*", "scf")
+            {
+                ;
+            }
+
+            public FilenameOptions(string message)
+                : this(message, "", "SimpleCAD file (*.scf)|*.scf|All files (*.*)|*.*", "scf")
+            {
+                ;
             }
         }
         public class SelectionOptions : InputOptions
