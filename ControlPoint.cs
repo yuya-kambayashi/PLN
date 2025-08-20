@@ -47,7 +47,7 @@ namespace BaseCAD
             Type = type;
             BasePoint = basePoint;
             Location = location;
-            pointSet = false;
+            pointSet = true;
         }
 
         internal static ControlPoint[] FromDrawable(Drawable item, float size)

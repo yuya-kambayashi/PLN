@@ -67,7 +67,7 @@ namespace BaseCAD
         {
             return new[]
             {
-                new ControlPoint("Center", ControlPoint.ControlPointType.Point, Center, Center),
+                new ControlPoint("Center"),
                 new ControlPoint("Radius", ControlPoint.ControlPointType.Distance, Center, Center + Radius * Vector2D.XAxis),
             };
         }
