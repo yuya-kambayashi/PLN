@@ -166,10 +166,17 @@ namespace BaseCAD
             {
                 selected.Draw(param);
             }
-            param.Mode = DrawParams.DrawingMode.ControlPoint;
-            foreach (Drawable item in Document.Editor.Selection)
+
+            foreach (Drawable selected in Document.Editor.PickedSelection)
             {
-                foreach (ControlPoint pt in ControlPoint.FromDrawable(item))
+                selected.Draw(param);
+            }
+
+            // Render pick-selected objects
+            param.Mode = DrawParams.DrawingMode.ControlPoint;
+            foreach (Drawable selected in Document.Editor.PickedSelection)
+            {
+                foreach (ControlPoint pt in ControlPoint.FromDrawable(selected))
                 {
                     DrawControlPoint(param, pt);
                 }
@@ -404,12 +411,12 @@ namespace BaseCAD
                     {
                         if ((Control.ModifierKeys & Keys.Shift) != Keys.None)
                         {
-                            Document.Editor.Selection.Remove(mouseDownItem);
+                            Document.Editor.PickedSelection.Remove(mouseDownItem);
                         }
                         else
                         {
                             float cpSize = ScreenToWorld(new Size(ControlPointSize + 4, 0)).Width;
-                            Document.Editor.Selection.Add(mouseDownItem);
+                            Document.Editor.PickedSelection.Add(mouseDownItem);
                         }
                     }
                 }
@@ -551,6 +558,7 @@ namespace BaseCAD
             }
             else if (e.KeyCode == Keys.Escape)
             {
+                Document.Editor.PickedSelection.Clear();
                 Document.Editor.Selection.Clear();
             }
         }
@@ -588,7 +596,7 @@ namespace BaseCAD
         {
             PointF pt = ScreenToWorld(x, y);
             float size = ScreenToWorld(new Size(controlPointSize, 0)).Width;
-            foreach (Drawable item in Document.Editor.Selection)
+            foreach (Drawable item in Document.Editor.PickedSelection)
             {
                 foreach (ControlPoint cp in ControlPoint.FromDrawable(item))
                 {
