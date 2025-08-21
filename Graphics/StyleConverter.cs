@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BaseCAD.Drawables;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BaseCAD.Drawables
+namespace BaseCAD.Graphics
 {
     public class StyleConverter : ExpandableObjectConverter
     {
@@ -29,18 +30,18 @@ namespace BaseCAD.Drawables
                 string[] parts = str.Replace(" ", "").Split(';');
                 if (parts.Length == 1)
                 {
-                    Color col = Color.FromName(parts[0]);
+                    Color col = Color.FromHex(parts[0]);
                     return new Style(col);
                 }
                 else if (parts.Length == 2)
                 {
-                    Color col = Color.FromName(parts[0]);
+                    Color col = Color.FromHex(parts[0]);
                     float lw = float.Parse(parts[1]);
                     return new Style(col, lw);
                 }
                 else if (parts.Length == 3)
                 {
-                    Color col = Color.FromName(parts[0]);
+                    Color col = Color.FromHex(parts[0]);
                     float lw = float.Parse(parts[1]);
                     DashStyle ds = (DashStyle)Enum.Parse(typeof(DashStyle), parts[2]);
                     return new Style(col, lw, ds);
@@ -56,11 +57,11 @@ namespace BaseCAD.Drawables
             {
                 Style os = (Style)value;
                 if (os.DashStyle == DashStyle.Solid && os.LineWeight == 0)
-                    return os.Color.Name;
+                    return os.Color.ToHex();
                 else if (os.DashStyle == DashStyle.Solid)
-                    return os.Color.Name + "; " + os.LineWeight.ToString("F2");
+                    return os.Color.ToHex() + "; " + os.LineWeight.ToString("F2");
                 else
-                    return os.Color.Name + "; " + os.LineWeight.ToString("F2") + "; " + os.DashStyle.ToString();
+                    return os.Color.ToHex() + "; " + os.LineWeight.ToString("F2") + "; " + os.DashStyle.ToString();
             }
 
             return base.ConvertTo(context, culture, value, destinationType);

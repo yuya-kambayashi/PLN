@@ -53,7 +53,7 @@ namespace BaseCAD.Drawables
             poly.Points.Add(p3);
             poly.Closed = true;
         }
-        public override void Draw(DrawParams param)
+        public override void Draw(Graphics param)
         {
             poly.Style = Style;
             poly.Draw(param);

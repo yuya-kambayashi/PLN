@@ -1,4 +1,5 @@
-﻿using BaseCAD.Drawables;
+﻿using BaseCAD.Geometry;
+using BaseCAD.Graphics;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,15 +8,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BaseCAD.Drawables
+namespace BaseCAD.Graphics
 {
+    public enum DashStyle
+    {
+        Solid = 0,
+        Dash = 1,
+        Dot = 2,
+        DashDot = 3,
+        DashDotDot = 4,
+    }
+
     [Serializable]
     [TypeConverter(typeof(StyleConverter))]
-    public partial class Style : IPersistable
+    public class Style : IPersistable
     {
         public Color Color { get; set; }
         public float LineWeight { get; set; }
         public DashStyle DashStyle { get; set; }
+        public bool Fill { get; set; }
 
         public Style(Color color, float lineWeight, DashStyle dashStyle)
         {
@@ -36,32 +47,16 @@ namespace BaseCAD.Drawables
             ;
         }
 
-        public Pen CreatePen(DrawParams param)
-        {
-            if (param.StyleOverride != null)
-            {
-                Pen pen = new Pen(param.StyleOverride.Color, param.GetScaledLineWeight(param.StyleOverride.LineWeight));
-                pen.DashStyle = param.StyleOverride.DashStyle;
-                return pen;
-            }
-            else
-            {
-                Pen pen = new Pen(Color, param.GetScaledLineWeight(LineWeight));
-                pen.DashStyle = DashStyle;
-                return pen;
-            }
-        }
-
         public Style(BinaryReader reader)
         {
-            Color = Color.FromArgb(reader.ReadInt32());
+            Color = new Color(reader.ReadUInt32());
             LineWeight = reader.ReadSingle();
             DashStyle = (DashStyle)reader.ReadInt32();
         }
 
         public void Save(BinaryWriter writer)
         {
-            writer.Write(Color.ToArgb());
+            writer.Write(Color.Argb);
             writer.Write(LineWeight);
             writer.Write((int)DashStyle);
         }

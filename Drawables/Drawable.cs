@@ -11,17 +11,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
 
-namespace BaseCAD
+namespace BaseCAD.Graphics
 {
     [Serializable]
     public abstract class Drawable : INotifyPropertyChanged, IPersistable
     {
-        public virtual Style Style { get; set; } = Style.White;
+        public virtual Style Style { get; set; } = new Style(Color.White);
         public virtual bool Visible { get; set; } = true;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public abstract void Draw(DrawParams param);
+        public abstract void Draw(Renderer renderer);
         public abstract Extents2D GetExtents();
         public virtual bool Contains(Point2D pt, float pickBoxSize) { return GetExtents().Contains(pt); }
         public abstract void TransformBy(TransformationMatrix2D transformation);

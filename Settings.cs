@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BaseCAD.Drawables
+namespace BaseCAD
 {
     public class Settings : IPersistable
     {
@@ -32,7 +32,7 @@ namespace BaseCAD.Drawables
                 }
                 else if (valueType == "color")
                 {
-                    Value = Color.FromArgb(reader.ReadInt32());
+                    Value = Color.FromArgb(reader.ReadUInt32());
                 }
             }
 
@@ -47,7 +47,7 @@ namespace BaseCAD.Drawables
                 else if (Value is Color)
                 {
                     writer.Write("color");
-                    writer.Write(((Color)Value).ToArgb());
+                    writer.Write(((Color)Value).Argb());
                 }
             }
         }
