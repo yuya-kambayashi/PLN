@@ -63,7 +63,10 @@ namespace BaseCAD
             else
                 cadWindow1.Document.Editor.RunCommand("Document.Save");
         }
-
+        private void btnSaveAs_Click(object sender, EventArgs e)
+        {
+            cadWindow1.Document.Editor.RunCommand("Document.SaveAs", cadWindow1.Document.FileName ?? SaveFileName);
+        }
         private string SaveFileName
         {
             get
