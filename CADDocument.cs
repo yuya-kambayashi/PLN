@@ -20,6 +20,8 @@ namespace BaseCAD
         public Composite Transients { get; private set; }
         [Browsable(false)]
         public Editor Editor { get; private set; }
+        [Browsable(false)]
+        public Settings Settings { get; private set; }
         public string FileName { get; private set; }
         public bool IsModified { get; private set; } = false;
 
@@ -31,6 +33,7 @@ namespace BaseCAD
         {
             Model = new Composite();
             Editor = new Editor(this);
+            Settings = new Settings();
             Jigged = new Composite();
             Transients = new Composite();
             Editor.PickedSelection.CollectionChanged += Selection_CollectionChanged;
@@ -45,6 +48,7 @@ namespace BaseCAD
             Jigged.CollectionChanged -= Transients_CollectionChanged;
             Model = new Composite();
             Editor = new Editor(this);
+            Settings = new Settings();
             Jigged = new Composite();
             Transients = new Composite();
             Editor.PickedSelection.CollectionChanged += Selection_CollectionChanged;
@@ -63,6 +67,7 @@ namespace BaseCAD
                 Jigged.CollectionChanged -= Transients_CollectionChanged;
                 Model = new Composite(reader);
                 Editor = new Editor(this);
+                //Settings = new Settings();
                 Jigged = new Composite();
                 Transients = new Composite();
                 Editor.PickedSelection.CollectionChanged += Selection_CollectionChanged;
@@ -87,6 +92,7 @@ namespace BaseCAD
             using (BinaryWriter writer = new BinaryWriter(stream))
             {
                 Model.Save(writer);
+                //Settings = new Settings();
                 FileName = "";
                 IsModified = false;
             }
