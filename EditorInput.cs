@@ -79,8 +79,10 @@ namespace BaseCAD
         }
         public class DistanceResult : InputResult<float>
         {
+            public Point2D Point { get; internal set; }
+
             internal DistanceResult(ResultMode result) : base(result, 0, "") { }
-            internal DistanceResult(float value) : base(ResultMode.OK, value, "") { }
+            internal DistanceResult(float value, Point2D point) : base(ResultMode.OK, value, "") { Point = point; }
             internal DistanceResult(string keyword) : base(ResultMode.Keyword, 0, keyword) { }
         }
         public class InputOptions

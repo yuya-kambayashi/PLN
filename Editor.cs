@@ -490,7 +490,7 @@ namespace BaseCAD
                     case InputMode.Distance:
                         inputCompleted = true;
                         OnCursorPrompt(new CursorPromptEventArgs());
-                        distanceCompletion.SetResult(new DistanceResult((e.Location - ((DistanceOptions)currentOptions).BasePoint).Length));
+                        distanceCompletion.SetResult(new DistanceResult((e.Location - ((DistanceOptions)currentOptions).BasePoint).Length, e.Location));
                         break;
                 }
             }
@@ -585,7 +585,7 @@ namespace BaseCAD
                         {
                             inputCompleted = true;
                             OnCursorPrompt(new CursorPromptEventArgs());
-                            distanceCompletion.SetResult(new DistanceResult(dist));
+                            distanceCompletion.SetResult(new DistanceResult(dist, currentMouseLocation));
                         }
                         else if (!string.IsNullOrEmpty(keyword))
                         {
