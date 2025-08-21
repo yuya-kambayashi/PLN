@@ -14,10 +14,10 @@ namespace BaseCAD.Commands
         {
             Editor ed = doc.Editor;
 
-            Editor.SelectionResult s = await ed.GetSelection("Select objects: ");
-            if (s.Result != Editor.ResultMode.OK || s.Value.Count == 0) return;
-            Editor.PointResult p1 = await ed.GetPoint("Base point: ");
-            if (p1.Result != Editor.ResultMode.OK) return;
+            SelectionResult s = await ed.GetSelection("Select objects: ");
+            if (s.Result != ResultMode.OK || s.Value.Count == 0) return;
+            PointResult p1 = await ed.GetPoint("Base point: ");
+            if (p1.Result != ResultMode.OK) return;
             Composite consItems = new Composite();
             foreach (Drawable item in s.Value)
             {
@@ -25,14 +25,14 @@ namespace BaseCAD.Commands
             }
             doc.Transients.Add(consItems);
             Point2D lastPt = p1.Value;
-            Editor.PointResult p2 = await ed.GetPoint("Second point: ", p1.Value,
+            PointResult p2 = await ed.GetPoint("Second point: ", p1.Value,
                 (p) =>
                 {
                     consItems.TransformBy(TransformationMatrix2D.Translation(p - lastPt));
                     lastPt = p;
                 });
             doc.Transients.Remove(consItems);
-            if (p2.Result != Editor.ResultMode.OK) return;
+            if (p2.Result != ResultMode.OK) return;
 
             foreach (Drawable item in s.Value)
             {
@@ -50,10 +50,10 @@ namespace BaseCAD.Commands
         {
             Editor ed = doc.Editor;
 
-            Editor.SelectionResult s = await ed.GetSelection("Select objects: ");
-            if (s.Result != Editor.ResultMode.OK || s.Value.Count == 0) return;
-            Editor.PointResult p1 = await ed.GetPoint("Base point: ");
-            if (p1.Result != Editor.ResultMode.OK) return;
+            SelectionResult s = await ed.GetSelection("Select objects: ");
+            if (s.Result != ResultMode.OK || s.Value.Count == 0) return;
+            PointResult p1 = await ed.GetPoint("Base point: ");
+            if (p1.Result != ResultMode.OK) return;
             Composite consItems = new Composite();
             foreach (Drawable item in s.Value)
             {
@@ -64,14 +64,14 @@ namespace BaseCAD.Commands
             bool flag = true;
             while (flag)
             {
-                Editor.PointResult p2 = await ed.GetPoint("Second point: ", p1.Value,
+                PointResult p2 = await ed.GetPoint("Second point: ", p1.Value,
                     (p) =>
                     {
                         consItems.TransformBy(TransformationMatrix2D.Translation(p - lastPt));
                         lastPt = p;
                     });
 
-                if (p2.Result != Editor.ResultMode.OK)
+                if (p2.Result != ResultMode.OK)
                 {
                     flag = false;
                 }
@@ -99,10 +99,10 @@ namespace BaseCAD.Commands
         {
             Editor ed = doc.Editor;
 
-            Editor.SelectionResult s = await ed.GetSelection("Select objects: ");
-            if (s.Result != Editor.ResultMode.OK || s.Value.Count == 0) return;
-            Editor.PointResult p1 = await ed.GetPoint("Base point: ");
-            if (p1.Result != Editor.ResultMode.OK) return;
+            SelectionResult s = await ed.GetSelection("Select objects: ");
+            if (s.Result != ResultMode.OK || s.Value.Count == 0) return;
+            PointResult p1 = await ed.GetPoint("Base point: ");
+            if (p1.Result != ResultMode.OK) return;
             Composite consItems = new Composite();
             foreach (Drawable item in s.Value)
             {
@@ -110,14 +110,14 @@ namespace BaseCAD.Commands
             }
             doc.Transients.Add(consItems);
             float lastAngle = 0;
-            Editor.AngleResult p2 = await ed.GetAngle("Rotation angle: ", p1.Value,
+            AngleResult p2 = await ed.GetAngle("Rotation angle: ", p1.Value,
                 (p) =>
                 {
                     consItems.TransformBy(TransformationMatrix2D.Rotation(p1.Value, p - lastAngle));
                     lastAngle = p;
                 });
             doc.Transients.Remove(consItems);
-            if (p2.Result != Editor.ResultMode.OK) return;
+            if (p2.Result != ResultMode.OK) return;
 
             foreach (Drawable item in s.Value)
             {
@@ -135,10 +135,10 @@ namespace BaseCAD.Commands
         {
             Editor ed = doc.Editor;
 
-            Editor.SelectionResult s = await ed.GetSelection("Select objects: ");
-            if (s.Result != Editor.ResultMode.OK || s.Value.Count == 0) return;
-            Editor.PointResult p1 = await ed.GetPoint("Base point: ");
-            if (p1.Result != Editor.ResultMode.OK) return;
+            SelectionResult s = await ed.GetSelection("Select objects: ");
+            if (s.Result != ResultMode.OK || s.Value.Count == 0) return;
+            PointResult p1 = await ed.GetPoint("Base point: ");
+            if (p1.Result != ResultMode.OK) return;
             Composite consItems = new Composite();
             foreach (Drawable item in s.Value)
             {
@@ -146,14 +146,14 @@ namespace BaseCAD.Commands
             }
             doc.Transients.Add(consItems);
             float lastScale = 1;
-            Editor.DistanceResult d1 = await ed.GetDistance("Scale: ", p1.Value,
+            DistanceResult d1 = await ed.GetDistance("Scale: ", p1.Value,
                 (p) =>
                 {
                     consItems.TransformBy(TransformationMatrix2D.Scale(p1.Value, p / lastScale));
                     lastScale = p;
                 });
             doc.Transients.Remove(consItems);
-            if (d1.Result != Editor.ResultMode.OK) return;
+            if (d1.Result != ResultMode.OK) return;
 
             foreach (Drawable item in s.Value)
             {
@@ -171,10 +171,10 @@ namespace BaseCAD.Commands
         {
             Editor ed = doc.Editor;
 
-            Editor.SelectionResult s = await ed.GetSelection("Select objects: ");
-            if (s.Result != Editor.ResultMode.OK || s.Value.Count == 0) return;
-            Editor.PointResult p1 = await ed.GetPoint("Base point: ");
-            if (p1.Result != Editor.ResultMode.OK) return;
+            SelectionResult s = await ed.GetSelection("Select objects: ");
+            if (s.Result != ResultMode.OK || s.Value.Count == 0) return;
+            PointResult p1 = await ed.GetPoint("Base point: ");
+            if (p1.Result != ResultMode.OK) return;
             Composite consItems = new Composite();
             foreach (Drawable item in s.Value)
             {
@@ -182,7 +182,7 @@ namespace BaseCAD.Commands
             }
             doc.Transients.Add(consItems);
             TransformationMatrix2D lastTrans = TransformationMatrix2D.Identity;
-            Editor.PointResult p2 = await ed.GetPoint("Second point: ", p1.Value,
+            PointResult p2 = await ed.GetPoint("Second point: ", p1.Value,
                 (p) =>
                 {
                     TransformationMatrix2D mirror = TransformationMatrix2D.Mirror(p1.Value, p - p1.Value);
@@ -191,7 +191,7 @@ namespace BaseCAD.Commands
                     lastTrans = mirror;
                 });
             doc.Transients.Remove(consItems);
-            if (p2.Result != Editor.ResultMode.OK) return;
+            if (p2.Result != ResultMode.OK) return;
 
             foreach (Drawable item in s.Value)
             {

@@ -25,8 +25,8 @@ namespace BaseCAD.Commands
             Editor ed = doc.Editor;
             ed.PickedSelection.Clear();
 
-            Editor.FilenameResult res = await ed.GetOpenFilename("Open file");
-            if (res.Result == Editor.ResultMode.OK)
+            FilenameResult res = await ed.GetOpenFilename("Open file");
+            if (res.Result == ResultMode.OK)
             {
                 doc.Open(res.Value);
             }
@@ -46,8 +46,8 @@ namespace BaseCAD.Commands
             string filename = doc.FileName;
             if (string.IsNullOrEmpty(filename))
             {
-                Editor.FilenameResult res = await ed.GetSaveFilename("Save file");
-                if (res.Result == Editor.ResultMode.OK)
+                FilenameResult res = await ed.GetSaveFilename("Save file");
+                if (res.Result == ResultMode.OK)
                     filename = res.Value;
                 else
                     return;
@@ -66,8 +66,8 @@ namespace BaseCAD.Commands
             Editor ed = doc.Editor;
             ed.PickedSelection.Clear();
 
-            Editor.FilenameResult res = await ed.GetSaveFilename("Save file");
-            if (res.Result == Editor.ResultMode.OK)
+            FilenameResult res = await ed.GetSaveFilename("Save file");
+            if (res.Result == ResultMode.OK)
             {
                 doc.Save(res.Value);
             }

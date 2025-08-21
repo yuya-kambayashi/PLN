@@ -1,16 +1,14 @@
-﻿using BaseCAD.Drawables;
+﻿using BaseCAD;
+using BaseCAD.Drawables;
 using BaseCAD.Geometry;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Net.NetworkInformation;
+using System.IO;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static BaseCAD.Editor;
-using static BaseCAD.EditorPromptEventArgs;
 
 namespace BaseCAD
 {
