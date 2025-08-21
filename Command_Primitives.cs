@@ -18,12 +18,19 @@ namespace BaseCAD
                 Editor ed = doc.Editor;
                 ed.PickedSelection.Clear();
 
-                Editor.PointResult p1 = await ed.GetPoint("Start point: ");
+                Editor.PointResult p1 = await ed.GetPoint("First point: ");
                 if (p1.Result != Editor.ResultMode.OK) return;
-                Editor.PointResult p2 = await ed.GetPoint("End point: ", p1.Value);
-                if (p2.Result != Editor.ResultMode.OK) return;
-                Drawable newItem = new Line(p1.Value, p2.Value);
-                doc.Model.Add(newItem);
+                Point2D lastPt = p1.Value;
+                while (true)
+                {
+                    Editor.PointResult p2 = await ed.GetPoint("Next point: ", lastPt);
+                    if (p2.Result != Editor.ResultMode.OK) return;
+
+                    Drawable newItem = new Line(lastPt, p2.Value);
+                    doc.Model.Add(newItem);
+
+                    lastPt = p2.Value;
+                }
             }
         }
         public class DrawArc : Command
