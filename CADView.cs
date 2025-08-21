@@ -109,6 +109,7 @@ namespace BaseCAD
         public void Attach(Control ctrl)
         {
             control = ctrl;
+            control.BackColor = Document.Settings.Get<Color>("BackColor");
 
             Width = ctrl.ClientRectangle.Width;
             Height = ctrl.ClientRectangle.Height;
