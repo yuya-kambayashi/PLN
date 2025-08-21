@@ -1,4 +1,4 @@
-﻿using BaseCAD;
+﻿using BaseCAD.Geometry;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,10 +20,14 @@ namespace BaseCAD
         {
             InitializeComponent();
 
+            cadWindow1.Document.DocumentChanged += Document_DocumentChanged;
             cadWindow1.Document.SelectionChanged += CadWindow1_SelectionChanged;
             cadWindow1.Document.Editor.Prompt += Editor_Prompt;
         }
-
+        private void Document_DocumentChanged(object sender, EventArgs e)
+        {
+            propertyGrid1.SelectedObjects = cadWindow1.Document.Editor.PickedSelection.ToArray();
+        }
         private void Editor_Prompt(object sender, EditorPromptEventArgs e)
         {
             statusLabel.Text = string.IsNullOrEmpty(e.Status) ? "Ready" : e.Status;
@@ -41,8 +45,7 @@ namespace BaseCAD
 
         private void cadWindow1_MouseMove(object sender, MouseEventArgs e)
         {
-            Point2D pt = cadWindow1.View.CursorLocation;
-            statusCoords.Text = pt.X.ToString("F2") + ", " + pt.Y.ToString("F2");
+            statusCoords.Text = cadWindow1.View.CursorLocation.ToString(cadWindow1.Document.Settings.NumberFormat);
         }
         private void btnNew_Click(object sender, EventArgs e)
         {

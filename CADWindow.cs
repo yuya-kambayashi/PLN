@@ -14,7 +14,7 @@ namespace BaseCAD
     [Docking(DockingBehavior.Ask)]
     public partial class CADWindow : UserControl
     {
-        private CADDocument doc;
+        private CADDocument doc = new CADDocument();
 
         [Browsable(false)]
         public CADView View { get; private set; }
