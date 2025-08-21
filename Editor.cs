@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static BaseCAD.Editor;
+using static BaseCAD.EditorPromptEventArgs;
 
 namespace BaseCAD
 {
@@ -19,6 +20,7 @@ namespace BaseCAD
         internal InputMode Mode { get; private set; }
 
         public event EditorPromptEventHandler Prompt;
+        internal event CursorPromptEventHandler CursorPrompt;
 
         private TaskCompletionSource<SelectionResult> selectionCompletion;
         private TaskCompletionSource<PointResult> pointCompletion;
@@ -206,7 +208,7 @@ namespace BaseCAD
                 Mode = InputMode.Selection;
                 currentOptions = options;
                 selectionClickedFirstPoint = false;
-                OnPrompt(new EditorPromptEventArgs(options.GetFullPrompt()));
+                OnEditorPrompt(new EditorPromptEventArgs(options.GetFullPrompt()));
 
                 inputCompleted = false;
                 while (!inputCompleted)
@@ -218,7 +220,7 @@ namespace BaseCAD
                 }
 
                 Mode = InputMode.None;
-                OnPrompt(new EditorPromptEventArgs(""));
+                OnEditorPrompt(new EditorPromptEventArgs());
 
                 return res;
             }
@@ -251,7 +253,7 @@ namespace BaseCAD
             Mode = InputMode.Point;
             currentText = "";
             currentOptions = options;
-            OnPrompt(new EditorPromptEventArgs(options.GetFullPrompt()));
+            OnEditorPrompt(new EditorPromptEventArgs(options.GetFullPrompt()));
 
             inputCompleted = false;
             while (!inputCompleted)
@@ -267,7 +269,7 @@ namespace BaseCAD
             }
 
             Mode = InputMode.None;
-            OnPrompt(new EditorPromptEventArgs(""));
+            OnEditorPrompt(new EditorPromptEventArgs());
 
             return res;
         }
@@ -289,7 +291,7 @@ namespace BaseCAD
             Mode = InputMode.Angle;
             currentText = "";
             currentOptions = options;
-            OnPrompt(new EditorPromptEventArgs(options.GetFullPrompt()));
+            OnEditorPrompt(new EditorPromptEventArgs(options.GetFullPrompt()));
 
             inputCompleted = false;
             while (!inputCompleted)
@@ -302,7 +304,7 @@ namespace BaseCAD
             }
 
             Mode = InputMode.None;
-            OnPrompt(new EditorPromptEventArgs(""));
+            OnEditorPrompt(new EditorPromptEventArgs());
 
             return res;
         }
@@ -324,7 +326,7 @@ namespace BaseCAD
             Mode = InputMode.Distance;
             currentText = "";
             currentOptions = options;
-            OnPrompt(new EditorPromptEventArgs(options.GetFullPrompt()));
+            OnEditorPrompt(new EditorPromptEventArgs(options.GetFullPrompt()));
 
             inputCompleted = false;
             while (!inputCompleted)
@@ -337,7 +339,7 @@ namespace BaseCAD
             }
 
             Mode = InputMode.None;
-            OnPrompt(new EditorPromptEventArgs(""));
+            OnEditorPrompt(new EditorPromptEventArgs());
 
             return res;
         }
@@ -359,7 +361,7 @@ namespace BaseCAD
             Mode = InputMode.Text;
             currentText = "";
             currentOptions = options;
-            OnPrompt(new EditorPromptEventArgs(options.GetFullPrompt()));
+            OnEditorPrompt(new EditorPromptEventArgs(options.GetFullPrompt()));
 
             inputCompleted = false;
             while (!inputCompleted)
@@ -369,7 +371,7 @@ namespace BaseCAD
             }
 
             Mode = InputMode.None;
-            OnPrompt(new EditorPromptEventArgs(""));
+            OnEditorPrompt(new EditorPromptEventArgs());
 
             return res;
         }
@@ -377,6 +379,8 @@ namespace BaseCAD
         internal void OnViewMouseMove(object sender, MouseEventArgs e, Point2D point)
         {
             currentMouseLocation = point;
+            string format = "0." + new string('0', Document.Settings.Get<int>("DisplayPrecision"));
+            string cursorMessage = "";
             switch (Mode)
             {
                 case InputMode.Selection:
@@ -405,20 +409,35 @@ namespace BaseCAD
                             consHatch.Style = Style.ReverseSelectionWindowStyle;
                             consLine.Style = Style.ReverseSelectionBorderStyle;
                         }
+                        cursorMessage = p1.ToString(format) + " - " + currentMouseLocation.ToString(format);
+                        OnCursorPrompt(new CursorPromptEventArgs(cursorMessage));
+                    }
+                    else
+                    {
+                        cursorMessage = currentMouseLocation.ToString(format);
+                        OnCursorPrompt(new CursorPromptEventArgs(cursorMessage));
                     }
                     break;
                 case InputMode.Point:
                     if (((PointOptions)currentOptions).HasBasePoint)
                         consLine.Points[1] = currentMouseLocation;
+                    cursorMessage = currentMouseLocation.ToString(format);
+                    OnCursorPrompt(new CursorPromptEventArgs(cursorMessage));
                     ((PointOptions)currentOptions).Jig(currentMouseLocation);
                     break;
                 case InputMode.Angle:
                     consLine.Points[1] = currentMouseLocation;
-                    ((AngleOptions)currentOptions).Jig((currentMouseLocation - ((AngleOptions)currentOptions).BasePoint).Angle);
+                    float angle = (currentMouseLocation - ((AngleOptions)currentOptions).BasePoint).Angle;
+                    cursorMessage = angle.ToString(format);
+                    OnCursorPrompt(new CursorPromptEventArgs(cursorMessage));
+                    ((AngleOptions)currentOptions).Jig(angle);
                     break;
                 case InputMode.Distance:
                     consLine.Points[1] = currentMouseLocation;
-                    ((DistanceOptions)currentOptions).Jig((currentMouseLocation - ((DistanceOptions)currentOptions).BasePoint).Length);
+                    float dist = (currentMouseLocation - ((DistanceOptions)currentOptions).BasePoint).Length;
+                    cursorMessage = dist.ToString(format);
+                    OnCursorPrompt(new CursorPromptEventArgs(cursorMessage));
+                    ((DistanceOptions)currentOptions).Jig(dist);
                     break;
             }
         }
@@ -455,19 +474,23 @@ namespace BaseCAD
                                     set.Add(item);
                             }
                             CurrentSelection = set;
+                            OnCursorPrompt(new CursorPromptEventArgs());
                             selectionCompletion.SetResult(new SelectionResult(set));
                         }
                         break;
                     case InputMode.Point:
                         inputCompleted = true;
+                        OnCursorPrompt(new CursorPromptEventArgs());
                         pointCompletion.SetResult(new PointResult(point));
                         break;
                     case InputMode.Angle:
                         inputCompleted = true;
+                        OnCursorPrompt(new CursorPromptEventArgs());
                         angleCompletion.SetResult(new AngleResult((point - ((AngleOptions)currentOptions).BasePoint).Angle)); ;
                         break;
                     case InputMode.Distance:
                         inputCompleted = true;
+                        OnCursorPrompt(new CursorPromptEventArgs());
                         distanceCompletion.SetResult(new DistanceResult((point - ((DistanceOptions)currentOptions).BasePoint).Length));
                         break;
                 }
@@ -491,22 +514,25 @@ namespace BaseCAD
                         if (conv.IsValid(currentText))
                         {
                             inputCompleted = true;
+                            OnCursorPrompt(new CursorPromptEventArgs());
                             pointCompletion.SetResult(new PointResult((Point2D)conv.ConvertFrom(currentText)));
                         }
                         else if (!string.IsNullOrEmpty(keyword))
                         {
                             inputCompleted = true;
+                            OnCursorPrompt(new CursorPromptEventArgs());
                             pointCompletion.SetResult(new PointResult(keyword));
                         }
                         else
                         {
                             currentText = "";
-                            OnPrompt(new EditorPromptEventArgs(currentOptions.GetFullPrompt() + "*Invalid input*"));
+                            OnEditorPrompt(new EditorPromptEventArgs(currentOptions.GetFullPrompt() + "*Invalid input*"));
                         }
                     }
                     else if (e.KeyCode == Keys.Escape)
                     {
                         inputCompleted = true;
+                        OnCursorPrompt(new CursorPromptEventArgs());
                         pointCompletion.SetResult(new PointResult(ResultMode.Cancel));
                     }
                     break;
@@ -517,27 +543,31 @@ namespace BaseCAD
                         if (conv.IsValid(currentText))
                         {
                             inputCompleted = true;
+                            OnCursorPrompt(new CursorPromptEventArgs());
                             angleCompletion.SetResult(new AngleResult(((Vector2D)conv.ConvertFrom(currentText)).Angle));
                         }
                         else if (float.TryParse(currentText, out float angle))
                         {
                             inputCompleted = true;
+                            OnCursorPrompt(new CursorPromptEventArgs());
                             angleCompletion.SetResult(new AngleResult(angle * MathF.PI / 180));
                         }
                         else if (!string.IsNullOrEmpty(keyword))
                         {
                             inputCompleted = true;
+                            OnCursorPrompt(new CursorPromptEventArgs());
                             angleCompletion.SetResult(new AngleResult(keyword));
                         }
                         else
                         {
                             currentText = "";
-                            OnPrompt(new EditorPromptEventArgs(currentOptions.GetFullPrompt() + "*Invalid input*"));
+                            OnEditorPrompt(new EditorPromptEventArgs(currentOptions.GetFullPrompt() + "*Invalid input*"));
                         }
                     }
                     else if (e.KeyCode == Keys.Escape)
                     {
                         inputCompleted = true;
+                        OnCursorPrompt(new CursorPromptEventArgs());
                         angleCompletion.SetResult(new AngleResult(ResultMode.Cancel));
                     }
                     break;
@@ -547,22 +577,25 @@ namespace BaseCAD
                         if (float.TryParse(currentText, out float dist))
                         {
                             inputCompleted = true;
+                            OnCursorPrompt(new CursorPromptEventArgs());
                             distanceCompletion.SetResult(new DistanceResult(dist));
                         }
                         else if (!string.IsNullOrEmpty(keyword))
                         {
                             inputCompleted = true;
+                            OnCursorPrompt(new CursorPromptEventArgs());
                             distanceCompletion.SetResult(new DistanceResult(keyword));
                         }
                         else
                         {
                             currentText = "";
-                            OnPrompt(new EditorPromptEventArgs(currentOptions.GetFullPrompt() + "*Invalid input*"));
+                            OnEditorPrompt(new EditorPromptEventArgs(currentOptions.GetFullPrompt() + "*Invalid input*"));
                         }
                     }
                     else if (e.KeyCode == Keys.Escape)
                     {
                         inputCompleted = true;
+                        OnCursorPrompt(new CursorPromptEventArgs());
                         distanceCompletion.SetResult(new DistanceResult(ResultMode.Cancel));
                     }
                     break;
@@ -570,11 +603,13 @@ namespace BaseCAD
                     if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
                     {
                         inputCompleted = true;
+                        OnCursorPrompt(new CursorPromptEventArgs());
                         textCompletion.SetResult(new TextResult(currentText));
                     }
                     else if (e.KeyCode == Keys.Escape)
                     {
                         inputCompleted = true;
+                        OnCursorPrompt(new CursorPromptEventArgs());
                         textCompletion.SetResult(new TextResult(ResultMode.Cancel));
                     }
                     break;
@@ -609,16 +644,21 @@ namespace BaseCAD
 
             if (textChanged)
             {
-                OnPrompt(new EditorPromptEventArgs(currentOptions.GetFullPrompt() + currentText));
+                OnCursorPrompt(new CursorPromptEventArgs(currentText));
 
                 if (Mode == InputMode.Text)
                     ((TextOptions)currentOptions).Jig(currentText);
             }
         }
 
-        protected void OnPrompt(EditorPromptEventArgs e)
+        protected void OnEditorPrompt(EditorPromptEventArgs e)
         {
             Prompt?.Invoke(this, e);
+        }
+
+        internal void OnCursorPrompt(CursorPromptEventArgs e)
+        {
+            CursorPrompt?.Invoke(this, e);
         }
     }
 }
