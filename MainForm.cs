@@ -142,5 +142,9 @@ namespace BaseCAD
         {
             cadWindow1.Document.Editor.RunCommand("Transform.Scale");
         }
+        private void btnMirror_Click(object sender, EventArgs e)
+        {
+            cadWindow1.Document.Editor.RunCommand("Transform.Mirror");
+        }
     }
 }
