@@ -33,21 +33,21 @@ namespace BaseCAD
             Editor = new Editor(this);
             Jigged = new Composite();
             Transients = new Composite();
-            Editor.Selection.CollectionChanged += Selection_CollectionChanged;
+            Editor.PickedSelection.CollectionChanged += Selection_CollectionChanged;
             Model.CollectionChanged += Model_CollectionChanged;
             Jigged.CollectionChanged += Transients_CollectionChanged;
         }
 
         public void New()
         {
-            Editor.Selection.CollectionChanged -= Selection_CollectionChanged;
+            Editor.PickedSelection.CollectionChanged -= Selection_CollectionChanged;
             Model.CollectionChanged -= Model_CollectionChanged;
             Jigged.CollectionChanged -= Transients_CollectionChanged;
             Model = new Composite();
             Editor = new Editor(this);
             Jigged = new Composite();
             Transients = new Composite();
-            Editor.Selection.CollectionChanged += Selection_CollectionChanged;
+            Editor.PickedSelection.CollectionChanged += Selection_CollectionChanged;
             Model.CollectionChanged += Model_CollectionChanged;
             Jigged.CollectionChanged += Transients_CollectionChanged;
             OnDocumentChanged(new EventArgs());
@@ -58,14 +58,14 @@ namespace BaseCAD
         {
             using (BinaryReader reader = new BinaryReader(stream))
             {
-                Editor.Selection.CollectionChanged -= Selection_CollectionChanged;
+                Editor.PickedSelection.CollectionChanged -= Selection_CollectionChanged;
                 Model.CollectionChanged -= Model_CollectionChanged;
                 Jigged.CollectionChanged -= Transients_CollectionChanged;
                 Model = new Composite(reader);
                 Editor = new Editor(this);
                 Jigged = new Composite();
                 Transients = new Composite();
-                Editor.Selection.CollectionChanged += Selection_CollectionChanged;
+                Editor.PickedSelection.CollectionChanged += Selection_CollectionChanged;
                 Model.CollectionChanged += Model_CollectionChanged;
                 Jigged.CollectionChanged += Transients_CollectionChanged;
                 OnDocumentChanged(new EventArgs());
@@ -110,12 +110,12 @@ namespace BaseCAD
                 case NotifyCollectionChangedAction.Remove:
                     foreach (Drawable item in e.OldItems.Cast<Drawable>())
                     {
-                        Editor.Selection.Remove(item);
+                        Editor.PickedSelection.Remove(item);
                     }
                     OnDocumentChanged(new EventArgs());
                     break;
                 case NotifyCollectionChangedAction.Reset:
-                    Editor.Selection.Clear();
+                    Editor.PickedSelection.Clear();
                     OnDocumentChanged(new EventArgs());
                     break;
                 case NotifyCollectionChangedAction.Move:

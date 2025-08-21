@@ -40,8 +40,6 @@ namespace BaseCAD
                 {
                     item.TransformBy(TransformationMatrix2D.Translation(p2.Value - p1.Value));
                 }
-
-                ed.Selection.Clear();
             }
         }
         public class TransformCopy : Command
@@ -90,7 +88,6 @@ namespace BaseCAD
                 }
 
                 doc.Transients.Remove(consItems);
-                ed.Selection.Clear();
             }
         }
         public class TransformRotate : Command
@@ -126,8 +123,6 @@ namespace BaseCAD
                 {
                     item.TransformBy(TransformationMatrix2D.Rotation(p1.Value, p2.Value));
                 }
-
-                ed.Selection.Clear();
             }
         }
 
@@ -164,8 +159,6 @@ namespace BaseCAD
                 {
                     item.TransformBy(TransformationMatrix2D.Scale(p1.Value, d1.Value));
                 }
-
-                ed.Selection.Clear();
             }
         }
     }

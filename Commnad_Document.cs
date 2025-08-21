@@ -29,7 +29,7 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc, params string[] args)
             {
                 Editor ed = doc.Editor;
-                ed.Selection.Clear();
+                ed.PickedSelection.Clear();
 
                 Editor.FilenameResult res = await ed.GetOpenFilename("Open file");
                 if (res.Result == Editor.ResultMode.OK)
@@ -58,7 +58,7 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc, params string[] args)
             {
                 Editor ed = doc.Editor;
-                ed.Selection.Clear();
+                ed.PickedSelection.Clear();
 
                 Editor.FilenameResult res = await ed.GetSaveFilename("Save file");
                 if (res.Result == Editor.ResultMode.OK)

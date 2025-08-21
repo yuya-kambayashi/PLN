@@ -34,8 +34,8 @@ namespace BaseCAD
         private Hatch consHatch;
         private bool selectionClickedFirstPoint;
 
+        internal SelectionSet CurrentSelection { get; private set; } = new SelectionSet();
         public SelectionSet PickedSelection { get; private set; } = new SelectionSet();
-        public SelectionSet Selection { get; private set; } = new SelectionSet();
 
         static Editor()
         {
@@ -69,7 +69,9 @@ namespace BaseCAD
             if (commands.ContainsKey(registeredName))
             {
                 Command com = commands[registeredName];
-                com.Apply(Document, args);
+                Command clearSelection = new Commands.SelectionClear();
+                Task runTask = com.Apply(Document, args);
+                runTask.ContinueWith(a => clearSelection.Apply(Document, args));
             }
             else
             {
@@ -191,10 +193,10 @@ namespace BaseCAD
             if (PickedSelection.Count != 0)
             {
                 // Immediately return existing picked-selection if any
-                Selection = PickedSelection;
+                SelectionSet picked = PickedSelection;
                 PickedSelection = new SelectionSet();
                 selectionCompletion = new TaskCompletionSource<SelectionResult>();
-                selectionCompletion.SetResult(new SelectionResult(Selection));
+                selectionCompletion.SetResult(new SelectionResult(picked));
                 return await selectionCompletion.Task;
             }
             else
@@ -452,7 +454,7 @@ namespace BaseCAD
                                 if (windowSelection && ex.Contains(exItem) || !windowSelection && ex.IntersectsWith(exItem))
                                     set.Add(item);
                             }
-                            Selection = set;
+                            CurrentSelection = set;
                             selectionCompletion.SetResult(new SelectionResult(set));
                         }
                         break;

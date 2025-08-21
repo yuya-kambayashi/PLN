@@ -16,7 +16,7 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc, params string[] args)
             {
                 Editor ed = doc.Editor;
-                ed.Selection.Clear();
+                ed.PickedSelection.Clear();
 
                 Editor.PointResult p1 = await ed.GetPoint("Start point: ");
                 if (p1.Result != Editor.ResultMode.OK) return;
@@ -34,7 +34,7 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc, params string[] args)
             {
                 Editor ed = doc.Editor;
-                ed.Selection.Clear();
+                ed.PickedSelection.Clear();
 
                 Editor.PointResult p1 = await ed.GetPoint("Center point: ");
                 if (p1.Result != Editor.ResultMode.OK) return;
@@ -61,7 +61,7 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc, params string[] args)
             {
                 Editor ed = doc.Editor;
-                ed.Selection.Clear();
+                ed.PickedSelection.Clear();
 
                 Editor.PointResult p1 = await ed.GetPoint("Center point: ");
                 if (p1.Result != Editor.ResultMode.OK) return;
@@ -84,7 +84,7 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc, params string[] args)
             {
                 Editor ed = doc.Editor;
-                ed.Selection.Clear();
+                ed.PickedSelection.Clear();
 
                 Editor.PointResult p1 = await ed.GetPoint("Center point: ");
                 if (p1.Result != Editor.ResultMode.OK) return;
@@ -111,7 +111,7 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc, params string[] args)
             {
                 Editor ed = doc.Editor;
-                ed.Selection.Clear();
+                ed.PickedSelection.Clear();
 
                 Editor.PointResult p1 = await ed.GetPoint("Center point: ");
                 if (p1.Result != Editor.ResultMode.OK) return;
@@ -144,7 +144,7 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc, params string[] args)
             {
                 Editor ed = doc.Editor;
-                ed.Selection.Clear();
+                ed.PickedSelection.Clear();
 
                 Editor.PointResult p1 = await ed.GetPoint("Base point: ");
                 if (p1.Result != Editor.ResultMode.OK) return;
@@ -172,7 +172,7 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc, params string[] args)
             {
                 Editor ed = doc.Editor;
-                ed.Selection.Clear();
+                ed.PickedSelection.Clear();
 
                 Editor.PointResult p1 = await ed.GetPoint("Start point: ");
                 if (p1.Result != Editor.ResultMode.OK) return;
@@ -194,7 +194,7 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc, params string[] args)
             {
                 Editor ed = doc.Editor;
-                ed.Selection.Clear();
+                ed.PickedSelection.Clear();
 
                 Editor.PointResult p1 = await ed.GetPoint("Start point: ");
                 if (p1.Result != Editor.ResultMode.OK) return;
@@ -219,7 +219,7 @@ namespace BaseCAD
                 public override async Task Apply(CADDocument doc, params string[] args)
                 {
                     Editor ed = doc.Editor;
-                    ed.Selection.Clear();
+                    ed.PickedSelection.Clear();
 
                     Editor.PointResult p1 = await ed.GetPoint("First point: ");
                     if (p1.Result != Editor.ResultMode.OK) return;
@@ -278,7 +278,7 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc, params string[] args)
             {
                 Editor ed = doc.Editor;
-                ed.Selection.Clear();
+                ed.PickedSelection.Clear();
 
                 Editor.PointResult p1 = await ed.GetPoint("First point: ");
                 if (p1.Result != Editor.ResultMode.OK) return;
@@ -333,7 +333,7 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc, params string[] args)
             {
                 Editor ed = doc.Editor;
-                ed.Selection.Clear();
+                ed.PickedSelection.Clear();
 
                 Editor.PointResult p1 = await ed.GetPoint("Center point: ");
                 if (p1.Result != Editor.ResultMode.OK) return;
@@ -357,7 +357,7 @@ namespace BaseCAD
             public override async Task Apply(CADDocument doc, params string[] args)
             {
                 Editor ed = doc.Editor;
-                ed.Selection.Clear();
+                ed.PickedSelection.Clear();
 
                 Editor.PointResult p1 = await ed.GetPoint("First point: ");
                 if (p1.Result != Editor.ResultMode.OK) return;
