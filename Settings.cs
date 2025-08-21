@@ -48,6 +48,19 @@ namespace BaseCAD
         public Settings()
         {
             Set("DisplayPrecision", 2);
+
+            Set("CursorColor", Color.White);
+            Set("CursorPromptBackColor", Color.FromArgb(84, 58, 84));
+            Set("CursorPromptForeColor", Color.FromArgb(128, Color.White));
+
+            Set("SelectionWindowColor", Color.FromArgb(64, 46, 116, 251));
+            Set("SelectionWindowBorderColor", Color.White);
+            Set("ReverseSelectionWindowColor", Color.FromArgb(64, 46, 251, 116));
+            Set("ReverseSelectionWindowBorderColor", Color.White);
+
+            Set("SelectionHighlightColor", Color.FromArgb(64, 46, 116, 251));
+            Set("JigColor", Color.Orange);
+            Set("ControlPointColor", Color.FromArgb(46, 116, 251));
         }
     }
 }
