@@ -83,7 +83,8 @@ namespace BaseCAD
 
         [Browsable(false)]
         public CADDocument Document { get; private set; }
-
+        [Browsable(false)]
+        public Point2D CursorLocation { get { return currentMouseLocationWorld; } }
         public CADView(CADDocument document)
         {
             Document = document;
