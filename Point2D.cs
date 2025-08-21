@@ -96,7 +96,11 @@ namespace BaseCAD
         }
         public override string ToString()
         {
-            return "{" + X.ToString() + ", " + Y.ToString() + "}";
+            return "(" + X.ToString() + ", " + Y.ToString() + ")";
+        }
+        public string ToString(string format)
+        {
+            return "(" + X.ToString(format) + ", " + Y.ToString(format) + ")";
         }
         public Point2D(BinaryReader reader)
         {
