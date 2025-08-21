@@ -47,7 +47,6 @@ namespace BaseCAD
             Model.CollectionChanged -= Model_CollectionChanged;
             Jigged.CollectionChanged -= Transients_CollectionChanged;
             Model = new Composite();
-            Editor = new Editor(this);
             Settings = new Settings();
             Jigged = new Composite();
             Transients = new Composite();
@@ -67,7 +66,6 @@ namespace BaseCAD
                 Jigged.CollectionChanged -= Transients_CollectionChanged;
                 Model = new Composite(reader);
                 Settings = new Settings(reader);
-                Editor = new Editor(this);
                 Jigged = new Composite();
                 Transients = new Composite();
                 Editor.PickedSelection.CollectionChanged += Selection_CollectionChanged;
