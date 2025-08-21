@@ -14,8 +14,11 @@ using static BaseCAD.EditorPromptEventArgs;
 
 namespace BaseCAD
 {
-    public partial class Editor
+    public class Editor
     {
+        public delegate void EditorPromptEventHandler(object sender, EditorPromptEventArgs e);
+        internal delegate void CursorPromptEventHandler(object sender, CursorPromptEventArgs e);
+
         private static Dictionary<string, Command> commands = new Dictionary<string, Command>();
 
         public CADDocument Document { get; private set; }

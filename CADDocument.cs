@@ -13,6 +13,10 @@ namespace BaseCAD
 {
     public class CADDocument
     {
+        public delegate void DocumentChangedEventHandler(object sender, EventArgs e);
+        public delegate void TransientsChangedEventHandler(object sender, EventArgs e);
+        public delegate void SelectionChangedEventHandler(object sender, EventArgs e);
+
         [Browsable(false)]
         public Composite Model { get; private set; }
         [Browsable(false)]
@@ -39,21 +43,21 @@ namespace BaseCAD
             Transients = new Composite();
             Editor.PickedSelection.CollectionChanged += Selection_CollectionChanged;
             Model.CollectionChanged += Model_CollectionChanged;
-            Jigged.CollectionChanged += Transients_CollectionChanged;
+            Jigged.CollectionChanged += Jigged_CollectionChanged;
         }
 
         public void New()
         {
             Editor.PickedSelection.CollectionChanged -= Selection_CollectionChanged;
             Model.CollectionChanged -= Model_CollectionChanged;
-            Jigged.CollectionChanged -= Transients_CollectionChanged;
+            Jigged.CollectionChanged -= Jigged_CollectionChanged;
             Model = new Composite();
             Settings = new Settings();
             Jigged = new Composite();
             Transients = new Composite();
             Editor.PickedSelection.CollectionChanged += Selection_CollectionChanged;
             Model.CollectionChanged += Model_CollectionChanged;
-            Jigged.CollectionChanged += Transients_CollectionChanged;
+            Jigged.CollectionChanged += Jigged_CollectionChanged;
             OnDocumentChanged(new EventArgs());
             IsModified = false;
             FileName = "";
@@ -64,14 +68,14 @@ namespace BaseCAD
             {
                 Editor.PickedSelection.CollectionChanged -= Selection_CollectionChanged;
                 Model.CollectionChanged -= Model_CollectionChanged;
-                Jigged.CollectionChanged -= Transients_CollectionChanged;
+                Jigged.CollectionChanged -= Jigged_CollectionChanged;
                 Model = new Composite(reader);
                 Settings = new Settings(reader);
                 Jigged = new Composite();
                 Transients = new Composite();
                 Editor.PickedSelection.CollectionChanged += Selection_CollectionChanged;
                 Model.CollectionChanged += Model_CollectionChanged;
-                Jigged.CollectionChanged += Transients_CollectionChanged;
+                Jigged.CollectionChanged += Jigged_CollectionChanged;
                 OnDocumentChanged(new EventArgs());
                 FileName = "";
                 IsModified = false;
@@ -129,7 +133,7 @@ namespace BaseCAD
                     break;
             }
         }
-        private void Transients_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void Jigged_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             OnTransientsChanged(new EventArgs());
         }

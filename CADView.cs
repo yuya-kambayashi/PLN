@@ -7,6 +7,8 @@ namespace BaseCAD
 { 
     public class CADView
     {
+        public delegate void CursorEventHandler(object sender, CursorEventArgs e);
+
         private Control control;
         private Point2D mCameraPosition;
         private float mZoomFactor;
