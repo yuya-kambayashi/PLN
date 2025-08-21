@@ -30,9 +30,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Outlines.tt">
+    <None Update="Styles.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Outlines.cs</LastGenOutput>
+      <LastGenOutput>Styles.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
@@ -41,10 +41,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Outlines.cs">
+    <Compile Update="Styles.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Outlines.tt</DependentUpon>
+      <DependentUpon>Styles.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

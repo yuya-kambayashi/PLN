@@ -9,21 +9,23 @@ using System.Threading.Tasks;
 namespace BaseCAD
 {
     [Serializable]
-    [TypeConverter(typeof(OutlineConverter))]
-    public partial struct Outline : IPersistable
+    [TypeConverter(typeof(StyleConverter))]
+    public partial struct Style : IPersistable
     {
         public Color Color { get; set; }
         public float LineWeight { get; set; }
         public DashStyle DashStyle { get; set; }
-        internal static Outline SelectionHighlightStyle { get { return new Outline(Color.FromArgb(64, 46, 116, 251)); } }
-        internal static Outline SelectionWindowStyle { get { return new Outline(Color.FromArgb(64, 46, 116, 251)); } }
-        internal static Outline SelectionBorderStyle { get { return new Outline(Color.White, 1, DashStyle.Solid); } }
-        internal static Outline ReverseSelectionWindowStyle { get { return new Outline(Color.FromArgb(64, 46, 251, 116)); } }
-        internal static Outline ReverseSelectionBorderStyle { get { return new Outline(Color.White, 1, DashStyle.Dash); } }
-        internal static Outline JiggedStyle { get { return new Outline(Color.Orange, 1, DashStyle.Dash); } }
-        internal static Outline CursorStyle { get { return new Outline(Color.White, 1, DashStyle.Solid); } }
-        internal static Outline ControlPointStyle { get { return new Outline(Color.FromArgb(46, 116, 251)); } }
-        public Outline(Color color, float lineWeight, DashStyle dashStyle)
+
+        internal static Style SelectionHighlightStyle { get { return new Style(Color.FromArgb(64, 46, 116, 251)); } }
+        internal static Style SelectionWindowStyle { get { return new Style(Color.FromArgb(64, 46, 116, 251)); } }
+        internal static Style SelectionBorderStyle { get { return new Style(Color.White, 1, DashStyle.Solid); } }
+        internal static Style ReverseSelectionWindowStyle { get { return new Style(Color.FromArgb(64, 46, 251, 116)); } }
+        internal static Style ReverseSelectionBorderStyle { get { return new Style(Color.White, 1, DashStyle.Dash); } }
+        internal static Style JiggedStyle { get { return new Style(Color.Orange, 1, DashStyle.Dash); } }
+        internal static Style CursorStyle { get { return new Style(Color.White, 1, DashStyle.Solid); } }
+        internal static Style ControlPointStyle { get { return new Style(Color.FromArgb(46, 116, 251)); } }
+
+        public Style(Color color, float lineWeight, DashStyle dashStyle)
             : this()
         {
             Color = color;
@@ -31,13 +33,13 @@ namespace BaseCAD
             DashStyle = dashStyle;
         }
 
-        public Outline(Color color, float lineWeight)
+        public Style(Color color, float lineWeight)
             : this(color, lineWeight, DashStyle.Solid)
         {
             ;
         }
 
-        public Outline(Color color)
+        public Style(Color color)
             : this(color, 0, DashStyle.Solid)
         {
             ;
@@ -53,7 +55,7 @@ namespace BaseCAD
             }
             else if (param.Mode == DrawParams.DrawingMode.Jigged)
             {
-                Outline style = JiggedStyle;
+                Style style = JiggedStyle;
                 Pen pen = new Pen(style.Color, param.GetScaledLineWeight(style.LineWeight));
                 pen.DashStyle = style.DashStyle;
                 return pen;
@@ -65,7 +67,8 @@ namespace BaseCAD
                 return pen;
             }
         }
-        public Outline(BinaryReader reader)
+
+        public Style(BinaryReader reader)
         {
             Color = Color.FromArgb(reader.ReadInt32());
             LineWeight = reader.ReadSingle();

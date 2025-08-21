@@ -75,7 +75,7 @@ namespace BaseCAD
 
         public override void Draw(DrawParams param)
         {
-            poly.Outline = Outline;
+            poly.Style = Style;
             poly.Draw(param);
         }
 

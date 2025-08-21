@@ -199,7 +199,7 @@ namespace BaseCAD
 
         private void DrawControlPoint(DrawParams param, ControlPoint pt)
         {
-            using (Pen pen = Outline.ControlPointStyle.CreatePen(param))
+            using (Pen pen = Style.ControlPointStyle.CreatePen(param))
             {
                 pen.Width = param.GetScaledLineWeight(2);
                 float cpSize = param.ViewToModel(ControlPointSize);
@@ -211,7 +211,7 @@ namespace BaseCAD
         {
             if (hasMouse)
             {
-                using (Pen pen = Outline.CursorStyle.CreatePen(param))
+                using (Pen pen = Style.CursorStyle.CreatePen(param))
                 {
                     RectangleF ex = GetViewPort();
                     param.Graphics.DrawLine(pen, ex.Left, currentMouseLocationWorld.Y, ex.Right, currentMouseLocationWorld.Y);

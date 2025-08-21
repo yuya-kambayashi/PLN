@@ -14,7 +14,7 @@ namespace BaseCAD
     [Serializable]
     public abstract class Drawable : INotifyPropertyChanged, IPersistable
     {
-        public virtual Outline Outline { get; set; } = Outline.White;
+        public virtual Style Style { get; set; } = Style.White;
         public virtual bool Visible { get; set; } = true;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -68,12 +68,12 @@ namespace BaseCAD
 
         public Drawable(BinaryReader reader)
         {
-            Outline = new Outline(reader);
+            Style = new Style(reader);
             Visible = reader.ReadBoolean();
         }
         public virtual void Save(BinaryWriter writer)
         {
-            Outline.Save(writer);
+            Style.Save(writer);
             writer.Write(Visible);
         }
     }
