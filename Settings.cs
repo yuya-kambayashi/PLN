@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Color = BaseCAD.Graphics.Color;
 
 namespace BaseCAD
 {
@@ -47,7 +48,7 @@ namespace BaseCAD
                 else if (Value is Color)
                 {
                     writer.Write("color");
-                    writer.Write(((Color)Value).Argb());
+                    writer.Write(((Color)Value).Argb);
                 }
             }
         }

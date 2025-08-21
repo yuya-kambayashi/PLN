@@ -33,12 +33,9 @@ namespace BaseCAD.Drawables
             ;
         }
 
-        public override void Draw(Graphics param)
+        public override void Draw(Renderer renderer)
         {
-            using (Pen pen = Style.CreatePen(param))
-            {
-                param.Graphics.DrawEllipse(pen, X - Radius, Y - Radius, 2f * Radius, 2f * Radius);
-            }
+            renderer.DrawCircle(Style, Center, Radius);
         }
 
         public override Extents2D GetExtents()

@@ -53,10 +53,10 @@ namespace BaseCAD.Drawables
             poly.Points.Add(p3);
             poly.Closed = true;
         }
-        public override void Draw(Graphics param)
+        public override void Draw(Renderer renderer)
         {
             poly.Style = Style;
-            poly.Draw(param);
+            renderer.Draw(poly);
         }
 
         public override Extents2D GetExtents()

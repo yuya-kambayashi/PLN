@@ -1,5 +1,6 @@
 ﻿using BaseCAD.Drawables;
 using BaseCAD.Geometry;
+using Rectangle = BaseCAD.Drawables.Rectangle;
 
 namespace BaseCAD.Commands
 {
@@ -349,13 +350,13 @@ namespace BaseCAD.Commands
 
             PointResult p1 = await ed.GetPoint("Center point: ");
             if (p1.Result != ResultMode.OK) return;
-            Drawables.Rectangle consRec = new Drawables.Rectangle(p1.Value, 0, 0);
+            Rectangle consRec = new Rectangle(p1.Value, 0, 0);
             doc.Jigged.Add(consRec);
             PointResult p2 = await ed.GetPoint("Corner point: ", p1.Value, (p) => consRec.Corner = p);
             if (p2.Result != ResultMode.OK) { doc.Jigged.Remove(consRec); return; }
             doc.Jigged.Remove(consRec);
 
-            Drawable newItem = new Drawables.Rectangle(p1.Value, p2.Value);
+            Drawable newItem = new Rectangle(p1.Value, p2.Value);
             doc.Model.Add(newItem);
         }
     }
