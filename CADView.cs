@@ -7,7 +7,7 @@ using Color = BaseCAD.Graphics.Color;
 
 namespace BaseCAD
 {
-    public class CADView
+    public class CADView : IDisposable
     {
         public delegate void CursorEventHandler(object sender, CursorEventArgs e);
 
@@ -23,7 +23,7 @@ namespace BaseCAD
         private Drawable mouseDownCPItem;
         private ControlPoint mouseDownCP;
         private string cursorMessage;
-        private Type rendererType;
+        private Renderer renderer;
 
         [Category("Behavior"), DefaultValue(true), Description("Indicates whether the control responds to interactive user input.")]
         public bool Interactive { get; set; } = true;
@@ -110,6 +110,40 @@ namespace BaseCAD
 
         public void Attach(Control ctrl)
         {
+            Type rendererType = null;
+            if (control != null)
+            {
+                Width = 1;
+                Height = 1;
+
+                mZoomFactor = 5.0f / 3.0f;
+                mCameraPosition = new Point2D(0, 0);
+
+                control.Resize -= CadView_Resize;
+                control.MouseDown -= CadView_MouseDown;
+                control.MouseUp -= CadView_MouseUp;
+                control.MouseMove -= CadView_MouseMove;
+                control.MouseClick -= CadView_MouseClick;
+                control.MouseDoubleClick -= CadView_MouseDoubleClick;
+                control.MouseWheel -= CadView_MouseWheel;
+                control.KeyDown -= CadView_KeyDown;
+                control.KeyPress -= CadView_KeyPress;
+                control.Paint -= CadView_Paint;
+                control.MouseEnter -= CadView_MouseEnter;
+                control.MouseLeave -= CadView_MouseLeave;
+            }
+
+            if (renderer != null)
+            {
+                rendererType = renderer.GetType();
+                renderer.Dispose();
+            }
+
+            control = ctrl;
+
+            if (rendererType != null)
+                SetRenderer(rendererType);
+
             control = ctrl;
             Color backColor = Document.Settings.Get<Color>("BackColor");
             control.BackColor = System.Drawing.Color.FromArgb(backColor.A, backColor.R, backColor.G, backColor.B);
@@ -132,41 +166,22 @@ namespace BaseCAD
             control.Paint += CadView_Paint;
             control.MouseEnter += CadView_MouseEnter;
             control.MouseLeave += CadView_MouseLeave;
-        }
 
-        public void Detach()
-        {
-            if (control != null)
-            {
-                Width = 1;
-                Height = 1;
-
-                mZoomFactor = 5.0f / 3.0f;
-                mCameraPosition = new Point2D(0, 0);
-
-                control.Resize -= CadView_Resize;
-                control.MouseDown -= CadView_MouseDown;
-                control.MouseUp -= CadView_MouseUp;
-                control.MouseMove -= CadView_MouseMove;
-                control.MouseClick -= CadView_MouseClick;
-                control.MouseDoubleClick -= CadView_MouseDoubleClick;
-                control.MouseWheel -= CadView_MouseWheel;
-                control.KeyDown -= CadView_KeyDown;
-                control.KeyPress -= CadView_KeyPress;
-                control.Paint -= CadView_Paint;
-                control.MouseEnter -= CadView_MouseEnter;
-                control.MouseLeave -= CadView_MouseLeave;
-            }
+            control.Invalidate();
         }
 
         public void SetRenderer(Type type)
         {
-            rendererType = type;
+            if (renderer != null)
+                renderer.Dispose();
+
+            renderer = (Renderer)Activator.CreateInstance(type, this);
+            renderer.Init(control);
         }
 
         public void Render(System.Drawing.Graphics graphics)
         {
-            Renderer renderer = (Renderer)Activator.CreateInstance(rendererType, this, graphics);
+            renderer.InitFrame(graphics);
 
             // Set an orthogonal projection matrix
             ScaleGraphics(graphics);
@@ -185,6 +200,8 @@ namespace BaseCAD
 
             // Render cursor
             DrawCursor(renderer);
+
+            renderer.EndFrame();
         }
 
         private void DrawSelection(Renderer renderer)
@@ -401,6 +418,8 @@ namespace BaseCAD
         {
             Width = width;
             Height = height;
+
+            renderer.Resize(width, height);
         }
 
         /// <summary>
@@ -693,6 +712,11 @@ namespace BaseCAD
                 }
             }
             return new Tuple<Drawable, ControlPoint>(null, null);
+        }
+        public void Dispose()
+        {
+            if (renderer != null)
+                renderer.Dispose();
         }
     }
 }
