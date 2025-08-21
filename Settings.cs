@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -72,6 +73,7 @@ namespace BaseCAD
         {
             return (T)Get(name);
         }
+        public NumberFormatInfo NumberFormat { get; private set; }
 
         public Settings()
         {
@@ -91,6 +93,8 @@ namespace BaseCAD
             Set("SelectionHighlightColor", Color.FromArgb(64, 46, 116, 251));
             Set("JigColor", Color.Orange);
             Set("ControlPointColor", Color.FromArgb(46, 116, 251));
+
+            UpdateSettings();
         }
 
         public Settings(BinaryReader reader)
@@ -101,6 +105,8 @@ namespace BaseCAD
                 Setting s = new Setting(reader);
                 items.Add(s.Name, s);
             }
+
+            UpdateSettings();
         }
 
         public void Save(BinaryWriter writer)
@@ -110,6 +116,13 @@ namespace BaseCAD
             {
                 s.Save(writer);
             }
+        }
+        private void UpdateSettings()
+        {
+            NumberFormatInfo nfi = new NumberFormatInfo();
+            nfi.NumberDecimalDigits = Get<int>("DisplayPrecision");
+            nfi.NumberDecimalSeparator = ".";
+            NumberFormat = nfi;
         }
     }
 }
