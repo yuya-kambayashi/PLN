@@ -204,8 +204,7 @@ namespace BaseCAD.Graphics
 
         public override void Draw(Drawable item)
         {
-            var ex = item.GetExtents();
-            DrawRectangle(new Style(Color.Red), ex.Ptmin, ex.Ptmax);
+            item.Draw(this);
         }
 
         private Pen CreatePen(Style style)
