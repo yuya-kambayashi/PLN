@@ -69,7 +69,7 @@ namespace BaseCAD
         {
             get
             {
-                return (renderer == null ? null : renderer.GetType());
+                return (renderer?.GetType());
             }
             set
             {
@@ -762,6 +762,11 @@ namespace BaseCAD
         }
 
         public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
         {
             if (renderer != null)
                 renderer.Dispose();

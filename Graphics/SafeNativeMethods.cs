@@ -1,10 +1,12 @@
 ﻿
 using System;
 using System.Runtime.InteropServices;
+using System.Security;
 
 namespace BaseCAD.Graphics
 {
-    internal static class GL
+    [SuppressUnmanagedCodeSecurityAttribute]
+    internal static class SafeNativeMethods
     {
         public class ContextSwitch : IDisposable
         {
@@ -26,8 +28,17 @@ namespace BaseCAD.Graphics
                     wglMakeCurrent(hDC, context);
                 }
             }
-
+            ~ContextSwitch()
+            {
+                Dispose(false);
+            }
             public void Dispose()
+            {
+                Dispose(true);
+                GC.SuppressFinalize(this);
+            }
+
+            protected void Dispose(bool disposing)
             {
                 // Restore previous context
                 if (contextDifferent)
