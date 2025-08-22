@@ -101,7 +101,8 @@ namespace BaseCAD
 
             panning = false;
 
-            SetRenderer(typeof(GDIRenderer));
+            //SetRenderer(typeof(GDIRenderer));
+            SetRenderer(typeof(OpenGLRenderer));
 
             Document.DocumentChanged += Document_Changed;
             Document.TransientsChanged += Document_TransientsChanged;
