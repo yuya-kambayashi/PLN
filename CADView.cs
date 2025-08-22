@@ -187,6 +187,7 @@ namespace BaseCAD
         public void Render(System.Drawing.Graphics graphics)
         {
             renderer.InitFrame(graphics);
+            renderer.ClearFrame(Document.Settings.Get<Color>("BackColor"));
 
             // Set an orthogonal projection matrix
             ScaleGraphics(graphics);
@@ -687,11 +688,6 @@ namespace BaseCAD
 
         void CadView_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
-
-            e.Graphics.Clear(control.BackColor);
-
             Render(e.Graphics);
         }
 
