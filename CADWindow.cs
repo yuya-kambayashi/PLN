@@ -37,7 +37,12 @@ namespace BaseCAD
         {
             InitializeComponent();
 
-            DoubleBuffered = true;
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.Opaque, true);
+            SetStyle(ControlStyles.DoubleBuffer, false);
+            DoubleBuffered = false;
+            SetStyle(ControlStyles.ResizeRedraw, true);
+            SetStyle(ControlStyles.UserPaint, true);
 
             BorderStyle = BorderStyle.Fixed3D;
         }

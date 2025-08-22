@@ -24,6 +24,7 @@ namespace BaseCAD
         private ControlPoint mouseDownCP;
         private string cursorMessage;
         private Renderer renderer;
+        private Type rendererType;
 
         [Category("Behavior"), DefaultValue(true), Description("Indicates whether the control responds to interactive user input.")]
         public bool Interactive { get; set; } = true;
@@ -110,7 +111,6 @@ namespace BaseCAD
 
         public void Attach(Control ctrl)
         {
-            Type rendererType = null;
             if (control != null)
             {
                 Width = 1;
@@ -175,8 +175,13 @@ namespace BaseCAD
             if (renderer != null)
                 renderer.Dispose();
 
-            renderer = (Renderer)Activator.CreateInstance(type, this);
-            renderer.Init(control);
+            rendererType = type;
+
+            if (rendererType != null)
+                renderer = (Renderer)Activator.CreateInstance(rendererType, this);
+
+            if (renderer != null && control != null)
+                renderer.Init(control);
         }
 
         public void Render(System.Drawing.Graphics graphics)

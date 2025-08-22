@@ -3,33 +3,23 @@ using BaseCAD.Geometry;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BaseCAD.Graphics
 {
-    public class GDIRenderer : Renderer
+    public class OpenGLRenderer : Renderer
     {
         private System.Drawing.Graphics gdi;
 
-        public GDIRenderer(CADView view) : base(view)
+        public OpenGLRenderer(CADView view) : base(view)
         {
             ;
         }
-        public override void Init(Control control)
+
+        public override void Init(System.Windows.Forms.Control control)
         {
-            try
-            {
-                // Enable double buffering
-                Type type = control.GetType();
-                MethodInfo method = type.GetMethod("SetStyle", BindingFlags.NonPublic | BindingFlags.Instance);
-                method.Invoke(control, new object[] { ControlStyles.DoubleBuffer, true });
-            }
-            catch (System.Security.SecurityException)
-            {
-                ;
-            }
+
         }
 
         public override void InitFrame(System.Drawing.Graphics graphics)
@@ -182,11 +172,12 @@ namespace BaseCAD.Graphics
             // Calculate alignment in pixel coordinates
             float height = Math.Abs(View.WorldToScreen(new Vector2D(0, textHeight)).Y);
             Vector2D szWorld;
-            using (var font = new Font(fontFamily, height, GraphicsUnit.Pixel))
+            using (var font = new System.Drawing.Font(fontFamily, height, System.Drawing.GraphicsUnit.Pixel))
             {
                 var sz = gdi.MeasureString(text, font);
                 szWorld = View.ScreenToWorld(new Vector2D(Math.Abs(sz.Width), Math.Abs(sz.Height)));
             }
+
             // Restore old transformation
             gdi.Transform = oldMatrix;
 
@@ -242,53 +233,31 @@ namespace BaseCAD.Graphics
             item.Draw(this);
         }
 
-        private Pen CreatePen(Style style)
+        private System.Drawing.Pen CreatePen(Style style)
         {
             if (StyleOverride != null)
             {
-                var pen = new Pen(System.Drawing.Color.FromArgb(
-                    StyleOverride.Color.A,
-                    StyleOverride.Color.R,
-                    StyleOverride.Color.G,
-                    StyleOverride.Color.B
-                ), GetScaledLineWeight(StyleOverride.LineWeight));
-
-                pen.DashStyle = (System.Drawing.Drawing2D.DashStyle)style.DashStyle;
+                var pen = new System.Drawing.Pen(System.Drawing.Color.FromArgb((int)StyleOverride.Color.Argb), GetScaledLineWeight(StyleOverride.LineWeight));
+                pen.DashStyle = (System.Drawing.Drawing2D.DashStyle)StyleOverride.DashStyle;
                 return pen;
             }
             else
             {
-                var pen = new Pen(System.Drawing.Color.FromArgb(
-                    style.Color.A,
-                    style.Color.R,
-                    style.Color.G,
-                    style.Color.B
-                ), GetScaledLineWeight(style.LineWeight));
-
+                var pen = new System.Drawing.Pen(System.Drawing.Color.FromArgb((int)style.Color.Argb), GetScaledLineWeight(style.LineWeight));
                 pen.DashStyle = (System.Drawing.Drawing2D.DashStyle)style.DashStyle;
                 return pen;
             }
         }
 
-        private Brush CreateBrush(Style style)
+        private System.Drawing.Brush CreateBrush(Style style)
         {
             if (StyleOverride != null)
             {
-                return new SolidBrush(System.Drawing.Color.FromArgb(
-                    StyleOverride.Color.A,
-                    StyleOverride.Color.R,
-                    StyleOverride.Color.G,
-                    StyleOverride.Color.B
-                ));
+                return new System.Drawing.SolidBrush(System.Drawing.Color.FromArgb((int)StyleOverride.Color.Argb));
             }
             else
             {
-                return new SolidBrush(System.Drawing.Color.FromArgb(
-                    style.Color.A,
-                    style.Color.R,
-                    style.Color.G,
-                    style.Color.B
-                ));
+                return new System.Drawing.SolidBrush(System.Drawing.Color.FromArgb((int)style.Color.Argb));
             }
         }
     }
