@@ -95,6 +95,10 @@ namespace BaseCAD
             Set("JigColor", Color.Orange);
             Set("ControlPointColor", Color.FromArgb(46, 116, 251));
 
+            Set("MinorGridColor", Color.FromArgb(64, 64, 64));
+            Set("MajorGridColor", Color.FromArgb(96, 96, 96));
+            Set("AxisColor", Color.FromArgb(128, 128, 64));
+
             UpdateSettings();
         }
 

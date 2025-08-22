@@ -31,6 +31,7 @@ namespace BaseCAD
     }
     public abstract class Renderer : IDisposable
     {
+        public abstract string Name { get; }
         public CADView View { get; private set; }
         public bool ScaleLineWeights { get; set; }
         internal Style StyleOverride { get; set; }
@@ -54,7 +55,7 @@ namespace BaseCAD
         public abstract void Resize(int width, int height);
         public abstract void Dispose();
 
-        public abstract void ClearFrame(Color color);
+        public abstract void Clear(Color color);
         public abstract void DrawLine(Style style, Point2D p1, Point2D p2);
         public abstract void DrawRectangle(Style style, Point2D p1, Point2D p2);
         public abstract void DrawCircle(Style style, Point2D center, float radius);
@@ -70,5 +71,9 @@ namespace BaseCAD
             TextHorizontalAlignment hAlign = TextHorizontalAlignment.Left,
             TextVerticalAlignment vAlign = TextVerticalAlignment.Bottom);
         public abstract void Draw(Drawable item);
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
