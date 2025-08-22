@@ -231,15 +231,16 @@ namespace BaseCAD.Graphics
             float sweepAngle = endAngle - startAngle;
             while (sweepAngle < 0) sweepAngle += 2 * MathF.PI;
             while (sweepAngle > 2 * MathF.PI) sweepAngle -= 2 * MathF.PI;
-            float curveLength = MathF.PI * radius * radius * sweepAngle;
+            float p = MathF.PI * radius * sweepAngle;
+            float curveLength = View.WorldToScreen(new Vector2D(p, 0)).X;
             int n = (int)Math.Max(4, curveLength / 4);
             float da = sweepAngle / n;
             float a = startAngle;
             for (int i = 0; i <= n; i++)
             {
                 Vector2D dir = Vector2D.FromAngle(a);
-                float x = radius * dir.X;
-                float y = radius * dir.Y;
+                float x = center.X + radius * dir.X;
+                float y = center.Y + radius * dir.Y;
                 GL.glVertex2f(x, y);
                 a += da;
             }
