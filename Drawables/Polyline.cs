@@ -65,7 +65,7 @@ namespace BaseCAD.Drawables
             return Points.GetExtents();
         }
 
-        public override void TransformBy(TransformationMatrix2D transformation)
+        public override void TransformBy(Matrix2D transformation)
         {
             Points.TransformBy(transformation);
         }

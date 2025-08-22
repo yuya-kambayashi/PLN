@@ -649,16 +649,16 @@ namespace BaseCAD
                         Drawable consItem = item.Clone();
                         Document.Transients.Add(consItem);
                         ResultMode result = ResultMode.Cancel;
-                        TransformationMatrix2D trans = TransformationMatrix2D.Identity;
+                        Matrix2D trans = Matrix2D.Identity;
                         if (cp.Type == ControlPoint.ControlPointType.Point)
                         {
                             PointResult res = await Document.Editor.GetPoint("New point: ", cp.BasePoint,
                                 (p) =>
                                 {
-                                    trans = TransformationMatrix2D.Translation(p - cp.BasePoint);
+                                    trans = Matrix2D.Translation(p - cp.BasePoint);
                                     consItem.TransformControlPoint(cp, trans);
                                 });
-                            trans = TransformationMatrix2D.Translation(res.Value - cp.BasePoint);
+                            trans = Matrix2D.Translation(res.Value - cp.BasePoint);
                             result = res.Result;
                         }
                         else if (cp.Type == ControlPoint.ControlPointType.Angle)
@@ -667,10 +667,10 @@ namespace BaseCAD
                             AngleResult res = await Document.Editor.GetAngle("New angle: ", cp.BasePoint,
                                 (p) =>
                                 {
-                                    trans = TransformationMatrix2D.Rotation(cp.BasePoint, p - orjVal);
+                                    trans = Matrix2D.Rotation(cp.BasePoint, p - orjVal);
                                     consItem.TransformControlPoint(cp, trans);
                                 });
-                            trans = TransformationMatrix2D.Rotation(cp.BasePoint, res.Value - orjVal);
+                            trans = Matrix2D.Rotation(cp.BasePoint, res.Value - orjVal);
                             result = res.Result;
                         }
                         else if (cp.Type == ControlPoint.ControlPointType.Distance)
@@ -680,10 +680,10 @@ namespace BaseCAD
                             DistanceResult res = await Document.Editor.GetDistance("New distance: ", cp.BasePoint,
                                 (p) =>
                                 {
-                                    trans = TransformationMatrix2D.Translation(dir * (p - orjVal));
+                                    trans = Matrix2D.Translation(dir * (p - orjVal));
                                     consItem.TransformControlPoint(cp, trans);
                                 });
-                            trans = TransformationMatrix2D.Translation(dir * (res.Value - orjVal));
+                            trans = Matrix2D.Translation(dir * (res.Value - orjVal));
                             result = res.Result;
                         }
                         if (result == ResultMode.OK)

@@ -73,7 +73,7 @@ namespace BaseCAD.Drawables
             return false;
         }
 
-        public override void TransformBy(TransformationMatrix2D transformation)
+        public override void TransformBy(Matrix2D transformation)
         {
             foreach (Drawable item in items)
             {
