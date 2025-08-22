@@ -180,7 +180,7 @@ namespace BaseCAD.Graphics
             }
         }
 
-        public override Vector2D MeasureString(string text, string fontFamily, float textHeight)
+        public override Vector2D MeasureString(string text, string fontFamily, FontStyle fontStyle, float textHeight)
         {
             // Revert transformation to identity while drawing text
             var oldMatrix = gdi.Transform;

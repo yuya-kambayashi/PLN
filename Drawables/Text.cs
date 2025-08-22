@@ -60,7 +60,7 @@ namespace BaseCAD.Drawables
 
         public override void Draw(Renderer renderer)
         {
-            Width = renderer.MeasureString(String, FontFamily, TextHeight).X;
+            Width = renderer.MeasureString(String, FontFamily, FontStyle, TextHeight).X;
             renderer.DrawString(Style, Location, String, FontFamily, TextHeight, FontStyle.Regular, Rotation, HorizontalAlignment, VerticalAlignment);
         }
 
