@@ -99,6 +99,9 @@ namespace BaseCAD
             Set("MajorGridColor", Color.FromArgb(96, 96, 96));
             Set("AxisColor", Color.FromArgb(128, 128, 64));
 
+            Set("PickBoxSize", 4);
+            Set("ControlPointSize", 7);
+
             UpdateSettings();
         }
 
