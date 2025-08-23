@@ -14,7 +14,8 @@ namespace BaseCAD
         Point,
         Angle,
         Text,
-        Distance
+        Distance,
+        Corner
     }
 
     public enum ResultMode
@@ -242,7 +243,20 @@ namespace BaseCAD
             ;
         }
     }
+    public class CornerOptions : JigOptions<Point2D>
+    {
+        public Point2D BasePoint { get; private set; }
 
+        public CornerOptions(string message, Point2D basePoint, Action<Point2D> jig) : base(message, jig)
+        {
+            BasePoint = basePoint;
+        }
+
+        public CornerOptions(string message, Point2D basePoint) : this(message, basePoint, (p) => { })
+        {
+            ;
+        }
+    }
     public class AngleOptions : JigOptions<float>
     {
         public Point2D BasePoint { get; private set; }

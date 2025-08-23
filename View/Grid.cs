@@ -25,7 +25,7 @@ namespace BaseCAD.View
             while (view.WorldToScreen(new Vector2D(spacing, 0)).X < 4)
                 spacing *= 10;
 
-            Extents2D bounds = view.GetViewPort();
+            Extents2D bounds = view.GetViewport();
             Style majorStyle = new Style(doc.Settings.Get<Color>("MajorGridColor"));
             Style minorStyle = new Style(doc.Settings.Get<Color>("MinorGridColor"));
 

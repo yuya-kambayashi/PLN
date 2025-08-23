@@ -17,16 +17,13 @@ namespace BaseCAD
         public delegate void TransientsChangedEventHandler(object sender, EventArgs e);
         public delegate void SelectionChangedEventHandler(object sender, EventArgs e);
 
-        [Browsable(false)]
         public Composite Model { get; private set; }
-        [Browsable(false)]
         public Composite Jigged { get; private set; }
-        [Browsable(false)]
         public Composite Transients { get; private set; }
-        [Browsable(false)]
         public Editor Editor { get; private set; }
-        [Browsable(false)]
         public Settings Settings { get; private set; }
+        public CADView ActiveView { get; internal set; }
+
         public string FileName { get; private set; }
         public bool IsModified { get; private set; } = false;
 
@@ -41,6 +38,7 @@ namespace BaseCAD
             Settings = new Settings();
             Jigged = new Composite();
             Transients = new Composite();
+            ActiveView = null;
             Editor.PickedSelection.CollectionChanged += Selection_CollectionChanged;
             Model.CollectionChanged += Model_CollectionChanged;
             Jigged.CollectionChanged += Jigged_CollectionChanged;

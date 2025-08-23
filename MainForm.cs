@@ -202,10 +202,13 @@ namespace BaseCAD
         {
             cadWindow1.View.ShowGrid = btnShowGrid.Checked;
         }
-
         private void btnShowAxes_Click(object sender, EventArgs e)
         {
             cadWindow1.View.ShowAxes = btnShowAxes.Checked;
+        }
+        private void btnZoom_Click(object sender, EventArgs e)
+        {
+            cadWindow1.Document.Editor.RunCommand("View.Zoom");
         }
     }
 }
