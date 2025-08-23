@@ -118,9 +118,9 @@ namespace BaseCAD.Geometry
         }
         public string ToString(IFormatProvider provider)
         {
-            return ToString("({0:F}, {1:F})", provider);
+            return ToString("{0:F}, {1:F}", provider);
         }
-        public string ToString(string format = "({0:F}, {1:F})", IFormatProvider provider = null)
+        public string ToString(string format = "{0:F}, {1:F}", IFormatProvider provider = null)
         {
             return (provider == null) ?
                 string.Format(format, X, Y) :
