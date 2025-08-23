@@ -49,10 +49,15 @@ namespace BaseCAD
             else
                 return View.ScreenToWorld(new Vector2D(lineWeight, 0)).X;
         }
+
+        #region Life-time functions to be overriden by derived classes
         public abstract void Init(System.Windows.Forms.Control control);
         public abstract void InitFrame(System.Drawing.Graphics graphics);
         public abstract void EndFrame();
         public abstract void Resize(int width, int height);
+        #endregion
+
+        #region Disposable pattern
         public void Dispose()
         {
             Dispose(true);
@@ -63,6 +68,9 @@ namespace BaseCAD
             Dispose(false);
         }
         protected abstract void Dispose(bool disposing);
+        #endregion
+
+        #region Drawing functions to be overriden by derived classes
         public abstract void Clear(Color color);
         public abstract void DrawLine(Style style, Point2D p1, Point2D p2);
         public abstract void DrawRectangle(Style style, Point2D p1, Point2D p2);
@@ -79,6 +87,8 @@ namespace BaseCAD
             TextHorizontalAlignment hAlign = TextHorizontalAlignment.Left,
             TextVerticalAlignment vAlign = TextVerticalAlignment.Bottom);
         public abstract void Draw(Drawable item);
+
+        #endregion
         public override string ToString()
         {
             return Name;

@@ -68,6 +68,8 @@ namespace BaseCAD
         {
             CollectionChanged?.Invoke(this, e);
         }
+
+        #region Not Implemented
         void ISet<Drawable>.UnionWith(IEnumerable<Drawable> other)
         {
             throw new NotImplementedException();
@@ -122,5 +124,6 @@ namespace BaseCAD
         {
             throw new NotImplementedException();
         }
+        #endregion
     }
 }
