@@ -11,13 +11,10 @@
   <ItemGroup>
     <Compile Remove="Commands\**" />
     <Compile Remove="Editor\**" />
-    <Compile Remove="View\**" />
     <EmbeddedResource Remove="Commands\**" />
     <EmbeddedResource Remove="Editor\**" />
-    <EmbeddedResource Remove="View\**" />
     <None Remove="Commands\**" />
     <None Remove="Editor\**" />
-    <None Remove="View\**" />
   </ItemGroup>
 
   <ItemGroup>

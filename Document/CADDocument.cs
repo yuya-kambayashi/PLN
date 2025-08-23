@@ -133,7 +133,7 @@ namespace BaseCAD
                     break;
             }
         }
-        private void Jigged_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void Jigged_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             OnTransientsChanged(new EventArgs());
         }
