@@ -770,6 +770,8 @@ namespace BaseCAD
         {
             if (renderer != null)
                 renderer.Dispose();
+            renderer = null;
+            rendererType = null;
         }
     }
 }

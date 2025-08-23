@@ -12,7 +12,7 @@ namespace BaseCAD.Graphics
     public class OpenGLRenderer : Renderer
     {
         #region Context switch class
-        public class ContextSwitch : IDisposable
+        protected class ContextSwitch : IDisposable
         {
             private IntPtr hOldDC;
             private IntPtr oldContext;
@@ -59,7 +59,7 @@ namespace BaseCAD.Graphics
         private Control control;
         private IntPtr hDC;
         private IntPtr glContext;
-        private SafeNativeMethods.ContextSwitch glSwitch;
+        private ContextSwitch glSwitch;
         private uint textTextureID;
 
         public override string Name => "OpenGL Renderer";
@@ -134,7 +134,7 @@ namespace BaseCAD.Graphics
         {
             gdi = graphics;
 
-            glSwitch = new SafeNativeMethods.ContextSwitch(hDC, glContext);
+            glSwitch = new ContextSwitch(hDC, glContext);
 
             // Set model-view transformation
             SafeNativeMethods.glMatrixMode(SafeNativeMethods.GL_PROJECTION);
@@ -160,7 +160,7 @@ namespace BaseCAD.Graphics
 
         public override void Resize(int width, int height)
         {
-            using (new SafeNativeMethods.ContextSwitch(hDC, glContext))
+            using (new ContextSwitch(hDC, glContext))
             {
                 // Reset the current viewport
                 SafeNativeMethods.glViewport(0, 0, width, height);
@@ -174,12 +174,8 @@ namespace BaseCAD.Graphics
                 glSwitch.Dispose();
             }
 
-            SafeNativeMethods.glDeleteTextures(1, ref textTextureID);
-
             SafeNativeMethods.wglMakeCurrent(IntPtr.Zero, IntPtr.Zero);
             SafeNativeMethods.wglDeleteContext(glContext);
-            if (control != null)
-                SafeNativeMethods.ReleaseDC(control.Handle, hDC);
         }
 
         public override void Clear(Color color)
