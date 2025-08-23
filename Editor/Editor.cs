@@ -20,6 +20,11 @@ namespace BaseCAD
 
         public event EditorPromptEventHandler Prompt;
 
+        internal event CursorEventHandler CursorMove;
+        internal event CursorEventHandler CursorClick;
+        internal event KeyEventHandler KeyDown;
+        internal event KeyPressEventHandler KeyPress;
+
         private TaskCompletionSource<SelectionResult> selectionCompletion;
         private TaskCompletionSource<PointResult> pointCompletion;
         private TaskCompletionSource<PointResult> cornerCompletion;
@@ -65,6 +70,11 @@ namespace BaseCAD
         public Editor(CADDocument doc)
         {
             Document = doc;
+        }
+
+        public void DoPrompt(string message)
+        {
+            OnPrompt(new EditorPromptEventArgs(message));
         }
 
         public void RunCommand(string registeredName, params string[] args)
@@ -249,6 +259,12 @@ namespace BaseCAD
 
         public async Task<PointResult> GetPoint(PointOptions options)
         {
+            Mode = InputMode.Point;
+            PointGetter getter = new PointGetter();
+            PointResult res = await getter.Run(this, options);
+            Mode = InputMode.None;
+            return res;
+            /*
             PointResult res = new PointResult(ResultMode.Cancel);
 
             Mode = InputMode.Point;
@@ -272,7 +288,7 @@ namespace BaseCAD
             Mode = InputMode.None;
             OnPrompt(new EditorPromptEventArgs());
 
-            return res;
+            return res;*/
         }
 
         public async Task<PointResult> GetCorner(string message, Point2D basePoint)
@@ -469,6 +485,8 @@ namespace BaseCAD
 
         internal void OnViewMouseMove(object sender, CursorEventArgs e)
         {
+            CursorMove?.Invoke(sender, e);
+            return;
             currentMouseLocation = e.Location;
             string cursorMessage = "";
             switch (Mode)
@@ -547,6 +565,8 @@ namespace BaseCAD
 
         internal void OnViewMouseClick(object sender, CursorEventArgs e)
         {
+            CursorClick?.Invoke(sender, e);
+            return;
             if (e.Button == MouseButtons.Left)
             {
                 switch (Mode)
@@ -567,7 +587,7 @@ namespace BaseCAD
                             inputCompleted = true;
                             SelectionSet set = new SelectionSet();
                             Extents2D ex = consHatch.GetExtents();
-                            bool windowSelection = consHatch.Points[2].X > consHatch.Points[0].X;
+                            bool windowSelection = (consHatch.Points[2].X > consHatch.Points[0].X);
                             foreach (Drawable item in Document.Model)
                             {
                                 Extents2D exItem = item.GetExtents();
@@ -610,6 +630,8 @@ namespace BaseCAD
 
         internal void OnViewKeyDown(object sender, KeyEventArgs e)
         {
+            KeyDown?.Invoke(sender, e);
+
             string keyword = currentOptions.MatchKeyword(currentText);
             switch (Mode)
             {
@@ -624,11 +646,12 @@ namespace BaseCAD
                 case InputMode.Point:
                     if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return || e.KeyCode == Keys.Space)
                     {
-                        if (Point2D.TryParse(currentText, out Point2D pt))
+                        Point2DConverter conv = new Point2DConverter();
+                        if (conv.IsValid(currentText))
                         {
                             inputCompleted = true;
                             OnPrompt(new EditorPromptEventArgs());
-                            pointCompletion.SetResult(new PointResult(pt));
+                            pointCompletion.SetResult(new PointResult((Point2D)conv.ConvertFrom(currentText)));
                         }
                         else if (!string.IsNullOrEmpty(keyword))
                         {
@@ -652,11 +675,12 @@ namespace BaseCAD
                 case InputMode.Corner:
                     if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return || e.KeyCode == Keys.Space)
                     {
-                        if (Point2D.TryParse(currentText, out Point2D pt))
+                        Point2DConverter conv = new Point2DConverter();
+                        if (conv.IsValid(currentText))
                         {
                             inputCompleted = true;
                             OnPrompt(new EditorPromptEventArgs());
-                            cornerCompletion.SetResult(new PointResult(pt));
+                            cornerCompletion.SetResult(new PointResult((Point2D)conv.ConvertFrom(currentText)));
                         }
                         else if (!string.IsNullOrEmpty(keyword))
                         {
@@ -680,11 +704,12 @@ namespace BaseCAD
                 case InputMode.Angle:
                     if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return || e.KeyCode == Keys.Space)
                     {
-                        if (Vector2D.TryParse(currentText, out Vector2D vec))
+                        Vector2DConverter conv = new Vector2DConverter();
+                        if (conv.IsValid(currentText))
                         {
                             inputCompleted = true;
                             OnPrompt(new EditorPromptEventArgs());
-                            angleCompletion.SetResult(new AngleResult(vec.Angle));
+                            angleCompletion.SetResult(new AngleResult(((Vector2D)conv.ConvertFrom(currentText)).Angle));
                         }
                         else if (float.TryParse(currentText, out float angle))
                         {
@@ -816,6 +841,8 @@ namespace BaseCAD
 
         internal void OnViewKeyPress(object sender, KeyPressEventArgs e)
         {
+            KeyPress?.Invoke(sender, e);
+
             bool textChanged = false;
 
             if (e.KeyChar == '\b') // backspace
@@ -849,9 +876,6 @@ namespace BaseCAD
             }
         }
 
-        protected void OnPrompt(EditorPromptEventArgs e)
-        {
-            Prompt?.Invoke(this, e);
-        }
+        protected void OnPrompt(EditorPromptEventArgs e) { Prompt?.Invoke(this, e); }
     }
 }
