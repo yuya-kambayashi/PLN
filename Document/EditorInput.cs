@@ -15,7 +15,9 @@ namespace BaseCAD
         Angle,
         Text,
         Distance,
-        Corner
+        Corner,
+        Int,
+        Float
     }
 
     public enum ResultMode
@@ -77,7 +79,18 @@ namespace BaseCAD
         internal TextResult(ResultMode result) : base(result, "", "") { }
         internal TextResult(string value) : base(ResultMode.OK, value, "") { }
     }
-
+    public class IntResult : InputResult<int>
+    {
+        internal IntResult(ResultMode result) : base(result, 0, "") { }
+        internal IntResult(int value) : base(ResultMode.OK, value, "") { }
+        internal IntResult(string keyword) : base(ResultMode.Keyword, 0, keyword) { }
+    }
+    public class FloatResult : InputResult<float>
+    {
+        internal FloatResult(ResultMode result) : base(result, 0, "") { }
+        internal FloatResult(float value) : base(ResultMode.OK, value, "") { }
+        internal FloatResult(string keyword) : base(ResultMode.Keyword, 0, keyword) { }
+    }
     public class DistanceResult : InputResult<float>
     {
         public Point2D Point { get; internal set; }
@@ -90,7 +103,7 @@ namespace BaseCAD
     public abstract class InputOptions
     {
         private static Regex upperOnly = new Regex("[^A-Z]", RegexOptions.Compiled);
-        public string Message { get; private set; }
+        public string Message { get; set; }
         internal List<string> Keywords { get; private set; }
         internal List<string> Aliases { get; private set; }
         internal string DefaultKeyword { get; private set; }
@@ -178,9 +191,9 @@ namespace BaseCAD
 
     public class FilenameOptions : InputOptions
     {
-        public string FileName { get; private set; }
-        public string Filter { get; private set; }
-        public string Extension { get; private set; }
+        public string FileName { get; set; }
+        public string Filter { get; set; }
+        public string Extension { get; set; }
 
         public FilenameOptions(string message, string filename, string filter, string ext) : base(message)
         {
@@ -259,8 +272,7 @@ namespace BaseCAD
     }
     public class AngleOptions : JigOptions<float>
     {
-        public Point2D BasePoint { get; private set; }
-
+        public Point2D BasePoint { get; set; }
         public AngleOptions(string message, Point2D basePoint, Action<float> jig) : base(message, jig)
         {
             BasePoint = basePoint;
@@ -274,7 +286,7 @@ namespace BaseCAD
 
     public class DistanceOptions : JigOptions<float>
     {
-        public Point2D BasePoint { get; private set; }
+        public Point2D BasePoint { get; set; }
 
         public DistanceOptions(string message, Point2D basePoint, Action<float> jig) : base(message, jig)
         {
@@ -302,6 +314,47 @@ namespace BaseCAD
         internal override string GetFullPrompt()
         {
             return Message.TrimEnd(' ', ':') + ": ";
+        }
+    }
+    public class NumberOptions<T> : JigOptions<T>
+    {
+        public bool AllowZero { get; set; } = true;
+        public bool AllowNegative { get; set; } = true;
+        public bool AllowPositive { get; set; } = true;
+
+        public NumberOptions(string message, Action<T> jig) : base(message, jig)
+        {
+            ;
+        }
+
+        public NumberOptions(string message) : this(message, (p) => { })
+        {
+            ;
+        }
+    }
+    public class IntOptions : NumberOptions<int>
+    {
+        public IntOptions(string message, Action<int> jig) : base(message, jig)
+        {
+            ;
+        }
+
+        public IntOptions(string message) : this(message, (p) => { })
+        {
+            ;
+        }
+    }
+
+    public class FloatOptions : NumberOptions<float>
+    {
+        public FloatOptions(string message, Action<float> jig) : base(message, jig)
+        {
+            ;
+        }
+
+        public FloatOptions(string message) : this(message, (p) => { })
+        {
+            ;
         }
     }
 }
