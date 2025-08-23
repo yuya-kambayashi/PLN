@@ -210,5 +210,9 @@ namespace BaseCAD
         {
             cadWindow1.Document.Editor.RunCommand("View.Zoom");
         }
+        private void btnPan_Click(object sender, EventArgs e)
+        {
+            cadWindow1.Document.Editor.RunCommand("View.Pan");
+        }
     }
 }

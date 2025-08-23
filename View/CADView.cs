@@ -575,7 +575,7 @@ namespace BaseCAD
             {
                 // Relative mouse movement
                 Point2D scrPt = WorldToScreen(e.Location);
-                Pan(CursorLocation - lastMouseLocationWorld);
+                Pan(lastMouseLocationWorld - CursorLocation);
                 lastMouseLocationWorld = ScreenToWorld(scrPt);
                 control.Invalidate();
             }
