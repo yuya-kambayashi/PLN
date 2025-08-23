@@ -14,18 +14,15 @@ namespace BaseCAD
         public delegate void CursorEventHandler(object sender, CursorEventArgs e);
 
         private Control control;
-        private bool mShowGrid;
-        private bool mShowAxes;
 
         private bool panning;
         private Point2D lastMouseLocationWorld;
         private Drawable mouseDownItem;
-        private bool hasMouse;
         private Drawable mouseDownCPItem;
         private ControlPoint mouseDownCP;
-        private string cursorMessage;
         private Renderer renderer;
         private Type rendererType;
+        private View.ViewItems ViewItems { get; set; } = new View.ViewItems();
 
         [Category("Behavior"), DefaultValue(true), Description("Indicates whether the control responds to interactive user input.")]
         public bool Interactive { get; set; } = true;
@@ -39,11 +36,11 @@ namespace BaseCAD
         {
             get
             {
-                return mShowGrid;
+                return ViewItems.Grid.Visible;
             }
             set
             {
-                mShowGrid = value;
+                ViewItems.Grid.Visible = value;
                 if (control != null)
                     control.Invalidate();
             }
@@ -54,11 +51,11 @@ namespace BaseCAD
         {
             get
             {
-                return mShowAxes;
+                return ViewItems.Axes.Visible;
             }
             set
             {
-                mShowAxes = value;
+                ViewItems.Axes.Visible = value;
                 if (control != null)
                     control.Invalidate();
             }
@@ -112,14 +109,9 @@ namespace BaseCAD
 
             Camera = new Camera(new Point2D(0, 0), 5.0f / 3.0f);
 
-            mShowGrid = true;
-            mShowAxes = true;
+            Renderer = typeof(DirectXRenderer);
 
             panning = false;
-
-            //SetRenderer(typeof(GDIRenderer));
-            //Renderer = typeof(OpenGLRenderer);
-            Renderer = typeof(DirectXRenderer);
 
             Document.DocumentChanged += Document_Changed;
             Document.TransientsChanged += Document_TransientsChanged;
@@ -187,13 +179,12 @@ namespace BaseCAD
 
         public void Render(System.Drawing.Graphics graphics)
         {
-            // Start drawing view
+            // Start drawing
             renderer.InitFrame(graphics);
             renderer.Clear(Document.Settings.Get<Color>("BackColor"));
 
             // Grid and axes
-            DrawGrid(renderer);
-            DrawAxes(renderer);
+            renderer.Draw(ViewItems.Background);
 
             // Render drawing objects
             renderer.Draw(Document.Model);
@@ -208,66 +199,10 @@ namespace BaseCAD
             renderer.Draw(Document.Transients);
 
             // Render cursor
-            DrawCursor(renderer);
+            renderer.Draw(ViewItems.Foreground);
 
             // End drawing view
             renderer.EndFrame();
-        }
-
-        private void DrawAxes(Renderer renderer)
-        {
-            Extents2D bounds = GetViewPort();
-            Color axisColor = Document.Settings.Get<Color>("AxisColor");
-
-            renderer.DrawLine(new Style(axisColor), new Point2D(0, bounds.Ymin), new Point2D(0, bounds.Ymax));
-            renderer.DrawLine(new Style(axisColor), new Point2D(bounds.Xmin, 0), new Point2D(bounds.Xmax, 0));
-        }
-
-        private void DrawGrid(Renderer renderer)
-        {
-            if (!ShowGrid)
-                return;
-
-            float spacing = 1;
-            // Dynamic grid spacing
-            while (WorldToScreen(new Vector2D(spacing, 0)).X > 12)
-                spacing /= 10;
-
-            while (WorldToScreen(new Vector2D(spacing, 0)).X < 4)
-                spacing *= 10;
-
-            Extents2D bounds = GetViewPort();
-            Style majorStyle = new Style(Document.Settings.Get<Color>("MajorGridColor"));
-            Style minorStyle = new Style(Document.Settings.Get<Color>("MinorGridColor"));
-
-            int k = 0;
-            for (float i = 0; i > bounds.Xmin; i -= spacing)
-            {
-                Style style = (k == 0 ? majorStyle : minorStyle);
-                k = (k + 1) % 10;
-                renderer.DrawLine(style, new Point2D(i, bounds.Ymax), new Point2D(i, bounds.Ymin));
-            }
-            k = 0;
-            for (float i = 0; i < bounds.Xmax; i += spacing)
-            {
-                Style style = (k == 0 ? majorStyle : minorStyle);
-                k = (k + 1) % 10;
-                renderer.DrawLine(style, new Point2D(i, bounds.Ymax), new Point2D(i, bounds.Ymin));
-            }
-            k = 0;
-            for (float i = 0; i < bounds.Ymax; i += spacing)
-            {
-                Style style = (k == 0 ? majorStyle : minorStyle);
-                k = (k + 1) % 10;
-                renderer.DrawLine(style, new Point2D(bounds.Xmin, i), new Point2D(bounds.Xmax, i));
-            }
-            k = 0;
-            for (float i = 0; i > bounds.Ymin; i -= spacing)
-            {
-                Style style = (k == 0 ? majorStyle : minorStyle);
-                k = (k + 1) % 10;
-                renderer.DrawLine(style, new Point2D(bounds.Xmin, i), new Point2D(bounds.Xmax, i));
-            }
         }
 
         private void DrawSelection(Renderer renderer)
@@ -305,54 +240,6 @@ namespace BaseCAD
             renderer.StyleOverride = new Style(Document.Settings.Get<Color>("JigColor"), 0, DashStyle.Dash);
             renderer.Draw(Document.Jigged);
             renderer.StyleOverride = null;
-        }
-
-        private void DrawCursor(Renderer renderer)
-        {
-            if (hasMouse)
-            {
-                Extents2D ex = GetViewPort();
-                Style cursorStyle = new Style(Document.Settings.Get<Color>("CursorColor"));
-
-                // Draw cursor
-                renderer.DrawLine(cursorStyle, new Point2D(ex.Xmin, CursorLocation.Y), new Point2D(ex.Xmax, CursorLocation.Y));
-                renderer.DrawLine(cursorStyle, new Point2D(CursorLocation.X, ex.Ymin), new Point2D(CursorLocation.X, ex.Ymax));
-
-                // Draw cursor prompt
-                if (!string.IsNullOrEmpty(cursorMessage))
-                {
-                    string fontFamily = control.Font.FontFamily.Name;
-                    float textHeight = Math.Abs(ScreenToWorld(new Vector2D(0, 12)).Y);
-                    float margin = Math.Abs(ScreenToWorld(new Vector2D(4, 0)).X);
-                    float offset = Math.Abs(ScreenToWorld(new Vector2D(2, 0)).X);
-
-                    // position cursor prompt to lower-right of cursor by default
-                    float x = CursorLocation.X + margin + offset;
-                    float y = CursorLocation.Y - margin - offset;
-                    Vector2D sz = renderer.MeasureString(cursorMessage, fontFamily, FontStyle.Regular, textHeight);
-                    Point2D lowerRight = new Point2D(ex.Xmax, ex.Ymin);
-                    // check if the prompt text fits into the window horizontally
-                    if (x + sz.X + offset > lowerRight.X)
-                    {
-                        x = CursorLocation.X - margin - offset - sz.X;
-                    }
-                    // check if the prompt text fits into the window vertically
-                    if (y - sz.Y - offset < lowerRight.Y)
-                    {
-                        y = CursorLocation.Y + margin + offset + sz.Y;
-                    }
-
-                    // Draw cursor prompt
-                    Style fore = new Style(Document.Settings.Get<Color>("CursorPromptForeColor"));
-                    Style back = new Style(Document.Settings.Get<Color>("CursorPromptBackColor"));
-                    back.Fill = true;
-                    renderer.DrawRectangle(back, new Point2D(x - offset, y + offset), new Point2D(x + offset + sz.X, y - offset - sz.Y));
-                    back.Fill = false;
-                    renderer.DrawRectangle(fore, new Point2D(x - offset, y + offset), new Point2D(x + offset + sz.X, y - offset - sz.Y));
-                    renderer.DrawString(fore, new Point2D(x, y), cursorMessage, fontFamily, textHeight,
-                        hAlign: TextHorizontalAlignment.Left, vAlign: TextVerticalAlignment.Top);
-                }
-            }
         }
 
         /// <summary>
@@ -506,7 +393,7 @@ namespace BaseCAD
 
         private void Editor_CursorPrompt(object sender, CursorPromptEventArgs e)
         {
-            cursorMessage = e.Status;
+            ViewItems.Cursor.Message = e.Status;
             control.Invalidate();
         }
 
@@ -650,6 +537,7 @@ namespace BaseCAD
         void CadView_CursorMove(object sender, CursorEventArgs e)
         {
             CursorLocation = e.Location;
+            ViewItems.Cursor.Location = CursorLocation;
             control.Invalidate();
 
             if (e.Button == MouseButtons.Middle && panning)
@@ -701,15 +589,16 @@ namespace BaseCAD
 
         private void CadView_MouseLeave(object sender, EventArgs e)
         {
-            hasMouse = false;
+            ViewItems.Cursor.Visible = false;
             Cursor.Show();
             control.Invalidate();
         }
 
         private void CadView_MouseEnter(object sender, EventArgs e)
         {
-            hasMouse = true;
+            ViewItems.Cursor.Visible = true;
             Cursor.Hide();
+            control.Invalidate();
         }
 
         private void CadView_KeyDown(object sender, KeyEventArgs e)
