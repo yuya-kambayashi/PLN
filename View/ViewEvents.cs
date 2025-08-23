@@ -7,20 +7,8 @@ using System.Threading.Tasks;
 
 namespace BaseCAD
 {
-    public class EditorPromptEventArgs : EventArgs
-    {
-        public string Status { get; private set; }
+    public delegate void CursorEventHandler(object sender, CursorEventArgs e);
 
-        public EditorPromptEventArgs() : this("")
-        {
-            ;
-        }
-
-        public EditorPromptEventArgs(string status) : base()
-        {
-            Status = status;
-        }
-    }
     public class CursorEventArgs : EventArgs
     {
         public MouseButtons Button { get; private set; }

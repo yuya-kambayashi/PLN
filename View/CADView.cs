@@ -11,8 +11,6 @@ namespace BaseCAD
 {
     public class CADView : IDisposable
     {
-        public delegate void CursorEventHandler(object sender, CursorEventArgs e);
-
         private Control control;
 
         private bool panning;

@@ -1,5 +1,4 @@
-﻿
-using BaseCAD.Drawables;
+﻿using BaseCAD.Drawables;
 using BaseCAD.Geometry;
 using BaseCAD.Graphics;
 using System;
@@ -14,8 +13,6 @@ namespace BaseCAD
 {
     public class Editor
     {
-        public delegate void EditorPromptEventHandler(object sender, EditorPromptEventArgs e);
-
         private static Dictionary<string, Command> commands = new Dictionary<string, Command>();
 
         public CADDocument Document { get; private set; }
@@ -570,7 +567,7 @@ namespace BaseCAD
                             inputCompleted = true;
                             SelectionSet set = new SelectionSet();
                             Extents2D ex = consHatch.GetExtents();
-                            bool windowSelection = (consHatch.Points[2].X > consHatch.Points[0].X);
+                            bool windowSelection = consHatch.Points[2].X > consHatch.Points[0].X;
                             foreach (Drawable item in Document.Model)
                             {
                                 Extents2D exItem = item.GetExtents();
