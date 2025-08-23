@@ -627,12 +627,11 @@ namespace BaseCAD
                 case InputMode.Point:
                     if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return || e.KeyCode == Keys.Space)
                     {
-                        Point2DConverter conv = new Point2DConverter();
-                        if (conv.IsValid(currentText))
+                        if (Point2D.TryParse(currentText, out Point2D pt))
                         {
                             inputCompleted = true;
                             OnPrompt(new EditorPromptEventArgs());
-                            pointCompletion.SetResult(new PointResult((Point2D)conv.ConvertFrom(currentText)));
+                            pointCompletion.SetResult(new PointResult(pt));
                         }
                         else if (!string.IsNullOrEmpty(keyword))
                         {
@@ -656,12 +655,11 @@ namespace BaseCAD
                 case InputMode.Corner:
                     if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return || e.KeyCode == Keys.Space)
                     {
-                        Point2DConverter conv = new Point2DConverter();
-                        if (conv.IsValid(currentText))
+                        if (Point2D.TryParse(currentText, out Point2D pt))
                         {
                             inputCompleted = true;
                             OnPrompt(new EditorPromptEventArgs());
-                            cornerCompletion.SetResult(new PointResult((Point2D)conv.ConvertFrom(currentText)));
+                            cornerCompletion.SetResult(new PointResult(pt));
                         }
                         else if (!string.IsNullOrEmpty(keyword))
                         {
@@ -685,12 +683,11 @@ namespace BaseCAD
                 case InputMode.Angle:
                     if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return || e.KeyCode == Keys.Space)
                     {
-                        Vector2DConverter conv = new Vector2DConverter();
-                        if (conv.IsValid(currentText))
+                        if (Vector2D.TryParse(currentText, out Vector2D vec))
                         {
                             inputCompleted = true;
                             OnPrompt(new EditorPromptEventArgs());
-                            angleCompletion.SetResult(new AngleResult(((Vector2D)conv.ConvertFrom(currentText)).Angle));
+                            angleCompletion.SetResult(new AngleResult(vec.Angle));
                         }
                         else if (float.TryParse(currentText, out float angle))
                         {
