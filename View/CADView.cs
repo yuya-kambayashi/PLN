@@ -20,6 +20,7 @@ namespace BaseCAD
         private Drawable mouseDownItem;
         private Drawable mouseDownCPItem;
         private ControlPoint mouseDownCP;
+        private ControlPoint activeCP;
         private Renderer renderer;
         private Type rendererType;
         private View.ViewItems ViewItems { get; set; } = new View.ViewItems();
@@ -222,13 +223,14 @@ namespace BaseCAD
 
             // Control points
             Style cpStyle = new Style(Document.Settings.Get<Color>("ControlPointColor"), 2);
+            Style cpActiveStyle = new Style(Document.Settings.Get<Color>("ActiveControlPointColor"), 2);
             float cpSize = ScreenToWorld(new Vector2D(Document.Settings.Get<int>("ControlPointSize"), 0)).X;
 
             foreach (Drawable selected in Document.Editor.PickedSelection)
             {
                 foreach (ControlPoint pt in ControlPoint.FromDrawable(selected))
                 {
-                    renderer.DrawRectangle(cpStyle,
+                    renderer.DrawRectangle(pt.Equals(activeCP) ? cpActiveStyle : cpStyle,
                         new Point2D(pt.Location.X - cpSize / 2, pt.Location.Y - cpSize / 2),
                         new Point2D(pt.Location.X + cpSize / 2, pt.Location.Y + cpSize / 2));
                 }
@@ -456,7 +458,7 @@ namespace BaseCAD
                 panning = false;
                 control.Invalidate();
             }
-            else if (e.Button == MouseButtons.Left && Interactive)
+            else if (e.Button == MouseButtons.Left && Interactive && Document.Editor.Mode == InputMode.None)
             {
                 if (mouseDownItem != null)
                 {
@@ -480,9 +482,9 @@ namespace BaseCAD
                     Tuple<Drawable, ControlPoint> find = FindControlPoint(e.Location, ScreenToWorld(new Vector2D(Document.Settings.Get<int>("ControlPointSize"), 0)).X);
                     Drawable item = find.Item1;
                     ControlPoint mouseUpCP = find.Item2;
-                    if (mouseUpCP != null && ReferenceEquals(mouseDownCPItem, item) &&
-                        mouseDownCP.PropertyName == mouseUpCP.PropertyName && mouseDownCP.PropertyIndex == mouseUpCP.PropertyIndex)
+                    if (mouseUpCP != null && mouseDownCP.Equals(mouseUpCP))
                     {
+                        activeCP = mouseDownCP;
                         ControlPoint cp = mouseDownCP;
                         Drawable consItem = item.Clone();
                         Document.Transients.Add(consItem);
@@ -524,13 +526,19 @@ namespace BaseCAD
                             trans = Matrix2D.Translation(dir * (res.Value - orjVal));
                             result = res.Result;
                         }
+
+                        // Transform the control point1
                         if (result == ResultMode.OK)
                         {
                             item.TransformControlPoint(cp, trans);
                         }
                         Document.Transients.Remove(consItem);
+                        activeCP = null;
                     }
                 }
+                mouseDownItem = null;
+                mouseDownCPItem = null;
+                mouseDownCP = null;
             }
         }
 

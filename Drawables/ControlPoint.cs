@@ -16,12 +16,13 @@ namespace BaseCAD.Drawables
             Angle,
             Distance
         }
+        public Drawable Parent { get; private set; }
         public string PropertyName { get; private set; }
         public int PropertyIndex { get; private set; }
         public ControlPointType Type { get; private set; }
         public Point2D BasePoint { get; private set; }
         public Point2D Location { get; private set; }
-        private bool pointSet;
+        protected bool pointSet;
         public ControlPoint(string propertyName)
             : this(propertyName, -1, ControlPointType.Point, Point2D.Zero, Point2D.Zero)
         {
@@ -47,6 +48,22 @@ namespace BaseCAD.Drawables
             Location = location;
             pointSet = true;
         }
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            ControlPoint other = obj as ControlPoint;
+            if (other == null) return false;
+
+            return (pointSet && other.pointSet &&
+                ReferenceEquals(Parent, other.Parent) &&
+                PropertyName == other.PropertyName &&
+                PropertyIndex == other.PropertyIndex &&
+                Type == other.Type);
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
 
         internal static ControlPoint[] FromDrawable(Drawable item)
         {
@@ -69,6 +86,7 @@ namespace BaseCAD.Drawables
                         IList<Point2D> itemPoints = (IList<Point2D>)prop.GetValue(item);
                         pt = itemPoints[cp.PropertyIndex];
                     }
+                    cp.Parent = item;
                     cp.BasePoint = pt;
                     cp.Location = pt;
                     cp.pointSet = true;
