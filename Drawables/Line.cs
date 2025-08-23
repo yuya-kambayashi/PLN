@@ -59,7 +59,7 @@ namespace BaseCAD.Drawables
         public override bool Contains(Point2D pt, float pickBoxSize)
         {
             Vector2D w = pt - StartPoint;
-            Vector2D vL = EndPoint - StartPoint;
+            Vector2D vL = (EndPoint - StartPoint);
             float b = w.DotProduct(vL) / vL.DotProduct(vL);
             float dist = (w - b * vL).Length;
             return b >= 0 && b <= 1 && dist <= pickBoxSize / 2;

@@ -390,7 +390,7 @@ namespace BaseCAD
 
         public void Pan(Vector2D distance)
         {
-            Camera.Position -= distance;
+            Camera.Position += distance;
         }
 
         public void Resize(int width, int height)

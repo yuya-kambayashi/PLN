@@ -116,7 +116,7 @@ namespace BaseCAD.Drawables
             {
                 new ControlPoint("Location"),
                 new ControlPoint("Rotation", ControlPoint.ControlPointType.Angle, Location, Location + cpSize * Vector2D.FromAngle(Rotation)),
-                new ControlPoint("Height", ControlPoint.ControlPointType.Distance, Location, Location + TextHeight * upDir),
+                new ControlPoint("TextHeight", ControlPoint.ControlPointType.Distance, Location, Location + TextHeight * upDir),
             };
         }
         public Text(BinaryReader reader) : base(reader)

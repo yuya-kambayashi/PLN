@@ -247,7 +247,7 @@ namespace BaseCAD.Commands
             while (!done)
             {
                 PointOptions options = new PointOptions("Next point: ", pt, (p) => consPoly.Points[consPoly.Points.Count - 1] = p);
-                options.AddKeyword("End", true);
+                 options.AddKeyword("End", true);
                 options.AddKeyword("Close");
                 PointResult pNext = await ed.GetPoint(options);
                 if (pNext.Result == ResultMode.OK)

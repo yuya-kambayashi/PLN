@@ -20,7 +20,7 @@ namespace BaseCAD.Drawables
                 float len = 0;
                 for (int i = 0; i < (Closed ? Points.Count : Points.Count - 1); i++)
                 {
-                    int j = i == Points.Count - 1 ? 0 : i + 1;
+                    int j = (i == Points.Count - 1 ? 0 : i + 1);
                     len += (Points[j] - Points[i]).Length;
                 }
                 return len;
@@ -71,10 +71,10 @@ namespace BaseCAD.Drawables
         }
         public override bool Contains(Point2D pt, float pickBoxSize)
         {
-            int iend = Closed ? Points.Count - 1 : Points.Count - 2;
+            int iend = (Closed ? Points.Count - 1 : Points.Count - 2);
             for (int i = 0; i <= iend; i++)
             {
-                int j = i == Points.Count - 1 ? 0 : i + 1;
+                int j = (i == Points.Count - 1 ? 0 : i + 1);
                 Line line = new Line(Points[i], Points[j]);
                 if (line.Contains(pt, pickBoxSize))
                     return true;

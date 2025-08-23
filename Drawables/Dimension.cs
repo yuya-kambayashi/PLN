@@ -92,12 +92,8 @@ namespace BaseCAD.Drawables
 
         public override void TransformBy(Matrix2D transformation)
         {
-            Point2D p1 = StartPoint;
-            Point2D p2 = EndPoint;
             StartPoint = StartPoint.Transform(transformation);
             EndPoint = EndPoint.Transform(transformation);
-            StartPoint = p1;
-            EndPoint = p2;
         }
 
         public override bool Contains(Point2D pt, float pickBoxSize)

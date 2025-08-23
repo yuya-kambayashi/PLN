@@ -52,7 +52,7 @@ namespace BaseCAD.Geometry
         public bool IsBetween(Vector2D a, Vector2D b)
         {
             float ang = ClampAngle(b.SignedAngleTo(a), true, false);
-            float ang1 = ClampAngle(SignedAngleTo(a), true, false);
+            float ang1 = ClampAngle(this.SignedAngleTo(a), true, false);
             float ang2 = ClampAngle(b.SignedAngleTo(this), true, false);
 
             return Math.Abs(ang2 + ang1 - ang) < 0.0001f;
@@ -60,7 +60,7 @@ namespace BaseCAD.Geometry
 
         private float SignedAngleTo(Vector2D v)
         {
-            float dot = DotProduct(v);
+            float dot = this.DotProduct(v);
             float det = X * v.Y - v.X * Y;
             float ang = -MathF.Atan2(det, dot);
             return ang;
@@ -122,7 +122,7 @@ namespace BaseCAD.Geometry
         }
         public string ToString(string format = "({0:F}, {1:F})", IFormatProvider provider = null)
         {
-            return provider == null ?
+            return (provider == null) ?
                 string.Format(format, X, Y) :
                 string.Format(provider, format, X, Y);
         }
