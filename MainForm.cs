@@ -208,5 +208,9 @@ namespace BaseCAD
         {
             cadWindow1.Document.Editor.RunCommand("View.Pan");
         }
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            cadWindow1.Document.Editor.RunCommand("Edit.Delete");
+        }
     }
 }
