@@ -12,12 +12,14 @@ namespace BaseCAD
         public TValue Value;
         public string ErrorMessage;
         public bool InputValid;
+        public bool InputCompleted;
 
         public InputArgs(TInput input)
         {
             Input = input;
             Value = default(TValue);
             InputValid = true;
+            InputCompleted = true;
             ErrorMessage = "*Invalid input*";
         }
     }
