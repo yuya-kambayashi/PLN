@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BaseCAD
+{
+    internal class InitArgs<TValue>
+    {
+        public TValue Value;
+        public string ErrorMessage;
+        public bool InputValid;
+        public bool ContinueAsync;
+
+        public InitArgs()
+        {
+            Value = default(TValue);
+            InputValid = true;
+            ErrorMessage = "*Invalid input*";
+            ContinueAsync = true;
+        }
+    }
+}
