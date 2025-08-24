@@ -492,7 +492,6 @@ namespace BaseCAD
                         }
                         else
                         {
-                            float cpSize = ScreenToWorld(new Vector2D(Document.Settings.Get<int>("ControlPointSize") + 4, 0)).X;
                             Document.Editor.PickedSelection.Add(mouseDownItem);
                         }
                     }
@@ -513,7 +512,7 @@ namespace BaseCAD
                         Matrix2D trans = Matrix2D.Identity;
                         if (cp.Type == ControlPoint.ControlPointType.Point)
                         {
-                            var res = await Document.Editor.GetPoint("New point: ", cp.BasePoint,
+                            var res = await Document.Editor.GetPoint(cp.PropertyName, cp.BasePoint,
                                 (p) =>
                                 {
                                     trans = Matrix2D.Translation(p - cp.BasePoint);
@@ -525,7 +524,7 @@ namespace BaseCAD
                         else if (cp.Type == ControlPoint.ControlPointType.Angle)
                         {
                             float orjVal = (cp.Location - cp.BasePoint).Angle;
-                            var res = await Document.Editor.GetAngle("New angle: ", cp.BasePoint,
+                            var res = await Document.Editor.GetAngle(cp.PropertyName, cp.BasePoint,
                                 (p) =>
                                 {
                                     trans = Matrix2D.Rotation(cp.BasePoint, p - orjVal);
@@ -538,7 +537,7 @@ namespace BaseCAD
                         {
                             Vector2D dir = (cp.Location - cp.BasePoint).Normal;
                             float orjVal = (cp.Location - cp.BasePoint).Length;
-                            var res = await Document.Editor.GetDistance("New distance: ", cp.BasePoint,
+                            var res = await Document.Editor.GetDistance(cp.PropertyName, cp.BasePoint,
                                 (p) =>
                                 {
                                     trans = Matrix2D.Translation(dir * (p - orjVal));
