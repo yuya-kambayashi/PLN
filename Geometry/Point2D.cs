@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,16 +12,19 @@ namespace BaseCAD.Geometry
     [TypeConverter(typeof(Point2DConverter))]
     public struct Point2D
     {
-        public float X { get; private set; }
-        public float Y { get; private set; }
+        public float X { get; }
+        public float Y { get; }
 
         public static Point2D Zero { get { return new Point2D(0, 0); } }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2D(float x, float y)
         {
             X = x;
             Y = y;
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
 
         public Point2D(PointF pt)
         {
@@ -28,6 +32,7 @@ namespace BaseCAD.Geometry
             Y = pt.Y;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2D Transform(Matrix2D transformation)
         {
             float x = transformation.M11 * X + transformation.M12 * Y + transformation.DX;
@@ -35,46 +40,55 @@ namespace BaseCAD.Geometry
             return new Point2D(x, y);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Distance(Point2D p1, Point2D p2)
         {
             return (p1 - p2).Length;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator +(Point2D p, Vector2D v)
         {
             return new Point2D(p.X + v.X, p.Y + v.Y);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator -(Point2D p, Vector2D v)
         {
             return new Point2D(p.X - v.X, p.Y - v.Y);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator -(Point2D p1, Point2D p2)
         {
             return new Vector2D(p1.X - p2.X, p1.Y - p2.Y);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator *(Point2D p, float f)
         {
             return new Point2D(p.X * f, p.Y * f);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator *(float f, Point2D p)
         {
             return new Point2D(p.X * f, p.Y * f);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator /(Point2D p, float f)
         {
             return new Point2D(p.X / f, p.Y / f);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator System.Drawing.PointF(Point2D a)
         {
             return new System.Drawing.PointF(a.X, a.Y);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2D AsVector2D()
         {
             return new Vector2D(X, Y);
@@ -114,23 +128,6 @@ namespace BaseCAD.Geometry
                 result = Point2D.Zero;
                 return false;
             }
-        }
-        public Point2D(BinaryReader reader)
-        {
-            X = 0;
-            Y = 0;
-            Load(reader);
-        }
-        public void Load(BinaryReader reader)
-        {
-            X = reader.ReadSingle();
-            Y = reader.ReadSingle();
-        }
-
-        public void Save(BinaryWriter writer)
-        {
-            writer.Write(X);
-            writer.Write(Y);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,21 +22,27 @@ namespace BaseCAD.Geometry
 
         public static Extents2D Empty { get { return new Extents2D(); } }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Extents2D()
         {
             IsEmpty = true;
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Extents2D(float xmin, float ymin, float xmax, float ymax)
         {
             IsEmpty = true;
             Add(xmin, ymin);
             Add(xmax, ymax);
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Reset()
         {
             IsEmpty = true;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Add(float x, float y)
         {
             if (IsEmpty || x < Xmin) Xmin = x;
@@ -46,11 +53,13 @@ namespace BaseCAD.Geometry
             IsEmpty = false;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Add(Point2D pt)
         {
             Add(pt.X, pt.Y);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Add(IEnumerable<Point2D> points)
         {
             foreach (Point2D pt in points)
@@ -59,12 +68,14 @@ namespace BaseCAD.Geometry
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Add(RectangleF rectangle)
         {
             Add(rectangle.X, rectangle.Y);
             Add(rectangle.X + rectangle.Width, rectangle.Y + rectangle.Height);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Add(Extents2D extents)
         {
             if (!extents.IsEmpty)
@@ -74,6 +85,7 @@ namespace BaseCAD.Geometry
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator RectangleF(Extents2D extents)
         {
             if (extents.IsEmpty)
@@ -82,11 +94,13 @@ namespace BaseCAD.Geometry
                 return new RectangleF(extents.Xmin, extents.Ymin, extents.Xmax - extents.Xmin, extents.Ymax - extents.Ymin);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Contains(Point2D pt)
         {
             return Contains(pt.X, pt.Y);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Contains(float x, float y)
         {
             if (IsEmpty)
@@ -95,11 +109,13 @@ namespace BaseCAD.Geometry
                 return (x >= Xmin && x <= Xmax && y >= Ymin && y <= Ymax);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Contains(Extents2D other)
         {
             return (Xmin <= other.Xmin && Xmax >= other.Xmax && Ymin <= other.Ymin && Ymax >= other.Ymax);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool IntersectsWith(Extents2D other)
         {
             return (Xmax >= other.Xmin && Xmin <= other.Xmax && Ymax >= other.Ymin && Ymin <= other.Ymax);
