@@ -1,16 +1,9 @@
-﻿using BaseCAD.Geometry;
+﻿using BaseCAD;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace BaseCAD
 {
@@ -29,10 +22,12 @@ namespace BaseCAD
             {
                 if (type.BaseType == typeof(Renderer))
                 {
-                    Renderer renderer = (Renderer)Activator.CreateInstance(type, cadWindow1.View);
-                    btnRenderer.Items.Add(renderer);
-                    if (renderer.GetType() == cadWindow1.View.Renderer.GetType())
-                        selectedObject = renderer;
+                    using (Renderer renderer = (Renderer)Activator.CreateInstance(type, cadWindow1.View))
+                    {
+                        btnRenderer.Items.Add(renderer.Name);
+                        if (renderer.GetType() == cadWindow1.View.Renderer.GetType())
+                            selectedObject = renderer.Name;
+                    }
                 }
             }
             btnRenderer.SelectedItem = selectedObject;
@@ -189,8 +184,18 @@ namespace BaseCAD
         }
         private void btnRenderer_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Renderer renderer = (Renderer)btnRenderer.SelectedItem;
-            cadWindow1.View.Renderer = renderer;
+            Assembly assembly = Assembly.GetAssembly(typeof(CADDocument));
+            foreach (Type type in assembly.GetTypes())
+            {
+                if (type.BaseType == typeof(Renderer))
+                {
+                    Renderer renderer = (Renderer)Activator.CreateInstance(type, cadWindow1.View);
+                    if (renderer.Name == (string)btnRenderer.SelectedItem)
+                        cadWindow1.View.Renderer = renderer;
+                    else
+                        renderer.Dispose();
+                }
+            }
         }
         private void btnShowGrid_Click(object sender, EventArgs e)
         {

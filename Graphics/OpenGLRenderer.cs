@@ -104,8 +104,11 @@ namespace BaseCAD.Graphics
 
         protected override void Dispose(bool disposing)
         {
-            device.MakeCurrent(IntPtr.Zero);
-            device.DeleteContext(glContext);
+            if (device != null)
+            {
+                device.MakeCurrent(IntPtr.Zero);
+                device.DeleteContext(glContext);
+            }
         }
 
         public override void Clear(Color color)
