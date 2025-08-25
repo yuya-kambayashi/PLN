@@ -66,7 +66,13 @@ namespace BaseCAD
 
         public void Write(Color value)
         {
+            Write(value.IsByLayer);
             Write(value.Argb);
+        }
+        public void Write(IPersistable item)
+        {
+            Write(item.GetType().FullName);
+            item.Save(this);
         }
 
         public void Dispose()

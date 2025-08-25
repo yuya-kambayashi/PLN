@@ -17,15 +17,13 @@ namespace BaseCAD
             ofd.DefaultExt = "scf";
             string filename = "";
             string path = "";
-            try
+
+            if (File.Exists(Options.FileName))
             {
                 filename = Path.GetFileName(Options.FileName);
                 path = Path.GetDirectoryName(Options.FileName);
             }
-            catch
-            {
-                ;
-            }
+            
             if (!string.IsNullOrEmpty(filename)) ofd.FileName = filename;
             if (!string.IsNullOrEmpty(path)) ofd.InitialDirectory = path;
 

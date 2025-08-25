@@ -27,8 +27,7 @@ namespace BaseCAD
             for (int i = 0; i < count; i++)
             {
                 string key = reader.ReadString();
-                TValue value = new TValue();
-                value.Load(reader);
+                TValue value = reader.ReadPersistable<TValue>();
                 dict.Add(key, value);
             }
         }
@@ -39,7 +38,7 @@ namespace BaseCAD
             foreach (var pair in dict)
             {
                 writer.Write(pair.Key);
-                pair.Value.Save(writer);
+                writer.Write(pair.Value);
             }
         }
 

@@ -1,13 +1,4 @@
 ﻿using BaseCAD.Drawables;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace BaseCAD
 {
@@ -34,10 +25,11 @@ namespace BaseCAD
 
         public CADDocument()
         {
-            Model = new Composite(this);
             Editor = new Editor(this);
+
             Settings = new Settings();
             Layers = new LayerDictionary();
+            Model = new Composite(this);
             Jigged = new Composite();
             Transients = new Composite();
 

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace BaseCAD
 {
     public delegate void EditorPromptEventHandler(object sender, EditorPromptEventArgs e);
+    public delegate void EditorErrorEventHandler(object sender, EditorErrorEventArgs e);
 
     public class EditorPromptEventArgs : EventArgs
     {
@@ -20,6 +21,15 @@ namespace BaseCAD
         public EditorPromptEventArgs(string status) : base()
         {
             Status = status;
+        }
+    }
+    public class EditorErrorEventArgs : EventArgs
+    {
+        public Exception Error { get; private set; }
+
+        public EditorErrorEventArgs(Exception error) : base()
+        {
+            Error = error;
         }
     }
 }

@@ -72,7 +72,7 @@ namespace BaseCAD.Graphics
 
         public void Save(DocumentWriter writer)
         {
-            writer.Write(Color.Argb);
+            writer.Write(Color);
             writer.Write(LineWeight);
             writer.Write((int)DashStyle);
             writer.Write(Fill);

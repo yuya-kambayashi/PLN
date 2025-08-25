@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -51,6 +52,7 @@ namespace BaseCAD.Drawables
             return extents;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void TransformBy(Matrix2D transformation)
         {
             StartPoint = StartPoint.Transform(transformation);
