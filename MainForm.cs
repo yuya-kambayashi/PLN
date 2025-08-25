@@ -31,7 +31,7 @@ namespace BaseCAD
                 {
                     Renderer renderer = (Renderer)Activator.CreateInstance(type, cadWindow1.View);
                     btnRenderer.Items.Add(renderer);
-                    if (type == cadWindow1.View.Renderer)
+                    if (renderer.GetType() == cadWindow1.View.Renderer.GetType())
                         selectedObject = renderer;
                 }
             }
@@ -190,7 +190,7 @@ namespace BaseCAD
         private void btnRenderer_SelectedIndexChanged(object sender, EventArgs e)
         {
             Renderer renderer = (Renderer)btnRenderer.SelectedItem;
-            cadWindow1.View.Renderer = renderer.GetType();
+            cadWindow1.View.Renderer = renderer;
         }
         private void btnShowGrid_Click(object sender, EventArgs e)
         {

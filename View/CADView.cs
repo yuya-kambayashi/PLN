@@ -21,7 +21,6 @@ namespace BaseCAD
         private ControlPoint mouseDownCP;
         private ControlPoint activeCP;
         private Renderer renderer;
-        private Type rendererType;
         private View.ViewItems ViewItems { get; set; } = new View.ViewItems();
 
         [Category("Behavior"), DefaultValue(true), Description("Indicates whether the control responds to interactive user input.")]
@@ -62,26 +61,19 @@ namespace BaseCAD
         }
 
         [Browsable(false)]
-        public Type Renderer
+        public Renderer Renderer
         {
             get
             {
-                return (renderer?.GetType());
+                return renderer;
             }
             set
             {
                 if (renderer != null)
-                {
                     renderer.Dispose();
-                    renderer = null;
-                }
 
-                rendererType = value;
-
-                if (rendererType != null)
-                    renderer = (Renderer)Activator.CreateInstance(rendererType, this);
-
-                if (renderer != null && control != null)
+                renderer = value;
+                if (control != null)
                 {
                     renderer.Init(control);
                     control.Invalidate();
@@ -109,7 +101,7 @@ namespace BaseCAD
 
             Camera = new Camera(new Point2D(0, 0), 5.0f / 3.0f);
 
-            Renderer = typeof(GDIRenderer);
+            Renderer = new GDIRenderer(this);
 
             panning = false;
 
@@ -122,17 +114,9 @@ namespace BaseCAD
 
         public void Attach(Control ctrl)
         {
-            if (renderer != null)
-                rendererType = renderer.GetType();
-
             Detach();
 
-            Camera = new Camera(new Point2D(0, 0), 5.0f / 3.0f);
-
             control = ctrl;
-
-            if (rendererType != null)
-                Renderer = rendererType;
 
             Color backColor = Document.Settings.Get<Color>("BackColor");
             control.BackColor = System.Drawing.Color.FromArgb(backColor.A, backColor.R, backColor.G, backColor.B);
@@ -157,7 +141,11 @@ namespace BaseCAD
             control.GotFocus += Control_GotFocus;
             control.LostFocus += Control_LostFocus;
 
-            control.Invalidate();
+            if (renderer != null)
+            {
+                renderer.Init(control);
+                control.Invalidate();
+            }
         }
         public void Detach()
         {
@@ -181,9 +169,6 @@ namespace BaseCAD
                 control.GotFocus -= Control_GotFocus;
                 control.LostFocus -= Control_LostFocus;
             }
-
-            if (renderer != null)
-                renderer.Dispose();
         }
         private void Control_LostFocus(object sender, EventArgs e)
         {
@@ -402,7 +387,8 @@ namespace BaseCAD
             Width = width;
             Height = height;
 
-            renderer.Resize(width, height);
+            if (renderer != null)
+                renderer.Resize(width, height);
         }
 
         private void Document_SelectionChanged(object sender, EventArgs e)
@@ -709,10 +695,13 @@ namespace BaseCAD
             Document.Editor.Prompt -= Editor_Prompt;
             Document.Editor.Error -= Editor_Error;
 
+            Detach();
+
             if (renderer != null)
+            {
                 renderer.Dispose();
-            renderer = null;
-            rendererType = null;
+                renderer = null;
+            }
         }
     }
 }
