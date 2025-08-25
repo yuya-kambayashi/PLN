@@ -82,7 +82,6 @@ namespace BaseCAD
 
             Set("BackColor", Color.FromArgb(33, 40, 48));
 
-            Set("CursorColor", Color.White);
             Set("CursorPromptBackColor", Color.FromArgb(84, 58, 84));
             Set("CursorPromptForeColor", Color.FromArgb(128, Color.White));
 
