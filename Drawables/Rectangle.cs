@@ -37,7 +37,7 @@ namespace BaseCAD.Drawables
         public float Y { get { return Center.Y; } }
 
         private Polyline poly;
-
+        public Rectangle() { }
         public Rectangle(Point2D center, float width, float height, float rotation = 0)
         {
             Center = center;
@@ -53,7 +53,7 @@ namespace BaseCAD.Drawables
             ;
         }
         public Rectangle(Point2D center, Point2D corner, float rotation = 0)
-    : this(center, (corner - center).X * 2, (corner - center).Y * 2, rotation)
+            : this(center, (corner - center).X * 2, (corner - center).Y * 2, rotation)
         {
             ;
         }
@@ -73,7 +73,7 @@ namespace BaseCAD.Drawables
 
         public override void Draw(Renderer renderer)
         {
-            poly.Style = Style;
+            poly.Style = Style.ApplyLayer(Layer);
             renderer.Draw(poly);
         }
 
@@ -110,20 +110,21 @@ namespace BaseCAD.Drawables
             else if (index == 2)
                 Rotation = Vector2D.FromAngle(Rotation).Transform(transformation).Angle;
         }
-        public Rectangle(BinaryReader reader) : base(reader)
+        public override void Load(DocumentReader reader)
         {
-            Center = new Point2D(reader);
-            Rotation = reader.ReadSingle();
-            Corner = new Point2D(reader);
+            base.Load(reader);
+            Center = reader.ReadPoint2D();
+            Rotation = reader.ReadFloat();
+            Corner = reader.ReadPoint2D();
             UpdatePolyline();
         }
 
-        public override void Save(BinaryWriter writer)
+        public override void Save(DocumentWriter writer)
         {
             base.Save(writer);
-            Center.Save(writer);
+            writer.Write(Center);
             writer.Write(Rotation);
-            Corner.Save(writer);
+            writer.Write(Corner);
         }
     }
 }

@@ -9,26 +9,23 @@ using System.Threading.Tasks;
 namespace BaseCAD.Geometry
 {
     [TypeConverter(typeof(Point2DConverter))]
-    public struct Point2D : IPersistable
+    public struct Point2D
     {
-        private readonly float _x;
-        private readonly float _y;
-
-        public float X { get { return _x; } }
-        public float Y { get { return _y; } }
+        public float X { get; private set; }
+        public float Y { get; private set; }
 
         public static Point2D Zero { get { return new Point2D(0, 0); } }
 
         public Point2D(float x, float y)
         {
-            _x = x;
-            _y = y;
+            X = x;
+            Y = y;
         }
 
         public Point2D(PointF pt)
         {
-            _x = pt.X;
-            _y = pt.Y;
+            X = pt.X;
+            Y = pt.Y;
         }
 
         public Point2D Transform(Matrix2D transformation)
@@ -120,14 +117,20 @@ namespace BaseCAD.Geometry
         }
         public Point2D(BinaryReader reader)
         {
-            _x = reader.ReadSingle();
-            _y = reader.ReadSingle();
+            X = 0;
+            Y = 0;
+            Load(reader);
+        }
+        public void Load(BinaryReader reader)
+        {
+            X = reader.ReadSingle();
+            Y = reader.ReadSingle();
         }
 
         public void Save(BinaryWriter writer)
         {
-            writer.Write(_x);
-            writer.Write(_y);
+            writer.Write(X);
+            writer.Write(Y);
         }
     }
 }

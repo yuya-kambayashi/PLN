@@ -38,7 +38,7 @@ namespace BaseCAD.Drawables
         public TextVerticalAlignment VerticalAlignment { get => verticalAlignment; set { verticalAlignment = value; NotifyPropertyChanged(); } }
 
         private float cpSize = 0;
-
+        public Text() { }
         public Text(Point2D p, string text, float height)
         {
             Location = p;
@@ -62,7 +62,7 @@ namespace BaseCAD.Drawables
         {
             cpSize = 2 * renderer.View.ScreenToWorld(new Vector2D(renderer.View.Document.Settings.Get<int>("ControlPointSize"), 0)).X;
             Width = renderer.MeasureString(String, FontFamily, FontStyle, TextHeight).X;
-            renderer.DrawString(Style, Location, String, FontFamily, TextHeight, FontStyle.Regular, Rotation, HorizontalAlignment, VerticalAlignment);
+            renderer.DrawString(Style.ApplyLayer(Layer), Location, String, FontFamily, TextHeight, FontStyle.Regular, Rotation, HorizontalAlignment, VerticalAlignment);
         }
 
         public override Extents2D GetExtents()
@@ -128,22 +128,23 @@ namespace BaseCAD.Drawables
             else if (index == 2)
                 TextHeight = Vector2D.XAxis.Transform(transformation).Length * TextHeight;
         }
-        public Text(BinaryReader reader) : base(reader)
+        public override void Load(DocumentReader reader)
         {
-            Location = new Point2D(reader);
-            TextHeight = reader.ReadSingle();
+            base.Load(reader);
+            Location = reader.ReadPoint2D();
+            TextHeight = reader.ReadFloat();
             String = reader.ReadString();
             FontFamily = reader.ReadString();
-            FontStyle = (FontStyle)reader.ReadInt32();
-            Rotation = reader.ReadSingle();
-            HorizontalAlignment = (TextHorizontalAlignment)reader.ReadInt32();
-            VerticalAlignment = (TextVerticalAlignment)reader.ReadInt32();
+            FontStyle = (FontStyle)reader.ReadInt();
+            Rotation = reader.ReadFloat();
+            HorizontalAlignment = (TextHorizontalAlignment)reader.ReadInt();
+            VerticalAlignment = (TextVerticalAlignment)reader.ReadInt();
         }
 
-        public override void Save(BinaryWriter writer)
+        public override void Save(DocumentWriter writer)
         {
             base.Save(writer);
-            Location.Save(writer);
+            writer.Write(Location);
             writer.Write(TextHeight);
             writer.Write(String);
             writer.Write(FontFamily);

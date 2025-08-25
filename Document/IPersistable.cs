@@ -8,7 +8,7 @@ namespace BaseCAD
 {
     public interface IPersistable
     {
-        // Constructor(BinaryReader reader);
-        void Save(BinaryWriter writer);
+        void Load(DocumentReader reader);
+        void Save(DocumentWriter writer);
     }
 }

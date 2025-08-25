@@ -8,12 +8,10 @@ using System.Threading.Tasks;
 namespace BaseCAD.Geometry
 {
     [TypeConverter(typeof(Vector2DConverter))]
-    public struct Vector2D : IPersistable
+    public struct Vector2D
     {
-        private readonly float _x;
-        private readonly float _y;
-        public float X { get { return _x; } }
-        public float Y { get { return _y; } }
+        public float X { get; private set; }
+        public float Y { get; private set; }
         public float Length { get { return MathF.Sqrt(X * X + Y * Y); } }
         public float Angle { get { return AngleTo(XAxis); } }
         public Vector2D Normal { get { float len = Length; return new Vector2D(X / len, Y / len); } }
@@ -24,8 +22,8 @@ namespace BaseCAD.Geometry
 
         public Vector2D(float x, float y)
         {
-            _x = x;
-            _y = y;
+            X = x;
+            Y = y;
         }
 
         public Vector2D Transform(Matrix2D transformation)
@@ -139,17 +137,6 @@ namespace BaseCAD.Geometry
                 result = Vector2D.Zero;
                 return false;
             }
-        }
-        public Vector2D(BinaryReader reader)
-        {
-            _x = reader.ReadSingle();
-            _y = reader.ReadSingle();
-        }
-
-        public void Save(BinaryWriter writer)
-        {
-            writer.Write(_x);
-            writer.Write(_y);
         }
     }
 }

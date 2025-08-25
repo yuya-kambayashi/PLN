@@ -40,14 +40,5 @@ namespace BaseCAD.Drawables
             Style.Fill = false;
             renderer.DrawPolygon(Style, Points);
         }
-        public Hatch(BinaryReader reader) : base(reader)
-        {
-            ;
-        }
-
-        public override void Save(BinaryWriter writer)
-        {
-            base.Save(writer);
-        }
     }
 }

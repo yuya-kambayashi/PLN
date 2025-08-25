@@ -119,33 +119,31 @@ namespace BaseCAD
                 IsModified = false;
             }
         }
-
-        private void Model_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void Model_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            switch (e.Action)
+            switch(e.Action)
             {
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                case NotifyCollectionChangedAction.Add:
                     OnDocumentChanged(new EventArgs());
                     break;
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                case NotifyCollectionChangedAction.Remove:
                     foreach (Drawable item in e.OldItems.Cast<Drawable>())
                     {
                         Editor.PickedSelection.Remove(item);
                     }
                     OnDocumentChanged(new EventArgs());
                     break;
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
+                case NotifyCollectionChangedAction.Reset:
                     Editor.PickedSelection.Clear();
                     OnDocumentChanged(new EventArgs());
                     break;
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Move:
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
+                case NotifyCollectionChangedAction.Move:
+                case NotifyCollectionChangedAction.Replace:
                     OnDocumentChanged(new EventArgs());
                     break;
             }
         }
-
-        private void Jigged_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void Jigged_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             OnTransientsChanged(new EventArgs());
         }
@@ -158,8 +156,7 @@ namespace BaseCAD
         {
             TransientsChanged?.Invoke(this, e);
         }
-
-        private void Selection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void Selection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             OnSelectionChanged(new EventArgs());
         }

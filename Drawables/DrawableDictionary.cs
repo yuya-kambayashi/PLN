@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace BaseCAD.Drawables
 {
-    public class DrawableDictionary : Drawable, IDictionary<string, Drawable>
+    public class DrawableDictionary : Drawable, IDict<Drawable>
     {
         Dictionary<string, Drawable> items = new Dictionary<string, Drawable>();
 
@@ -19,14 +19,12 @@ namespace BaseCAD.Drawables
         public int Count => items.Count;
         public bool IsReadOnly => false;
 
-        public DrawableDictionary()
-        {
-            ;
-        }
+        public DrawableDictionary() { }
 
-        public DrawableDictionary(BinaryReader reader) : base(reader)
+        public override void Load(DocumentReader reader)
         {
-            int count = reader.ReadInt32();
+            base.Load(reader);
+            int count = reader.ReadInt();
             for (int i = 0; i < count; i++)
             {
                 string key = reader.ReadString();
@@ -37,7 +35,7 @@ namespace BaseCAD.Drawables
             }
         }
 
-        public override void Save(BinaryWriter writer)
+        public override void Save(DocumentWriter writer)
         {
             base.Save(writer);
             writer.Write(items.Count);
@@ -68,7 +66,7 @@ namespace BaseCAD.Drawables
         {
             foreach (Drawable item in items.Values)
             {
-                if (item.Visible)
+                if (item.Visible && (item.Layer == null || item.Layer.Visible))
                 {
                     renderer.Draw(item);
                 }
@@ -80,7 +78,8 @@ namespace BaseCAD.Drawables
             Extents2D extents = new Extents2D();
             foreach (Drawable item in items.Values)
             {
-                if (item.Visible) extents.Add(item.GetExtents());
+                if (item.Visible && item.Layer.Visible)
+                    extents.Add(item.GetExtents());
             }
             return extents;
         }
@@ -89,7 +88,7 @@ namespace BaseCAD.Drawables
         {
             foreach (Drawable d in items.Values)
             {
-                if (d.Contains(pt, pickBoxSize)) return true;
+                if (d.Visible && d.Layer.Visible && d.Contains(pt, pickBoxSize)) return true;
             }
             return false;
         }
@@ -112,9 +111,10 @@ namespace BaseCAD.Drawables
             return newDict;
         }
 
-        public IEnumerator<KeyValuePair<string, Drawable>> GetEnumerator()
+        public IEnumerator<Drawable> GetEnumerator()
         {
-            return items.GetEnumerator();
+            foreach (Drawable item in items.Values)
+                yield return item;
         }
 
         public bool Remove(string key)
@@ -126,33 +126,9 @@ namespace BaseCAD.Drawables
         {
             return items.TryGetValue(key, out value);
         }
-
-        void ICollection<KeyValuePair<string, Drawable>>.Add(KeyValuePair<string, Drawable> item)
-        {
-            items.Add(item.Key, item.Value);
-        }
-
-        bool ICollection<KeyValuePair<string, Drawable>>.Contains(KeyValuePair<string, Drawable> item)
-        {
-            return items.Contains(item);
-        }
-
-        void ICollection<KeyValuePair<string, Drawable>>.CopyTo(KeyValuePair<string, Drawable>[] array, int arrayIndex)
-        {
-            items.ToArray().CopyTo(array, arrayIndex);
-        }
-
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
-        }
-
-        bool ICollection<KeyValuePair<string, Drawable>>.Remove(KeyValuePair<string, Drawable> item)
-        {
-            if (items.Contains(item))
-                return items.Remove(item.Key);
-            else
-                return false;
         }
     }
 }

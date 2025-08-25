@@ -12,6 +12,7 @@ namespace BaseCAD.Graphics
 {
     public enum DashStyle
     {
+        ByLayer = -1,
         Solid = 0,
         Dash = 1,
         Dot = 2,
@@ -20,10 +21,14 @@ namespace BaseCAD.Graphics
     }
 
     [Serializable]
-    [TypeConverter(typeof(StyleConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class Style : IPersistable
     {
-        public Color Color { get; set; }
+        public static Style Default => new Style(Color.ByLayer, ByLayer, DashStyle.ByLayer);
+
+        public const float ByLayer = -1;
+
+        public BaseCAD.Graphics.Color Color { get; set; }
         public float LineWeight { get; set; }
         public DashStyle DashStyle { get; set; }
         public bool Fill { get; set; }
@@ -47,18 +52,39 @@ namespace BaseCAD.Graphics
             ;
         }
 
-        public Style(BinaryReader reader)
+        public Style()
+                   : this(Color.ByLayer, ByLayer, DashStyle.ByLayer)
         {
-            Color = new Color(reader.ReadUInt32());
-            LineWeight = reader.ReadSingle();
-            DashStyle = (DashStyle)reader.ReadInt32();
+            ;
         }
 
-        public void Save(BinaryWriter writer)
+        public Style ApplyLayer(Layer layer)
+        {
+            Style style = new Style(Color, LineWeight, DashStyle);
+            style.Fill = Fill;
+            if (layer != null)
+            {
+                if (Color.IsByLayer) style.Color = layer.Style.Color;
+                if (LineWeight == ByLayer) style.LineWeight = layer.Style.LineWeight;
+                if (DashStyle == DashStyle.ByLayer) style.DashStyle = layer.Style.DashStyle;
+            }
+            return style;
+        }
+
+        public void Load(DocumentReader reader)
+        {
+            Color = reader.ReadColor();
+            LineWeight = reader.ReadFloat();
+            DashStyle = (DashStyle)reader.ReadInt();
+            Fill = reader.ReadBoolean();
+        }
+
+        public void Save(DocumentWriter writer)
         {
             writer.Write(Color.Argb);
             writer.Write(LineWeight);
             writer.Write((int)DashStyle);
+            writer.Write(Fill);
         }
     }
 }

@@ -27,6 +27,7 @@ namespace BaseCAD.Drawables
         public float X { get { return Center.X; } }
         [Browsable(false)]
         public float Y { get { return Center.Y; } }
+        public Arc() { }
 
         public Arc(Point2D center, float radius, float startAngle, float endAngle)
         {
@@ -44,7 +45,7 @@ namespace BaseCAD.Drawables
 
         public override void Draw(Renderer renderer)
         {
-            renderer.DrawArc(Style, Center, Radius, StartAngle, EndAngle);
+            renderer.DrawArc(Style.ApplyLayer(Layer), Center, Radius, StartAngle, EndAngle);
         }
 
         public override Extents2D GetExtents()
@@ -92,18 +93,19 @@ namespace BaseCAD.Drawables
             else if (index == 3)
                 EndAngle = Vector2D.FromAngle(EndAngle).Transform(transformation).Angle;
         }
-        public Arc(BinaryReader reader) : base(reader)
+        public override void Load(DocumentReader reader)
         {
-            Center = new Point2D(reader);
-            Radius = reader.ReadSingle();
-            StartAngle = reader.ReadSingle();
-            EndAngle = reader.ReadSingle();
+            base.Load(reader);
+            Center = reader.ReadPoint2D();
+            Radius = reader.ReadFloat();
+            StartAngle = reader.ReadFloat();
+            EndAngle = reader.ReadFloat();
         }
 
-        public override void Save(BinaryWriter writer)
+        public override void Save(DocumentWriter writer)
         {
             base.Save(writer);
-            Center.Save(writer);
+            writer.Write(Center);
             writer.Write(Radius);
             writer.Write(StartAngle);
             writer.Write(EndAngle);

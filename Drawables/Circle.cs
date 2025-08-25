@@ -21,6 +21,8 @@ namespace BaseCAD.Drawables
         [Browsable(false)]
         public float Y { get { return Center.Y; } }
 
+        public Circle() { }
+
         public Circle(Point2D center, float radius)
         {
             Center = center;
@@ -35,7 +37,7 @@ namespace BaseCAD.Drawables
 
         public override void Draw(Renderer renderer)
         {
-            renderer.DrawCircle(Style, Center, Radius);
+            renderer.DrawCircle(Style.ApplyLayer(Layer), Center, Radius);
         }
 
         public override Extents2D GetExtents()
@@ -71,16 +73,17 @@ namespace BaseCAD.Drawables
             else if (index == 1)
                 Radius = Vector2D.XAxis.Transform(transformation).Length * Radius;
         }
-        public Circle(BinaryReader reader) : base(reader)
+        public override void Load(DocumentReader reader)
         {
-            Center = new Point2D(reader);
-            Radius = reader.ReadSingle();
+            base.Load(reader);
+            Center = reader.ReadPoint2D();
+            Radius = reader.ReadFloat();
         }
 
-        public override void Save(BinaryWriter writer)
+        public override void Save(DocumentWriter writer)
         {
             base.Save(writer);
-            Center.Save(writer);
+            writer.Write(Center);
             writer.Write(Radius);
         }
     }

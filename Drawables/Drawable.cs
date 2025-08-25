@@ -2,14 +2,14 @@
 using BaseCAD.Graphics;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Color = BaseCAD.Graphics.Color;
 
 namespace BaseCAD.Drawables
 {
     [Serializable]
     public abstract class Drawable : INotifyPropertyChanged, IPersistable
     {
-        public Style Style { get; set; } = new Style(Color.White);
+        public Style Style { get; set; } = Style.Default;
+        public Layer Layer { get; set; }
         public bool Visible { get; set; } = true;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -22,22 +22,24 @@ namespace BaseCAD.Drawables
         public virtual void TransformControlPoint(int index, Matrix2D transformation) { }
 
         public virtual Drawable Clone() { return (Drawable)MemberwiseClone(); }
-        protected Drawable()
-        {
-            ;
-        }
+        protected Drawable() { }
+
         protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public Drawable(BinaryReader reader)
+        public virtual void Load(DocumentReader reader)
         {
-            Style = new Style(reader);
+            string layerName = reader.ReadString();
+            Layer = reader.Document.Layers[layerName];
+            Style = new Style();
+            Style.Load(reader);
             Visible = reader.ReadBoolean();
         }
-        public virtual void Save(BinaryWriter writer)
+        public virtual void Save(DocumentWriter writer)
         {
+            writer.Write(Layer.Name);
             Style.Save(writer);
             writer.Write(Visible);
         }

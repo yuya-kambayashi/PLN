@@ -15,6 +15,5 @@ namespace BaseCAD.Drawables
         public Polygon(Point2DCollection pts) : base(pts) { }
         public Polygon(params Point2D[] pts) : base(pts) { }
         public Polygon(PointF[] pts) : base(pts) { }
-        public Polygon(BinaryReader reader) : base(reader) { }
     }
 }

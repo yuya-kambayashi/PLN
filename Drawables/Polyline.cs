@@ -57,7 +57,7 @@ namespace BaseCAD.Drawables
 
         public override void Draw(Renderer renderer)
         {
-            renderer.DrawPolyline(Style, Points, Closed);
+            renderer.DrawPolyline(Style.ApplyLayer(Layer), Points, Closed);
         }
 
         public override Extents2D GetExtents()
@@ -100,16 +100,17 @@ namespace BaseCAD.Drawables
         {
             Points[index] = Points[index].Transform(transformation);
         }
-        public Polyline(BinaryReader reader) : base(reader)
+        public override void Load(DocumentReader reader)
         {
-            Points = new Point2DCollection(reader);
+            base.Load(reader);
+            Points = reader.ReadPoint2DCollection();
             Points.CollectionChanged += Points_CollectionChanged;
         }
 
-        public override void Save(BinaryWriter writer)
+        public override void Save(DocumentWriter writer)
         {
             base.Save(writer);
-            Points.Save(writer);
+            writer.Write(Points);
         }
     }
 }

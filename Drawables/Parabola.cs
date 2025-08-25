@@ -49,6 +49,7 @@ namespace BaseCAD.Drawables
         private Polyline poly;
         private float curveLength = 4;
         private float cpSize = 0;
+        public Parabola() { }
 
         public Parabola(Point2D p1, Point2D p2, float startAngle, float endAngle)
         {
@@ -64,11 +65,10 @@ namespace BaseCAD.Drawables
         {
             ;
         }
-
         public override void Draw(Renderer renderer)
         {
             cpSize = 2 * renderer.View.ScreenToWorld(new Vector2D(renderer.View.Document.Settings.Get<int>("ControlPointSize"), 0)).X;
-            poly.Style = Style;
+            poly.Style = Style.ApplyLayer(Layer);
             renderer.Draw(poly);
         }
 
@@ -160,20 +160,21 @@ namespace BaseCAD.Drawables
             else if (index == 3)
                 EndAngle = Vector2D.FromAngle(EndAngle).Transform(transformation).Angle;
         }
-        public Parabola(BinaryReader reader) : base(reader)
+        public override void Load(DocumentReader reader)
         {
-            StartPoint = new Point2D(reader);
-            EndPoint = new Point2D(reader);
-            StartAngle = reader.ReadSingle();
-            EndAngle = reader.ReadSingle();
+            base.Load(reader);
+            StartPoint = reader.ReadPoint2D();
+            EndPoint = reader.ReadPoint2D();
+            StartAngle = reader.ReadFloat();
+            EndAngle = reader.ReadFloat();
             UpdatePolyline();
         }
 
-        public override void Save(BinaryWriter writer)
+        public override void Save(DocumentWriter writer)
         {
             base.Save(writer);
-            StartPoint.Save(writer);
-            EndPoint.Save(writer);
+            writer.Write(StartPoint);
+            writer.Write(EndPoint);
             writer.Write(StartAngle);
             writer.Write(EndAngle);
         }

@@ -120,9 +120,9 @@ namespace BaseCAD.Geometry
             return GetEnumerator();
         }
 
-        public System.Drawing.PointF[] ToPointF()
+        public PointF[] ToPointF()
         {
-            System.Drawing.PointF[] points = new System.Drawing.PointF[items.Count];
+            PointF[] points = new PointF[items.Count];
             for (int i = 0; i < items.Count; i++)
             {
                 points[i] = (System.Drawing.PointF)items[i];

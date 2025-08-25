@@ -31,6 +31,7 @@ namespace BaseCAD.Drawables
         public float Y3 { get { return Point3.Y; } }
 
         private Polyline poly;
+        public Triangle() { }
 
         public Triangle(Point2D p1, Point2D p2, Point2D p3)
         {
@@ -55,7 +56,7 @@ namespace BaseCAD.Drawables
         }
         public override void Draw(Renderer renderer)
         {
-            poly.Style = Style;
+            poly.Style = Style.ApplyLayer(Layer);
             renderer.Draw(poly);
         }
 
@@ -93,20 +94,21 @@ namespace BaseCAD.Drawables
             else if (index == 2)
                 Point3 = Point3.Transform(transformation);
         }
-        public Triangle(BinaryReader reader) : base(reader)
+        public override void Load(DocumentReader reader)
         {
-            Point1 = new Point2D(reader);
-            Point2 = new Point2D(reader);
-            Point3 = new Point2D(reader);
+            base.Load(reader);
+            Point1 = reader.ReadPoint2D();
+            Point2 = reader.ReadPoint2D();
+            Point3 = reader.ReadPoint2D();
             UpdatePolyline();
         }
 
-        public override void Save(BinaryWriter writer)
+        public override void Save(DocumentWriter writer)
         {
             base.Save(writer);
-            Point1.Save(writer);
-            Point2.Save(writer);
-            Point3.Save(writer);
+            writer.Write(Point1);
+            writer.Write(Point2);
+            writer.Write(Point3);
         }
     }
 }
