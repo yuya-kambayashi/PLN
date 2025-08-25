@@ -108,7 +108,7 @@ namespace BaseCAD
 
             Camera = new Camera(new Point2D(0, 0), 5.0f / 3.0f);
 
-            Renderer = typeof(DirectXRenderer);
+            Renderer = typeof(GDIRenderer);
 
             panning = false;
 

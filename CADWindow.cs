@@ -1,23 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.ComponentModel;
+using Color = BaseCAD.Graphics.Color;
 
 namespace BaseCAD
 {
     [Docking(DockingBehavior.Ask)]
     public partial class CADWindow : UserControl
     {
-        private CADDocument doc = new CADDocument();
+        private CADDocument doc;
 
         [Browsable(false)]
         public CADView View { get; private set; }
+        public override System.Drawing.Color BackColor
+        {
+            get
+            {
+                return System.Drawing.Color.FromArgb((int)Document.Settings.Get<Color>("BackColor").Argb);
+            }
+            set
+            {
+                Document.Settings.Set("BackColor", Color.FromArgb((uint)value.ToArgb()));
+            }
+        }
+
+        [Category("Behavior"), DefaultValue(true), Description("Indicates whether the control responds to interactive user input.")]
+        public bool Interactive { get => View.Interactive; set => View.Interactive = value; }
+
+        [Category("Appearance"), DefaultValue(true), Description("Determines whether the cartesian grid is shown.")]
+        public bool ShowGrid { get => View.ShowGrid; set => View.ShowGrid = value; }
+
+        [Category("Appearance"), DefaultValue(true), Description("Determines whether the X and Y axes are shown.")]
+        public bool ShowAxes { get => View.ShowAxes; set => View.ShowAxes = value; }
+
         [Browsable(false)]
         public CADDocument Document
         {
@@ -43,6 +56,8 @@ namespace BaseCAD
             DoubleBuffered = false;
 
             BorderStyle = BorderStyle.Fixed3D;
+
+            Document = new CADDocument();
         }
     }
 }
