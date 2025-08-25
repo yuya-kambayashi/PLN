@@ -5,7 +5,6 @@ using System.Runtime.CompilerServices;
 
 namespace BaseCAD.Drawables
 {
-    [Serializable]
     public abstract class Drawable : INotifyPropertyChanged, IPersistable
     {
         public Style Style { get; set; } = Style.Default;

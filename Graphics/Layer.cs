@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace BaseCAD.Graphics
 {
-    [Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class Layer : IPersistable
     {
         public static Layer Default => new Layer("0", new Style(Color.White));
 
-        public string Name { get; set; }
+        public string Name { get; private set; }
         public Style Style { get; set; } = new Style(Color.White, 0, DashStyle.Solid);
         public bool Visible { get; set; } = true;
 

@@ -1,12 +1,4 @@
-﻿using BaseCAD.Geometry;
-using BaseCAD.Graphics;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace BaseCAD.Graphics
 {
@@ -20,7 +12,6 @@ namespace BaseCAD.Graphics
         DashDotDot = 4,
     }
 
-    [Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class Style : IPersistable
     {
