@@ -74,7 +74,6 @@ namespace BaseCAD
 
                 renderer = value;
 
-                System.Diagnostics.Debug.Print("R: " + renderer.Name);
                 if (control != null)
                 {
                     renderer.Init(control);
