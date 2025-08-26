@@ -1,8 +1,7 @@
 ﻿using BaseCAD.Geometry;
+using BaseCAD.Graphics;
 using System;
 using System.ComponentModel;
-using System.IO;
-
 namespace BaseCAD.Drawables
 {
     public class Rectangle : Drawable

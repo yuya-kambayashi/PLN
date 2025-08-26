@@ -15,22 +15,6 @@ namespace BaseCAD
 
             cadWindow1.Document.DocumentChanged += Document_DocumentChanged;
             cadWindow1.Document.SelectionChanged += CadWindow1_SelectionChanged;
-
-            Assembly assembly = Assembly.GetAssembly(typeof(CADDocument));
-            object selectedObject = null;
-            foreach (Type type in assembly.GetTypes())
-            {
-                if (type.BaseType == typeof(Renderer))
-                {
-                    using (Renderer renderer = (Renderer)Activator.CreateInstance(type, cadWindow1.View))
-                    {
-                        btnRenderer.Items.Add(renderer.Name);
-                        if (renderer.GetType() == cadWindow1.View.Renderer.GetType())
-                            selectedObject = renderer.Name;
-                    }
-                }
-            }
-            btnRenderer.SelectedItem = selectedObject;
         }
         private void Document_DocumentChanged(object sender, EventArgs e)
         {
@@ -181,21 +165,6 @@ namespace BaseCAD
         private void btnMirror_Click(object sender, EventArgs e)
         {
             cadWindow1.Document.Editor.RunCommand("Transform.Mirror");
-        }
-        private void btnRenderer_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Assembly assembly = Assembly.GetAssembly(typeof(CADDocument));
-            foreach (Type type in assembly.GetTypes())
-            {
-                if (type.BaseType == typeof(Renderer))
-                {
-                    Renderer renderer = (Renderer)Activator.CreateInstance(type, cadWindow1.View);
-                    if (renderer.Name == (string)btnRenderer.SelectedItem)
-                        cadWindow1.View.Renderer = renderer;
-                    else
-                        renderer.Dispose();
-                }
-            }
         }
         private void btnShowGrid_Click(object sender, EventArgs e)
         {

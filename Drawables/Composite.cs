@@ -1,12 +1,7 @@
 ﻿using BaseCAD.Geometry;
-using System;
-using System.Collections.Generic;
+using BaseCAD.Graphics;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace BaseCAD.Drawables
 {
     public class Composite : Drawable, ICollection<Drawable>, INotifyCollectionChanged

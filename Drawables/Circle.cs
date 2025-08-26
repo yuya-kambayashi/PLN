@@ -1,10 +1,6 @@
 ﻿using BaseCAD.Geometry;
-using System;
-using System.Collections.Generic;
+using BaseCAD.Graphics;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BaseCAD.Drawables
 {

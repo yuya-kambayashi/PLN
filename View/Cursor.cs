@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Color = BaseCAD.Graphics.Color;
+using FontStyle = BaseCAD.Graphics.FontStyle;
 
 namespace BaseCAD.View
 {
@@ -86,8 +87,8 @@ namespace BaseCAD.View
                 renderer.DrawRectangle(back, new Point2D(x - offset, y + offset), new Point2D(x + offset + sz.X, y - offset - sz.Y));
                 back.Fill = false;
                 renderer.DrawRectangle(fore, new Point2D(x - offset, y + offset), new Point2D(x + offset + sz.X, y - offset - sz.Y));
-                renderer.DrawString(fore, new Point2D(x, y), Message, FontFamily, height,
-                    hAlign: TextHorizontalAlignment.Left, vAlign: TextVerticalAlignment.Top);
+                renderer.DrawString(fore, new Point2D(x, y), Message, FontFamily, height, FontStyle.Regular, 0,
+                    TextHorizontalAlignment.Left, TextVerticalAlignment.Top);
             }
         }
 
