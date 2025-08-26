@@ -575,7 +575,8 @@ namespace BaseCAD
 
         private void CadView_MouseLeave(object sender, EventArgs e)
         {
-            ViewItems.Cursor.Visible = false;
+            if (ShowCursor)
+                ViewItems.Cursor.Visible = true;
             Cursor.Show();
             Control.Invalidate();
         }
