@@ -334,6 +334,11 @@ namespace BaseCAD.Graphics
             else
                 return a.Argb != b.Argb;
         }
+
+        public static explicit operator System.Drawing.Color(Color a)
+        {
+            return System.Drawing.Color.FromArgb((int)a.Argb);
+        }
         #endregion
 
         #region KnownColor Values
