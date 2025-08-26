@@ -1,9 +1,37 @@
 ﻿using BaseCAD.Drawables;
 using BaseCAD.Geometry;
 using Rectangle = BaseCAD.Drawables.Rectangle;
+using Point = BaseCAD.Drawables.Point;
 
 namespace BaseCAD.Commands
 {
+    public class DrawPoint : Command
+    {
+        public override string RegisteredName => "Primitives.Point";
+        public override string Name => "Point";
+
+        public override async Task Apply(CADDocument doc, params string[] args)
+        {
+            Editor ed = doc.Editor;
+            ed.PickedSelection.Clear();
+
+            while (true)
+            {
+                var p1 = await ed.GetPoint("Location: ");
+                if (p1.Result != ResultMode.OK) return;
+
+                if (p1.Result == ResultMode.OK)
+                {
+                    Drawable point = new Point(p1.Value);
+                    doc.Model.Add(point);
+                }
+                else
+                {
+                    return;
+                }
+            }
+        }
+    }
     public class DrawLine : Command
     {
         public override string RegisteredName => "Primitives.Line";

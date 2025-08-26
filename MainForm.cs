@@ -83,6 +83,10 @@
                 return Path.Combine(path, "save.scf");
             }
         }
+        private void btnDrawPoint_Click(object sender, EventArgs e)
+        {
+            cadWindow1.Document.Editor.RunCommand("Primitives.Point");
+        }
 
         private void btnDrawLine_Click(object sender, EventArgs e)
         {

@@ -101,6 +101,7 @@ namespace BaseCAD
 
             Set("PickBoxSize", 6);
             Set("ControlPointSize", 7);
+            Set("PointSize", 6);
 
             UpdateSettings();
         }
