@@ -11,15 +11,9 @@ namespace BaseCAD.Geometry
         public float M22 { get; }
         public float DX { get; }
         public float DY { get; }
-        public float RotationAngle { get { return Vector2D.XAxis.Transform(this).Angle; } }
-
-        public static Matrix2D Identity
-        {
-            get
-            {
-                return new Matrix2D(1, 0, 0, 1, 0, 0);
-            }
-        }
+        public float RotationAngle { get => Vector2D.XAxis.Transform(this).Angle; }
+        public bool IsIdentity { get => (M11 == 1 && M12 == 0 && M21 == 0 && M22 == 1 && DX == 0 && DY == 0); }
+        public static Matrix2D Identity { get => new Matrix2D(1, 0, 0, 1, 0, 0); }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 
