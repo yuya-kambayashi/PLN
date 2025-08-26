@@ -64,6 +64,11 @@ namespace BaseCAD
             Write(value.IsByLayer);
             Write(value.Argb);
         }
+        public void Write(Camera value)
+        {
+            Write(value.Position);
+            Write(value.Zoom);
+        }
         public void Write(IPersistable item)
         {
             Write(item.GetType().FullName);

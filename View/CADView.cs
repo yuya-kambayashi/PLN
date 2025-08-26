@@ -6,7 +6,7 @@ using Color = BaseCAD.Graphics.Color;
 
 namespace BaseCAD
 {
-    public class CADView : IDisposable
+    public class CADView : IDisposable, IPersistable
     {
         private bool panning;
         private Point2D lastMouseLocationWorld;
@@ -660,6 +660,19 @@ namespace BaseCAD
                 renderer.Dispose();
                 renderer = null;
             }
+        }
+        public void Load(DocumentReader reader)
+        {
+            Camera = reader.ReadCamera();
+            ShowGrid = reader.ReadBoolean();
+            ShowAxes = reader.ReadBoolean();
+        }
+
+        public void Save(DocumentWriter writer)
+        {
+            writer.Write(Camera);
+            writer.Write(ShowGrid);
+            writer.Write(ShowAxes);
         }
     }
 }
