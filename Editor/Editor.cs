@@ -75,6 +75,7 @@ namespace BaseCAD
             }
         }
 
+        #region Editor Getters
         public async Task<InputResult<string>> GetOpenFilename(string message)
         {
             return await GetOpenFilename(new FilenameOptions(message));
@@ -239,6 +240,7 @@ namespace BaseCAD
         {
             return await FloatGetter.Run<FloatGetter>(this, options);
         }
+        #endregion
 
         internal void OnViewMouseMove(object sender, CursorEventArgs e)
         {
