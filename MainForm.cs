@@ -8,6 +8,7 @@
 
             cadWindow1.Document.DocumentChanged += Document_DocumentChanged;
             cadWindow1.Document.SelectionChanged += CadWindow1_SelectionChanged;
+            cadWindow1.MouseMove += cadWindow1_MouseMove;
         }
         private void Document_DocumentChanged(object sender, EventArgs e)
         {

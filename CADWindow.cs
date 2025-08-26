@@ -7,7 +7,8 @@ namespace BaseCAD
     [Docking(DockingBehavior.Ask)]
     public partial class CADWindow : UserControl
     {
-        private CADDocument doc;
+        [Browsable(false)]
+        public CADDocument Document { get; private set; }
 
         [Browsable(false)]
         public CADView View { get; private set; }
@@ -26,21 +27,6 @@ namespace BaseCAD
         [Category("Appearance"), DefaultValue(true), Description("Determines whether the X and Y axes are shown.")]
         public bool ShowAxes { get => View.ShowAxes; set => View.ShowAxes = value; }
 
-        [Browsable(false)]
-        public CADDocument Document
-        {
-            get
-            {
-                return doc;
-            }
-            set
-            {
-                doc = value;
-                View = new CADView(doc);
-                View.Attach(this);
-            }
-        }
-
         public CADWindow()
         {
             InitializeComponent();
@@ -53,6 +39,15 @@ namespace BaseCAD
             BorderStyle = BorderStyle.Fixed3D;
 
             Document = new CADDocument();
+            View = new CADView(this, Document);
+
+            Disposed += CADWindow_Disposed;
+ 
+        }
+        private void CADWindow_Disposed(object sender, System.EventArgs e)
+        {
+            if (View != null)
+                View.Dispose();
         }
     }
 }

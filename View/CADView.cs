@@ -8,8 +8,6 @@ namespace BaseCAD
 {
     public class CADView : IDisposable
     {
-        private Control control;
-
         private bool panning;
         private Point2D lastMouseLocationWorld;
         private Drawable mouseDownItem;
@@ -17,6 +15,7 @@ namespace BaseCAD
         private ControlPoint mouseDownCP;
         private ControlPoint activeCP;
         private Renderer renderer;
+
         private View.ViewItems ViewItems { get; set; } = new View.ViewItems();
 
         [Category("Behavior"), DefaultValue(true), Description("Indicates whether the control responds to interactive user input.")]
@@ -36,8 +35,8 @@ namespace BaseCAD
             set
             {
                 ViewItems.Grid.Visible = value;
-                if (control != null)
-                    control.Invalidate();
+                if (Control != null)
+                    Control.Invalidate();
             }
         }
 
@@ -51,8 +50,8 @@ namespace BaseCAD
             set
             {
                 ViewItems.Axes.Visible = value;
-                if (control != null)
-                    control.Invalidate();
+                if (Control != null)
+                    Control.Invalidate();
             }
         }
 
@@ -62,23 +61,48 @@ namespace BaseCAD
         public int Height { get; private set; }
 
         [Browsable(false)]
+        public Control Control { get; private set; }
+
+        [Browsable(false)]
         public CADDocument Document { get; private set; }
 
         [Browsable(false)]
         public Point2D CursorLocation { get; private set; }
 
-        public CADView(CADDocument document)
+        public CADView(Control ctrl, CADDocument document)
         {
+            Control = ctrl;
             Document = document;
 
             Width = 1;
             Height = 1;
 
             Camera = new Camera(new Point2D(0, 0), 5.0f / 3.0f);
-
             renderer = new Renderer(this);
+            renderer.Init(Control);
+            Control.Invalidate();
 
             panning = false;
+
+            Color backColor = Document.Settings.Get<Color>("BackColor");
+            Control.BackColor = System.Drawing.Color.FromArgb(backColor.A, backColor.R, backColor.G, backColor.B);
+            Width = ctrl.ClientRectangle.Width;
+            Height = ctrl.ClientRectangle.Height;
+
+            Control.Resize += CadView_Resize;
+            Control.MouseDown += CadView_MouseDown;
+            Control.MouseUp += CadView_MouseUp;
+            Control.MouseMove += CadView_MouseMove;
+            Control.MouseClick += CadView_MouseClick;
+            Control.MouseDoubleClick += CadView_MouseDoubleClick;
+            Control.MouseWheel += CadView_MouseWheel;
+            Control.KeyDown += CadView_KeyDown;
+            Control.KeyPress += CadView_KeyPress;
+            Control.Paint += CadView_Paint;
+            Control.MouseEnter += CadView_MouseEnter;
+            Control.MouseLeave += CadView_MouseLeave;
+            Control.GotFocus += Control_GotFocus;
+            Control.LostFocus += Control_LostFocus;
 
             Document.DocumentChanged += Document_Changed;
             Document.TransientsChanged += Document_TransientsChanged;
@@ -87,64 +111,6 @@ namespace BaseCAD
             Document.Editor.Error += Editor_Error;
         }
 
-        public void Attach(Control ctrl)
-        {
-            Detach();
-
-            control = ctrl;
-
-            Color backColor = Document.Settings.Get<Color>("BackColor");
-            control.BackColor = System.Drawing.Color.FromArgb(backColor.A, backColor.R, backColor.G, backColor.B);
-
-            Width = ctrl.ClientRectangle.Width;
-            Height = ctrl.ClientRectangle.Height;
-
-            Camera = new Camera(new Point2D(0, 0), 5.0f / 3.0f);
-
-            control.Resize += CadView_Resize;
-            control.MouseDown += CadView_MouseDown;
-            control.MouseUp += CadView_MouseUp;
-            control.MouseMove += CadView_MouseMove;
-            control.MouseClick += CadView_MouseClick;
-            control.MouseDoubleClick += CadView_MouseDoubleClick;
-            control.MouseWheel += CadView_MouseWheel;
-            control.KeyDown += CadView_KeyDown;
-            control.KeyPress += CadView_KeyPress;
-            control.Paint += CadView_Paint;
-            control.MouseEnter += CadView_MouseEnter;
-            control.MouseLeave += CadView_MouseLeave;
-            control.GotFocus += Control_GotFocus;
-            control.LostFocus += Control_LostFocus;
-
-            if (renderer != null)
-            {
-                renderer.Init(control);
-                control.Invalidate();
-            }
-        }
-        public void Detach()
-        {
-            Width = 1;
-            Height = 1;
-
-            if (control != null)
-            {
-                control.Resize -= CadView_Resize;
-                control.MouseDown -= CadView_MouseDown;
-                control.MouseUp -= CadView_MouseUp;
-                control.MouseMove -= CadView_MouseMove;
-                control.MouseClick -= CadView_MouseClick;
-                control.MouseDoubleClick -= CadView_MouseDoubleClick;
-                control.MouseWheel -= CadView_MouseWheel;
-                control.KeyDown -= CadView_KeyDown;
-                control.KeyPress -= CadView_KeyPress;
-                control.Paint -= CadView_Paint;
-                control.MouseEnter -= CadView_MouseEnter;
-                control.MouseLeave -= CadView_MouseLeave;
-                control.GotFocus -= Control_GotFocus;
-                control.LostFocus -= Control_LostFocus;
-            }
-        }
         private void Control_LostFocus(object sender, EventArgs e)
         {
             if (ReferenceEquals(Document.ActiveView, this))
@@ -155,6 +121,7 @@ namespace BaseCAD
         {
             Document.ActiveView = this;
         }
+
         public void Render(System.Drawing.Graphics graphics)
         {
             // Start drawing
@@ -368,33 +335,35 @@ namespace BaseCAD
 
         private void Document_SelectionChanged(object sender, EventArgs e)
         {
-            control.Invalidate();
+            Control.Invalidate();
         }
 
         private void Document_Changed(object sender, EventArgs e)
         {
-            control.Invalidate();
+            Control.Invalidate();
         }
 
         private void Document_TransientsChanged(object sender, EventArgs e)
         {
-            control.Invalidate();
+            Control.Invalidate();
         }
 
         private void Editor_Prompt(object sender, EditorPromptEventArgs e)
         {
             ViewItems.Cursor.Message = e.Status;
-            control.Invalidate();
+            Control.Invalidate();
         }
+
         private void Editor_Error(object sender, EditorErrorEventArgs e)
         {
             ViewItems.Cursor.Message = e.Error.Message;
-            control.Invalidate();
+            Control.Invalidate();
         }
+
         void CadView_Resize(object sender, EventArgs e)
         {
-            Resize(control.ClientRectangle.Width, control.ClientRectangle.Height);
-            control.Invalidate();
+            Resize(Control.ClientRectangle.Width, Control.ClientRectangle.Height);
+            Control.Invalidate();
         }
 
         void CadView_MouseDown(object sender, MouseEventArgs e)
@@ -448,7 +417,7 @@ namespace BaseCAD
             if (e.Button == MouseButtons.Middle && Interactive && panning)
             {
                 panning = false;
-                control.Invalidate();
+                Control.Invalidate();
             }
             else if (e.Button == MouseButtons.Left && Interactive && !Document.Editor.InputMode)
             {
@@ -541,7 +510,7 @@ namespace BaseCAD
         {
             CursorLocation = e.Location;
             ViewItems.Cursor.Location = CursorLocation;
-            control.Invalidate();
+            Control.Invalidate();
 
             if (e.Button == MouseButtons.Middle && panning)
             {
@@ -549,7 +518,7 @@ namespace BaseCAD
                 Point2D scrPt = WorldToScreen(e.Location);
                 Pan(lastMouseLocationWorld - CursorLocation);
                 lastMouseLocationWorld = ScreenToWorld(scrPt);
-                control.Invalidate();
+                Control.Invalidate();
             }
 
             if (Document.Editor.InputMode)
@@ -578,7 +547,7 @@ namespace BaseCAD
                 {
                     ZoomOut();
                 }
-                control.Invalidate();
+                Control.Invalidate();
             }
         }
 
@@ -594,14 +563,14 @@ namespace BaseCAD
         {
             ViewItems.Cursor.Visible = false;
             Cursor.Show();
-            control.Invalidate();
+            Control.Invalidate();
         }
 
         private void CadView_MouseEnter(object sender, EventArgs e)
         {
             ViewItems.Cursor.Visible = true;
             Cursor.Hide();
-            control.Invalidate();
+            Control.Invalidate();
         }
 
         private void CadView_KeyDown(object sender, KeyEventArgs e)
@@ -659,13 +628,32 @@ namespace BaseCAD
 
         public void Dispose()
         {
-            Document.DocumentChanged -= Document_Changed;
-            Document.TransientsChanged -= Document_TransientsChanged;
-            Document.SelectionChanged -= Document_SelectionChanged;
-            Document.Editor.Prompt -= Editor_Prompt;
-            Document.Editor.Error -= Editor_Error;
+            if (Document != null)
+            {
+                Document.DocumentChanged -= Document_Changed;
+                Document.TransientsChanged -= Document_TransientsChanged;
+                Document.SelectionChanged -= Document_SelectionChanged;
+                Document.Editor.Prompt -= Editor_Prompt;
+                Document.Editor.Error -= Editor_Error;
+            }
 
-            Detach();
+            if (Control != null)
+            {
+                Control.Resize -= CadView_Resize;
+                Control.MouseDown -= CadView_MouseDown;
+                Control.MouseUp -= CadView_MouseUp;
+                Control.MouseMove -= CadView_MouseMove;
+                Control.MouseClick -= CadView_MouseClick;
+                Control.MouseDoubleClick -= CadView_MouseDoubleClick;
+                Control.MouseWheel -= CadView_MouseWheel;
+                Control.KeyDown -= CadView_KeyDown;
+                Control.KeyPress -= CadView_KeyPress;
+                Control.Paint -= CadView_Paint;
+                Control.MouseEnter -= CadView_MouseEnter;
+                Control.MouseLeave -= CadView_MouseLeave;
+                Control.GotFocus -= Control_GotFocus;
+                Control.LostFocus -= Control_LostFocus;
+            }
 
             if (renderer != null)
             {
