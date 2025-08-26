@@ -39,9 +39,9 @@ namespace BaseCAD
             Editor.InputMode = false;
         }
 
-        public static async Task<InputResult<TValue>> Run<T>(Editor editor, TOptions options) where T : EditorGetter<TOptions, TValue>
+        public static async Task<InputResult<TValue>> Run<TGetter>(Editor editor, TOptions options) where TGetter : EditorGetter<TOptions, TValue>
         {
-            using (var getter = Activator.CreateInstance<T>())
+            using (var getter = Activator.CreateInstance<TGetter>())
             {
                 getter.Editor = editor;
 
@@ -70,7 +70,17 @@ namespace BaseCAD
                     getter.Editor.KeyPress += getter.Editor_KeyPress;
                 }
 
-                return await getter.Completion.Task;
+                var task = await getter.Completion.Task;
+
+                if (initArgs.ContinueAsync)
+                {
+                    getter.Editor.CursorMove -= getter.Editor_CursorMove;
+                    getter.Editor.CursorClick -= getter.Editor_CursorClick;
+                    getter.Editor.KeyDown -= getter.Editor_KeyDown;
+                    getter.Editor.KeyPress -= getter.Editor_KeyPress;
+                }
+
+                return task;
             }
         }
 
