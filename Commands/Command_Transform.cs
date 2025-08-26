@@ -1,7 +1,5 @@
-﻿using BaseCAD;
-using BaseCAD.Drawables;
+﻿using BaseCAD.Drawables;
 using BaseCAD.Geometry;
-using System.Threading.Tasks;
 
 namespace BaseCAD.Commands
 {

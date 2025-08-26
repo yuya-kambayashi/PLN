@@ -1,9 +1,6 @@
-﻿using BaseCAD;
-using BaseCAD.Drawables;
+﻿using BaseCAD.Drawables;
 using BaseCAD.Geometry;
-using BaseCAD.Graphics;
 using System.Reflection;
-using Color = BaseCAD.Graphics.Color;
 
 namespace BaseCAD.Graphics
 {

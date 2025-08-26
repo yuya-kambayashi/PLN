@@ -1,7 +1,4 @@
-﻿using BaseCAD;
-using BaseCAD.Geometry;
-using System;
-using System.Collections.Generic;
+﻿using BaseCAD.Geometry;
 using System.Text;
 using System.Text.RegularExpressions;
 

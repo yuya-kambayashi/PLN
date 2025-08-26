@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.CompilerServices;
 
 namespace BaseCAD.Geometry
 {
@@ -79,7 +74,7 @@ namespace BaseCAD.Geometry
         public void Add(Extents2D extents)
         {
             if (!extents.IsEmpty)
-            { 
+            {
                 Add(extents.Xmin, extents.Ymin);
                 Add(extents.Xmax, extents.Ymax);
             }

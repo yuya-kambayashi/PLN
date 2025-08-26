@@ -1,11 +1,4 @@
-﻿using BaseCAD;
-using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Windows.Forms;
-
-namespace BaseCAD
+﻿namespace BaseCAD
 {
     public partial class MainForm : Form
     {

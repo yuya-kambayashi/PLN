@@ -1,7 +1,4 @@
-﻿using BaseCAD;
-using System.Threading.Tasks;
-
-namespace BaseCAD.Commands
+﻿namespace BaseCAD.Commands
 {
     public class DocumentNew : Command
     {

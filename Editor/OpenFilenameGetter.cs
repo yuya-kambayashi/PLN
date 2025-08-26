@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.Design.AxImporter;
-
-namespace BaseCAD
+﻿namespace BaseCAD
 {
     internal class OpenFilenameGetter : EditorGetter<FilenameOptions, string>
     {
@@ -23,7 +16,7 @@ namespace BaseCAD
                 filename = Path.GetFileName(Options.FileName);
                 path = Path.GetDirectoryName(Options.FileName);
             }
-            
+
             if (!string.IsNullOrEmpty(filename)) ofd.FileName = filename;
             if (!string.IsNullOrEmpty(path)) ofd.InitialDirectory = path;
 

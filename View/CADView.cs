@@ -1,11 +1,7 @@
-﻿using BaseCAD;
-using BaseCAD.Drawables;
+﻿using BaseCAD.Drawables;
 using BaseCAD.Geometry;
 using BaseCAD.Graphics;
-using System;
 using System.ComponentModel;
-using System.Windows.Forms;
-using static BaseCAD.EditorPromptEventArgs;
 using Color = BaseCAD.Graphics.Color;
 
 namespace BaseCAD

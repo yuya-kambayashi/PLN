@@ -1,12 +1,5 @@
-﻿using BaseCAD.Drawables;
-using BaseCAD.Geometry;
-using BaseCAD.Graphics;
-using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using BaseCAD.Geometry;
 using System.Reflection;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace BaseCAD
 {

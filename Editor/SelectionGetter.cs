@@ -1,12 +1,6 @@
 ﻿using BaseCAD.Drawables;
 using BaseCAD.Geometry;
 using BaseCAD.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.Design.AxImporter;
 using Color = BaseCAD.Graphics.Color;
 
 namespace BaseCAD

@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using Color = BaseCAD.Graphics.Color;
-using Timer = System.Windows.Forms.Timer;
 
 
 namespace BaseCAD

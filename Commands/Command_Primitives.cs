@@ -69,7 +69,7 @@ namespace BaseCAD.Commands
             if (p2.Result != ResultMode.OK) { doc.Jigged.Remove(consArc); return; }
             var a1 = await ed.GetAngle("Start angle: ", p1.Value, (p) => consArc.StartAngle = p);
             if (a1.Result != ResultMode.OK) { doc.Jigged.Remove(consArc); return; }
-            var a2 = await ed.GetAngle("End angle: ", p1.Value, (p) => consArc.EndAngle = p); 
+            var a2 = await ed.GetAngle("End angle: ", p1.Value, (p) => consArc.EndAngle = p);
             doc.Jigged.Remove(consArc);
             if (a2.Result != ResultMode.OK) return;
 

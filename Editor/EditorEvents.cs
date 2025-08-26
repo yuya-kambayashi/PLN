@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BaseCAD
+﻿namespace BaseCAD
 {
     public delegate void EditorPromptEventHandler(object sender, EditorPromptEventArgs e);
     public delegate void EditorErrorEventHandler(object sender, EditorErrorEventArgs e);
