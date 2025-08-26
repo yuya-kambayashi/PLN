@@ -45,7 +45,7 @@ namespace BaseCAD
         [Category("Appearance"), DefaultValue(true), Description("Determines whether the X and Y axes are shown.")]
         public bool ShowAxes
         {
-            get => ShowAxes;
+            get => showAxes;
             set
             {
                 showAxes = value;

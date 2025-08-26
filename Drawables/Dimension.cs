@@ -24,16 +24,13 @@ namespace BaseCAD.Drawables
 
         private float offset;
         private string str;
-        private string fontFamily;
-        private FontStyle fontStyle;
         private float textHeight;
         private float scale;
         private int precision;
 
         public float Offset { get => offset; set { offset = value; NotifyPropertyChanged(); } }
         public string String { get => str; set { str = value; NotifyPropertyChanged(); } }
-        public string FontFamily { get => fontFamily; set { fontFamily = value; NotifyPropertyChanged(); } }
-        public FontStyle FontStyle { get => fontStyle; set { fontStyle = value; NotifyPropertyChanged(); } }
+        public TextStyle TextStyle { get; set; } = TextStyle.Default;
         public float TextHeight { get => textHeight; set { textHeight = value; NotifyPropertyChanged(); } }
         public float Scale { get => scale; set { scale = value; NotifyPropertyChanged(); } }
         public int Precision { get => precision; set { precision = value; NotifyPropertyChanged(); } }
@@ -47,8 +44,6 @@ namespace BaseCAD.Drawables
             Offset = 0.4f;
             TextHeight = textHeight;
             String = "<>";
-            FontFamily = "Arial";
-            FontStyle = FontStyle.Regular;
             Scale = 1;
             Precision = 2;
         }
@@ -129,8 +124,7 @@ namespace BaseCAD.Drawables
             float dist = (StartPoint - EndPoint).Length * Scale;
             string txt = String.Replace("<>", dist.ToString("F" + Precision.ToString()));
             Text textObj = new Text(len / 2, Offset, txt, TextHeight);
-            textObj.FontFamily = FontFamily;
-            textObj.FontStyle = FontStyle;
+            textObj.TextStyle = TextStyle;
             textObj.HorizontalAlignment = TextHorizontalAlignment.Center;
             textObj.VerticalAlignment = TextVerticalAlignment.Middle;
             textObj.Style = Style.ApplyLayer(Layer);
@@ -165,8 +159,7 @@ namespace BaseCAD.Drawables
             TextHeight = reader.ReadFloat();
             Offset = reader.ReadFloat();
             String = reader.ReadString();
-            FontFamily = reader.ReadString();
-            FontStyle = (FontStyle)reader.ReadInt();
+            TextStyle = reader.ReadPersistable<TextStyle>();
             Scale = reader.ReadFloat();
             Precision = reader.ReadInt();
         }
@@ -179,8 +172,7 @@ namespace BaseCAD.Drawables
             writer.Write(TextHeight);
             writer.Write(Offset);
             writer.Write(String);
-            writer.Write(FontFamily);
-            writer.Write((int)FontStyle);
+            writer.Write(TextStyle);
             writer.Write(Scale);
             writer.Write(Precision);
         }
