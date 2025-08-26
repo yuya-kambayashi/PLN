@@ -46,8 +46,6 @@ namespace BaseCAD.Drawables
             extents.Add(X2, Y2);
             return extents;
         }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void TransformBy(Matrix2D transformation)
         {
             Point2D pt1 = p1.Value;
