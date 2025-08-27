@@ -103,8 +103,6 @@ namespace BaseCAD
             Set("PickBoxSize", 6);
             Set("ControlPointSize", 7);
             Set("PointSize", 6);
-            Set("SnapPointSize", 11);
-            Set("SnapDistance", 25);
             Set("SnapMode", (int)SnapPointType.All);
 
             UpdateSettings();

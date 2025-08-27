@@ -64,6 +64,13 @@ namespace BaseCAD.Drawables
                 new ControlPoint("Location", Location),
             };
         }
+        public override SnapPoint[] GetSnapPoints()
+        {
+            return new[]
+            {
+                new SnapPoint("Start point", SnapPointType.Point, Location),
+            };
+        }
 
         public override void TransformControlPoint(int index, Matrix2D transformation)
         {

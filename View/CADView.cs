@@ -157,6 +157,9 @@ namespace BaseCAD
             // Render cursor
             renderer.Draw(viewCursor);
 
+            // Render snap point
+            DrawSnapPoint(renderer);
+
             // End drawing view
             renderer.EndFrame(graphics);
         }
@@ -188,6 +191,66 @@ namespace BaseCAD
                     renderer.DrawRectangle(pt.Equals(activeCP) ? cpActiveStyle : cpStyle,
                         new Point2D(pt.Location.X - cpSize / 2, pt.Location.Y - cpSize / 2),
                         new Point2D(pt.Location.X + cpSize / 2, pt.Location.Y + cpSize / 2));
+                }
+            }
+        }
+        private void DrawSnapPoint(Renderer renderer)
+        {
+            if (!Document.Editor.SnapPoints.IsEmpty)
+            {
+                var pt = Document.Editor.SnapPoints.Current();
+                Style style = new Style(Document.Settings.Get<Color>("SnapPointColor"), 2);
+                float size = ScreenToWorld(new Vector2D(Document.Settings.Get<int>("SnapPointSize"), 0)).X;
+
+                switch (pt.Type)
+                {
+                    case SnapPointType.End:
+                        renderer.DrawRectangle(style,
+                            new Point2D(pt.Location.X - size / 2, pt.Location.Y - size / 2),
+                            new Point2D(pt.Location.X + size / 2, pt.Location.Y + size / 2));
+                        break;
+                    case SnapPointType.Middle:
+                        renderer.DrawLine(style,
+                            new Point2D(pt.Location.X - size / 2, pt.Location.Y - size / 2),
+                            new Point2D(pt.Location.X + size / 2, pt.Location.Y - size / 2));
+                        renderer.DrawLine(style,
+                            new Point2D(pt.Location.X + size / 2, pt.Location.Y - size / 2),
+                            new Point2D(pt.Location.X, pt.Location.Y + size / 2));
+                        renderer.DrawLine(style,
+                            new Point2D(pt.Location.X, pt.Location.Y + size / 2),
+                            new Point2D(pt.Location.X - size / 2, pt.Location.Y - size / 2));
+                        break;
+                    case SnapPointType.Point:
+                        renderer.DrawLine(style,
+                            new Point2D(pt.Location.X - size / 2, pt.Location.Y - size / 2),
+                            new Point2D(pt.Location.X + size / 2, pt.Location.Y + size / 2));
+                        renderer.DrawLine(style,
+                            new Point2D(pt.Location.X - size / 2, pt.Location.Y + size / 2),
+                            new Point2D(pt.Location.X + size / 2, pt.Location.Y - size / 2));
+                        renderer.DrawLine(style,
+                            new Point2D(pt.Location.X, pt.Location.Y - size / 2),
+                            new Point2D(pt.Location.X, pt.Location.Y + size / 2));
+                        renderer.DrawLine(style,
+                            new Point2D(pt.Location.X - size / 2, pt.Location.Y),
+                            new Point2D(pt.Location.X + size / 2, pt.Location.Y));
+                        break;
+                    case SnapPointType.Center:
+                        renderer.DrawCircle(style, pt.Location, size / 2);
+                        break;
+                    case SnapPointType.Quadrant:
+                        renderer.DrawLine(style,
+                            new Point2D(pt.Location.X, pt.Location.Y - size / 2),
+                            new Point2D(pt.Location.X + size / 2, pt.Location.Y));
+                        renderer.DrawLine(style,
+                            new Point2D(pt.Location.X + size / 2, pt.Location.Y),
+                            new Point2D(pt.Location.X, pt.Location.Y + size / 2));
+                        renderer.DrawLine(style,
+                            new Point2D(pt.Location.X, pt.Location.Y + size / 2),
+                            new Point2D(pt.Location.X - size / 2, pt.Location.Y));
+                        renderer.DrawLine(style,
+                            new Point2D(pt.Location.X - size / 2, pt.Location.Y),
+                            new Point2D(pt.Location.X, pt.Location.Y - size / 2));
+                        break;
                 }
             }
         }
@@ -462,7 +525,7 @@ namespace BaseCAD
                         Document.Transients.Add(consItem);
                         ResultMode result = ResultMode.Cancel;
                         Matrix2D trans = Matrix2D.Identity;
-                        if (cp.Type == ControlPoint.ControlPointType.Point)
+                        if (cp.Type == ControlPointType.Point)
                         {
                             var res = await Document.Editor.GetPoint(cp.Name, cp.BasePoint,
                                 (p) =>
@@ -474,7 +537,7 @@ namespace BaseCAD
                             trans = Matrix2D.Translation(res.Value - cp.BasePoint);
                             result = res.Result;
                         }
-                        else if (cp.Type == ControlPoint.ControlPointType.Angle)
+                        else if (cp.Type == ControlPointType.Angle)
                         {
                             float orjVal = (cp.Location - cp.BasePoint).Angle;
                             var res = await Document.Editor.GetAngle(cp.Name, cp.BasePoint,
@@ -487,7 +550,7 @@ namespace BaseCAD
                             trans = Matrix2D.Rotation(cp.BasePoint, res.Value - orjVal);
                             result = res.Result;
                         }
-                        else if (cp.Type == ControlPoint.ControlPointType.Distance)
+                        else if (cp.Type == ControlPointType.Distance)
                         {
                             Vector2D dir = (cp.Location - cp.BasePoint).Normal;
                             float orjVal = (cp.Location - cp.BasePoint).Length;

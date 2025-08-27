@@ -36,7 +36,7 @@ namespace BaseCAD.Drawables
         public float Y { get { return Center.Y; } }
 
         private Polyline poly;
-
+        public Rectangle() { }
         public Rectangle(Point2D center, float width, float height, float rotation = 0)
         {
             Center = center;
@@ -45,8 +45,6 @@ namespace BaseCAD.Drawables
             Rotation = rotation;
             UpdatePolyline();
         }
-
-        public Rectangle() { }
 
         public Rectangle(float x, float y, float width, float height, float rotation = 0)
             : this(new Point2D(x, y), width, height, rotation)

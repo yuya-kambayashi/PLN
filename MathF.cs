@@ -14,7 +14,10 @@
         {
             return IsZero(a - b);
         }
-
+        public static int Compare(float a, float b)
+        {
+            return IsEqual(a, b) ? 0 : (a < b ? -1 : 1);
+        }
         public static float Sin(float a)
         {
             return (float)Math.Sin(a);

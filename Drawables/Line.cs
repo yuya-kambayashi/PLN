@@ -70,6 +70,16 @@ namespace BaseCAD.Drawables
                 new ControlPoint("End point", EndPoint),
             };
         }
+        public override SnapPoint[] GetSnapPoints()
+        {
+            return new[]
+            {
+                new SnapPoint("Start point", StartPoint),
+                new SnapPoint("End point", EndPoint),
+                new SnapPoint("Mid point", SnapPointType.Middle, Point2D.Average(StartPoint, EndPoint)),
+            };
+        }
+
         public override void TransformControlPoint(int index, Matrix2D transformation)
         {
             if (index == 0)
