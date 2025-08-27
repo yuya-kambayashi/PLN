@@ -23,7 +23,11 @@ namespace BaseCAD
             {
                 Name = reader.ReadString();
                 string valueType = reader.ReadString();
-                if (valueType == "int")
+                if (valueType == "bool")
+                {
+                    Value = reader.ReadBoolean();
+                }
+                else if (valueType == "int")
                 {
                     Value = reader.ReadInt();
                 }
@@ -36,7 +40,12 @@ namespace BaseCAD
             public void Save(DocumentWriter writer)
             {
                 writer.Write(Name);
-                if (Value is int)
+                if (Value is bool)
+                {
+                    writer.Write("bool");
+                    writer.Write((bool)Value);
+                }
+                else if (Value is int)
                 {
                     writer.Write("int");
                     writer.Write((int)Value);
@@ -103,6 +112,8 @@ namespace BaseCAD
             Set("PickBoxSize", 6);
             Set("ControlPointSize", 7);
             Set("PointSize", 6);
+
+            Set("Snap", true);
             Set("SnapPointSize", 11);
             Set("SnapDistance", 25);
             Set("SnapMode", (int)SnapPointType.All);
