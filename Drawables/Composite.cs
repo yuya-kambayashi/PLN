@@ -6,6 +6,9 @@ namespace BaseCAD.Drawables
 {
     public class Composite : Drawable, ICollection<Drawable>, INotifyCollectionChanged
     {
+        private Point2D p;
+        public Point2D Location { get => p; set { p = value; NotifyPropertyChanged(); } }
+
         List<Drawable> items = new List<Drawable>();
 
         public event NotifyCollectionChangedEventHandler CollectionChanged;
@@ -15,6 +18,7 @@ namespace BaseCAD.Drawables
         public override void Load(DocumentReader reader)
         {
             base.Load(reader);
+            Location = reader.ReadPoint2D();
             int count = reader.ReadInt();
             for (int i = 0; i < count; i++)
             {
@@ -26,6 +30,7 @@ namespace BaseCAD.Drawables
         public override void Save(DocumentWriter writer)
         {
             base.Save(writer);
+            writer.Write(Location);
             writer.Write(items.Count);
             foreach (var item in items)
             {
@@ -62,18 +67,32 @@ namespace BaseCAD.Drawables
             }
             return false;
         }
+        public override ControlPoint[] GetControlPoints()
+        {
+            return new[]
+            {
+                new ControlPoint("Location", Location),
+            };
+        }
         public override SnapPoint[] GetSnapPoints()
         {
             List<SnapPoint> points = new List<SnapPoint>();
+            points.Add(new SnapPoint("Location", SnapPointType.Point, Location));
             foreach (Drawable d in items)
             {
                 if (d.Visible && (d.Layer == null || d.Layer.Visible)) points.AddRange(d.GetSnapPoints());
             }
             return points.ToArray();
         }
+        public override void TransformControlPoint(int index, Matrix2D transformation)
+        {
+            if (index == 0)
+                TransformBy(transformation);
+        }
 
         public override void TransformBy(Matrix2D transformation)
         {
+            Location = Location.Transform(transformation);
             foreach (Drawable item in items)
             {
                 item.TransformBy(transformation);

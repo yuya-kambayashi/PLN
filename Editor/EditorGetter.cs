@@ -83,7 +83,8 @@ namespace BaseCAD
             Editor.SnapPoints.Clear();
             foreach (Drawable item in Editor.Document.Model)
             {
-                Editor.SnapPoints.AddFromDrawable(item, e.Location, snapMode, snapDist);
+                if (item.Visible && (item.Layer == null || item.Layer.Visible))
+                    Editor.SnapPoints.AddFromDrawable(item, e.Location, snapMode, snapDist);
             }
 
             CoordsChanged(e.Location);
