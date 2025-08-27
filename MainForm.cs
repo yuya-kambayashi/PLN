@@ -9,6 +9,8 @@
             cadWindow1.Document.DocumentChanged += Document_DocumentChanged;
             cadWindow1.Document.SelectionChanged += CadWindow1_SelectionChanged;
             cadWindow1.MouseMove += cadWindow1_MouseMove;
+
+            UpdateUI();
         }
         private void Document_DocumentChanged(object sender, EventArgs e)
         {
@@ -57,11 +59,15 @@
         {
             if (EnsureDocumentSaved())
                 cadWindow1.Document.Editor.RunCommand("Document.New");
+
+            UpdateUI();
         }
         private void btnOpen_Click(object sender, EventArgs e)
         {
             if (EnsureDocumentSaved())
                 cadWindow1.Document.Editor.RunCommand("Document.Open", SaveFileName);
+
+            UpdateUI();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -70,10 +76,14 @@
                 cadWindow1.Document.Editor.RunCommand("Document.SaveAs", SaveFileName);
             else
                 cadWindow1.Document.Editor.RunCommand("Document.Save");
+
+            UpdateUI();
         }
         private void btnSaveAs_Click(object sender, EventArgs e)
         {
             cadWindow1.Document.Editor.RunCommand("Document.SaveAs", cadWindow1.Document.FileName ?? SaveFileName);
+
+            UpdateUI();
         }
         private string SaveFileName
         {
@@ -82,6 +92,15 @@
                 string path = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
                 return Path.Combine(path, "save.scf");
             }
+        }
+        private void UpdateUI()
+        {
+            btnSnap.Checked = cadWindow1.Document.Settings.Get<bool>("Snap");
+            btnSnapEnd.Checked = (cadWindow1.Document.Settings.Get<SnapPointType>("SnapMode") & SnapPointType.End) != SnapPointType.None;
+            btnSnapMiddle.Checked = (cadWindow1.Document.Settings.Get<SnapPointType>("SnapMode") & SnapPointType.Middle) != SnapPointType.None;
+            btnSnapCenter.Checked = (cadWindow1.Document.Settings.Get<SnapPointType>("SnapMode") & SnapPointType.Center) != SnapPointType.None;
+            btnSnapQuadrant.Checked = (cadWindow1.Document.Settings.Get<SnapPointType>("SnapMode") & SnapPointType.Quadrant) != SnapPointType.None;
+            btnSnapPoint.Checked = (cadWindow1.Document.Settings.Get<SnapPointType>("SnapMode") & SnapPointType.Point) != SnapPointType.None;
         }
         private void btnDrawPoint_Click(object sender, EventArgs e)
         {
@@ -183,6 +202,50 @@
         private void btnDelete_Click(object sender, EventArgs e)
         {
             cadWindow1.Document.Editor.RunCommand("Edit.Delete");
+        }
+        private void btnSnap_Click(object sender, EventArgs e)
+        {
+            cadWindow1.Document.Settings.Set("Snap", btnSnap.Checked);
+        }
+
+        private void btnSnapEnd_Click(object sender, EventArgs e)
+        {
+            if (btnSnapEnd.Checked)
+                cadWindow1.Document.Settings.Set("SnapMode", cadWindow1.Document.Settings.Get<SnapPointType>("SnapMode") | SnapPointType.End);
+            else
+                cadWindow1.Document.Settings.Set("SnapMode", cadWindow1.Document.Settings.Get<SnapPointType>("SnapMode") & ~SnapPointType.End);
+        }
+
+        private void btnSnapMiddle_Click(object sender, EventArgs e)
+        {
+            if (btnSnapMiddle.Checked)
+                cadWindow1.Document.Settings.Set("SnapMode", cadWindow1.Document.Settings.Get<SnapPointType>("SnapMode") | SnapPointType.Middle);
+            else
+                cadWindow1.Document.Settings.Set("SnapMode", cadWindow1.Document.Settings.Get<SnapPointType>("SnapMode") & ~SnapPointType.Middle);
+        }
+
+        private void btnSnapCenter_Click(object sender, EventArgs e)
+        {
+            if (btnSnapCenter.Checked)
+                cadWindow1.Document.Settings.Set("SnapMode", cadWindow1.Document.Settings.Get<SnapPointType>("SnapMode") | SnapPointType.Center);
+            else
+                cadWindow1.Document.Settings.Set("SnapMode", cadWindow1.Document.Settings.Get<SnapPointType>("SnapMode") & ~SnapPointType.Center);
+        }
+
+        private void btnSnapQuadrant_Click(object sender, EventArgs e)
+        {
+            if (btnSnapQuadrant.Checked)
+                cadWindow1.Document.Settings.Set("SnapMode", cadWindow1.Document.Settings.Get<SnapPointType>("SnapMode") | SnapPointType.Quadrant);
+            else
+                cadWindow1.Document.Settings.Set("SnapMode", cadWindow1.Document.Settings.Get<SnapPointType>("SnapMode") & ~SnapPointType.Quadrant);
+        }
+
+        private void btnSnapPoint_Click(object sender, EventArgs e)
+        {
+            if (btnSnapPoint.Checked)
+                cadWindow1.Document.Settings.Set("SnapMode", cadWindow1.Document.Settings.Get<SnapPointType>("SnapMode") | SnapPointType.Point);
+            else
+                cadWindow1.Document.Settings.Set("SnapMode", cadWindow1.Document.Settings.Get<SnapPointType>("SnapMode") & ~SnapPointType.Point);
         }
     }
 }
