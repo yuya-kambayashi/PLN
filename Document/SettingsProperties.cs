@@ -1,5 +1,4 @@
-﻿
-namespace BaseCAD
+﻿namespace BaseCAD
 {
     public partial class Settings
     {

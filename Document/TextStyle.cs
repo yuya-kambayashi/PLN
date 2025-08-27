@@ -1,6 +1,8 @@
-﻿using System.ComponentModel;
+﻿using BaseCAD.Graphics;
+using System.ComponentModel;
+using FontStyle = BaseCAD.Graphics.FontStyle;
 
-namespace BaseCAD.Graphics
+namespace BaseCAD
 {
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class TextStyle : IPersistable

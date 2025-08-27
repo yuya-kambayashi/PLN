@@ -1,6 +1,4 @@
-﻿using Layer = BaseCAD.Graphics.Layer;
-
-namespace BaseCAD
+﻿namespace BaseCAD
 {
     public class LayerDictionary : PersistableDictionaryWithDefault<Layer>
     {

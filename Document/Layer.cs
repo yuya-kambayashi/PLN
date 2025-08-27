@@ -1,6 +1,8 @@
-﻿using System.ComponentModel;
+﻿using BaseCAD.Graphics;
+using System.ComponentModel;
+using Color = BaseCAD.Graphics.Color;
 
-namespace BaseCAD.Graphics
+namespace BaseCAD
 {
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class Layer : IPersistable

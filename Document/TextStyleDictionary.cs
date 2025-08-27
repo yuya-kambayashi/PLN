@@ -1,6 +1,4 @@
-﻿using BaseCAD.Graphics;
-
-namespace BaseCAD
+﻿namespace BaseCAD
 {
     public class TextStyleDictionary : PersistableDictionaryWithDefault<TextStyle>
     {
