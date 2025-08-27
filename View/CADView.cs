@@ -92,7 +92,6 @@ namespace BaseCAD
 
             panning = false;
 
-            Control.BackColor = (System.Drawing.Color)Document.Settings.Get<Color>("BackColor");
             Width = ctrl.ClientRectangle.Width;
             Height = ctrl.ClientRectangle.Height;
 
@@ -127,8 +126,8 @@ namespace BaseCAD
             renderer.Clear(Document.Settings.Get<Color>("BackColor"));
 
             // Grid and axes
-            if (showGrid) renderer.Draw(viewGrid);
-            if (showAxes) renderer.Draw(viewAxes);
+            if (showGrid && viewGrid.Visible) renderer.Draw(viewGrid);
+            if (showAxes && viewAxes.Visible) renderer.Draw(viewAxes);
 
             // Render drawing objects
             renderer.Draw(Document.Model);
@@ -143,7 +142,7 @@ namespace BaseCAD
             renderer.Draw(Document.Transients);
 
             // Render cursor
-            if (showCursor) renderer.Draw(viewCursor);
+            if (showCursor && viewCursor.Visible) renderer.Draw(viewCursor);
 
             // Render snap point
             DrawSnapPoint(renderer);
@@ -634,8 +633,7 @@ namespace BaseCAD
 
         private void CadView_MouseEnter(object sender, EventArgs e)
         {
-            if (ShowCursor)
-                viewCursor.Visible = true;
+            viewCursor.Visible = true;
             Cursor.Hide();
 
             Document.ActiveView = this;
