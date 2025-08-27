@@ -59,7 +59,7 @@ namespace BaseCAD.Drawables
             return new[]
             {
                 new ControlPoint("Center point", Center),
-                new ControlPoint("Radius", ControlPointType.Distance, Center, Center + Radius * Vector2D.XAxis),    
+                new ControlPoint("Radius", ControlPointType.Distance, Center, Center + Radius * Vector2D.XAxis),
             };
         }
         public override SnapPoint[] GetSnapPoints()

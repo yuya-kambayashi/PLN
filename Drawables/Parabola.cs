@@ -143,7 +143,7 @@ namespace BaseCAD.Drawables
                 new ControlPoint("End point", EndPoint),
                 new ControlPoint("Start angle", ControlPointType.Angle, StartPoint, StartPoint + cpSize * Vector2D.FromAngle(StartAngle)),
                 new ControlPoint("End angle", ControlPointType.Angle, EndPoint, EndPoint + cpSize * Vector2D.FromAngle(EndAngle)),
-            
+
             };
         }
         public override SnapPoint[] GetSnapPoints()

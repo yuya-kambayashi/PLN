@@ -1,7 +1,6 @@
 ﻿using BaseCAD.Geometry;
 using BaseCAD.Graphics;
 using System.ComponentModel;
-using FontStyle = BaseCAD.Graphics.FontStyle;
 
 namespace BaseCAD.Drawables
 {

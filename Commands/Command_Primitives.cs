@@ -1,7 +1,7 @@
 ﻿using BaseCAD.Drawables;
 using BaseCAD.Geometry;
-using Rectangle = BaseCAD.Drawables.Rectangle;
 using Point = BaseCAD.Drawables.Point;
+using Rectangle = BaseCAD.Drawables.Rectangle;
 
 namespace BaseCAD.Commands
 {

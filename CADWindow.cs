@@ -45,7 +45,7 @@ namespace BaseCAD
             View = new CADView(this, Document);
 
             Disposed += CADWindow_Disposed;
- 
+
         }
         private void CADWindow_Disposed(object sender, System.EventArgs e)
         {

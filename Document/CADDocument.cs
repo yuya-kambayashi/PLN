@@ -1,6 +1,5 @@
-﻿using BaseCAD.Drawables;
-using BaseCAD.Document;
-using System.Reflection;
+﻿using BaseCAD.Document;
+using BaseCAD.Drawables;
 
 namespace BaseCAD
 {
