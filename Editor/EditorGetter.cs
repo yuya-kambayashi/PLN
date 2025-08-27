@@ -170,6 +170,8 @@ namespace BaseCAD
                     Editor.SnapPoints.Next();
                 else
                     Editor.SnapPoints.Previous();
+
+                Editor.Document.ActiveView.Redraw();
             }
         }
 

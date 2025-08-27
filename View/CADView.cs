@@ -37,8 +37,7 @@ namespace BaseCAD
             set
             {
                 showGrid = value;
-                if (Control != null)
-                    Control.Invalidate();
+                Redraw();
             }
         }
 
@@ -49,8 +48,7 @@ namespace BaseCAD
             set
             {
                 showAxes = value;
-                if (Control != null)
-                    Control.Invalidate();
+                Redraw();
             }
         }
 
@@ -61,8 +59,7 @@ namespace BaseCAD
             set
             {
                 showCursor = value;
-                if (Control != null)
-                    Control.Invalidate();
+                Redraw();
             }
         }
 
@@ -91,7 +88,7 @@ namespace BaseCAD
             Camera = new Camera(new Point2D(0, 0), 5.0f / 3.0f);
             renderer = new Renderer(this);
             renderer.Init(Control);
-            Control.Invalidate();
+            Redraw();
 
             panning = false;
 
@@ -111,8 +108,6 @@ namespace BaseCAD
             Control.Paint += CadView_Paint;
             Control.MouseEnter += CadView_MouseEnter;
             Control.MouseLeave += CadView_MouseLeave;
-            Control.GotFocus += Control_GotFocus;
-            Control.LostFocus += Control_LostFocus;
 
             Document.DocumentChanged += Document_Changed;
             Document.TransientsChanged += Document_TransientsChanged;
@@ -120,16 +115,9 @@ namespace BaseCAD
             Document.Editor.Prompt += Editor_Prompt;
             Document.Editor.Error += Editor_Error;
         }
-
-        private void Control_LostFocus(object sender, EventArgs e)
+        public void Redraw()
         {
-            if (ReferenceEquals(Document.ActiveView, this))
-                Document.ActiveView = null;
-        }
-
-        private void Control_GotFocus(object sender, EventArgs e)
-        {
-            Document.ActiveView = this;
+            Control.Invalidate();
         }
 
         public void Render(System.Drawing.Graphics graphics)
@@ -409,35 +397,35 @@ namespace BaseCAD
 
         private void Document_SelectionChanged(object sender, EventArgs e)
         {
-            Control.Invalidate();
+            Redraw();
         }
 
         private void Document_Changed(object sender, EventArgs e)
         {
-            Control.Invalidate();
+            Redraw();
         }
 
         private void Document_TransientsChanged(object sender, EventArgs e)
         {
-            Control.Invalidate();
+            Redraw();
         }
 
         private void Editor_Prompt(object sender, EditorPromptEventArgs e)
         {
             viewCursor.Message = e.Status;
-            Control.Invalidate();
+            Redraw();
         }
 
         private void Editor_Error(object sender, EditorErrorEventArgs e)
         {
             viewCursor.Message = e.Error.Message;
-            Control.Invalidate();
+            Redraw();
         }
 
         void CadView_Resize(object sender, EventArgs e)
         {
             Resize(Control.ClientRectangle.Width, Control.ClientRectangle.Height);
-            Control.Invalidate();
+            Redraw();
         }
 
         void CadView_MouseDown(object sender, MouseEventArgs e)
@@ -637,7 +625,11 @@ namespace BaseCAD
         {
             viewCursor.Visible = false;
             Cursor.Show();
-            Control.Invalidate();
+
+            if (ReferenceEquals(Document.ActiveView, this))
+                Document.ActiveView = null;
+
+            Redraw();
         }
 
         private void CadView_MouseEnter(object sender, EventArgs e)
@@ -645,7 +637,10 @@ namespace BaseCAD
             if (ShowCursor)
                 viewCursor.Visible = true;
             Cursor.Hide();
-            Control.Invalidate();
+
+            Document.ActiveView = this;
+
+            Redraw();
         }
 
         private void CadView_KeyDown(object sender, KeyEventArgs e)
@@ -726,8 +721,6 @@ namespace BaseCAD
                 Control.Paint -= CadView_Paint;
                 Control.MouseEnter -= CadView_MouseEnter;
                 Control.MouseLeave -= CadView_MouseLeave;
-                Control.GotFocus -= Control_GotFocus;
-                Control.LostFocus -= Control_LostFocus;
             }
 
             if (renderer != null)
