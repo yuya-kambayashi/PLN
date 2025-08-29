@@ -189,6 +189,10 @@
         {
             ed.RunCommand("Transform.Mirror");
         }
+        private void btnStretch_Click(object sender, EventArgs e)
+        {
+            ed.RunCommand("Transform.MoveControlPoints");
+        }
         private void btnShowGrid_Click(object sender, EventArgs e)
         {
             cadWindow1.View.ShowGrid = btnShowGrid.Checked;

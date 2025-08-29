@@ -115,14 +115,17 @@ namespace BaseCAD.Drawables
                 new SnapPoint("Location", SnapPointType.Point, Location),
             };
         }
-        public override void TransformControlPoint(int index, Matrix2D transformation)
+        public override void TransformControlPoints(int[] indices, Matrix2D transformation)
         {
-            if (index == 0)
-                Location = Location.Transform(transformation);
-            else if (index == 1)
-                Rotation = Vector2D.FromAngle(Rotation).Transform(transformation).Angle;
-            else if (index == 2)
-                TextHeight = Vector2D.XAxis.Transform(transformation).Length * TextHeight;
+            foreach (int index in indices)
+            {
+                if (index == 0)
+                    Location = Location.Transform(transformation);
+                else if (index == 1)
+                    Rotation = Vector2D.FromAngle(Rotation).Transform(transformation).Angle;
+                else if (index == 2)
+                    TextHeight = Vector2D.XAxis.Transform(transformation).Length * TextHeight;
+            }
         }
         public override void Load(DocumentReader reader)
         {

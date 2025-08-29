@@ -18,9 +18,11 @@ namespace BaseCAD.Drawables
         public virtual bool Contains(Point2D pt, float pickBoxSize) { return GetExtents().Contains(pt); }
         public abstract void TransformBy(Matrix2D transformation);
         public virtual ControlPoint[] GetControlPoints() { return new ControlPoint[0]; }
-        public virtual SnapPoint[] GetSnapPoints() { return new SnapPoint[0]; }
-        public virtual void TransformControlPoint(int index, Matrix2D transformation) { }
+        public virtual ControlPoint[] GetStretchPoints() { return GetControlPoints(); }
 
+        public virtual SnapPoint[] GetSnapPoints() { return new SnapPoint[0]; }
+        public virtual void TransformControlPoints(int[] indices, Matrix2D transformation) { }
+        public virtual void TransformStretchPoints(int[] indices, Matrix2D transformation) { TransformControlPoints(indices, transformation); }
         public virtual Drawable Clone() { return (Drawable)MemberwiseClone(); }
         protected Drawable() { }
 

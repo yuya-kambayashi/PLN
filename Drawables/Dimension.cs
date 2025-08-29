@@ -151,12 +151,15 @@ namespace BaseCAD.Drawables
             };
         }
 
-        public override void TransformControlPoint(int index, Matrix2D transformation)
+        public override void TransformControlPoints(int[] indices, Matrix2D transformation)
         {
-            if (index == 0)
-                StartPoint = StartPoint.Transform(transformation);
-            else if (index == 1)
-                EndPoint = EndPoint.Transform(transformation);
+            foreach (int index in indices)
+            {
+                if (index == 0)
+                    StartPoint = StartPoint.Transform(transformation);
+                else if (index == 1)
+                    EndPoint = EndPoint.Transform(transformation);
+            }
         }
 
         public override void Load(DocumentReader reader)
