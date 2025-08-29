@@ -22,8 +22,6 @@ namespace BaseCAD.Graphics
         public BaseCAD.Graphics.Color Color { get; set; }
         public float LineWeight { get; set; }
         public DashStyle DashStyle { get; set; }
-        public bool Fill { get; set; }
-
         public Style(Color color, float lineWeight, DashStyle dashStyle)
         {
             Color = color;
@@ -52,7 +50,6 @@ namespace BaseCAD.Graphics
         public Style ApplyLayer(Layer layer)
         {
             Style style = new Style(Color, LineWeight, DashStyle);
-            style.Fill = Fill;
             if (layer != null)
             {
                 if (Color.IsByLayer) style.Color = layer.Style.Color;
@@ -67,7 +64,6 @@ namespace BaseCAD.Graphics
             Color = reader.ReadColor();
             LineWeight = reader.ReadFloat();
             DashStyle = (DashStyle)reader.ReadInt();
-            Fill = reader.ReadBoolean();
         }
 
         public void Save(DocumentWriter writer)
@@ -75,7 +71,6 @@ namespace BaseCAD.Graphics
             writer.Write(Color);
             writer.Write(LineWeight);
             writer.Write((int)DashStyle);
-            writer.Write(Fill);
         }
     }
 }

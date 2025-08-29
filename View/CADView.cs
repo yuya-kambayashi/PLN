@@ -477,6 +477,7 @@ namespace BaseCAD
         {
             if (e.Button == MouseButtons.Middle && Interactive && panning)
             {
+
                 panning = false;
                 Control.Invalidate();
             }
