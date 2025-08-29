@@ -14,22 +14,7 @@ namespace BaseCAD
 
         protected override void Init(InitArgs<SelectionSet> args)
         {
-            // Immediately return existing picked-selection if any
-            if (Options.UsePickedSelection && Editor.PickedSelection.Count != 0)
-            {
-                Editor.CurrentSelection.Clear();
-                foreach (Drawable item in Editor.PickedSelection)
-                {
-                    Editor.CurrentSelection.Add(item);
-                }
-                Editor.PickedSelection.Clear();
-                args.Value = Editor.CurrentSelection;
-                args.ContinueAsync = false;
-            }
-            else
-            {
-                getFirstPoint = false;
-            }
+            getFirstPoint = false;
         }
 
         protected override void CoordsChanged(Point2D pt)

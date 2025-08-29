@@ -9,6 +9,7 @@ namespace BaseCAD
         HashSet<Drawable> items = new HashSet<Drawable>();
 
         public event NotifyCollectionChangedEventHandler CollectionChanged;
+        public static SelectionSet Empty => new SelectionSet();
 
         public SelectionSet()
         {
@@ -69,12 +70,15 @@ namespace BaseCAD
             CollectionChanged?.Invoke(this, e);
         }
 
-        #region Not Implemented
-        void ISet<Drawable>.UnionWith(IEnumerable<Drawable> other)
+        public void UnionWith(IEnumerable<Drawable> other)
         {
-            throw new NotImplementedException();
+            foreach (var item in other)
+            {
+                Add(item);
+            }
         }
 
+        #region Not Implemented
         void ISet<Drawable>.IntersectWith(IEnumerable<Drawable> other)
         {
             throw new NotImplementedException();
@@ -122,7 +126,7 @@ namespace BaseCAD
 
         void ICollection<Drawable>.Add(Drawable item)
         {
-            throw new NotImplementedException();
+            ((ISet<Drawable>)this).Add(item);
         }
         #endregion
     }
