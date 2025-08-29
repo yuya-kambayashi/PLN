@@ -123,7 +123,7 @@ namespace BaseCAD
         {
             // Start drawing
             renderer.InitFrame(graphics);
-            renderer.Clear(Document.Settings.Get<Color>("BackColor"));
+            renderer.Clear(Document.Settings.BackColor);
 
             // Grid and axes
             if (showGrid && viewGrid.Visible) renderer.Draw(viewGrid);
@@ -153,7 +153,7 @@ namespace BaseCAD
 
         private void DrawSelection(Renderer renderer)
         {
-            renderer.StyleOverride = new Style(Document.Settings.Get<Color>("SelectionHighlightColor"), 5, DashStyle.Solid);
+            renderer.StyleOverride = new Style(Document.Settings.SelectionHighlightColor, 5, DashStyle.Solid);
             // Current selection
             foreach (Drawable selected in Document.Editor.CurrentSelection)
             {
@@ -167,9 +167,9 @@ namespace BaseCAD
             renderer.StyleOverride = null;
 
             // Control points
-            Style cpStyle = new Style(Document.Settings.Get<Color>("ControlPointColor"), 2);
-            Style cpActiveStyle = new Style(Document.Settings.Get<Color>("ActiveControlPointColor"), 2);
-            float cpSize = ScreenToWorld(new Vector2D(Document.Settings.Get<int>("ControlPointSize"), 0)).X;
+            Style cpStyle = new Style(Document.Settings.ControlPointColor, 2);
+            Style cpActiveStyle = new Style(Document.Settings.ActiveControlPointColor, 2);
+            float cpSize = ScreenToWorld(new Vector2D(Document.Settings.ControlPointSize, 0)).X;
 
             foreach (Drawable selected in Document.Editor.PickedSelection)
             {
@@ -186,8 +186,8 @@ namespace BaseCAD
             if (!Document.Editor.SnapPoints.IsEmpty)
             {
                 var pt = Document.Editor.SnapPoints.Current();
-                Style style = new Style(Document.Settings.Get<Color>("SnapPointColor"), 2);
-                float size = ScreenToWorld(new Vector2D(Document.Settings.Get<int>("SnapPointSize"), 0)).X;
+                Style style = new Style(Document.Settings.SnapPointColor, 2);
+                float size = ScreenToWorld(new Vector2D(Document.Settings.SnapPointSize, 0)).X;
 
                 switch (pt.Type)
                 {
@@ -244,7 +244,7 @@ namespace BaseCAD
 
         private void DrawJigged(Renderer renderer)
         {
-            renderer.StyleOverride = new Style(Document.Settings.Get<Color>("JigColor"), 0, DashStyle.Dash);
+            renderer.StyleOverride = new Style(Document.Settings.JigColor, 0, DashStyle.Dash);
             renderer.Draw(Document.Jigged);
             renderer.StyleOverride = null;
         }
@@ -466,8 +466,8 @@ namespace BaseCAD
             }
             else if (e.Button == MouseButtons.Left && Interactive && !Document.Editor.InputMode)
             {
-                mouseDownItem = FindItem(e.Location, ScreenToWorld(new Vector2D(Document.Settings.Get<int>("PickBoxSize"), 0)).X);
-                Tuple<Drawable, ControlPoint> find = FindControlPoint(e.Location, ScreenToWorld(new Vector2D(Document.Settings.Get<int>("ControlPointSize"), 0)).X);
+                mouseDownItem = FindItem(e.Location, ScreenToWorld(new Vector2D(Document.Settings.PickBoxSize, 0)).X);
+                Tuple<Drawable, ControlPoint> find = FindControlPoint(e.Location, ScreenToWorld(new Vector2D(Document.Settings.ControlPointSize, 0)).X);
                 mouseDownCPItem = find.Item1;
                 mouseDownCP = find.Item2;
             }
@@ -485,7 +485,7 @@ namespace BaseCAD
             {
                 if (mouseDownItem != null)
                 {
-                    Drawable mouseUpItem = FindItem(e.Location, ScreenToWorld(new Vector2D(Document.Settings.Get<int>("PickBoxSize"), 0)).X);
+                    Drawable mouseUpItem = FindItem(e.Location, ScreenToWorld(new Vector2D(Document.Settings.PickBoxSize, 0)).X);
                     if (mouseUpItem != null && ReferenceEquals(mouseDownItem, mouseUpItem) && !Document.Editor.PickedSelection.Contains(mouseDownItem))
                     {
                         if ((Control.ModifierKeys & Keys.Shift) != Keys.None)
@@ -494,7 +494,7 @@ namespace BaseCAD
                         }
                         else
                         {
-                            float cpSize = ScreenToWorld(new Vector2D(Document.Settings.Get<int>("ControlPointSize") + 4, 0)).X;
+                            float cpSize = ScreenToWorld(new Vector2D(Document.Settings.ControlPointSize + 4, 0)).X;
                             Document.Editor.PickedSelection.Add(mouseDownItem);
                         }
                     }
@@ -502,7 +502,7 @@ namespace BaseCAD
 
                 if (mouseDownCP != null)
                 {
-                    Tuple<Drawable, ControlPoint> find = FindControlPoint(e.Location, ScreenToWorld(new Vector2D(Document.Settings.Get<int>("ControlPointSize"), 0)).X);
+                    Tuple<Drawable, ControlPoint> find = FindControlPoint(e.Location, ScreenToWorld(new Vector2D(Document.Settings.ControlPointSize, 0)).X);
                     Drawable item = find.Item1;
                     ControlPoint mouseUpCP = find.Item2;
                     if (ReferenceEquals(item, mouseDownCPItem) && mouseDownCP.Index == mouseUpCP.Index)

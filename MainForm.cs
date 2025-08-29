@@ -101,12 +101,12 @@
         }
         private void UpdateUI()
         {
-            btnSnap.Checked = doc.Settings.Get<bool>("Snap");
-            btnSnapEnd.Checked = (doc.Settings.Get<SnapPointType>("SnapMode") & SnapPointType.End) != SnapPointType.None;
-            btnSnapMiddle.Checked = (doc.Settings.Get<SnapPointType>("SnapMode") & SnapPointType.Middle) != SnapPointType.None;
-            btnSnapCenter.Checked = (doc.Settings.Get<SnapPointType>("SnapMode") & SnapPointType.Center) != SnapPointType.None;
-            btnSnapQuadrant.Checked = (doc.Settings.Get<SnapPointType>("SnapMode") & SnapPointType.Quadrant) != SnapPointType.None;
-            btnSnapPoint.Checked = (doc.Settings.Get<SnapPointType>("SnapMode") & SnapPointType.Point) != SnapPointType.None;
+            btnSnap.Checked = doc.Settings.Snap;
+            btnSnapEnd.Checked = (doc.Settings.SnapMode & SnapPointType.End) != SnapPointType.None;
+            btnSnapMiddle.Checked = (doc.Settings.SnapMode & SnapPointType.Middle) != SnapPointType.None;
+            btnSnapCenter.Checked = (doc.Settings.SnapMode & SnapPointType.Center) != SnapPointType.None;
+            btnSnapQuadrant.Checked = (doc.Settings.SnapMode & SnapPointType.Quadrant) != SnapPointType.None;
+            btnSnapPoint.Checked = (doc.Settings.SnapMode & SnapPointType.Point) != SnapPointType.None;
         }
         private void btnDrawPoint_Click(object sender, EventArgs e)
         {
