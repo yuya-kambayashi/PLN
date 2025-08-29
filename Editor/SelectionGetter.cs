@@ -20,7 +20,21 @@ namespace BaseCAD
                 SelectionSet ss = new SelectionSet();
                 foreach (Drawable item in Editor.PickedSelection)
                 {
-                    ss.Add(item);
+                    if (Options.AllowedClasses.Count == 0)
+                    {
+                        ss.Add(item);
+                    }
+                    else
+                    {
+                        foreach (var type in Options.AllowedClasses)
+                        {
+                            if (item.GetType() == type)
+                            {
+                                ss.Add(item);
+                                break;
+                            }
+                        }
+                    }
                 }
                 Editor.PickedSelection.Clear();
                 args.Value = ss;
@@ -122,16 +136,30 @@ namespace BaseCAD
 
         private SelectionSet GetSelectionFromWindow()
         {
-            Editor.CurrentSelection.Clear();
             Extents2D ex = consHatch.GetExtents();
             bool windowSelection = (consHatch.Points[2].X > consHatch.Points[0].X);
+            SelectionSet ss = new SelectionSet();
             foreach (Drawable item in Editor.Document.Model)
             {
                 Extents2D exItem = item.GetExtents();
                 if (windowSelection && ex.Contains(exItem) || !windowSelection && ex.IntersectsWith(exItem))
-                    Editor.CurrentSelection.Add(item);
+                {
+                    if (Options.AllowedClasses.Count == 0)
+                    {
+                        ss.Add(item);
+                    }
+                    foreach (var type in Options.AllowedClasses)
+                    {
+                        if (item.GetType() == type)
+                        {
+                            ss.Add(item);
+
+                            break;
+                        }
+                    }
+                }
             }
-            return Editor.CurrentSelection;
+            return ss;
         }
     }
 }
