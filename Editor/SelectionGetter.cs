@@ -128,7 +128,7 @@ namespace BaseCAD
             Extents2D ex = consHatch.GetExtents();
             bool windowSelection = (consHatch.Points[2].X > consHatch.Points[0].X);
             SelectionSet ss = new SelectionSet();
-            foreach (Drawable item in Editor.Document.Model)
+            foreach (Drawable item in Editor.Document.ActiveView.VisibleItems)
             {
                 Extents2D exItem = item.GetExtents();
                 if (windowSelection && ex.Contains(exItem) || !windowSelection && ex.IntersectsWith(exItem))

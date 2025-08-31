@@ -87,7 +87,7 @@ namespace BaseCAD.View
 
         public override Extents2D GetExtents()
         {
-            return Extents2D.Empty;
+            return Extents2D.Infinity;
         }
 
         public override void TransformBy(Matrix2D transformation)

@@ -76,6 +76,7 @@ namespace BaseCAD
 
         [Browsable(false)]
         public Point2D CursorLocation { get; private set; }
+        internal Drawables.DrawableList VisibleItems { get; private set; } = new Drawables.DrawableList();
 
         public CADView(Control ctrl, CADDocument document)
         {
@@ -130,6 +131,7 @@ namespace BaseCAD
             if (showAxes && viewAxes.Visible) renderer.Draw(viewAxes);
 
             // Render drawing objects
+            VisibleItems.Clear();
             renderer.Draw(Document.Model);
 
             // Render selected objects
@@ -671,7 +673,7 @@ namespace BaseCAD
         private Drawable FindItem(Point2D pt, float pickBox)
         {
             float pickBoxWorld = ScreenToWorld(new Vector2D(pickBox, 0)).X;
-            foreach (Drawable d in Document.Model)
+            foreach (Drawable d in VisibleItems)
             {
                 if (d.Contains(pt, pickBoxWorld)) return d;
             }

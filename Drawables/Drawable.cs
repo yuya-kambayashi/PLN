@@ -10,6 +10,7 @@ namespace BaseCAD.Drawables
         public Style Style { get; set; } = Style.Default;
         public Layer Layer { get; set; } = Layer.Default;
         public bool Visible { get; set; } = true;
+        internal bool InModel { get; set; } = false;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -11,6 +11,11 @@ namespace BaseCAD.Document
         {
             Document = doc;
         }
+        public override void Add(Drawable item)
+        {
+            item.InModel = true;
+            base.Add(item);
+        }
 
         protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
         {

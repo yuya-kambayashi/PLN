@@ -6,8 +6,8 @@ namespace BaseCAD.Drawables
 {
     public class Composite : Drawable, ICollection<Drawable>, INotifyCollectionChanged
     {
-        private Point2D p;
-        public Point2D Location { get => p; set { p = value; NotifyPropertyChanged(); } }
+        private Point2D location;
+        public Point2D Location { get => location; set { TransformBy(Matrix2D.Translation(value - location)); NotifyPropertyChanged(); } }
 
         List<Drawable> items = new List<Drawable>();
 
@@ -54,7 +54,8 @@ namespace BaseCAD.Drawables
             Extents2D extents = new Extents2D();
             foreach (Drawable item in items)
             {
-                if (item.Visible && (item.Layer == null || item.Layer.Visible)) extents.Add(item.GetExtents());
+                if (item.Visible && (item.Layer == null || item.Layer.Visible))
+                    extents.Add(item.GetExtents());
             }
             return extents;
         }
@@ -63,7 +64,8 @@ namespace BaseCAD.Drawables
         {
             foreach (Drawable d in items)
             {
-                if (d.Visible && (d.Layer == null || d.Layer.Visible) && d.Contains(pt, pickBoxSize)) return true;
+                if (d.Visible && (d.Layer == null || d.Layer.Visible) && d.Contains(pt, pickBoxSize))
+                    return true;
             }
             return false;
         }
@@ -80,7 +82,8 @@ namespace BaseCAD.Drawables
             points.Add(new SnapPoint("Location", SnapPointType.Point, Location));
             foreach (Drawable d in items)
             {
-                if (d.Visible && (d.Layer == null || d.Layer.Visible)) points.AddRange(d.GetSnapPoints());
+                if (d.Visible && (d.Layer == null || d.Layer.Visible))
+                    points.AddRange(d.GetSnapPoints());
             }
             return points.ToArray();
         }
@@ -95,7 +98,7 @@ namespace BaseCAD.Drawables
 
         public override void TransformBy(Matrix2D transformation)
         {
-            Location = Location.Transform(transformation);
+            location = location.Transform(transformation);
             foreach (Drawable item in items)
             {
                 item.TransformBy(transformation);
@@ -110,39 +113,32 @@ namespace BaseCAD.Drawables
             }
             return newComposite;
         }
-        public void Add(Drawable item)
+        public virtual void Add(Drawable item)
         {
             items.Add(item);
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item));
         }
 
-        public void Clear()
+        public virtual void Clear()
         {
             items.Clear();
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
 
-        public bool Contains(Drawable item)
+        public virtual bool Contains(Drawable item)
         {
             return items.Contains(item);
         }
 
-        public void CopyTo(Drawable[] array, int arrayIndex)
+        public virtual void CopyTo(Drawable[] array, int arrayIndex)
         {
             items.CopyTo(array, arrayIndex);
         }
 
-        public int Count
-        {
-            get { return items.Count; }
-        }
+        public virtual int Count => items.Count;
+        public bool IsReadOnly => false;
 
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
-
-        public bool Remove(Drawable item)
+        public virtual bool Remove(Drawable item)
         {
             bool check = items.Remove(item);
             if (check)
@@ -152,7 +148,7 @@ namespace BaseCAD.Drawables
             return check;
         }
 
-        public IEnumerator<Drawable> GetEnumerator()
+        public virtual IEnumerator<Drawable> GetEnumerator()
         {
             return items.GetEnumerator();
         }

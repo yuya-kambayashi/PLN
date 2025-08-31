@@ -16,6 +16,7 @@ namespace BaseCAD.Geometry
         public Point2D Ptmax { get => IsEmpty ? Point2D.Zero : new Point2D(Xmax, Ymax); }
 
         public static Extents2D Empty { get { return new Extents2D(); } }
+        public static Extents2D Infinity { get { return new Extents2D(float.NegativeInfinity, float.NegativeInfinity, float.PositiveInfinity, float.PositiveInfinity); } }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Extents2D()
