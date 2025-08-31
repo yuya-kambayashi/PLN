@@ -1,5 +1,4 @@
-﻿using BaseCAD.Drawables;
-using BaseCAD.Geometry;
+﻿using BaseCAD.Geometry;
 using System.Reflection;
 
 namespace BaseCAD

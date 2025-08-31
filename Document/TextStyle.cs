@@ -1,5 +1,4 @@
-﻿using BaseCAD.Graphics;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using FontStyle = BaseCAD.Graphics.FontStyle;
 
 namespace BaseCAD

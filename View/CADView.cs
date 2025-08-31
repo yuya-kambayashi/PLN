@@ -2,7 +2,6 @@
 using BaseCAD.Geometry;
 using BaseCAD.Graphics;
 using System.ComponentModel;
-using Color = BaseCAD.Graphics.Color;
 
 namespace BaseCAD
 {
