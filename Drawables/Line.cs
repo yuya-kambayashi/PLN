@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace BaseCAD.Drawables
 {
-    public class Line : Drawable
+    public class Line : Curve
     {
         private Point2D p1;
         private Point2D p2;

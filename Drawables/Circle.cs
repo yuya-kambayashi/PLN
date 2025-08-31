@@ -1,10 +1,11 @@
 ﻿using BaseCAD.Geometry;
 using BaseCAD.Graphics;
 using System.ComponentModel;
+using System.Security.Cryptography;
 
 namespace BaseCAD.Drawables
 {
-    public class Circle : Drawable
+    public class Circle : Curve
     {
         private Point2D center;
         private float radius;
