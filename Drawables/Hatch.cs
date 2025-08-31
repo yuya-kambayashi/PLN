@@ -4,11 +4,8 @@ using System.ComponentModel;
 
 namespace BaseCAD.Drawables
 {
-    public class Hatch : Polyline
+    public class Hatch : Polygon
     {
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override bool Closed { get => true; set => throw new InvalidOperationException("Hatch must be a closed area."); }
-
         public Hatch() : base()
         {
             ;
@@ -31,7 +28,7 @@ namespace BaseCAD.Drawables
 
         public override void Draw(Renderer renderer)
         {
-            renderer.DrawPolygon(Style, Points);
+            renderer.FillPolygon(Style.ApplyLayer(Layer), Points);
         }
     }
 }

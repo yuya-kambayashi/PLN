@@ -153,7 +153,8 @@ namespace BaseCAD.Graphics
                 float sweepAngle = endAngle - startAngle;
                 while (sweepAngle < 0) sweepAngle += 2 * MathF.PI;
                 while (sweepAngle > 2 * MathF.PI) sweepAngle -= 2 * MathF.PI;
-                gdi.DrawArc(pen, center.X - radius, center.Y - radius, 2 * radius, 2 * radius, startAngle * 180 / MathF.PI, sweepAngle * 180 / MathF.PI);
+                if (radius > 0)
+                    gdi.DrawArc(pen, center.X - radius, center.Y - radius, 2 * radius, 2 * radius, startAngle * 180 / MathF.PI, sweepAngle * 180 / MathF.PI);
             }
         }
 
