@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Drawables\Rectangle.cs" />
     <Compile Remove="Drawables\Triangle.cs" />
   </ItemGroup>
 
