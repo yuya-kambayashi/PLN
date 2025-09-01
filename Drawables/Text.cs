@@ -22,7 +22,7 @@ namespace BaseCAD.Drawables
         private TextHorizontalAlignment horizontalAlignment;
         private TextVerticalAlignment verticalAlignment;
 
-        public TextStyle TextStyle { get => textStyleRef.Value; set => textStyleRef = new Lazy<TextStyle>(() => value); }
+        public TextStyle TextStyle { get => textStyleRef.Value; set { textStyleRef = new Lazy<TextStyle>(() => value); NotifyPropertyChanged(); } }
         public string String { get => str; set { str = value; NotifyPropertyChanged(); } }
         public float TextHeight { get => textHeight; set { textHeight = value; NotifyPropertyChanged(); } }
         public float Width { get; private set; }

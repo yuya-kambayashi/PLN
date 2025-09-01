@@ -268,5 +268,10 @@
             else
                 doc.Settings.SnapMode &= ~SnapPointType.Point;
         }
+
+        private void btnCreateComposite_Click(object sender, EventArgs e)
+        {
+            ed.RunCommand("Composite.Create");
+        }
     }
 }

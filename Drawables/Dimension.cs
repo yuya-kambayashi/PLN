@@ -30,7 +30,7 @@ namespace BaseCAD.Drawables
 
         public float Offset { get => offset; set { offset = value; NotifyPropertyChanged(); } }
         public string String { get => str; set { str = value; NotifyPropertyChanged(); } }
-        public TextStyle TextStyle { get => textStyleRef.Value; set => textStyleRef = new Lazy<TextStyle>(() => value); }
+        public TextStyle TextStyle { get => textStyleRef.Value; set { textStyleRef = new Lazy<TextStyle>(() => value); NotifyPropertyChanged(); } }
         public float TextHeight { get => textHeight; set { textHeight = value; NotifyPropertyChanged(); } }
         public float Scale { get => scale; set { scale = value; NotifyPropertyChanged(); } }
         public int Precision { get => precision; set { precision = value; NotifyPropertyChanged(); } }

@@ -37,6 +37,7 @@ namespace BaseCAD.Graphics
 
         public CADView View { get; private set; }
         public bool ScaleLineWeights { get; set; }
+        public Matrix2D Transform { get => new Matrix2D(gdi.Transform); set { gdi.Transform = (System.Drawing.Drawing2D.Matrix)value; } }
         internal Style StyleOverride { get; set; }
 
         public Renderer(CADView view)
