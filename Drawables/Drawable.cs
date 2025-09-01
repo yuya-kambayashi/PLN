@@ -7,8 +7,9 @@ namespace BaseCAD.Drawables
 {
     public abstract class Drawable : INotifyPropertyChanged, IPersistable
     {
+        public Lazy<Layer> layerRef = new Lazy<Layer>(() => Layer.Default);
         public Style Style { get; set; } = Style.Default;
-        public Layer Layer { get; set; } = Layer.Default;
+        public Layer Layer { get => layerRef.Value; set => layerRef = new Lazy<Layer>(() => value); }
         public bool Visible { get; set; } = true;
         internal bool InModel { get; set; } = false;
 
@@ -34,8 +35,9 @@ namespace BaseCAD.Drawables
 
         public virtual void Load(DocumentReader reader)
         {
+            var doc = reader.Document;
             string layerName = reader.ReadString();
-            Layer = reader.Document.Layers[layerName];
+            layerRef = new Lazy<Layer>(() => doc.Layers[layerName]);
             Style = reader.ReadPersistable<Style>();
             Visible = reader.ReadBoolean();
         }
