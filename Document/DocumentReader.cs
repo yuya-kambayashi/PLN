@@ -3,7 +3,7 @@ using Color = BaseCAD.Graphics.Color;
 
 namespace BaseCAD
 {
-    public class DocumentReader : IDisposable
+    public sealed class DocumentReader : IDisposable
     {
         BinaryReader reader;
 

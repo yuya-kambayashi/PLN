@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace BaseCAD
 {
-    public class CADView : IDisposable, IPersistable
+    public sealed class CADView : IDisposable, IPersistable
     {
         private bool panning;
         private Point2D lastMouseLocationWorld;

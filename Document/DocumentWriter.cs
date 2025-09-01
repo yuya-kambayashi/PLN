@@ -3,7 +3,7 @@ using Color = BaseCAD.Graphics.Color;
 
 namespace BaseCAD
 {
-    public class DocumentWriter : IDisposable
+    public sealed class DocumentWriter : IDisposable
     {
         BinaryWriter writer;
 

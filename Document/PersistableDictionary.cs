@@ -4,16 +4,11 @@ namespace BaseCAD
 {
     public abstract class PersistableDictionary<TValue> : IPersistable, IDict<TValue> where TValue : IPersistable, new()
     {
-        Dictionary<string, TValue> dict;
+        protected Dictionary<string, TValue> dict = new Dictionary<string, TValue>();
 
         public virtual TValue this[string key] { get => dict[key]; set => dict[key] = value; }
 
         public virtual int Count => dict.Count;
-
-        public PersistableDictionary()
-        {
-            dict = new Dictionary<string, TValue>();
-        }
 
         public virtual void Load(DocumentReader reader)
         {
