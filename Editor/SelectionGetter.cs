@@ -1,6 +1,6 @@
 ﻿using BaseCAD.Drawables;
 using BaseCAD.Geometry;
-using BaseCAD.Graphics;
+using BaseCAD.View;
 
 namespace BaseCAD
 {
@@ -8,8 +8,7 @@ namespace BaseCAD
     {
         Point2D firstPoint;
         bool getFirstPoint;
-        Hatch consHatch;
-        Polygon consLine;
+        SelectionWindow consLine;
 
         protected override void Init(InitArgs<SelectionSet> args)
         {
@@ -38,32 +37,9 @@ namespace BaseCAD
         {
             SetCursorText(pt.ToString(Editor.Document.Settings.NumberFormat));
 
+            // Update the selection window
             if (getFirstPoint)
-            {
-                // Update the selection window
-                Point2D p1 = consLine.Points[0];
-                Point2D p2 = new Point2D(pt.X, p1.Y);
-                Point2D p3 = pt;
-                Point2D p4 = new Point2D(p1.X, pt.Y);
-                consLine.Points[0] = p1;
-                consLine.Points[1] = p2;
-                consLine.Points[2] = p3;
-                consLine.Points[3] = p4;
-                consHatch.Points[0] = p1;
-                consHatch.Points[1] = p2;
-                consHatch.Points[2] = p3;
-                consHatch.Points[3] = p4;
-                if (pt.X > p1.X)
-                {
-                    consHatch.Style = new Style(Editor.Document.Settings.SelectionWindowColor);
-                    consLine.Style = new Style(Editor.Document.Settings.SelectionWindowBorderColor);
-                }
-                else
-                {
-                    consHatch.Style = new Style(Editor.Document.Settings.ReverseSelectionWindowColor);
-                    consLine.Style = new Style(Editor.Document.Settings.SelectionWindowBorderColor, 0, DashStyle.Dash);
-                }
-            }
+                consLine.P2 = pt;
         }
 
         protected override void AcceptCoordsInput(InputArgs<Point2D, SelectionSet> args)
@@ -74,9 +50,7 @@ namespace BaseCAD
                 getFirstPoint = true;
                 args.InputCompleted = false;
 
-                consHatch = new Hatch(firstPoint, firstPoint, firstPoint, firstPoint);
-                Editor.Document.Transients.Add(consHatch);
-                consLine = new Polygon(firstPoint, firstPoint, firstPoint, firstPoint);
+                consLine = new SelectionWindow(firstPoint, firstPoint);
                 Editor.Document.Transients.Add(consLine);
             }
             else
@@ -84,7 +58,6 @@ namespace BaseCAD
                 args.Value = GetSelectionFromWindow();
                 args.InputCompleted = true;
 
-                Editor.Document.Transients.Remove(consHatch);
                 Editor.Document.Transients.Remove(consLine);
             }
         }
@@ -100,9 +73,7 @@ namespace BaseCAD
                     getFirstPoint = true;
                     args.InputCompleted = false;
 
-                    consHatch = new Hatch(firstPoint, firstPoint, firstPoint, firstPoint);
-                    Editor.Document.Transients.Add(consHatch);
-                    consLine = new Polygon(firstPoint, firstPoint, firstPoint, firstPoint);
+                    consLine = new SelectionWindow(firstPoint, firstPoint);
                     Editor.Document.Transients.Add(consLine);
                 }
                 else
@@ -110,7 +81,6 @@ namespace BaseCAD
                     args.Value = GetSelectionFromWindow();
                     args.InputCompleted = true;
 
-                    Editor.Document.Transients.Remove(consHatch);
                     Editor.Document.Transients.Remove(consLine);
                 }
             }
@@ -118,19 +88,17 @@ namespace BaseCAD
 
         protected override void CancelInput()
         {
-            Editor.Document.Transients.Remove(consHatch);
             Editor.Document.Transients.Remove(consLine);
         }
 
         private SelectionSet GetSelectionFromWindow()
         {
-            Extents2D ex = consHatch.GetExtents();
-            bool windowSelection = (consHatch.Points[2].X > consHatch.Points[0].X);
+            Extents2D ex = consLine.GetExtents();
             SelectionSet ss = new SelectionSet();
             foreach (Drawable item in Editor.Document.ActiveView.VisibleItems)
             {
                 Extents2D exItem = item.GetExtents();
-                if (windowSelection && ex.Contains(exItem) || !windowSelection && ex.IntersectsWith(exItem))
+                if (consLine.WindowSelection && ex.Contains(exItem) || !consLine.WindowSelection && ex.IntersectsWith(exItem))
                 {
                     if (Options.AllowedClasses.Count == 0 || Options.AllowedClasses.Contains(item.GetType()))
                     {
