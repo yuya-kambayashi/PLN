@@ -117,5 +117,10 @@
             get => Get<BaseCAD.SnapPointType>("SnapMode");
             set => Set("SnapMode", value);
         }
+        public BaseCAD.AngleMode AngleMode
+        {
+            get => Get<BaseCAD.AngleMode>("AngleMode");
+            set => Set("AngleMode", value);
+        }
     }
 }

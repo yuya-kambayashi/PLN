@@ -13,7 +13,7 @@ namespace BaseCAD
         protected override void CoordsChanged(Point2D pt)
         {
             float angle = (pt - Options.BasePoint).Angle;
-            SetCursorText(angle.ToString(Editor.Document.Settings.NumberFormat));
+            SetCursorText(Editor.AngleToString(angle));
 
             (Jigged as Line).EndPoint = pt;
 
@@ -25,13 +25,13 @@ namespace BaseCAD
 
         protected override void AcceptTextInput(InputArgs<string, float> args)
         {
-            if (Vector2D.TryParse(args.Input, out Vector2D vec))
+            if (Editor.TryAngleFromString(args.Input, out float angle))
+            {
+                args.Value = angle;
+            }
+            else if (Vector2D.TryParse(args.Input, out Vector2D vec))
             {
                 args.Value = vec.Angle;
-            }
-            else if (float.TryParse(args.Input, out args.Value))
-            {
-                ;
             }
             else
             {
