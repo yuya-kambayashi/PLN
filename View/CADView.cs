@@ -641,9 +641,6 @@ namespace BaseCAD
             viewCursor.Visible = false;
             Cursor.Show();
 
-            if (ReferenceEquals(Document.ActiveView, this))
-                Document.ActiveView = null;
-
             Redraw();
         }
 
@@ -652,7 +649,8 @@ namespace BaseCAD
             viewCursor.Visible = true;
             Cursor.Hide();
 
-            Document.ActiveView = this;
+            if (!ReferenceEquals(Document.ActiveView, this))
+                Document.ActiveView = this;
 
             Redraw();
         }

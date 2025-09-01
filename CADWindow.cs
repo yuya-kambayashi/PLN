@@ -55,6 +55,7 @@ namespace BaseCAD
             Document.Settings.BackColor = Color.FromArgb((uint)backColor.ToArgb());
 
             View = new CADView(this, Document);
+            Document.ActiveView = View;
             View.Interactive = interactive;
             View.ShowAxes = showAxes;
             View.ShowGrid = showGrid;
@@ -65,6 +66,7 @@ namespace BaseCAD
         }
         private void CADWindow_Disposed(object sender, System.EventArgs e)
         {
+            Document.ActiveView = null;
             if (View != null)
                 View.Dispose();
         }
