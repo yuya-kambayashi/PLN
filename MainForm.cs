@@ -25,6 +25,8 @@
         private void doc_SelectionChanged(object sender, EventArgs e)
         {
             propertyGrid1.SelectedObjects = ed.PickedSelection.ToArray();
+
+            UpdateUI();
         }
 
         private void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
@@ -107,6 +109,13 @@
             btnSnapCenter.Checked = (doc.Settings.SnapMode & SnapPointType.Center) != SnapPointType.None;
             btnSnapQuadrant.Checked = (doc.Settings.SnapMode & SnapPointType.Quadrant) != SnapPointType.None;
             btnSnapPoint.Checked = (doc.Settings.SnapMode & SnapPointType.Point) != SnapPointType.None;
+
+            if (ed.PickedSelection.Count == 0)
+                lblSelection.Text = "No selection";
+            else if (ed.PickedSelection.Count == 1)
+                lblSelection.Text = ed.PickedSelection.First().GetType().Name;
+            else
+                lblSelection.Text = ed.PickedSelection.Count.ToString() + " selected";
         }
         private void btnDrawPoint_Click(object sender, EventArgs e)
         {
