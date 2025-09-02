@@ -1,7 +1,6 @@
 ﻿using PLN.Geometry;
 using PLN.Graphics;
 using System.ComponentModel;
-using System;
 
 namespace PLN.Drawables
 {

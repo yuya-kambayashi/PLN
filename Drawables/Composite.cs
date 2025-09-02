@@ -88,7 +88,7 @@ namespace PLN.Drawables
             }
         }
         public override Drawable Clone()
-        {   
+        {
             Composite newComposite = (Composite)base.Clone();
             foreach (Drawable d in items)
             {
