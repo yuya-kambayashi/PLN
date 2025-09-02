@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace BaseCAD.Graphics
+namespace PLN.Graphics
 {
     public enum DashStyle
     {
@@ -19,7 +19,7 @@ namespace BaseCAD.Graphics
 
         public const float ByLayer = -1;
 
-        public BaseCAD.Graphics.Color Color { get; set; }
+        public PLN.Graphics.Color Color { get; set; }
         public float LineWeight { get; set; }
         public DashStyle DashStyle { get; set; }
         public Style(Color color, float lineWeight, DashStyle dashStyle)

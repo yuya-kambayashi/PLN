@@ -1,4 +1,4 @@
-﻿namespace BaseCAD
+﻿namespace PLN
 {
     public enum ResultMode
     {

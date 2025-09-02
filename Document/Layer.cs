@@ -1,8 +1,8 @@
-﻿using BaseCAD.Graphics;
+﻿using PLN.Graphics;
 using System.ComponentModel;
-using Color = BaseCAD.Graphics.Color;
+using Color = PLN.Graphics.Color;
 
-namespace BaseCAD
+namespace PLN
 {
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class Layer : IPersistable

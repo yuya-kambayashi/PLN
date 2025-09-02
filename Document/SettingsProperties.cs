@@ -1,4 +1,4 @@
-﻿namespace BaseCAD
+﻿namespace PLN
 {
     public partial class Settings
     {
@@ -7,79 +7,79 @@
             get => Get<System.Int32>("DisplayPrecision");
             set => Set("DisplayPrecision", value);
         }
-        public BaseCAD.Graphics.Color BackColor
+        public PLN.Graphics.Color BackColor
         {
-            get => Get<BaseCAD.Graphics.Color>("BackColor");
+            get => Get<PLN.Graphics.Color>("BackColor");
             set => Set("BackColor", value);
         }
-        public BaseCAD.Graphics.Color CursorPromptBackColor
+        public PLN.Graphics.Color CursorPromptBackColor
         {
-            get => Get<BaseCAD.Graphics.Color>("CursorPromptBackColor");
+            get => Get<PLN.Graphics.Color>("CursorPromptBackColor");
             set => Set("CursorPromptBackColor", value);
         }
-        public BaseCAD.Graphics.Color CursorPromptForeColor
+        public PLN.Graphics.Color CursorPromptForeColor
         {
-            get => Get<BaseCAD.Graphics.Color>("CursorPromptForeColor");
+            get => Get<PLN.Graphics.Color>("CursorPromptForeColor");
             set => Set("CursorPromptForeColor", value);
         }
-        public BaseCAD.Graphics.Color SelectionWindowColor
+        public PLN.Graphics.Color SelectionWindowColor
         {
-            get => Get<BaseCAD.Graphics.Color>("SelectionWindowColor");
+            get => Get<PLN.Graphics.Color>("SelectionWindowColor");
             set => Set("SelectionWindowColor", value);
         }
-        public BaseCAD.Graphics.Color SelectionWindowBorderColor
+        public PLN.Graphics.Color SelectionWindowBorderColor
         {
-            get => Get<BaseCAD.Graphics.Color>("SelectionWindowBorderColor");
+            get => Get<PLN.Graphics.Color>("SelectionWindowBorderColor");
             set => Set("SelectionWindowBorderColor", value);
         }
-        public BaseCAD.Graphics.Color ReverseSelectionWindowColor
+        public PLN.Graphics.Color ReverseSelectionWindowColor
         {
-            get => Get<BaseCAD.Graphics.Color>("ReverseSelectionWindowColor");
+            get => Get<PLN.Graphics.Color>("ReverseSelectionWindowColor");
             set => Set("ReverseSelectionWindowColor", value);
         }
-        public BaseCAD.Graphics.Color ReverseSelectionWindowBorderColor
+        public PLN.Graphics.Color ReverseSelectionWindowBorderColor
         {
-            get => Get<BaseCAD.Graphics.Color>("ReverseSelectionWindowBorderColor");
+            get => Get<PLN.Graphics.Color>("ReverseSelectionWindowBorderColor");
             set => Set("ReverseSelectionWindowBorderColor", value);
         }
-        public BaseCAD.Graphics.Color SelectionHighlightColor
+        public PLN.Graphics.Color SelectionHighlightColor
         {
-            get => Get<BaseCAD.Graphics.Color>("SelectionHighlightColor");
+            get => Get<PLN.Graphics.Color>("SelectionHighlightColor");
             set => Set("SelectionHighlightColor", value);
         }
-        public BaseCAD.Graphics.Color JigColor
+        public PLN.Graphics.Color JigColor
         {
-            get => Get<BaseCAD.Graphics.Color>("JigColor");
+            get => Get<PLN.Graphics.Color>("JigColor");
             set => Set("JigColor", value);
         }
-        public BaseCAD.Graphics.Color ControlPointColor
+        public PLN.Graphics.Color ControlPointColor
         {
-            get => Get<BaseCAD.Graphics.Color>("ControlPointColor");
+            get => Get<PLN.Graphics.Color>("ControlPointColor");
             set => Set("ControlPointColor", value);
         }
-        public BaseCAD.Graphics.Color ActiveControlPointColor
+        public PLN.Graphics.Color ActiveControlPointColor
         {
-            get => Get<BaseCAD.Graphics.Color>("ActiveControlPointColor");
+            get => Get<PLN.Graphics.Color>("ActiveControlPointColor");
             set => Set("ActiveControlPointColor", value);
         }
-        public BaseCAD.Graphics.Color SnapPointColor
+        public PLN.Graphics.Color SnapPointColor
         {
-            get => Get<BaseCAD.Graphics.Color>("SnapPointColor");
+            get => Get<PLN.Graphics.Color>("SnapPointColor");
             set => Set("SnapPointColor", value);
         }
-        public BaseCAD.Graphics.Color MinorGridColor
+        public PLN.Graphics.Color MinorGridColor
         {
-            get => Get<BaseCAD.Graphics.Color>("MinorGridColor");
+            get => Get<PLN.Graphics.Color>("MinorGridColor");
             set => Set("MinorGridColor", value);
         }
-        public BaseCAD.Graphics.Color MajorGridColor
+        public PLN.Graphics.Color MajorGridColor
         {
-            get => Get<BaseCAD.Graphics.Color>("MajorGridColor");
+            get => Get<PLN.Graphics.Color>("MajorGridColor");
             set => Set("MajorGridColor", value);
         }
-        public BaseCAD.Graphics.Color AxisColor
+        public PLN.Graphics.Color AxisColor
         {
-            get => Get<BaseCAD.Graphics.Color>("AxisColor");
+            get => Get<PLN.Graphics.Color>("AxisColor");
             set => Set("AxisColor", value);
         }
         public System.Int32 PickBoxSize
@@ -112,14 +112,14 @@
             get => Get<System.Int32>("SnapDistance");
             set => Set("SnapDistance", value);
         }
-        public BaseCAD.SnapPointType SnapMode
+        public PLN.SnapPointType SnapMode
         {
-            get => Get<BaseCAD.SnapPointType>("SnapMode");
+            get => Get<PLN.SnapPointType>("SnapMode");
             set => Set("SnapMode", value);
         }
-        public BaseCAD.AngleMode AngleMode
+        public PLN.AngleMode AngleMode
         {
-            get => Get<BaseCAD.AngleMode>("AngleMode");
+            get => Get<PLN.AngleMode>("AngleMode");
             set => Set("AngleMode", value);
         }
     }

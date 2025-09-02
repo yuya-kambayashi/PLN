@@ -1,10 +1,10 @@
-﻿using BaseCAD.Drawables;
-using BaseCAD.Geometry;
-using BaseCAD.Graphics;
-using Color = BaseCAD.Graphics.Color;
-using FontStyle = BaseCAD.Graphics.FontStyle;
+﻿using PLN.Drawables;
+using PLN.Geometry;
+using PLN.Graphics;
+using Color = PLN.Graphics.Color;
+using FontStyle = PLN.Graphics.FontStyle;
 
-namespace BaseCAD.View
+namespace PLN.View
 {
     internal class Cursor : Drawable
     {

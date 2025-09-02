@@ -1,8 +1,8 @@
-﻿using BaseCAD.Drawables;
+﻿using PLN.Drawables;
 
 using System.Collections.Specialized;
 
-namespace BaseCAD
+namespace PLN
 {
     public sealed class SelectionSet : ISet<Drawable>, INotifyCollectionChanged
     {

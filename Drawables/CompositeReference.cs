@@ -1,12 +1,12 @@
-﻿using BaseCAD.Geometry;
-using BaseCAD.Graphics;
+﻿using PLN.Geometry;
+using PLN.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BaseCAD.Drawables
+namespace PLN.Drawables
 {
     public class CompositeReference : Drawable
     {

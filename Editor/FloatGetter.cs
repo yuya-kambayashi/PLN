@@ -1,6 +1,6 @@
-﻿using BaseCAD.Geometry;
+﻿using PLN.Geometry;
 
-namespace BaseCAD
+namespace PLN
 {
     internal class FloatGetter : EditorGetter<FloatOptions, float>
     {

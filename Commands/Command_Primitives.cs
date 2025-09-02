@@ -1,9 +1,9 @@
-﻿using BaseCAD.Drawables;
-using BaseCAD.Geometry;
-using Point = BaseCAD.Drawables.Point;
-using Rectangle = BaseCAD.Drawables.Rectangle;
+﻿using PLN.Drawables;
+using PLN.Geometry;
+using Point = PLN.Drawables.Point;
+using Rectangle = PLN.Drawables.Rectangle;
 
-namespace BaseCAD.Commands
+namespace PLN.Commands
 {
     public class DrawPoint : Command
     {

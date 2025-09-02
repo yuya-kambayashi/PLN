@@ -1,14 +1,14 @@
 ﻿﻿<#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ output extension=".cs" #>
 <#@ assembly name="$(TargetPath)" #>
-<#@ import namespace="BaseCAD" #>
+<#@ import namespace="PLN" #>
 
-namespace BaseCAD
+namespace PLN
 {
     public partial class Settings
     {
 <# 
-        foreach(var pair in BaseCAD.Settings.Defaults)
+        foreach(var pair in PLN.Settings.Defaults)
         {
             string name = pair.Key;
             string type = pair.Value.GetType().FullName;

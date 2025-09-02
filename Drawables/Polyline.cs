@@ -1,7 +1,7 @@
-﻿using BaseCAD.Geometry;
-using BaseCAD.Graphics;
+﻿using PLN.Geometry;
+using PLN.Graphics;
 
-namespace BaseCAD.Drawables
+namespace PLN.Drawables
 {
     public class Polyline : Curve
     {

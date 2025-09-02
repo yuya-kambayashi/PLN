@@ -1,12 +1,12 @@
-﻿using BaseCAD.Drawables;
-using BaseCAD.Geometry;
+﻿using PLN.Drawables;
+using PLN.Geometry;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BaseCAD.Commands
+namespace PLN.Commands
 {
     public class CompositeCreate : Command
     {

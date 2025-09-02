@@ -1,4 +1,4 @@
-﻿namespace BaseCAD
+﻿namespace PLN
 {
     internal class OpenFilenameGetter : EditorGetter<FilenameOptions, string>
     {

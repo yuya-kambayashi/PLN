@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace BaseCAD.Geometry
+namespace PLN.Geometry
 {
     [TypeConverter(typeof(Vector2DConverter))]
     public struct Vector2D

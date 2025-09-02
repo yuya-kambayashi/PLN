@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
-using FontStyle = BaseCAD.Graphics.FontStyle;
+using FontStyle = PLN.Graphics.FontStyle;
 
-namespace BaseCAD
+namespace PLN
 {
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class TextStyle : IPersistable

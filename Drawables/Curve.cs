@@ -1,8 +1,8 @@
-﻿using BaseCAD.Drawables;
-using BaseCAD.Geometry;
+﻿using PLN.Drawables;
+using PLN.Geometry;
 using System.ComponentModel;
 
-namespace BaseCAD
+namespace PLN
 {
     [Flags]
     public enum ExtendType

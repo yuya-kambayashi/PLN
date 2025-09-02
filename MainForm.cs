@@ -1,10 +1,10 @@
-﻿using BaseCAD;
+﻿using PLN;
 using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace BaseCAD
+namespace PLN
 {
     public partial class MainForm : Form
     {
@@ -83,7 +83,7 @@ namespace BaseCAD
 
             DialogResult res = MessageBox.Show(
                 "Do you want to save the changes to the document?",
-                "SimpleCAD Test", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                "PLN", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
             if (res == DialogResult.Cancel)
                 return false;

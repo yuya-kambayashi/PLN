@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
-using Color = BaseCAD.Graphics.Color;
+using Color = PLN.Graphics.Color;
 
 
-namespace BaseCAD
+namespace PLN
 {
     [Docking(DockingBehavior.Ask)]
     public partial class CADWindow : UserControl

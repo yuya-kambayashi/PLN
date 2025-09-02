@@ -1,7 +1,7 @@
 ﻿using System.Drawing.Drawing2D;
 using System.Runtime.CompilerServices;
 
-namespace BaseCAD.Geometry
+namespace PLN.Geometry
 {
     public struct Matrix2D
     {

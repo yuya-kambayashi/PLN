@@ -1,4 +1,4 @@
-﻿namespace BaseCAD
+﻿namespace PLN
 {
     internal class InputArgs<TInput, TValue>
     {

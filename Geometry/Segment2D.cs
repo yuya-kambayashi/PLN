@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace BaseCAD.Geometry
+namespace PLN.Geometry
 {
     [TypeConverter(typeof(Segment2DConverter))]
     public struct Segment2D

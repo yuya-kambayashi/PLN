@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace BaseCAD.Geometry
+namespace PLN.Geometry
 {
     [TypeConverter(typeof(Point2DConverter))]
     public struct Point2D

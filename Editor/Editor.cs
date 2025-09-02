@@ -1,7 +1,7 @@
-﻿using BaseCAD.Geometry;
+﻿using PLN.Geometry;
 using System.Reflection;
 
-namespace BaseCAD
+namespace PLN
 {
     public class Editor
     {

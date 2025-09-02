@@ -1,4 +1,4 @@
-namespace BaseCAD
+namespace PLN
 {
     static class Program
     {

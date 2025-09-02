@@ -1,8 +1,8 @@
-﻿using BaseCAD.Drawables;
-using BaseCAD.Geometry;
-using BaseCAD.View;
+﻿using PLN.Drawables;
+using PLN.Geometry;
+using PLN.View;
 
-namespace BaseCAD
+namespace PLN
 {
     internal class SelectionGetter : EditorGetter<SelectionOptions, SelectionSet>
     {

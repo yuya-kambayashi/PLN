@@ -1,7 +1,7 @@
-﻿using BaseCAD.Drawables;
-using BaseCAD.Geometry;
+﻿using PLN.Drawables;
+using PLN.Geometry;
 
-namespace BaseCAD.Graphics
+namespace PLN.Graphics
 {
     #region Enums
     [Flags]

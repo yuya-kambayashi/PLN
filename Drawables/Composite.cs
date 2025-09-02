@@ -1,8 +1,8 @@
-﻿using BaseCAD.Geometry;
-using BaseCAD.Graphics;
+﻿using PLN.Geometry;
+using PLN.Graphics;
 using System.Collections.Specialized;
 using System.ComponentModel;
-namespace BaseCAD.Drawables
+namespace PLN.Drawables
 {
     public class Composite : Drawable, ICollection<Drawable>, INotifyCollectionChanged
     {

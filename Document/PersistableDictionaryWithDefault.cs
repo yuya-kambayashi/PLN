@@ -1,4 +1,4 @@
-﻿namespace BaseCAD
+﻿namespace PLN
 {
     public abstract class PersistableDictionaryWithDefault<TValue> : PersistableDictionary<TValue> where TValue : IPersistable, new()
     {

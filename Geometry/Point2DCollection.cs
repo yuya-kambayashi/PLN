@@ -1,6 +1,6 @@
 ﻿using System.Collections.Specialized;
 
-namespace BaseCAD.Geometry
+namespace PLN.Geometry
 {
     public class Point2DCollection : IList<Point2D>, INotifyCollectionChanged
     {

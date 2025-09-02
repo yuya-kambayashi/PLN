@@ -1,9 +1,9 @@
-﻿using BaseCAD.Geometry;
-using BaseCAD.Graphics;
+﻿using PLN.Geometry;
+using PLN.Graphics;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace BaseCAD.Drawables
+namespace PLN.Drawables
 {
     public abstract class Drawable : INotifyPropertyChanged, IPersistable
     {

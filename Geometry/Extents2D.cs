@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace BaseCAD.Geometry
+namespace PLN.Geometry
 {
     public class Extents2D
     {

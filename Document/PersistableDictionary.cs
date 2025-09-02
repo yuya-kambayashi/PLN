@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace BaseCAD
+namespace PLN
 {
     public abstract class PersistableDictionary<TValue> : IPersistable, IDict<TValue> where TValue : IPersistable, new()
     {

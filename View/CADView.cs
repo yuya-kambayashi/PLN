@@ -1,9 +1,9 @@
-﻿using BaseCAD.Drawables;
-using BaseCAD.Geometry;
-using BaseCAD.Graphics;
+﻿using PLN.Drawables;
+using PLN.Geometry;
+using PLN.Graphics;
 using System.ComponentModel;
 
-namespace BaseCAD
+namespace PLN
 {
     public sealed class CADView : IDisposable, IPersistable
     {

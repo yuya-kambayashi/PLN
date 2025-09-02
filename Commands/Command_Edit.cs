@@ -1,6 +1,6 @@
-﻿using BaseCAD.Drawables;
+﻿using PLN.Drawables;
 
-namespace BaseCAD.Commands
+namespace PLN.Commands
 {
     public class EditDelete : Command
     {

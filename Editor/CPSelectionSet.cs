@@ -1,6 +1,6 @@
-﻿using BaseCAD.Drawables;
+﻿using PLN.Drawables;
 
-namespace BaseCAD
+namespace PLN
 {
     public sealed class CPSelectionSet
     {

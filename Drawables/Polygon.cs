@@ -1,7 +1,7 @@
-﻿using BaseCAD.Geometry;
+﻿using PLN.Geometry;
 using System.ComponentModel;
 
-namespace BaseCAD.Drawables
+namespace PLN.Drawables
 {
     public class Polygon : Polyline
     {

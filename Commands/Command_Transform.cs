@@ -1,7 +1,7 @@
-﻿using BaseCAD.Drawables;
-using BaseCAD.Geometry;
+﻿using PLN.Drawables;
+using PLN.Geometry;
 
-namespace BaseCAD.Commands
+namespace PLN.Commands
 {
     public class TransformMove : Command
     {

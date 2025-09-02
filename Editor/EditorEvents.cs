@@ -1,4 +1,4 @@
-﻿namespace BaseCAD
+﻿namespace PLN
 {
     public delegate void EditorPromptEventHandler(object sender, EditorPromptEventArgs e);
     public delegate void EditorErrorEventHandler(object sender, EditorErrorEventArgs e);

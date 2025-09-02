@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BaseCAD.Geometry
+namespace PLN.Geometry
 {
     public static class CurveOperations
     {

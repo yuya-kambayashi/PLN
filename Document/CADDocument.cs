@@ -1,7 +1,7 @@
-﻿using BaseCAD.Document;
-using BaseCAD.Drawables;
+﻿using PLN.Document;
+using PLN.Drawables;
 
-namespace BaseCAD
+namespace PLN
 {
     public class CADDocument
     {

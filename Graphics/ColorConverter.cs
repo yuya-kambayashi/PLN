@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
 
-namespace BaseCAD.Graphics
+namespace PLN.Graphics
 {
     public class ColorConverter : TypeConverter
     {

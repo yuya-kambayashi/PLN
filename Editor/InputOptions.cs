@@ -1,8 +1,8 @@
-﻿using BaseCAD.Geometry;
+﻿using PLN.Geometry;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace BaseCAD
+namespace PLN
 {
     public abstract class InputOptions<T>
     {
@@ -101,13 +101,13 @@ namespace BaseCAD
         }
 
         public FilenameOptions(string message, string filename)
-            : this(message, filename, "SimpleCAD file (*.scf)|*.scf|All files (*.*)|*.*", "scf")
+            : this(message, filename, "PLN file (*.scf)|*.scf|All files (*.*)|*.*", "scf")
         {
             ;
         }
 
         public FilenameOptions(string message)
-            : this(message, "", "SimpleCAD file (*.scf)|*.scf|All files (*.*)|*.*", "scf")
+            : this(message, "", "PLN file (*.scf)|*.scf|All files (*.*)|*.*", "scf")
         {
             ;
         }

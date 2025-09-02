@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace BaseCAD.Geometry
+namespace PLN.Geometry
 {
     public class Segment2DConverter : ExpandableObjectConverter
     {

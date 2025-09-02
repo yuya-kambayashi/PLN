@@ -1,7 +1,7 @@
-﻿using BaseCAD.Geometry;
-using Color = BaseCAD.Graphics.Color;
+﻿using PLN.Geometry;
+using Color = PLN.Graphics.Color;
 
-namespace BaseCAD
+namespace PLN
 {
     public sealed class DocumentWriter : IDisposable
     {

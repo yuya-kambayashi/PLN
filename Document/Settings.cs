@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
-using Color = BaseCAD.Graphics.Color;
+using Color = PLN.Graphics.Color;
 
-namespace BaseCAD
+namespace PLN
 {
     public partial class Settings : IPersistable
     {
@@ -129,7 +129,7 @@ namespace BaseCAD
                 else if (pair.Value is Color)
                 {
                     writer.Write("color");
-                    writer.Write((BaseCAD.Graphics.Color)pair.Value);
+                    writer.Write((PLN.Graphics.Color)pair.Value);
                 }
             }
         }

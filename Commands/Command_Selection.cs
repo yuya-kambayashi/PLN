@@ -1,4 +1,4 @@
-﻿namespace BaseCAD.Commands
+﻿namespace PLN.Commands
 {
     public class SelectionClear : Command
     {

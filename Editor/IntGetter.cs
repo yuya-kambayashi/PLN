@@ -1,6 +1,6 @@
-﻿using BaseCAD.Geometry;
+﻿using PLN.Geometry;
 
-namespace BaseCAD
+namespace PLN
 {
     internal class IntGetter : EditorGetter<IntOptions, int>
     {

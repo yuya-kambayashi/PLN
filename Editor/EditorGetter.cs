@@ -1,7 +1,7 @@
-﻿using BaseCAD.Drawables;
-using BaseCAD.Geometry;
+﻿using PLN.Drawables;
+using PLN.Geometry;
 
-namespace BaseCAD
+namespace PLN
 {
     internal abstract class EditorGetter<TOptions, TValue> : IDisposable where TOptions : InputOptions<TValue>
     {

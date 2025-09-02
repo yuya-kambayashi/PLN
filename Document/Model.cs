@@ -1,7 +1,7 @@
-﻿using BaseCAD.Drawables;
+﻿using PLN.Drawables;
 using System.Collections.Specialized;
 
-namespace BaseCAD.Document
+namespace PLN.Document
 {
     public class Model : Composite
     {

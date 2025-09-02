@@ -1,4 +1,4 @@
-﻿namespace BaseCAD
+﻿namespace PLN
 {
     partial class MainForm
     {
@@ -276,7 +276,7 @@
             // 
             // statusCoords
             // 
-            this.statusCoords.Image = global::BaseCAD.Properties.Resources.coordinates;
+            this.statusCoords.Image = global::PLN.Properties.Resources.coordinates;
             this.statusCoords.Name = "statusCoords";
             this.statusCoords.Size = new System.Drawing.Size(41, 17);
             this.statusCoords.Text = "0, 0";
@@ -289,7 +289,7 @@
             this.btnAngleGrads,
             this.btnAngleSurveyor,
             this.btnAngleDMS});
-            this.btnAngleMode.Image = global::BaseCAD.Properties.Resources.angle;
+            this.btnAngleMode.Image = global::PLN.Properties.Resources.angle;
             this.btnAngleMode.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnAngleMode.Name = "btnAngleMode";
             this.btnAngleMode.Size = new System.Drawing.Size(101, 20);
@@ -345,7 +345,7 @@
             this.btnSnapCenter,
             this.btnSnapQuadrant,
             this.btnSnapPoint});
-            this.btnSnapMode.Image = global::BaseCAD.Properties.Resources.snap;
+            this.btnSnapMode.Image = global::PLN.Properties.Resources.snap;
             this.btnSnapMode.Name = "btnSnapMode";
             this.btnSnapMode.Size = new System.Drawing.Size(96, 20);
             this.btnSnapMode.Text = "Snap Mode";
@@ -406,7 +406,7 @@
             // btnNew
             // 
             this.btnNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnNew.Image = global::BaseCAD.Properties.Resources.page_white;
+            this.btnNew.Image = global::PLN.Properties.Resources.page_white;
             this.btnNew.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(23, 22);
@@ -416,7 +416,7 @@
             // btnOpen
             // 
             this.btnOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnOpen.Image = global::BaseCAD.Properties.Resources.folder;
+            this.btnOpen.Image = global::PLN.Properties.Resources.folder;
             this.btnOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(23, 22);
@@ -426,7 +426,7 @@
             // btnSave
             // 
             this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSave.Image = global::BaseCAD.Properties.Resources.disk;
+            this.btnSave.Image = global::PLN.Properties.Resources.disk;
             this.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(23, 22);
@@ -435,7 +435,7 @@
             // 
             // btnSaveAs
             // 
-            this.btnSaveAs.Image = global::BaseCAD.Properties.Resources.disk_multiple;
+            this.btnSaveAs.Image = global::PLN.Properties.Resources.disk_multiple;
             this.btnSaveAs.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSaveAs.Name = "btnSaveAs";
             this.btnSaveAs.Size = new System.Drawing.Size(67, 22);
@@ -586,7 +586,7 @@
             // btnMove
             // 
             this.btnMove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnMove.Image = global::BaseCAD.Properties.Resources.shape_move_backwards;
+            this.btnMove.Image = global::PLN.Properties.Resources.shape_move_backwards;
             this.btnMove.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnMove.Name = "btnMove";
             this.btnMove.Size = new System.Drawing.Size(23, 22);
@@ -596,7 +596,7 @@
             // btnCopy
             // 
             this.btnCopy.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnCopy.Image = global::BaseCAD.Properties.Resources.shape_copy;
+            this.btnCopy.Image = global::PLN.Properties.Resources.shape_copy;
             this.btnCopy.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnCopy.Name = "btnCopy";
             this.btnCopy.Size = new System.Drawing.Size(23, 22);
@@ -606,7 +606,7 @@
             // btnRotate
             // 
             this.btnRotate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnRotate.Image = global::BaseCAD.Properties.Resources.shape_rotate_clockwise;
+            this.btnRotate.Image = global::PLN.Properties.Resources.shape_rotate_clockwise;
             this.btnRotate.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnRotate.Name = "btnRotate";
             this.btnRotate.Size = new System.Drawing.Size(23, 22);
@@ -616,7 +616,7 @@
             // btnScale
             // 
             this.btnScale.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnScale.Image = global::BaseCAD.Properties.Resources.shape_scale;
+            this.btnScale.Image = global::PLN.Properties.Resources.shape_scale;
             this.btnScale.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnScale.Name = "btnScale";
             this.btnScale.Size = new System.Drawing.Size(23, 22);
@@ -626,7 +626,7 @@
             // btnMirror
             // 
             this.btnMirror.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnMirror.Image = global::BaseCAD.Properties.Resources.shape_flip_horizontal;
+            this.btnMirror.Image = global::PLN.Properties.Resources.shape_flip_horizontal;
             this.btnMirror.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnMirror.Name = "btnMirror";
             this.btnMirror.Size = new System.Drawing.Size(23, 22);
@@ -665,7 +665,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Image = global::BaseCAD.Properties.Resources.cross;
+            this.btnDelete.Image = global::PLN.Properties.Resources.cross;
             this.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(60, 22);
@@ -675,7 +675,7 @@
             // btnZoom
             // 
             this.btnZoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnZoom.Image = global::BaseCAD.Properties.Resources.zoom;
+            this.btnZoom.Image = global::PLN.Properties.Resources.zoom;
             this.btnZoom.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnZoom.Name = "btnZoom";
             this.btnZoom.Size = new System.Drawing.Size(23, 22);
@@ -685,7 +685,7 @@
             // btnPan
             // 
             this.btnPan.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnPan.Image = global::BaseCAD.Properties.Resources.arrow_all;
+            this.btnPan.Image = global::PLN.Properties.Resources.arrow_all;
             this.btnPan.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnPan.Name = "btnPan";
             this.btnPan.Size = new System.Drawing.Size(23, 22);
@@ -709,7 +709,7 @@
             this.Controls.Add(this.toolStripContainer1);
             this.KeyPreview = true;
             this.Name = "MainForm";
-            this.Text = "SimpleCAD Test Form";
+            this.Text = "PLN";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.mainForm_FormClosing);
             this.toolStripContainer1.BottomToolStripPanel.ResumeLayout(false);
             this.toolStripContainer1.BottomToolStripPanel.PerformLayout();
