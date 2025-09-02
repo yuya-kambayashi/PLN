@@ -171,8 +171,10 @@ namespace PLN.Commands
             float rot = (p2.Value - p1.Value).Angle;
             EllipticArc consArc = new EllipticArc(
                 p1.Value,
-                (p2.Value - p1.Value).Length, (p2.Value - p1.Value).Length / 10,
-                0, 2 * MathF.PI,
+                (p2.Value - p1.Value).Length, 
+                (p2.Value - p1.Value).Length / 10,
+                0,
+                2 * MathF.PI,
                 rot);
             doc.Jigged.Add(consArc);
             var p3 = await ed.GetPoint("Semi minor axis: ", p1.Value, (p) => consArc.SemiMinorAxis = (p - p1.Value).Length);
@@ -186,8 +188,10 @@ namespace PLN.Commands
 
             Drawable newItem = new EllipticArc(
                 p1.Value,
-                (p2.Value - p1.Value).Length, (p3.Value - p1.Value).Length,
-                a1.Value - rot, a2.Value - rot,
+                (p2.Value - p1.Value).Length, 
+                (p3.Value - p1.Value).Length,
+                a1.Value - rot, 
+                a2.Value - rot,
                 (p2.Value - p1.Value).Angle);
             doc.Model.Add(newItem);
         }
