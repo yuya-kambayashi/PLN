@@ -55,7 +55,7 @@ namespace BaseCAD.Drawables
                 poly.Points.Add(x, y);
                 a += da;
             }
-            poly.Closed = true;
+            poly.Close();
             poly.TransformBy(Matrix2D.Rotation(Rotation));
             poly.TransformBy(Matrix2D.Translation(Center.X, Center.Y));
         }

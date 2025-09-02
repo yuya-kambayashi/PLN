@@ -50,7 +50,7 @@ namespace BaseCAD.Drawables
             poly.Points.Add(+Width / 2, -Height / 2);
             poly.Points.Add(+Width / 2, +Height / 2);
             poly.Points.Add(-Width / 2, +Height / 2);
-            poly.Closed = true;
+            poly.Close();
             poly.TransformBy(Matrix2D.Rotation(Rotation));
             poly.TransformBy(Matrix2D.Translation(Center.X, Center.Y));
         }
