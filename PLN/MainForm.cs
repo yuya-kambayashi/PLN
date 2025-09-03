@@ -178,6 +178,10 @@
         {
             ed.RunCommand("Primitives.Line");
         }
+        private void btnDrawBeam_Click(object sender, EventArgs e)
+        {
+            ed.RunCommand("Primitives.Beam");
+        }
 
         private void btnDrawArc_Click(object sender, EventArgs e)
         {
