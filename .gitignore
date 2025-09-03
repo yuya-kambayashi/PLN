@@ -361,9 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/.vs/ProjectEvaluation/pln.metadata.v9.bin
-/.vs/ProjectEvaluation/pln.projects.v9.bin
-/.vs/PLN/v17/.suo
-/.vs/PLN/DesignTimeBuild/.dtbcache.v2
-/.vs/PLN/CopilotIndices/17.14.1091.29919/SemanticSymbols.db
-/.vs/PLN/CopilotIndices/17.14.1091.29919/CodeChunks.db
+.vs/

@@ -1,7 +1,40 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\kamba\\Documents\\03_C#\\PLN\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A44474DD-E692-3C51-44D8-D15B10B62292}|PLN.Tests\\PLN.Tests.csproj|c:\\users\\kamba\\documents\\03_c#\\pln\\pln.tests\\geometory\\point2dtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A44474DD-E692-3C51-44D8-D15B10B62292}|PLN.Tests\\PLN.Tests.csproj|solutionrelative:pln.tests\\geometory\\point2dtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2022CB0F-8BAF-F49E-0C48-8EF4C96EC109}|\u30BD\u30EA\u30E5\u30FC\u30B7\u30E7\u30F3\u9805\u76EE{2022CB0F-8BAF-F49E-0C48-8EF4C96EC109}|C:\\Users\\kamba\\Documents\\03_C#\\PLN\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{2022CB0F-8BAF-F49E-0C48-8EF4C96EC109}|\u30BD\u30EA\u30E5\u30FC\u30B7\u30E7\u30F3\u9805\u76EE{2022CB0F-8BAF-F49E-0C48-8EF4C96EC109}|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2022CB0F-8BAF-F49E-0C48-8EF4C96EC109}|\u30BD\u30EA\u30E5\u30FC\u30B7\u30E7\u30F3\u9805\u76EE{2022CB0F-8BAF-F49E-0C48-8EF4C96EC109}|C:\\Users\\kamba\\Documents\\03_C#\\PLN\\.gitattributes||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{2022CB0F-8BAF-F49E-0C48-8EF4C96EC109}|\u30BD\u30EA\u30E5\u30FC\u30B7\u30E7\u30F3\u9805\u76EE{2022CB0F-8BAF-F49E-0C48-8EF4C96EC109}|solutionrelative:.gitattributes||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A1E6BF6-8379-46BF-A6E3-A0D0A03BACD0}|PLN\\PLN.csproj|c:\\users\\kamba\\documents\\03_c#\\pln\\pln\\geometry\\point2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A1E6BF6-8379-46BF-A6E3-A0D0A03BACD0}|PLN\\PLN.csproj|solutionrelative:pln\\geometry\\point2d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A1E6BF6-8379-46BF-A6E3-A0D0A03BACD0}|PLN\\PLN.csproj|c:\\users\\kamba\\documents\\03_c#\\pln\\pln\\pln.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{5A1E6BF6-8379-46BF-A6E3-A0D0A03BACD0}|PLN\\PLN.csproj|solutionrelative:pln\\pln.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A44474DD-E692-3C51-44D8-D15B10B62292}|PLN.Tests\\PLN.Tests.csproj|c:\\users\\kamba\\documents\\03_c#\\pln\\pln.tests\\pln.tests.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{A44474DD-E692-3C51-44D8-D15B10B62292}|PLN.Tests\\PLN.Tests.csproj|solutionrelative:pln.tests\\pln.tests.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A1E6BF6-8379-46BF-A6E3-A0D0A03BACD0}|PLN\\PLN.csproj|c:\\users\\kamba\\documents\\03_c#\\pln\\pln\\geometry\\curveoperations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A1E6BF6-8379-46BF-A6E3-A0D0A03BACD0}|PLN\\PLN.csproj|solutionrelative:pln\\geometry\\curveoperations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\kamba\\Documents\\03_C#\\PLN\\PLNTest\\Test1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:PLNTest\\Test1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 11,
           "Children": [
             {
               "$type": "Bookmark",
@@ -54,6 +87,114 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{004be353-6879-467c-9d1e-9ac23cdf6d49}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Point2DTests.cs",
+              "DocumentMoniker": "C:\\Users\\kamba\\Documents\\03_C#\\PLN\\PLN.Tests\\Geometory\\Point2DTests.cs",
+              "RelativeDocumentMoniker": "PLN.Tests\\Geometory\\Point2DTests.cs",
+              "ToolTip": "C:\\Users\\kamba\\Documents\\03_C#\\PLN\\PLN.Tests\\Geometory\\Point2DTests.cs",
+              "RelativeToolTip": "PLN.Tests\\Geometory\\Point2DTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T02:08:22.7Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PLN.Tests",
+              "DocumentMoniker": "C:\\Users\\kamba\\Documents\\03_C#\\PLN\\PLN.Tests\\PLN.Tests.csproj",
+              "RelativeDocumentMoniker": "PLN.Tests\\PLN.Tests.csproj",
+              "ToolTip": "C:\\Users\\kamba\\Documents\\03_C#\\PLN\\PLN.Tests\\PLN.Tests.csproj",
+              "RelativeToolTip": "PLN.Tests\\PLN.Tests.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-09-03T02:07:14.097Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CurveOperations.cs",
+              "DocumentMoniker": "C:\\Users\\kamba\\Documents\\03_C#\\PLN\\PLN\\Geometry\\CurveOperations.cs",
+              "RelativeDocumentMoniker": "PLN\\Geometry\\CurveOperations.cs",
+              "ToolTip": "C:\\Users\\kamba\\Documents\\03_C#\\PLN\\PLN\\Geometry\\CurveOperations.cs",
+              "RelativeToolTip": "PLN\\Geometry\\CurveOperations.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T01:54:12.469Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Test1.cs",
+              "DocumentMoniker": "C:\\Users\\kamba\\Documents\\03_C#\\PLN\\PLNTest\\Test1.cs",
+              "RelativeDocumentMoniker": "PLNTest\\Test1.cs",
+              "ToolTip": "C:\\Users\\kamba\\Documents\\03_C#\\PLN\\PLNTest\\Test1.cs",
+              "RelativeToolTip": "PLNTest\\Test1.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T01:53:33.817Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": ".gitattributes",
+              "DocumentMoniker": "C:\\Users\\kamba\\Documents\\03_C#\\PLN\\.gitattributes",
+              "RelativeDocumentMoniker": ".gitattributes",
+              "ToolTip": "C:\\Users\\kamba\\Documents\\03_C#\\PLN\\.gitattributes",
+              "RelativeToolTip": ".gitattributes",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-09-03T02:13:06.803Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": ".gitignore",
+              "DocumentMoniker": "C:\\Users\\kamba\\Documents\\03_C#\\PLN\\.gitignore",
+              "RelativeDocumentMoniker": ".gitignore",
+              "ToolTip": "C:\\Users\\kamba\\Documents\\03_C#\\PLN\\.gitignore",
+              "RelativeToolTip": ".gitignore",
+              "ViewState": "AgIAAFQBAAAAAAAAAAAAAGgBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-09-03T02:13:05.155Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PLN",
+              "DocumentMoniker": "C:\\Users\\kamba\\Documents\\03_C#\\PLN\\PLN\\PLN.csproj",
+              "RelativeDocumentMoniker": "PLN\\PLN.csproj",
+              "ToolTip": "C:\\Users\\kamba\\Documents\\03_C#\\PLN\\PLN\\PLN.csproj",
+              "RelativeToolTip": "PLN\\PLN.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-09-03T02:07:18.64Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Point2D.cs",
+              "DocumentMoniker": "C:\\Users\\kamba\\Documents\\03_C#\\PLN\\PLN\\Geometry\\Point2D.cs",
+              "RelativeDocumentMoniker": "PLN\\Geometry\\Point2D.cs",
+              "ToolTip": "C:\\Users\\kamba\\Documents\\03_C#\\PLN\\PLN\\Geometry\\Point2D.cs",
+              "RelativeToolTip": "PLN\\Geometry\\Point2D.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-03T01:54:19.853Z",
+              "EditorCaption": ""
             }
           ]
         },
