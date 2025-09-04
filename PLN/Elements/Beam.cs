@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
 namespace PLN.Elements
 {
@@ -30,11 +31,47 @@ namespace PLN.Elements
         }
         public override void Draw(Renderer renderer)
         {
-            renderer.DrawRectangle(
-                Style.ApplyLayer(Layer),
-                StartPoint.Transform(new Matrix2D(1, 0, 1, 0, 50, 0)),
-                EndPoint.Transform(new Matrix2D(1, 0, 1, 0, 0, -50))
-                );
+
+            Vector2D dir = EndPoint - StartPoint;
+            float angle = dir.Angle;
+            float len = dir.Length;
+
+            Composite items = new Composite();
+
+            float Offset = 0.4f;
+
+            float tickSize = 0.5f * 100;
+
+            // 始点側の底
+            Line tick1 = new Line(0, -tickSize + Offset, 0, tickSize + Offset);
+            tick1.Style = Style.ApplyLayer(Layer);
+            items.Add(tick1);
+
+            // 終点側の底
+            Line tick2 = new Line(len, -tickSize + Offset, len, tickSize + Offset);
+            tick2.Style = Style.ApplyLayer(Layer);
+            items.Add(tick2);
+
+            // 始点から終点
+            Line tick3 = new Line(tick1.StartPoint, tick2.StartPoint);
+            tick3.Style = Style.ApplyLayer(Layer);
+            items.Add(tick3);
+
+            // 終点から始点
+            Line tick4 = new Line(tick1.EndPoint, tick2.EndPoint);
+            tick4.Style = Style.ApplyLayer(Layer);
+            items.Add(tick4);
+
+            Matrix2D trans = Matrix2D.Transformation(1, 1, angle, StartPoint.X, StartPoint.Y);
+            items.TransformBy(trans);
+
+            foreach(var item in items)
+            {
+                Line line = (Line)item;
+
+                renderer.DrawLine(Style.ApplyLayer(Layer), line.StartPoint, line.EndPoint);
+            }
+
         }
     }
 }
