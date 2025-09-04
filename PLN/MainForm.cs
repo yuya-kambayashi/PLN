@@ -183,6 +183,11 @@
             ed.RunCommand("Primitives.Beam");
         }
 
+        private void btnDrawColumn_Click(object sender, EventArgs e)
+        {
+            ed.RunCommand("Primitives.Column");
+        }
+
         private void btnDrawArc_Click(object sender, EventArgs e)
         {
             ed.RunCommand("Primitives.Arc");

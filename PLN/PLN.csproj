@@ -22,6 +22,7 @@
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\Command_Composite.cs" />
     <Compile Include="Commands\Command_Edit.cs" />
+    <Compile Include="Commands\Command_Elements.cs" />
     <Compile Include="Commands\Command_Primitives.cs" />
     <Compile Include="Commands\Command_Transform.cs" />
     <Compile Include="Commands\Command_View.cs" />
