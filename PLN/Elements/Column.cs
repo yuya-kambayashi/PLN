@@ -18,8 +18,9 @@ namespace PLN.Elements
         }
         public override void Draw(Renderer renderer)
         {
-            float size = renderer.View.ScreenToWorld(new Vector2D(renderer.View.Document.Settings.PointSize, 0)).X / 2;
-            renderer.DrawCircle(Style.ApplyLayer(Layer), Location, size);
+            renderer.FillRectangle(Style.ApplyLayer(Layer),
+                new Point2D(Location.X - d / 2, Location.Y - d / 2),
+                new Point2D(Location.X + d / 2, Location.Y + d / 2));
         }
     }
 }
