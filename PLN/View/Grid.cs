@@ -1,6 +1,7 @@
 ﻿using PLN.Drawables;
 using PLN.Geometry;
 using PLN.Graphics;
+using System.Net;
 using Color = PLN.Graphics.Color;
 
 namespace PLN.View
@@ -62,6 +63,13 @@ namespace PLN.View
         public override void TransformBy(Matrix2D transformation)
         {
             ;
+        }
+        public override SnapPoint[] GetSnapPoints()
+        {
+            return new[]
+            {
+                new SnapPoint("Origin", SnapPointType.Middle, new Point2D(0, 0)),
+            };
         }
     }
 }

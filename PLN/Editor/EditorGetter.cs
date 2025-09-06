@@ -87,11 +87,14 @@ namespace PLN
                 foreach (Drawable item in Editor.Document.Model)
                 {
                     if (item.Visible && (item.Layer == null || item.Layer.Visible))
+                    {
                         Editor.SnapPoints.AddFromDrawable(item, e.Location, snapMode, snapDist);
+                    }
                 }
-            }
+                Editor.SnapPoints.AddOrigin(e.Location, snapDist);
 
-            CoordsChanged(e.Location);
+                CoordsChanged(e.Location);
+            }
         }
 
         protected void SetCursorText(string text)

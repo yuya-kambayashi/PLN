@@ -50,6 +50,15 @@ namespace PLN
                 }
             }
         }
+        public void AddOrigin(Point2D cursorLocation, float snapDistance)
+        {
+            float dist = (Point2D.Zero - cursorLocation).Length;
+            if (dist <= snapDistance)
+            {
+                SnapPoint pt = new SnapPoint("Origin", Point2D.Zero);
+                Add(dist, pt);
+            }
+        }
 
         public void Clear()
         {
