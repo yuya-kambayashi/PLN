@@ -91,7 +91,9 @@ namespace PLN
                         Editor.SnapPoints.AddFromDrawable(item, e.Location, snapMode, snapDist);
                     }
                 }
-                Editor.SnapPoints.AddOrigin(e.Location, snapDist);
+                Editor.SnapPoints.AddZeroPoint(e.Location, snapDist);
+
+                Editor.SnapPoints.AddModulePoint(e.Location, snapDist);
 
                 CoordsChanged(e.Location);
             }

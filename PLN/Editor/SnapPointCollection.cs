@@ -50,7 +50,7 @@ namespace PLN
                 }
             }
         }
-        public void AddOrigin(Point2D cursorLocation, float snapDistance)
+        public void AddZeroPoint(Point2D cursorLocation, float snapDistance)
         {
             float dist = (Point2D.Zero - cursorLocation).Length;
             if (dist <= snapDistance)
@@ -59,6 +59,32 @@ namespace PLN
                 Add(dist, pt);
             }
         }
+
+        public void AddModulePoint(Point2D cursorLocation, float snapDistance)
+        {
+            float module = 1000;
+            float max = 10 * module;
+            List<Point2D> modulePoints = new List<Point2D>();
+
+            for (float x = -max; x <= max; x += module)
+            {
+                for (float y = -max; y <= max; y += module)
+                {
+                    modulePoints.Add(new Point2D(x, y));
+                }
+            }
+
+            foreach (Point2D pt in modulePoints)
+            {
+                float dist = (pt - cursorLocation).Length;
+                if (dist <= snapDistance)
+                {
+                    SnapPoint sp = new SnapPoint("Module", pt);
+                    Add(dist, sp);
+                }
+            }
+        }
+
 
         public void Clear()
         {
