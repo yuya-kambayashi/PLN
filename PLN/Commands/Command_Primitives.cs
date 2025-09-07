@@ -1,6 +1,5 @@
 ﻿using PLN.Drawables;
 using PLN.Geometry;
-using PLN.Elements;
 using Point = PLN.Drawables.Point;
 using Rectangle = PLN.Drawables.Rectangle;
 

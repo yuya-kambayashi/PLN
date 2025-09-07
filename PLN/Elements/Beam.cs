@@ -1,13 +1,6 @@
 ﻿using PLN.Drawables;
 using PLN.Geometry;
 using PLN.Graphics;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
 namespace PLN.Elements
 {
