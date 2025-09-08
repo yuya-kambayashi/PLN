@@ -160,5 +160,9 @@ namespace PLN.Drawables
 
             return true;
         }
+        public bool IsAxisParallel()
+        {
+            return (Math.Abs(X1 - X2) < 0.0001f) || (Math.Abs(Y1 - Y2) < 0.0001f);
+        }
     }
 }
