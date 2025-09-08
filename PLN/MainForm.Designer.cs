@@ -90,7 +90,11 @@
             this.btnDelete = new System.Windows.Forms.ToolStripButton();
             this.btnZoom = new System.Windows.Forms.ToolStripButton();
             this.btnPan = new System.Windows.Forms.ToolStripButton();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.cadWindow1 = new CADWindow();
+            this.cadWindow2 = new CADWindow();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -161,7 +165,11 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.cadWindow1);
+            this.splitContainer1.Panel1.Controls.Add(this.tabControl1);
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabPage1.Controls.Add(this.cadWindow1);
+            this.tabPage2.Controls.Add(this.cadWindow2);
             // 
             // splitContainer1.Panel2
             // 
@@ -742,6 +750,34 @@
             this.btnPan.Text = "Pan";
             this.btnPan.Click += new System.EventHandler(this.btnPan_Click);
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Text = "tabPage1";
+            this.tabControl1.Size = new System.Drawing.Size(759, 394);
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.TabIndex = 0;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(759, 394);
+            this.tabPage1.TabIndex = 0;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Size = new System.Drawing.Size(759, 394);
+            this.tabPage2.TabIndex = 1;
+            // 
+            // cadWindow2
+            // 
+            this.cadWindow2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.cadWindow2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cadWindow2.Location = new System.Drawing.Point(0, 0);
+            this.cadWindow2.Name = "cadWindow2";
+            this.cadWindow2.Size = new System.Drawing.Size(759, 394);
+            this.cadWindow2.TabIndex = 0;
+            // 
             // cadWindow1
             // 
             this.cadWindow1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -824,6 +860,7 @@
         private System.Windows.Forms.ToolStripButton btnZoom;
         private System.Windows.Forms.ToolStripButton btnPan;
         private CADWindow cadWindow1;
+        private CADWindow cadWindow2;
         private System.Windows.Forms.ToolStripButton btnDrawPoint;
         private System.Windows.Forms.ToolStripButton btnStretch;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -850,5 +887,8 @@
         private System.Windows.Forms.ToolStripButton btnCreateRoom;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton btnDelete;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabControl tabControl1;
     }
 }
