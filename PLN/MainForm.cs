@@ -187,6 +187,10 @@
         {
             ed.RunCommand("Primitives.Column");
         }
+        private void btnDrawRoom_Click(object sender, EventArgs e)
+        {
+            ed.RunCommand("Primitives.Room");
+        }
 
         private void btnDrawArc_Click(object sender, EventArgs e)
         {

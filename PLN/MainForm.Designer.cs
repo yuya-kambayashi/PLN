@@ -65,6 +65,7 @@
             this.btnDrawLine = new System.Windows.Forms.ToolStripButton();
             this.btnDrawBeam = new System.Windows.Forms.ToolStripButton();
             this.btnDrawColumn = new System.Windows.Forms.ToolStripButton();
+            this.btnDrawRoom = new System.Windows.Forms.ToolStripButton();
             this.btnDrawCircle = new System.Windows.Forms.ToolStripButton();
             this.btnDrawEllipse = new System.Windows.Forms.ToolStripButton();
             this.btnDrawArc = new System.Windows.Forms.ToolStripButton();
@@ -212,6 +213,7 @@
             this.btnDrawLine,
             this.btnDrawBeam,
             this.btnDrawColumn,
+            this.btnDrawRoom,
             this.btnDrawCircle,
             this.btnDrawEllipse,
             this.btnDrawArc,
@@ -487,6 +489,17 @@
             this.btnDrawBeam.Text = "Beam";
             this.btnDrawBeam.ToolTipText = "Draw Beam";
             this.btnDrawBeam.Click += new System.EventHandler(this.btnDrawBeam_Click);
+            // 
+            // btnDrawRoom
+            // 
+            this.btnDrawRoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnDrawRoom.Image = ((System.Drawing.Image)(resources.GetObject("btnDrawRoom.Image")));
+            this.btnDrawRoom.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDrawRoom.Name = "btnDrawRoom";
+            this.btnDrawRoom.Size = new System.Drawing.Size(33, 22);
+            this.btnDrawRoom.Text = "Room";
+            this.btnDrawRoom.ToolTipText = "Draw Room";
+            this.btnDrawRoom.Click += new System.EventHandler(this.btnDrawRoom_Click);
             // 
             // btnDrawCircle
             // 
@@ -768,6 +781,7 @@
         private System.Windows.Forms.ToolStripButton btnDrawLine;
         private System.Windows.Forms.ToolStripButton btnDrawBeam;
         private System.Windows.Forms.ToolStripButton btnDrawColumn;
+        private System.Windows.Forms.ToolStripButton btnDrawRoom;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.ToolStripButton btnDrawArc;

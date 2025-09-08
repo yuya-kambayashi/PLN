@@ -79,15 +79,6 @@ namespace PLN
 
         private void Editor_CursorMove(object sender, CursorEventArgs e)
         {
-            if (jigged is not null && jigged is Beam)
-            {
-                Beam beam = (Beam)jigged;
-
-                Vector2D dir = beam.EndPoint - beam.StartPoint;
-
-                return;
-            }
-
             // check snap mode
             Editor.SnapPoints.Clear();
             if (Editor.Document.Settings.Snap)
