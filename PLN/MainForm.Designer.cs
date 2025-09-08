@@ -78,6 +78,7 @@
             this.btnDrawHatch = new System.Windows.Forms.ToolStripButton();
             this.btnDrawQuadraticBezier = new System.Windows.Forms.ToolStripButton();
             this.btnCreateComposite = new System.Windows.Forms.ToolStripButton();
+            this.btnCreateRoom = new System.Windows.Forms.ToolStripButton();
             this.btnMove = new System.Windows.Forms.ToolStripButton();
             this.btnCopy = new System.Windows.Forms.ToolStripButton();
             this.btnRotate = new System.Windows.Forms.ToolStripButton();
@@ -226,7 +227,8 @@
             this.btnDrawHatch,
             this.btnDrawQuadraticBezier,
             this.toolStripSeparator2,
-            this.btnCreateComposite});
+            this.btnCreateComposite,
+            this.btnCreateRoom});
             this.tsPrimitives.Location = new System.Drawing.Point(3, 25);
             this.tsPrimitives.Name = "tsPrimitives";
             this.tsPrimitives.Size = new System.Drawing.Size(781, 25);
@@ -621,6 +623,16 @@
             this.btnCreateComposite.Text = "Create Composite";
             this.btnCreateComposite.Click += new System.EventHandler(this.btnCreateComposite_Click);
             // 
+            // btnCreateRoom
+            // 
+            this.btnCreateRoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnCreateRoom.Image = ((System.Drawing.Image)(resources.GetObject("btnCreateRoom.Image")));
+            this.btnCreateRoom.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnCreateRoom.Name = "btnCreateRoom";
+            this.btnCreateRoom.Size = new System.Drawing.Size(106, 22);
+            this.btnCreateRoom.Text = "Create Room";
+            this.btnCreateRoom.Click += new System.EventHandler(this.btnCreateRoom_Click);
+            // 
             // btnMove
             // 
             this.btnMove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -835,6 +847,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton btnCreateComposite;
+        private System.Windows.Forms.ToolStripButton btnCreateRoom;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton btnDelete;
     }
