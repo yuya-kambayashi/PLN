@@ -48,14 +48,11 @@
             btnSnapQuadrant = new ToolStripMenuItem();
             btnSnapPoint = new ToolStripMenuItem();
             splitContainerBase = new SplitContainer();
+            splitContainerTop = new SplitContainer();
+            treeView1 = new TreeView();
             cadWindow1 = new CADWindow();
             lblSelection = new Label();
             propertyGrid1 = new PropertyGrid();
-            tsStandard = new ToolStrip();
-            btnNew = new ToolStripButton();
-            btnOpen = new ToolStripButton();
-            btnSave = new ToolStripButton();
-            btnSaveAs = new ToolStripButton();
             tsPrimitives = new ToolStrip();
             btnDrawPoint = new ToolStripButton();
             btnDrawLine = new ToolStripButton();
@@ -76,6 +73,11 @@
             toolStripSeparator2 = new ToolStripSeparator();
             btnCreateComposite = new ToolStripButton();
             btnCreateRoom = new ToolStripButton();
+            tsStandard = new ToolStrip();
+            btnNew = new ToolStripButton();
+            btnOpen = new ToolStripButton();
+            btnSave = new ToolStripButton();
+            btnSaveAs = new ToolStripButton();
             tsTransform = new ToolStrip();
             btnMove = new ToolStripButton();
             btnCopy = new ToolStripButton();
@@ -91,7 +93,6 @@
             toolStrip1 = new ToolStrip();
             btnZoom = new ToolStripButton();
             btnPan = new ToolStripButton();
-            splitContainerTop = new SplitContainer();
             toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             toolStripContainer1.ContentPanel.SuspendLayout();
             toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -101,13 +102,14 @@
             splitContainerBase.Panel1.SuspendLayout();
             splitContainerBase.Panel2.SuspendLayout();
             splitContainerBase.SuspendLayout();
-            tsStandard.SuspendLayout();
-            tsPrimitives.SuspendLayout();
-            tsTransform.SuspendLayout();
-            toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainerTop).BeginInit();
+            splitContainerTop.Panel1.SuspendLayout();
             splitContainerTop.Panel2.SuspendLayout();
             splitContainerTop.SuspendLayout();
+            tsPrimitives.SuspendLayout();
+            tsStandard.SuspendLayout();
+            tsTransform.SuspendLayout();
+            toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // toolStripContainer1
@@ -133,8 +135,8 @@
             // toolStripContainer1.TopToolStripPanel
             // 
             toolStripContainer1.TopToolStripPanel.Controls.Add(tsStandard);
-            toolStripContainer1.TopToolStripPanel.Controls.Add(tsPrimitives);
             toolStripContainer1.TopToolStripPanel.Controls.Add(tsTransform);
+            toolStripContainer1.TopToolStripPanel.Controls.Add(tsPrimitives);
             toolStripContainer1.TopToolStripPanel.Controls.Add(toolStrip1);
             // 
             // statusStrip1
@@ -223,20 +225,20 @@
             // 
             btnSnap.CheckOnClick = true;
             btnSnap.Name = "btnSnap";
-            btnSnap.Size = new Size(224, 26);
+            btnSnap.Size = new Size(154, 26);
             btnSnap.Text = "Snap";
             btnSnap.Click += btnSnap_Click;
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(221, 6);
+            toolStripMenuItem1.Size = new Size(151, 6);
             // 
             // btnSnapEnd
             // 
             btnSnapEnd.CheckOnClick = true;
             btnSnapEnd.Name = "btnSnapEnd";
-            btnSnapEnd.Size = new Size(224, 26);
+            btnSnapEnd.Size = new Size(154, 26);
             btnSnapEnd.Text = "End";
             btnSnapEnd.Click += btnSnapEnd_Click;
             // 
@@ -244,7 +246,7 @@
             // 
             btnSnapMiddle.CheckOnClick = true;
             btnSnapMiddle.Name = "btnSnapMiddle";
-            btnSnapMiddle.Size = new Size(224, 26);
+            btnSnapMiddle.Size = new Size(154, 26);
             btnSnapMiddle.Text = "Middle";
             btnSnapMiddle.Click += btnSnapMiddle_Click;
             // 
@@ -252,7 +254,7 @@
             // 
             btnSnapCenter.CheckOnClick = true;
             btnSnapCenter.Name = "btnSnapCenter";
-            btnSnapCenter.Size = new Size(224, 26);
+            btnSnapCenter.Size = new Size(154, 26);
             btnSnapCenter.Text = "Center";
             btnSnapCenter.Click += btnSnapCenter_Click;
             // 
@@ -260,7 +262,7 @@
             // 
             btnSnapQuadrant.CheckOnClick = true;
             btnSnapQuadrant.Name = "btnSnapQuadrant";
-            btnSnapQuadrant.Size = new Size(224, 26);
+            btnSnapQuadrant.Size = new Size(154, 26);
             btnSnapQuadrant.Text = "Quadrant";
             btnSnapQuadrant.Click += btnSnapQuadrant_Click;
             // 
@@ -268,7 +270,7 @@
             // 
             btnSnapPoint.CheckOnClick = true;
             btnSnapPoint.Name = "btnSnapPoint";
-            btnSnapPoint.Size = new Size(224, 26);
+            btnSnapPoint.Size = new Size(154, 26);
             btnSnapPoint.Text = "Point";
             btnSnapPoint.Click += btnSnapPoint_Click;
             // 
@@ -289,9 +291,35 @@
             splitContainerBase.Panel2.Controls.Add(lblSelection);
             splitContainerBase.Panel2.Controls.Add(propertyGrid1);
             splitContainerBase.Size = new Size(1344, 687);
-            splitContainerBase.SplitterDistance = 1012;
+            splitContainerBase.SplitterDistance = 1010;
             splitContainerBase.SplitterWidth = 5;
             splitContainerBase.TabIndex = 2;
+            // 
+            // splitContainerTop
+            // 
+            splitContainerTop.Dock = DockStyle.Fill;
+            splitContainerTop.Location = new Point(0, 0);
+            splitContainerTop.Name = "splitContainerTop";
+            // 
+            // splitContainerTop.Panel1
+            // 
+            splitContainerTop.Panel1.BackColor = SystemColors.ActiveCaption;
+            splitContainerTop.Panel1.Controls.Add(treeView1);
+            // 
+            // splitContainerTop.Panel2
+            // 
+            splitContainerTop.Panel2.Controls.Add(cadWindow1);
+            splitContainerTop.Size = new Size(1010, 687);
+            splitContainerTop.SplitterDistance = 199;
+            splitContainerTop.TabIndex = 1;
+            // 
+            // treeView1
+            // 
+            treeView1.Dock = DockStyle.Fill;
+            treeView1.Location = new Point(0, 0);
+            treeView1.Name = "treeView1";
+            treeView1.Size = new Size(199, 687);
+            treeView1.TabIndex = 0;
             // 
             // cadWindow1
             // 
@@ -300,7 +328,7 @@
             cadWindow1.Location = new Point(0, 0);
             cadWindow1.Margin = new Padding(5, 8, 5, 8);
             cadWindow1.Name = "cadWindow1";
-            cadWindow1.Size = new Size(671, 687);
+            cadWindow1.Size = new Size(807, 687);
             cadWindow1.TabIndex = 0;
             // 
             // lblSelection
@@ -323,63 +351,13 @@
             propertyGrid1.TabIndex = 1;
             propertyGrid1.PropertyValueChanged += propertyGrid1_PropertyValueChanged;
             // 
-            // tsStandard
-            // 
-            tsStandard.Dock = DockStyle.None;
-            tsStandard.GripStyle = ToolStripGripStyle.Hidden;
-            tsStandard.ImageScalingSize = new Size(20, 20);
-            tsStandard.Items.AddRange(new ToolStripItem[] { btnNew, btnOpen, btnSave, btnSaveAs });
-            tsStandard.Location = new Point(1239, 0);
-            tsStandard.Name = "tsStandard";
-            tsStandard.Size = new Size(105, 27);
-            tsStandard.TabIndex = 1;
-            // 
-            // btnNew
-            // 
-            btnNew.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnNew.Image = Properties.Resources.page_white;
-            btnNew.ImageTransparentColor = Color.Magenta;
-            btnNew.Name = "btnNew";
-            btnNew.Size = new Size(29, 24);
-            btnNew.Text = "New";
-            btnNew.Click += btnNew_Click;
-            // 
-            // btnOpen
-            // 
-            btnOpen.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnOpen.Image = Properties.Resources.folder;
-            btnOpen.ImageTransparentColor = Color.Magenta;
-            btnOpen.Name = "btnOpen";
-            btnOpen.Size = new Size(29, 24);
-            btnOpen.Text = "Open";
-            btnOpen.Click += btnOpen_Click;
-            // 
-            // btnSave
-            // 
-            btnSave.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnSave.Image = Properties.Resources.disk;
-            btnSave.ImageTransparentColor = Color.Magenta;
-            btnSave.Name = "btnSave";
-            btnSave.Size = new Size(29, 24);
-            btnSave.Text = "Save";
-            btnSave.Click += btnSave_Click;
-            // 
-            // btnSaveAs
-            // 
-            btnSaveAs.Image = Properties.Resources.disk_multiple;
-            btnSaveAs.ImageTransparentColor = Color.Magenta;
-            btnSaveAs.Name = "btnSaveAs";
-            btnSaveAs.Size = new Size(84, 24);
-            btnSaveAs.Text = "Save As";
-            btnSaveAs.Click += btnSaveAs_Click;
-            // 
             // tsPrimitives
             // 
             tsPrimitives.Dock = DockStyle.None;
             tsPrimitives.GripStyle = ToolStripGripStyle.Hidden;
             tsPrimitives.ImageScalingSize = new Size(20, 20);
             tsPrimitives.Items.AddRange(new ToolStripItem[] { btnDrawPoint, btnDrawLine, btnDrawBeam, btnDrawColumn, btnDrawRoom, btnDrawCircle, btnDrawEllipse, btnDrawArc, btnDrawEllipticArc, btnDrawText, btnDrawDimension, btnDrawParabola, btnDrawPolyline, btnDrawRectangle, btnDrawHatch, btnDrawQuadraticBezier, toolStripSeparator2, btnCreateComposite, btnCreateRoom });
-            tsPrimitives.Location = new Point(4, 0);
+            tsPrimitives.Location = new Point(65, 54);
             tsPrimitives.Name = "tsPrimitives";
             tsPrimitives.Size = new Size(1235, 27);
             tsPrimitives.TabIndex = 0;
@@ -568,6 +546,56 @@
             btnCreateRoom.Text = "Create Room";
             btnCreateRoom.Click += btnCreateRoom_Click;
             // 
+            // tsStandard
+            // 
+            tsStandard.Dock = DockStyle.None;
+            tsStandard.GripStyle = ToolStripGripStyle.Hidden;
+            tsStandard.ImageScalingSize = new Size(20, 20);
+            tsStandard.Items.AddRange(new ToolStripItem[] { btnNew, btnOpen, btnSave, btnSaveAs });
+            tsStandard.Location = new Point(4, 0);
+            tsStandard.Name = "tsStandard";
+            tsStandard.Size = new Size(174, 27);
+            tsStandard.TabIndex = 1;
+            // 
+            // btnNew
+            // 
+            btnNew.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnNew.Image = Properties.Resources.page_white;
+            btnNew.ImageTransparentColor = Color.Magenta;
+            btnNew.Name = "btnNew";
+            btnNew.Size = new Size(29, 24);
+            btnNew.Text = "New";
+            btnNew.Click += btnNew_Click;
+            // 
+            // btnOpen
+            // 
+            btnOpen.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnOpen.Image = Properties.Resources.folder;
+            btnOpen.ImageTransparentColor = Color.Magenta;
+            btnOpen.Name = "btnOpen";
+            btnOpen.Size = new Size(29, 24);
+            btnOpen.Text = "Open";
+            btnOpen.Click += btnOpen_Click;
+            // 
+            // btnSave
+            // 
+            btnSave.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnSave.Image = Properties.Resources.disk;
+            btnSave.ImageTransparentColor = Color.Magenta;
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(29, 24);
+            btnSave.Text = "Save";
+            btnSave.Click += btnSave_Click;
+            // 
+            // btnSaveAs
+            // 
+            btnSaveAs.Image = Properties.Resources.disk_multiple;
+            btnSaveAs.ImageTransparentColor = Color.Magenta;
+            btnSaveAs.Name = "btnSaveAs";
+            btnSaveAs.Size = new Size(84, 24);
+            btnSaveAs.Text = "Save As";
+            btnSaveAs.Click += btnSaveAs_Click;
+            // 
             // tsTransform
             // 
             tsTransform.Dock = DockStyle.None;
@@ -709,23 +737,6 @@
             btnPan.Text = "Pan";
             btnPan.Click += btnPan_Click;
             // 
-            // splitContainerTop
-            // 
-            splitContainerTop.Dock = DockStyle.Fill;
-            splitContainerTop.Location = new Point(0, 0);
-            splitContainerTop.Name = "splitContainerTop";
-            // 
-            // splitContainerTop.Panel1
-            // 
-            splitContainerTop.Panel1.BackColor = SystemColors.ActiveCaption;
-            // 
-            // splitContainerTop.Panel2
-            // 
-            splitContainerTop.Panel2.Controls.Add(cadWindow1);
-            splitContainerTop.Size = new Size(1012, 687);
-            splitContainerTop.SplitterDistance = 337;
-            splitContainerTop.TabIndex = 1;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -751,17 +762,18 @@
             splitContainerBase.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainerBase).EndInit();
             splitContainerBase.ResumeLayout(false);
-            tsStandard.ResumeLayout(false);
-            tsStandard.PerformLayout();
+            splitContainerTop.Panel1.ResumeLayout(false);
+            splitContainerTop.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainerTop).EndInit();
+            splitContainerTop.ResumeLayout(false);
             tsPrimitives.ResumeLayout(false);
             tsPrimitives.PerformLayout();
+            tsStandard.ResumeLayout(false);
+            tsStandard.PerformLayout();
             tsTransform.ResumeLayout(false);
             tsTransform.PerformLayout();
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
-            splitContainerTop.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)splitContainerTop).EndInit();
-            splitContainerTop.ResumeLayout(false);
             ResumeLayout(false);
 
         }
@@ -830,5 +842,6 @@
         private System.Windows.Forms.ToolStripButton btnCreateRoom;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton btnDelete;
+        private System.Windows.Forms.TreeView treeView1;
     }
 }
