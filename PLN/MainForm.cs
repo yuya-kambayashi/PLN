@@ -429,7 +429,29 @@
 
         private void TreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            //   MessageBox.Show($"ノード「{e.Node.Text}」がクリックされました", "ノードクリック");
+            switch (e.Node.Text)
+            {
+                case "Line":
+                    ed.RunCommand("Primitives.Line");
+                    break;
+                case "Point":
+
+                    ed.RunCommand("Primitives.Point");
+                    break;
+
+                case "Beam":
+                    ed.RunCommand("Primitives.Beam");
+                    break;
+                case "Column":
+                    ed.RunCommand("Primitives.Column");
+                    break;
+
+                case "Room":
+                    ed.RunCommand("Primitives.Room");
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
