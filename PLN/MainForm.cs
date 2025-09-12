@@ -40,11 +40,24 @@
             statusStrip1.Items.Add(tsShowAxes);
 
             treeView1.BeginUpdate();
-            treeView1.Nodes.Add("Parent");
-            treeView1.Nodes[0].Nodes.Add("Child 1");
-            treeView1.Nodes[0].Nodes.Add("Child 2");
-            treeView1.Nodes[0].Nodes[1].Nodes.Add("Grandchild");
-            treeView1.Nodes[0].Nodes[1].Nodes[0].Nodes.Add("Great Grandchild");
+
+
+            TreeNode nodeDrawables = new TreeNode("Drawables");
+            nodeDrawables.Nodes.Add(new TreeNode("Line"));
+            nodeDrawables.Nodes.Add(new TreeNode("Point"));
+
+            TreeNode nodeElements = new TreeNode("Elements");
+            nodeElements.Nodes.Add(new TreeNode("Beam"));
+            nodeElements.Nodes.Add(new TreeNode("Column"));
+            nodeElements.Nodes.Add(new TreeNode("Room"));
+
+            TreeNode root = new TreeNode("Root");
+            root.Nodes.Add(nodeDrawables);
+            root.Nodes.Add(nodeElements);
+
+            treeView1.Nodes.Add(root);
+            treeView1.ExpandAll();
+            treeView1.NodeMouseClick += TreeView_NodeMouseClick;
             treeView1.EndUpdate();
 
             UpdateUI();
@@ -412,6 +425,11 @@
             cadWindow1.View.ShowAxes = !cadWindow1.View.ShowAxes;
             cadWindow1.Focus();
             UpdateUI();
+        }
+
+        private void TreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            //   MessageBox.Show($"ノード「{e.Node.Text}」がクリックされました", "ノードクリック");
         }
     }
 }
