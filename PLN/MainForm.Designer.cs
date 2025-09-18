@@ -51,8 +51,26 @@
             splitContainerTop = new SplitContainer();
             treeView1 = new TreeView();
             cadWindow1 = new CADWindow();
+            cadWindow2 = new CADWindow();
             lblSelection = new Label();
             propertyGrid1 = new PropertyGrid();
+            tsStandard = new ToolStrip();
+            btnNew = new ToolStripButton();
+            btnOpen = new ToolStripButton();
+            btnSave = new ToolStripButton();
+            btnSaveAs = new ToolStripButton();
+            tsTransform = new ToolStrip();
+            btnMove = new ToolStripButton();
+            btnCopy = new ToolStripButton();
+            btnRotate = new ToolStripButton();
+            btnScale = new ToolStripButton();
+            btnMirror = new ToolStripButton();
+            toolStripSeparator1 = new ToolStripSeparator();
+            btnStretch = new ToolStripButton();
+            btnRotateCP = new ToolStripButton();
+            btnScaleCP = new ToolStripButton();
+            toolStripSeparator3 = new ToolStripSeparator();
+            btnDelete = new ToolStripButton();
             tsPrimitives = new ToolStrip();
             btnDrawPoint = new ToolStripButton();
             btnDrawLine = new ToolStripButton();
@@ -73,23 +91,6 @@
             toolStripSeparator2 = new ToolStripSeparator();
             btnCreateComposite = new ToolStripButton();
             btnCreateRoom = new ToolStripButton();
-            tsStandard = new ToolStrip();
-            btnNew = new ToolStripButton();
-            btnOpen = new ToolStripButton();
-            btnSave = new ToolStripButton();
-            btnSaveAs = new ToolStripButton();
-            tsTransform = new ToolStrip();
-            btnMove = new ToolStripButton();
-            btnCopy = new ToolStripButton();
-            btnRotate = new ToolStripButton();
-            btnScale = new ToolStripButton();
-            btnMirror = new ToolStripButton();
-            toolStripSeparator1 = new ToolStripSeparator();
-            btnStretch = new ToolStripButton();
-            btnRotateCP = new ToolStripButton();
-            btnScaleCP = new ToolStripButton();
-            toolStripSeparator3 = new ToolStripSeparator();
-            btnDelete = new ToolStripButton();
             toolStrip1 = new ToolStrip();
             btnZoom = new ToolStripButton();
             btnPan = new ToolStripButton();
@@ -106,9 +107,9 @@
             splitContainerTop.Panel1.SuspendLayout();
             splitContainerTop.Panel2.SuspendLayout();
             splitContainerTop.SuspendLayout();
-            tsPrimitives.SuspendLayout();
             tsStandard.SuspendLayout();
             tsTransform.SuspendLayout();
+            tsPrimitives.SuspendLayout();
             toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -136,8 +137,8 @@
             // 
             toolStripContainer1.TopToolStripPanel.Controls.Add(tsStandard);
             toolStripContainer1.TopToolStripPanel.Controls.Add(tsTransform);
-            toolStripContainer1.TopToolStripPanel.Controls.Add(tsPrimitives);
             toolStripContainer1.TopToolStripPanel.Controls.Add(toolStrip1);
+            toolStripContainer1.TopToolStripPanel.Controls.Add(tsPrimitives);
             // 
             // statusStrip1
             // 
@@ -291,7 +292,7 @@
             splitContainerBase.Panel2.Controls.Add(lblSelection);
             splitContainerBase.Panel2.Controls.Add(propertyGrid1);
             splitContainerBase.Size = new Size(1344, 687);
-            splitContainerBase.SplitterDistance = 1010;
+            splitContainerBase.SplitterDistance = 1009;
             splitContainerBase.SplitterWidth = 5;
             splitContainerBase.TabIndex = 2;
             // 
@@ -309,8 +310,9 @@
             // splitContainerTop.Panel2
             // 
             splitContainerTop.Panel2.Controls.Add(cadWindow1);
-            splitContainerTop.Size = new Size(1010, 687);
-            splitContainerTop.SplitterDistance = 199;
+            splitContainerTop.Panel2.Controls.Add(cadWindow2);
+            splitContainerTop.Size = new Size(1009, 687);
+            splitContainerTop.SplitterDistance = 198;
             splitContainerTop.TabIndex = 1;
             // 
             // treeView1
@@ -318,18 +320,28 @@
             treeView1.Dock = DockStyle.Fill;
             treeView1.Location = new Point(0, 0);
             treeView1.Name = "treeView1";
-            treeView1.Size = new Size(199, 687);
+            treeView1.Size = new Size(198, 687);
             treeView1.TabIndex = 0;
             // 
             // cadWindow1
             // 
             cadWindow1.BorderStyle = BorderStyle.Fixed3D;
-            cadWindow1.Dock = DockStyle.Fill;
+            cadWindow1.Dock = DockStyle.Left;
             cadWindow1.Location = new Point(0, 0);
             cadWindow1.Margin = new Padding(5, 8, 5, 8);
             cadWindow1.Name = "cadWindow1";
-            cadWindow1.Size = new Size(807, 687);
+            cadWindow1.Size = new Size(407, 687);
             cadWindow1.TabIndex = 0;
+            // 
+            // cadWindow2
+            // 
+            cadWindow2.BorderStyle = BorderStyle.Fixed3D;
+            cadWindow2.Dock = DockStyle.Right;
+            cadWindow2.Location = new Point(400, 0);
+            cadWindow2.Margin = new Padding(5, 8, 5, 8);
+            cadWindow2.Name = "cadWindow2";
+            cadWindow2.Size = new Size(407, 687);
+            cadWindow2.TabIndex = 0;
             // 
             // lblSelection
             // 
@@ -350,6 +362,166 @@
             propertyGrid1.Size = new Size(327, 604);
             propertyGrid1.TabIndex = 1;
             propertyGrid1.PropertyValueChanged += propertyGrid1_PropertyValueChanged;
+            // 
+            // tsStandard
+            // 
+            tsStandard.Dock = DockStyle.None;
+            tsStandard.GripStyle = ToolStripGripStyle.Hidden;
+            tsStandard.ImageScalingSize = new Size(20, 20);
+            tsStandard.Items.AddRange(new ToolStripItem[] { btnNew, btnOpen, btnSave, btnSaveAs });
+            tsStandard.Location = new Point(4, 0);
+            tsStandard.Name = "tsStandard";
+            tsStandard.Size = new Size(174, 27);
+            tsStandard.TabIndex = 1;
+            // 
+            // btnNew
+            // 
+            btnNew.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnNew.Image = Properties.Resources.page_white;
+            btnNew.ImageTransparentColor = Color.Magenta;
+            btnNew.Name = "btnNew";
+            btnNew.Size = new Size(29, 24);
+            btnNew.Text = "New";
+            btnNew.Click += btnNew_Click;
+            // 
+            // btnOpen
+            // 
+            btnOpen.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnOpen.Image = Properties.Resources.folder;
+            btnOpen.ImageTransparentColor = Color.Magenta;
+            btnOpen.Name = "btnOpen";
+            btnOpen.Size = new Size(29, 24);
+            btnOpen.Text = "Open";
+            btnOpen.Click += btnOpen_Click;
+            // 
+            // btnSave
+            // 
+            btnSave.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnSave.Image = Properties.Resources.disk;
+            btnSave.ImageTransparentColor = Color.Magenta;
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(29, 24);
+            btnSave.Text = "Save";
+            btnSave.Click += btnSave_Click;
+            // 
+            // btnSaveAs
+            // 
+            btnSaveAs.Image = Properties.Resources.disk_multiple;
+            btnSaveAs.ImageTransparentColor = Color.Magenta;
+            btnSaveAs.Name = "btnSaveAs";
+            btnSaveAs.Size = new Size(84, 24);
+            btnSaveAs.Text = "Save As";
+            btnSaveAs.Click += btnSaveAs_Click;
+            // 
+            // tsTransform
+            // 
+            tsTransform.Dock = DockStyle.None;
+            tsTransform.GripStyle = ToolStripGripStyle.Hidden;
+            tsTransform.ImageScalingSize = new Size(20, 20);
+            tsTransform.Items.AddRange(new ToolStripItem[] { btnMove, btnCopy, btnRotate, btnScale, btnMirror, toolStripSeparator1, btnStretch, btnRotateCP, btnScaleCP, toolStripSeparator3, btnDelete });
+            tsTransform.Location = new Point(4, 27);
+            tsTransform.Name = "tsTransform";
+            tsTransform.Size = new Size(595, 27);
+            tsTransform.TabIndex = 2;
+            // 
+            // btnMove
+            // 
+            btnMove.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnMove.Image = Properties.Resources.shape_move_backwards;
+            btnMove.ImageTransparentColor = Color.Magenta;
+            btnMove.Name = "btnMove";
+            btnMove.Size = new Size(29, 24);
+            btnMove.Text = "Move";
+            btnMove.Click += btnMove_Click;
+            // 
+            // btnCopy
+            // 
+            btnCopy.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnCopy.Image = Properties.Resources.shape_copy;
+            btnCopy.ImageTransparentColor = Color.Magenta;
+            btnCopy.Name = "btnCopy";
+            btnCopy.Size = new Size(29, 24);
+            btnCopy.Text = "Copy";
+            btnCopy.Click += btnCopy_Click;
+            // 
+            // btnRotate
+            // 
+            btnRotate.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnRotate.Image = Properties.Resources.shape_rotate_clockwise;
+            btnRotate.ImageTransparentColor = Color.Magenta;
+            btnRotate.Name = "btnRotate";
+            btnRotate.Size = new Size(29, 24);
+            btnRotate.Text = "Rotate";
+            btnRotate.Click += btnRotate_Click;
+            // 
+            // btnScale
+            // 
+            btnScale.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnScale.Image = Properties.Resources.shape_scale;
+            btnScale.ImageTransparentColor = Color.Magenta;
+            btnScale.Name = "btnScale";
+            btnScale.Size = new Size(29, 24);
+            btnScale.Text = "Scale";
+            btnScale.Click += btnScale_Click;
+            // 
+            // btnMirror
+            // 
+            btnMirror.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnMirror.Image = Properties.Resources.shape_flip_horizontal;
+            btnMirror.ImageTransparentColor = Color.Magenta;
+            btnMirror.Name = "btnMirror";
+            btnMirror.Size = new Size(29, 24);
+            btnMirror.Text = "Mirror";
+            btnMirror.Click += btnMirror_Click;
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(6, 27);
+            // 
+            // btnStretch
+            // 
+            btnStretch.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnStretch.Image = (Image)resources.GetObject("btnStretch.Image");
+            btnStretch.ImageTransparentColor = Color.Magenta;
+            btnStretch.Name = "btnStretch";
+            btnStretch.Size = new Size(59, 24);
+            btnStretch.Text = "Stretch";
+            btnStretch.Click += btnStretch_Click;
+            // 
+            // btnRotateCP
+            // 
+            btnRotateCP.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnRotateCP.Image = (Image)resources.GetObject("btnRotateCP.Image");
+            btnRotateCP.ImageTransparentColor = Color.Magenta;
+            btnRotateCP.Name = "btnRotateCP";
+            btnRotateCP.Size = new Size(154, 24);
+            btnRotateCP.Text = "Rotate Control Points";
+            btnRotateCP.Click += btnRotateCP_Click;
+            // 
+            // btnScaleCP
+            // 
+            btnScaleCP.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnScaleCP.Image = (Image)resources.GetObject("btnScaleCP.Image");
+            btnScaleCP.ImageTransparentColor = Color.Magenta;
+            btnScaleCP.Name = "btnScaleCP";
+            btnScaleCP.Size = new Size(145, 24);
+            btnScaleCP.Text = "Scale Control Points";
+            btnScaleCP.Click += btnScaleCP_Click;
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(6, 27);
+            // 
+            // btnDelete
+            // 
+            btnDelete.Image = Properties.Resources.cross;
+            btnDelete.ImageTransparentColor = Color.Magenta;
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(77, 24);
+            btnDelete.Text = "Delete";
+            btnDelete.Click += btnDelete_Click;
             // 
             // tsPrimitives
             // 
@@ -546,166 +718,6 @@
             btnCreateRoom.Text = "Create Room";
             btnCreateRoom.Click += btnCreateRoom_Click;
             // 
-            // tsStandard
-            // 
-            tsStandard.Dock = DockStyle.None;
-            tsStandard.GripStyle = ToolStripGripStyle.Hidden;
-            tsStandard.ImageScalingSize = new Size(20, 20);
-            tsStandard.Items.AddRange(new ToolStripItem[] { btnNew, btnOpen, btnSave, btnSaveAs });
-            tsStandard.Location = new Point(4, 0);
-            tsStandard.Name = "tsStandard";
-            tsStandard.Size = new Size(174, 27);
-            tsStandard.TabIndex = 1;
-            // 
-            // btnNew
-            // 
-            btnNew.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnNew.Image = Properties.Resources.page_white;
-            btnNew.ImageTransparentColor = Color.Magenta;
-            btnNew.Name = "btnNew";
-            btnNew.Size = new Size(29, 24);
-            btnNew.Text = "New";
-            btnNew.Click += btnNew_Click;
-            // 
-            // btnOpen
-            // 
-            btnOpen.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnOpen.Image = Properties.Resources.folder;
-            btnOpen.ImageTransparentColor = Color.Magenta;
-            btnOpen.Name = "btnOpen";
-            btnOpen.Size = new Size(29, 24);
-            btnOpen.Text = "Open";
-            btnOpen.Click += btnOpen_Click;
-            // 
-            // btnSave
-            // 
-            btnSave.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnSave.Image = Properties.Resources.disk;
-            btnSave.ImageTransparentColor = Color.Magenta;
-            btnSave.Name = "btnSave";
-            btnSave.Size = new Size(29, 24);
-            btnSave.Text = "Save";
-            btnSave.Click += btnSave_Click;
-            // 
-            // btnSaveAs
-            // 
-            btnSaveAs.Image = Properties.Resources.disk_multiple;
-            btnSaveAs.ImageTransparentColor = Color.Magenta;
-            btnSaveAs.Name = "btnSaveAs";
-            btnSaveAs.Size = new Size(84, 24);
-            btnSaveAs.Text = "Save As";
-            btnSaveAs.Click += btnSaveAs_Click;
-            // 
-            // tsTransform
-            // 
-            tsTransform.Dock = DockStyle.None;
-            tsTransform.GripStyle = ToolStripGripStyle.Hidden;
-            tsTransform.ImageScalingSize = new Size(20, 20);
-            tsTransform.Items.AddRange(new ToolStripItem[] { btnMove, btnCopy, btnRotate, btnScale, btnMirror, toolStripSeparator1, btnStretch, btnRotateCP, btnScaleCP, toolStripSeparator3, btnDelete });
-            tsTransform.Location = new Point(4, 27);
-            tsTransform.Name = "tsTransform";
-            tsTransform.Size = new Size(595, 27);
-            tsTransform.TabIndex = 2;
-            // 
-            // btnMove
-            // 
-            btnMove.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnMove.Image = Properties.Resources.shape_move_backwards;
-            btnMove.ImageTransparentColor = Color.Magenta;
-            btnMove.Name = "btnMove";
-            btnMove.Size = new Size(29, 24);
-            btnMove.Text = "Move";
-            btnMove.Click += btnMove_Click;
-            // 
-            // btnCopy
-            // 
-            btnCopy.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnCopy.Image = Properties.Resources.shape_copy;
-            btnCopy.ImageTransparentColor = Color.Magenta;
-            btnCopy.Name = "btnCopy";
-            btnCopy.Size = new Size(29, 24);
-            btnCopy.Text = "Copy";
-            btnCopy.Click += btnCopy_Click;
-            // 
-            // btnRotate
-            // 
-            btnRotate.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnRotate.Image = Properties.Resources.shape_rotate_clockwise;
-            btnRotate.ImageTransparentColor = Color.Magenta;
-            btnRotate.Name = "btnRotate";
-            btnRotate.Size = new Size(29, 24);
-            btnRotate.Text = "Rotate";
-            btnRotate.Click += btnRotate_Click;
-            // 
-            // btnScale
-            // 
-            btnScale.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnScale.Image = Properties.Resources.shape_scale;
-            btnScale.ImageTransparentColor = Color.Magenta;
-            btnScale.Name = "btnScale";
-            btnScale.Size = new Size(29, 24);
-            btnScale.Text = "Scale";
-            btnScale.Click += btnScale_Click;
-            // 
-            // btnMirror
-            // 
-            btnMirror.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnMirror.Image = Properties.Resources.shape_flip_horizontal;
-            btnMirror.ImageTransparentColor = Color.Magenta;
-            btnMirror.Name = "btnMirror";
-            btnMirror.Size = new Size(29, 24);
-            btnMirror.Text = "Mirror";
-            btnMirror.Click += btnMirror_Click;
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(6, 27);
-            // 
-            // btnStretch
-            // 
-            btnStretch.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnStretch.Image = (Image)resources.GetObject("btnStretch.Image");
-            btnStretch.ImageTransparentColor = Color.Magenta;
-            btnStretch.Name = "btnStretch";
-            btnStretch.Size = new Size(59, 24);
-            btnStretch.Text = "Stretch";
-            btnStretch.Click += btnStretch_Click;
-            // 
-            // btnRotateCP
-            // 
-            btnRotateCP.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnRotateCP.Image = (Image)resources.GetObject("btnRotateCP.Image");
-            btnRotateCP.ImageTransparentColor = Color.Magenta;
-            btnRotateCP.Name = "btnRotateCP";
-            btnRotateCP.Size = new Size(154, 24);
-            btnRotateCP.Text = "Rotate Control Points";
-            btnRotateCP.Click += btnRotateCP_Click;
-            // 
-            // btnScaleCP
-            // 
-            btnScaleCP.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnScaleCP.Image = (Image)resources.GetObject("btnScaleCP.Image");
-            btnScaleCP.ImageTransparentColor = Color.Magenta;
-            btnScaleCP.Name = "btnScaleCP";
-            btnScaleCP.Size = new Size(145, 24);
-            btnScaleCP.Text = "Scale Control Points";
-            btnScaleCP.Click += btnScaleCP_Click;
-            // 
-            // toolStripSeparator3
-            // 
-            toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(6, 27);
-            // 
-            // btnDelete
-            // 
-            btnDelete.Image = Properties.Resources.cross;
-            btnDelete.ImageTransparentColor = Color.Magenta;
-            btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(77, 24);
-            btnDelete.Text = "Delete";
-            btnDelete.Click += btnDelete_Click;
-            // 
             // toolStrip1
             // 
             toolStrip1.Dock = DockStyle.None;
@@ -766,12 +778,12 @@
             splitContainerTop.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainerTop).EndInit();
             splitContainerTop.ResumeLayout(false);
-            tsPrimitives.ResumeLayout(false);
-            tsPrimitives.PerformLayout();
             tsStandard.ResumeLayout(false);
             tsStandard.PerformLayout();
             tsTransform.ResumeLayout(false);
             tsTransform.PerformLayout();
+            tsPrimitives.ResumeLayout(false);
+            tsPrimitives.PerformLayout();
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
             ResumeLayout(false);
@@ -816,6 +828,7 @@
         private System.Windows.Forms.ToolStripButton btnZoom;
         private System.Windows.Forms.ToolStripButton btnPan;
         private CADWindow cadWindow1;
+        private CADWindow cadWindow2;
         private System.Windows.Forms.ToolStripButton btnDrawPoint;
         private System.Windows.Forms.ToolStripButton btnStretch;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
