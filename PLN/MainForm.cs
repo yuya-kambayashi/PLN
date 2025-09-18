@@ -79,6 +79,7 @@
         private void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
             cadWindow1.Refresh();
+            cadWindow2.Refresh();
         }
 
         private void cadWindow1_MouseMove(object sender, MouseEventArgs e)
