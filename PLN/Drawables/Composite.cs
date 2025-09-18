@@ -1,4 +1,5 @@
-﻿using PLN.Geometry;
+﻿using PLN.Elements;
+using PLN.Geometry;
 using PLN.Graphics;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -43,6 +44,15 @@ namespace PLN.Drawables
         {
             foreach (Drawable item in items)
             {
+                if (item is Column)
+                {
+                    Column column = (Column)item;
+                    if (column.Level != renderer.getLevel())
+                    {
+                        continue;
+                    }
+                }
+
                 if (item.Visible && (item.Layer == null || item.Layer.Visible))
                 {
                     renderer.Draw(item);

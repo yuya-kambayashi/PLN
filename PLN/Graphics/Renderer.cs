@@ -52,6 +52,8 @@ namespace PLN.Graphics
             this.control = control;
         }
 
+        public int getLevel() { return ((CADWindow)control).Level; }
+
         public void InitFrame(System.Drawing.Graphics graphics)
         {
             if (gdiBuffer == null)

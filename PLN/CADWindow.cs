@@ -28,6 +28,9 @@ namespace PLN
             }
         }
 
+        private int level;
+        public int Level { get => level; set { level = value; } }
+
         [Category("Behavior"), DefaultValue(true), Description("Indicates whether the control responds to interactive user input.")]
         public bool Interactive { get => interactive; set { interactive = value; View.Interactive = value; } }
 

@@ -333,6 +333,7 @@
             cadWindow1.Name = "cadWindow1";
             cadWindow1.Size = new Size(407, 687);
             cadWindow1.TabIndex = 0;
+            cadWindow1.Level = 1;
             // 
             // cadWindow2
             // 
@@ -343,6 +344,7 @@
             cadWindow2.Name = "cadWindow2";
             cadWindow2.Size = new Size(407, 687);
             cadWindow2.TabIndex = 0;
+            cadWindow2.Level = 0;
             // 
             // lblSelection
             // 

@@ -9,6 +9,9 @@ namespace PLN.Elements
         private float d;
         public float D { get => d; set { d = value; } }
 
+        private int level;
+        public int Level { get => level; set { level = value; } }
+
         public Column(Point2D location, float d)
         {
             Location = location;
