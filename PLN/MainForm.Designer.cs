@@ -50,8 +50,9 @@
             splitContainerBase = new SplitContainer();
             splitContainerTop = new SplitContainer();
             treeView1 = new TreeView();
-            cadWindow1 = new CADWindow(null);
-            cadWindow2 = new CADWindow(cadWindow1.Document);
+            var doc = new CADDocument();
+            cadWindow1 = new CADWindow(doc);
+            cadWindow2 = new CADWindow(doc);
             lblSelection = new Label();
             propertyGrid1 = new PropertyGrid();
             tsStandard = new ToolStrip();

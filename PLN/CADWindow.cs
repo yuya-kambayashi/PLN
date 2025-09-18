@@ -40,7 +40,7 @@ namespace PLN
         [Category("Appearance"), DefaultValue(true), Description("Determines whether the cursor is shown.")]
         public bool ShowCursor { get => showCursor; set { showCursor = value; View.ShowCursor = value; } }
 
-        public CADWindow(CADDocument createdDoc)
+        public CADWindow(CADDocument doc)
         {
             InitializeComponent();
 
@@ -51,14 +51,8 @@ namespace PLN
 
             BorderStyle = BorderStyle.Fixed3D;
 
-            if (createdDoc == null)
-            {
-                Document = new CADDocument();
-            }
-            else
-            {
-                Document = createdDoc;
-            }
+            Document = doc;
+
             Document.Settings.BackColor = Color.FromArgb((uint)backColor.ToArgb());
 
             View = new CADView(this, Document);
