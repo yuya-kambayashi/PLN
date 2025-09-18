@@ -20,6 +20,7 @@
             doc.DocumentChanged += doc_DocumentChanged;
             doc.SelectionChanged += doc_SelectionChanged;
             cadWindow1.MouseMove += cadWindow1_MouseMove;
+            cadWindow2.MouseMove += cadWindow2_MouseMove;
 
             btnShowGrid = new CheckBox();
             btnShowGrid.Appearance = Appearance.Button;
@@ -83,6 +84,10 @@
         private void cadWindow1_MouseMove(object sender, MouseEventArgs e)
         {
             statusCoords.Text = cadWindow1.View.CursorLocation.ToString(doc.Settings.NumberFormat);
+        }
+        private void cadWindow2_MouseMove(object sender, MouseEventArgs e)
+        {
+            statusCoords.Text = cadWindow2.View.CursorLocation.ToString(doc.Settings.NumberFormat);
         }
 
         private void mainForm_FormClosing(object sender, FormClosingEventArgs e)
