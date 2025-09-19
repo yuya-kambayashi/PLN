@@ -1,4 +1,6 @@
-﻿namespace PLN
+﻿using WeifenLuo.WinFormsUI.Docking;
+
+namespace PLN
 {
     partial class MainForm
     {
@@ -47,8 +49,6 @@
             btnSnapCenter = new ToolStripMenuItem();
             btnSnapQuadrant = new ToolStripMenuItem();
             btnSnapPoint = new ToolStripMenuItem();
-            splitContainerBase = new SplitContainer();
-            splitContainerTop = new SplitContainer();
             treeView1 = new TreeView();
             var doc = new CADDocument();
             cadWindow1 = new CADWindow(doc);
@@ -95,19 +95,13 @@
             toolStrip1 = new ToolStrip();
             btnZoom = new ToolStripButton();
             btnPan = new ToolStripButton();
+            dockPanel = new DockPanel();
             toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             toolStripContainer1.ContentPanel.SuspendLayout();
             toolStripContainer1.TopToolStripPanel.SuspendLayout();
             toolStripContainer1.SuspendLayout();
             statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)splitContainerBase).BeginInit();
-            splitContainerBase.Panel1.SuspendLayout();
-            splitContainerBase.Panel2.SuspendLayout();
-            splitContainerBase.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)splitContainerTop).BeginInit();
-            splitContainerTop.Panel1.SuspendLayout();
-            splitContainerTop.Panel2.SuspendLayout();
-            splitContainerTop.SuspendLayout();
+            dockPanel.SuspendLayout();
             tsStandard.SuspendLayout();
             tsTransform.SuspendLayout();
             tsPrimitives.SuspendLayout();
@@ -123,7 +117,7 @@
             // 
             // toolStripContainer1.ContentPanel
             // 
-            toolStripContainer1.ContentPanel.Controls.Add(splitContainerBase);
+            toolStripContainer1.ContentPanel.Controls.Add(dockPanel);
             toolStripContainer1.ContentPanel.Margin = new Padding(4, 5, 4, 5);
             toolStripContainer1.ContentPanel.Size = new Size(1344, 687);
             toolStripContainer1.Dock = DockStyle.Fill;
@@ -276,46 +270,6 @@
             btnSnapPoint.Text = "Point";
             btnSnapPoint.Click += btnSnapPoint_Click;
             // 
-            // splitContainerBase
-            // 
-            splitContainerBase.Dock = DockStyle.Fill;
-            splitContainerBase.FixedPanel = FixedPanel.Panel2;
-            splitContainerBase.Location = new Point(0, 0);
-            splitContainerBase.Margin = new Padding(4, 5, 4, 5);
-            splitContainerBase.Name = "splitContainerBase";
-            // 
-            // splitContainerBase.Panel1
-            // 
-            splitContainerBase.Panel1.Controls.Add(splitContainerTop);
-            // 
-            // splitContainerBase.Panel2
-            // 
-            splitContainerBase.Panel2.Controls.Add(lblSelection);
-            splitContainerBase.Panel2.Controls.Add(propertyGrid1);
-            splitContainerBase.Size = new Size(1344, 687);
-            splitContainerBase.SplitterDistance = 1009;
-            splitContainerBase.SplitterWidth = 5;
-            splitContainerBase.TabIndex = 2;
-            // 
-            // splitContainerTop
-            // 
-            splitContainerTop.Dock = DockStyle.Fill;
-            splitContainerTop.Location = new Point(0, 0);
-            splitContainerTop.Name = "splitContainerTop";
-            // 
-            // splitContainerTop.Panel1
-            // 
-            splitContainerTop.Panel1.BackColor = SystemColors.ActiveCaption;
-            splitContainerTop.Panel1.Controls.Add(treeView1);
-            // 
-            // splitContainerTop.Panel2
-            // 
-            splitContainerTop.Panel2.Controls.Add(cadWindow1);
-            splitContainerTop.Panel2.Controls.Add(cadWindow2);
-            splitContainerTop.Size = new Size(1009, 687);
-            splitContainerTop.SplitterDistance = 198;
-            splitContainerTop.TabIndex = 1;
-            // 
             // treeView1
             // 
             treeView1.Dock = DockStyle.Fill;
@@ -324,25 +278,40 @@
             treeView1.Size = new Size(198, 687);
             treeView1.TabIndex = 0;
             // 
+            // dockPanel
+            // 
+            dockPanel.Theme = new VS2015LightTheme();
+            dockPanel.Dock = DockStyle.Fill;
+            dockPanel.Name = "dockPanel1";
+            dockPanel.TabIndex = 0;
+            var contentLeft = new SampleDockContent("tree", treeView1);
+            var contentRight = new SampleDockContent("property", propertyGrid1);
+            var contentMain1 = new SampleDockContent("1", cadWindow1);
+            var contentMain2 = new SampleDockContent("2", cadWindow2);
+            contentLeft.Show(dockPanel, DockState.DockLeft);
+            contentRight.Show(dockPanel, DockState.DockRight);
+            contentMain1.Show(dockPanel, DockState.Document);
+            contentMain2.Show(dockPanel, DockState.Document);
+            // 
             // cadWindow1
             // 
             cadWindow1.BorderStyle = BorderStyle.Fixed3D;
-            cadWindow1.Dock = DockStyle.Left;
+            cadWindow1.Dock = DockStyle.Fill;
             cadWindow1.Location = new Point(0, 0);
             cadWindow1.Margin = new Padding(5, 8, 5, 8);
             cadWindow1.Name = "cadWindow1";
-            cadWindow1.Size = new Size(407, 687);
+            //cadWindow1.Size = new Size(407, 687);
             cadWindow1.TabIndex = 0;
             cadWindow1.Level = 1;
             // 
             // cadWindow2
             // 
             cadWindow2.BorderStyle = BorderStyle.Fixed3D;
-            cadWindow2.Dock = DockStyle.Right;
-            cadWindow2.Location = new Point(400, 0);
+            cadWindow2.Dock = DockStyle.Fill;
+            cadWindow2.Location = new Point(0, 0);
             cadWindow2.Margin = new Padding(5, 8, 5, 8);
             cadWindow2.Name = "cadWindow2";
-            cadWindow2.Size = new Size(407, 687);
+            //cadWindow2.Size = new Size(407, 687);
             cadWindow2.TabIndex = 0;
             cadWindow2.Level = 0;
             // 
@@ -772,15 +741,8 @@
             toolStripContainer1.PerformLayout();
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
-            splitContainerBase.Panel1.ResumeLayout(false);
-            splitContainerBase.Panel2.ResumeLayout(false);
-            splitContainerBase.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)splitContainerBase).EndInit();
-            splitContainerBase.ResumeLayout(false);
-            splitContainerTop.Panel1.ResumeLayout(false);
-            splitContainerTop.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)splitContainerTop).EndInit();
-            splitContainerTop.ResumeLayout(false);
+            dockPanel.ResumeLayout(false);
+            dockPanel.PerformLayout();
             tsStandard.ResumeLayout(false);
             tsStandard.PerformLayout();
             tsTransform.ResumeLayout(false);
@@ -806,8 +768,6 @@
         private System.Windows.Forms.ToolStripButton btnDrawCircle;
         private System.Windows.Forms.ToolStripButton btnDrawEllipse;
         private System.Windows.Forms.ToolStripStatusLabel statusCoords;
-        private System.Windows.Forms.SplitContainer splitContainerBase;
-        private System.Windows.Forms.SplitContainer splitContainerTop;
         private System.Windows.Forms.PropertyGrid propertyGrid1;
         private System.Windows.Forms.ToolStripButton btnDrawEllipticArc;
         private System.Windows.Forms.ToolStripButton btnDrawText;
@@ -859,5 +819,21 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton btnDelete;
         private System.Windows.Forms.TreeView treeView1;
+        private DockPanel dockPanel;
+    }
+    public class SampleDockContent : DockContent
+    {
+        public SampleDockContent(string title, Control control)
+        {
+            this.Text = title;
+            //this.ClientSize = new System.Drawing.Size(300, 200);
+
+            //// 中身を適当に追加（例えばラベル）
+            //var lbl = new Label();
+            //lbl.Text = "内容: " + title;
+            //lbl.Dock = DockStyle.Fill;
+            //lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Controls.Add(control);
+        }
     }
 }
