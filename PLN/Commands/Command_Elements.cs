@@ -6,7 +6,7 @@ namespace PLN.Commands
 {
     public class DrawBeam : Command
     {
-        public override string RegisteredName => "Primitives.Beam";
+        public override string RegisteredName => "Elements.Beam";
         public override string Name => "Beam";
 
         public override async Task Apply(CADDocument doc, params string[] args)
@@ -51,7 +51,7 @@ namespace PLN.Commands
     }
     public class DrawColumn : Command
     {
-        public override string RegisteredName => "Primitives.Column";
+        public override string RegisteredName => "Elements.Column";
         public override string Name => "Column";
 
         public override async Task Apply(CADDocument doc, params string[] args)
@@ -78,7 +78,7 @@ namespace PLN.Commands
     }
     public class DrawRoom : Command
     {
-        public override string RegisteredName => "Primitives.Room";
+        public override string RegisteredName => "Elements.Room";
         public override string Name => "Room";
 
         public override async Task Apply(CADDocument doc, params string[] args)

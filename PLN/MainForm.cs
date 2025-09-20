@@ -1,4 +1,6 @@
-﻿namespace PLN
+﻿using PLN.Elements;
+
+namespace PLN
 {
     public partial class MainForm : Form
     {
@@ -40,7 +42,30 @@
             tsShowAxes.Click += btnShowAxes_Click;
             statusStrip1.Items.Add(tsShowAxes);
 
+            // TreeViewの更新
             treeView1.BeginUpdate();
+
+            TreeNode nodeView = new TreeNode("ビュー");
+            TreeNode node平面図 = new TreeNode("平面図");
+            node平面図.Nodes.Add(new ProjectBrowserNode("1階", ProjectBrowserNodeType.ViewFloor1F));
+            node平面図.Nodes.Add(new ProjectBrowserNode("2階", ProjectBrowserNodeType.ViewFloor2F));
+            node平面図.Nodes.Add(new ProjectBrowserNode("3階", ProjectBrowserNodeType.ViewFloor3F));
+            node平面図.Nodes.Add(new ProjectBrowserNode("4階", ProjectBrowserNodeType.ViewFloor4F));
+            node平面図.Nodes.Add(new ProjectBrowserNode("5階", ProjectBrowserNodeType.ViewFloor5F));
+
+
+            TreeNode node立面図 = new TreeNode("立面図");
+            node立面図.Nodes.Add(new TreeNode("西"));
+            node立面図.Nodes.Add(new TreeNode("東"));
+            node立面図.Nodes.Add(new TreeNode("南"));
+            node立面図.Nodes.Add(new TreeNode("北"));
+
+            TreeNode node3D = new TreeNode("3D");
+            node3D.Nodes.Add(new TreeNode("{3D}"));
+
+            nodeView.Nodes.Add(node平面図);
+            nodeView.Nodes.Add(node立面図);
+            nodeView.Nodes.Add(node3D);
 
 
             TreeNode nodeDrawables = new TreeNode("Drawables");
@@ -52,12 +77,9 @@
             nodeElements.Nodes.Add(new TreeNode("Column"));
             nodeElements.Nodes.Add(new TreeNode("Room"));
 
-            TreeNode root = new TreeNode("Root");
-            root.Nodes.Add(nodeDrawables);
-            root.Nodes.Add(nodeElements);
-
-            treeView1.Nodes.Add(root);
-            treeView1.ExpandAll();
+            treeView1.Nodes.Add(nodeView);
+            treeView1.Nodes.Add(nodeDrawables);
+            treeView1.Nodes.Add(nodeElements);
             treeView1.NodeMouseClick += TreeView_NodeMouseClick;
             treeView1.EndUpdate();
 
@@ -207,16 +229,16 @@
         }
         private void btnDrawBeam_Click(object sender, EventArgs e)
         {
-            ed.RunCommand("Primitives.Beam");
+            ed.RunCommand("Elements.Beam");
         }
 
         private void btnDrawColumn_Click(object sender, EventArgs e)
         {
-            ed.RunCommand("Primitives.Column");
+            ed.RunCommand("Elements.Column");
         }
         private void btnDrawRoom_Click(object sender, EventArgs e)
         {
-            ed.RunCommand("Primitives.Room");
+            ed.RunCommand("Elements.Room");
         }
 
         private void btnDrawArc_Click(object sender, EventArgs e)
@@ -435,29 +457,42 @@
 
         private void TreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
+            if (e.Node.Nodes.Count > 0)
+            {
+                return;
+            }
+
             switch (e.Node.Text)
             {
+                case "1階":
+                case "2階":
+                case "3階":
+                case "4階":
+                case "5階":
+                case "西":
+                case "東":
+                case "南":
+                case "北":
+                case "{3D}":
+                    break;
                 case "Line":
                     ed.RunCommand("Primitives.Line");
                     break;
                 case "Point":
-
                     ed.RunCommand("Primitives.Point");
                     break;
-
                 case "Beam":
-                    ed.RunCommand("Primitives.Beam");
+                    ed.RunCommand("Elements.Beam");
                     break;
                 case "Column":
-                    ed.RunCommand("Primitives.Column");
+                    ed.RunCommand("Elements.Column");
+                    break;
+                case "Room":
+                    ed.RunCommand("Elements.Room");
                     break;
 
-                case "Room":
-                    ed.RunCommand("Primitives.Room");
-                    break;
-                default:
-                    break;
             }
+
         }
     }
 }
