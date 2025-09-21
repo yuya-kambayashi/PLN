@@ -15,12 +15,13 @@ namespace PLN.Commands
 
         public override async Task Apply(CADDocument doc, params string[] args)
         {
-            //CADView view = doc.ActiveView;
-            //if (view == null) return;
+            CADView view = doc.ActiveView;
+            if (view == null) return;
 
-            //Editor ed = doc.Editor;
+            Editor ed = doc.Editor;
 
-            //PointOptions opts = new PointOptions("Corner of zoom window: ");
+            PointOptions opts = new PointOptions("Corner of zoom window: ");
+
             //opts.AddKeyword("Extents");
             //opts.AddKeyword("Scale");
             //opts.AddKeyword("Object");

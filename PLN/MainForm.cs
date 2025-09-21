@@ -1,4 +1,5 @@
 ﻿using PLN.Elements;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace PLN
 {
@@ -465,10 +466,16 @@ namespace PLN
             switch (e.Node.Text)
             {
                 case "1階":
+                    contentMain1.Show(dockPanel, DockState.Document);
+                    break;
                 case "2階":
+                    contentMain2.Show(dockPanel, DockState.Document);
+                    break;
                 case "3階":
                 case "4階":
                 case "5階":
+                    showMain();
+                    break;
                 case "西":
                 case "東":
                 case "南":
@@ -492,7 +499,9 @@ namespace PLN
                     break;
 
             }
-
+        }
+        private void showMain()
+        {
         }
     }
 }

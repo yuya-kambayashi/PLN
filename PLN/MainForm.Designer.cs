@@ -50,7 +50,7 @@ namespace PLN
             btnSnapQuadrant = new ToolStripMenuItem();
             btnSnapPoint = new ToolStripMenuItem();
             treeView1 = new TreeView();
-            var doc = new CADDocument();
+            CADDocument doc = new CADDocument();
             cadWindow1 = new CADWindow(doc);
             cadWindow2 = new CADWindow(doc);
             lblSelection = new Label();
@@ -284,14 +284,14 @@ namespace PLN
             dockPanel.Dock = DockStyle.Fill;
             dockPanel.Name = "dockPanel1";
             dockPanel.TabIndex = 0;
-            var contentLeft = new SampleDockContent("tree", treeView1);
-            var contentRight = new SampleDockContent("property", propertyGrid1);
-            var contentMain1 = new SampleDockContent("1", cadWindow1);
-            var contentMain2 = new SampleDockContent("2", cadWindow2);
+            contentLeft = new SampleDockContent("tree", treeView1);
+            contentRight = new SampleDockContent("property", propertyGrid1);
+            contentMain1 = new SampleDockContent("1", cadWindow1);
+            contentMain2 = new SampleDockContent("2", cadWindow2);
             contentLeft.Show(dockPanel, DockState.DockLeft);
             contentRight.Show(dockPanel, DockState.DockRight);
-            contentMain1.Show(dockPanel, DockState.Document);
-            contentMain2.Show(dockPanel, DockState.Document);
+            //contentMain1.Show(dockPanel, DockState.Document);
+            // contentMain2.Show(dockPanel, DockState.Document);
             // 
             // cadWindow1
             // 
@@ -300,7 +300,7 @@ namespace PLN
             cadWindow1.Location = new Point(0, 0);
             cadWindow1.Margin = new Padding(5, 8, 5, 8);
             cadWindow1.Name = "cadWindow1";
-            //cadWindow1.Size = new Size(407, 687);
+            // cadWindow1.Size = new Size(407, 687);
             cadWindow1.TabIndex = 0;
             cadWindow1.Level = 1;
             // 
@@ -311,7 +311,7 @@ namespace PLN
             cadWindow2.Location = new Point(0, 0);
             cadWindow2.Margin = new Padding(5, 8, 5, 8);
             cadWindow2.Name = "cadWindow2";
-            //cadWindow2.Size = new Size(407, 687);
+            // cadWindow2.Size = new Size(407, 687);
             cadWindow2.TabIndex = 0;
             cadWindow2.Level = 0;
             // 
@@ -820,6 +820,10 @@ namespace PLN
         private System.Windows.Forms.ToolStripButton btnDelete;
         private System.Windows.Forms.TreeView treeView1;
         private DockPanel dockPanel;
+        private SampleDockContent contentLeft;
+        private SampleDockContent contentRight;
+        private SampleDockContent contentMain1;
+        private SampleDockContent contentMain2;
     }
     public class SampleDockContent : DockContent
     {
