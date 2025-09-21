@@ -48,12 +48,11 @@ namespace PLN
 
             TreeNode nodeView = new TreeNode("ビュー");
             TreeNode node平面図 = new TreeNode("平面図");
-            node平面図.Nodes.Add(new ProjectBrowserNode("1階", ProjectBrowserNodeType.ViewFloor1F));
-            node平面図.Nodes.Add(new ProjectBrowserNode("2階", ProjectBrowserNodeType.ViewFloor2F));
-            node平面図.Nodes.Add(new ProjectBrowserNode("3階", ProjectBrowserNodeType.ViewFloor3F));
-            node平面図.Nodes.Add(new ProjectBrowserNode("4階", ProjectBrowserNodeType.ViewFloor4F));
-            node平面図.Nodes.Add(new ProjectBrowserNode("5階", ProjectBrowserNodeType.ViewFloor5F));
-
+            node平面図.Nodes.Add(new TreeNode("1階"));
+            node平面図.Nodes.Add(new TreeNode("2階"));
+            node平面図.Nodes.Add(new TreeNode("3階"));
+            node平面図.Nodes.Add(new TreeNode("4階"));
+            node平面図.Nodes.Add(new TreeNode("5階"));
 
             TreeNode node立面図 = new TreeNode("立面図");
             node立面図.Nodes.Add(new TreeNode("西"));
@@ -68,7 +67,6 @@ namespace PLN
             nodeView.Nodes.Add(node立面図);
             nodeView.Nodes.Add(node3D);
 
-
             TreeNode nodeDrawables = new TreeNode("Drawables");
             nodeDrawables.Nodes.Add(new TreeNode("Line"));
             nodeDrawables.Nodes.Add(new TreeNode("Point"));
@@ -81,7 +79,7 @@ namespace PLN
             treeProjectBrowser.Nodes.Add(nodeView);
             treeProjectBrowser.Nodes.Add(nodeDrawables);
             treeProjectBrowser.Nodes.Add(nodeElements);
-            treeProjectBrowser.NodeMouseClick += TreeView_NodeMouseClick;
+            treeProjectBrowser.NodeMouseClick += TreeProjectBrowser_NodeMouseClick;
             treeProjectBrowser.EndUpdate();
 
             UpdateUI();
@@ -456,7 +454,7 @@ namespace PLN
             UpdateUI();
         }
 
-        private void TreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        private void TreeProjectBrowser_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             if (e.Node.Nodes.Count > 0)
             {
