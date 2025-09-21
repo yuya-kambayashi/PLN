@@ -49,7 +49,7 @@ namespace PLN
             btnSnapCenter = new ToolStripMenuItem();
             btnSnapQuadrant = new ToolStripMenuItem();
             btnSnapPoint = new ToolStripMenuItem();
-            treeView1 = new TreeView();
+            treeProjectBrowser = new TreeView();
             CADDocument doc = new CADDocument();
             cadWindow1 = new CADWindow(doc);
             cadWindow2 = new CADWindow(doc);
@@ -270,13 +270,13 @@ namespace PLN
             btnSnapPoint.Text = "Point";
             btnSnapPoint.Click += btnSnapPoint_Click;
             // 
-            // treeView1
+            // treeProjectBrowser
             // 
-            treeView1.Dock = DockStyle.Fill;
-            treeView1.Location = new Point(0, 0);
-            treeView1.Name = "treeView1";
-            treeView1.Size = new Size(198, 687);
-            treeView1.TabIndex = 0;
+            treeProjectBrowser.Dock = DockStyle.Fill;
+            treeProjectBrowser.Location = new Point(0, 0);
+            treeProjectBrowser.Name = "treeProjectBrowser";
+            treeProjectBrowser.Size = new Size(198, 687);
+            treeProjectBrowser.TabIndex = 0;
             // 
             // dockPanel
             // 
@@ -284,7 +284,7 @@ namespace PLN
             dockPanel.Dock = DockStyle.Fill;
             dockPanel.Name = "dockPanel1";
             dockPanel.TabIndex = 0;
-            contentLeft = new SampleDockContent("tree", treeView1);
+            contentLeft = new SampleDockContent("tree", treeProjectBrowser);
             contentRight = new SampleDockContent("property", propertyGrid1);
             contentMain1 = new SampleDockContent("1", cadWindow1);
             contentMain2 = new SampleDockContent("2", cadWindow2);
@@ -818,7 +818,7 @@ namespace PLN
         private System.Windows.Forms.ToolStripButton btnCreateRoom;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton btnDelete;
-        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.TreeView treeProjectBrowser;
         private DockPanel dockPanel;
         private SampleDockContent contentLeft;
         private SampleDockContent contentRight;

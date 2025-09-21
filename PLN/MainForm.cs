@@ -44,7 +44,7 @@ namespace PLN
             statusStrip1.Items.Add(tsShowAxes);
 
             // TreeViewの更新
-            treeView1.BeginUpdate();
+            treeProjectBrowser.BeginUpdate();
 
             TreeNode nodeView = new TreeNode("ビュー");
             TreeNode node平面図 = new TreeNode("平面図");
@@ -78,11 +78,11 @@ namespace PLN
             nodeElements.Nodes.Add(new TreeNode("Column"));
             nodeElements.Nodes.Add(new TreeNode("Room"));
 
-            treeView1.Nodes.Add(nodeView);
-            treeView1.Nodes.Add(nodeDrawables);
-            treeView1.Nodes.Add(nodeElements);
-            treeView1.NodeMouseClick += TreeView_NodeMouseClick;
-            treeView1.EndUpdate();
+            treeProjectBrowser.Nodes.Add(nodeView);
+            treeProjectBrowser.Nodes.Add(nodeDrawables);
+            treeProjectBrowser.Nodes.Add(nodeElements);
+            treeProjectBrowser.NodeMouseClick += TreeView_NodeMouseClick;
+            treeProjectBrowser.EndUpdate();
 
             UpdateUI();
         }
