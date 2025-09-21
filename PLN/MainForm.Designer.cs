@@ -53,6 +53,9 @@ namespace PLN
             CADDocument doc = new CADDocument();
             cadWindow1 = new CADWindow(doc);
             cadWindow2 = new CADWindow(doc);
+            cadWindow3 = new CADWindow(doc);
+            cadWindow4 = new CADWindow(doc);
+            cadWindow5 = new CADWindow(doc);
             lblSelection = new Label();
             propertyGrid1 = new PropertyGrid();
             tsStandard = new ToolStrip();
@@ -286,12 +289,14 @@ namespace PLN
             dockPanel.TabIndex = 0;
             contentProjectBrowser = new MainDockContent("プロジェクト ブラウザ", treeProjectBrowser);
             contentProperties = new MainDockContent("Properties", propertyGrid1);
-            contentViewFloor1F = new MainDockContent("1", cadWindow1);
-            contentViewFloor2F = new MainDockContent("2", cadWindow2);
+            contentViewFloor1F = new MainDockContent("1階平面図", cadWindow1);
+            contentViewFloor2F = new MainDockContent("2階平面図", cadWindow2);
+            contentViewFloor3F = new MainDockContent("3階平面図", cadWindow3);
+            contentViewFloor4F = new MainDockContent("4階平面図", cadWindow4);
+            contentViewFloor5F = new MainDockContent("5階平面図", cadWindow5);
             contentProjectBrowser.Show(dockPanel, DockState.DockLeft);
             contentProperties.Show(dockPanel, DockState.DockRight);
-            //contentViewFloor1F.Show(dockPanel, DockState.Document);
-            // contentViewFloor2F.Show(dockPanel, DockState.Document);
+            contentViewFloor1F.Show(dockPanel, DockState.Document);
             // 
             // cadWindow1
             // 
@@ -300,7 +305,6 @@ namespace PLN
             cadWindow1.Location = new Point(0, 0);
             cadWindow1.Margin = new Padding(5, 8, 5, 8);
             cadWindow1.Name = "cadWindow1";
-            // cadWindow1.Size = new Size(407, 687);
             cadWindow1.TabIndex = 0;
             cadWindow1.Level = 1;
             // 
@@ -311,9 +315,38 @@ namespace PLN
             cadWindow2.Location = new Point(0, 0);
             cadWindow2.Margin = new Padding(5, 8, 5, 8);
             cadWindow2.Name = "cadWindow2";
-            // cadWindow2.Size = new Size(407, 687);
             cadWindow2.TabIndex = 0;
             cadWindow2.Level = 0;
+            // 
+            // cadWindow3
+            // 
+            cadWindow3.BorderStyle = BorderStyle.Fixed3D;
+            cadWindow3.Dock = DockStyle.Fill;
+            cadWindow3.Location = new Point(0, 0);
+            cadWindow3.Margin = new Padding(5, 8, 5, 8);
+            cadWindow3.Name = "cadWindow3";
+            cadWindow3.TabIndex = 0;
+            cadWindow3.Level = 0;
+            // 
+            // cadWindow4
+            // 
+            cadWindow4.BorderStyle = BorderStyle.Fixed3D;
+            cadWindow4.Dock = DockStyle.Fill;
+            cadWindow4.Location = new Point(0, 0);
+            cadWindow4.Margin = new Padding(5, 8, 5, 8);
+            cadWindow4.Name = "cadWindow4";
+            cadWindow4.TabIndex = 0;
+            cadWindow4.Level = 0;
+            // 
+            // cadWindow5
+            // 
+            cadWindow5.BorderStyle = BorderStyle.Fixed3D;
+            cadWindow5.Dock = DockStyle.Fill;
+            cadWindow5.Location = new Point(0, 0);
+            cadWindow5.Margin = new Padding(5, 8, 5, 8);
+            cadWindow5.Name = "cadWindow5";
+            cadWindow5.TabIndex = 0;
+            cadWindow5.Level = 0;
             // 
             // lblSelection
             // 
@@ -790,8 +823,6 @@ namespace PLN
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btnZoom;
         private System.Windows.Forms.ToolStripButton btnPan;
-        private CADWindow cadWindow1;
-        private CADWindow cadWindow2;
         private System.Windows.Forms.ToolStripButton btnDrawPoint;
         private System.Windows.Forms.ToolStripButton btnStretch;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -824,6 +855,14 @@ namespace PLN
         private MainDockContent contentProperties;
         private MainDockContent contentViewFloor1F;
         private MainDockContent contentViewFloor2F;
+        private MainDockContent contentViewFloor3F;
+        private MainDockContent contentViewFloor4F;
+        private MainDockContent contentViewFloor5F;
+        private CADWindow cadWindow1;
+        private CADWindow cadWindow2;
+        private CADWindow cadWindow3;
+        private CADWindow cadWindow4;
+        private CADWindow cadWindow5;
     }
     public class MainDockContent : DockContent
     {

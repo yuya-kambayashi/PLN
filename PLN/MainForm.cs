@@ -470,9 +470,13 @@ namespace PLN
                     contentViewFloor2F.Show(dockPanel, DockState.Document);
                     break;
                 case "3階":
+                    contentViewFloor3F.Show(dockPanel, DockState.Document);
+                    break;
                 case "4階":
+                    contentViewFloor4F.Show(dockPanel, DockState.Document);
+                    break;
                 case "5階":
-                    showMain();
+                    contentViewFloor5F.Show(dockPanel, DockState.Document);
                     break;
                 case "西":
                 case "東":
@@ -497,9 +501,6 @@ namespace PLN
                     break;
 
             }
-        }
-        private void showMain()
-        {
         }
     }
 }
