@@ -284,14 +284,14 @@ namespace PLN
             dockPanel.Dock = DockStyle.Fill;
             dockPanel.Name = "dockPanel1";
             dockPanel.TabIndex = 0;
-            contentLeft = new SampleDockContent("tree", treeProjectBrowser);
-            contentRight = new SampleDockContent("property", propertyGrid1);
-            contentMain1 = new SampleDockContent("1", cadWindow1);
-            contentMain2 = new SampleDockContent("2", cadWindow2);
-            contentLeft.Show(dockPanel, DockState.DockLeft);
-            contentRight.Show(dockPanel, DockState.DockRight);
-            //contentMain1.Show(dockPanel, DockState.Document);
-            // contentMain2.Show(dockPanel, DockState.Document);
+            contentProjectBrowser = new MainDockContent("プロジェクト ブラウザ", treeProjectBrowser);
+            contentProperties = new MainDockContent("Properties", propertyGrid1);
+            contentViewFloor1F = new MainDockContent("1", cadWindow1);
+            contentViewFloor2F = new MainDockContent("2", cadWindow2);
+            contentProjectBrowser.Show(dockPanel, DockState.DockLeft);
+            contentProperties.Show(dockPanel, DockState.DockRight);
+            //contentViewFloor1F.Show(dockPanel, DockState.Document);
+            // contentViewFloor2F.Show(dockPanel, DockState.Document);
             // 
             // cadWindow1
             // 
@@ -820,14 +820,14 @@ namespace PLN
         private System.Windows.Forms.ToolStripButton btnDelete;
         private System.Windows.Forms.TreeView treeProjectBrowser;
         private DockPanel dockPanel;
-        private SampleDockContent contentLeft;
-        private SampleDockContent contentRight;
-        private SampleDockContent contentMain1;
-        private SampleDockContent contentMain2;
+        private MainDockContent contentProjectBrowser;
+        private MainDockContent contentProperties;
+        private MainDockContent contentViewFloor1F;
+        private MainDockContent contentViewFloor2F;
     }
-    public class SampleDockContent : DockContent
+    public class MainDockContent : DockContent
     {
-        public SampleDockContent(string title, Control control)
+        public MainDockContent(string title, Control control)
         {
             this.Text = title;
             //this.ClientSize = new System.Drawing.Size(300, 200);

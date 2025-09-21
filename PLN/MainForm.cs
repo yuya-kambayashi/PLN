@@ -466,10 +466,10 @@ namespace PLN
             switch (e.Node.Text)
             {
                 case "1階":
-                    contentMain1.Show(dockPanel, DockState.Document);
+                    contentViewFloor1F.Show(dockPanel, DockState.Document);
                     break;
                 case "2階":
-                    contentMain2.Show(dockPanel, DockState.Document);
+                    contentViewFloor2F.Show(dockPanel, DockState.Document);
                     break;
                 case "3階":
                 case "4階":
