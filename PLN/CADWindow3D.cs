@@ -4,6 +4,7 @@ using OpenTK.Graphics.OpenGL;
 using PLN.Drawables;
 using System;
 using System.Windows.Forms;
+using Point = System.Drawing.Point;
 
 namespace PLN
 {
@@ -64,6 +65,7 @@ namespace PLN
         private void DrawAxes()
         {
             GL.Begin(PrimitiveType.Lines);
+            GL.LineWidth(10.0f);
 
             // X軸 (赤)
             GL.Color3(Color.Red);
@@ -87,32 +89,95 @@ namespace PLN
         {
             if (Document == null) return;
 
-            // サンプル: Document 内の Line を描画するイメージ
-            GL.Color3(Color.White);
+            // Z=0の面
+            GL.Begin(PrimitiveType.Triangles);
+
+            GL.Color3(Color.LightBlue);
+
+            // 四角形 (v0, v1, v2, v3)
+            Vector3 v0 = new Vector3(-50, -50, 0);
+            Vector3 v1 = new Vector3(-50, 50, 0);
+            Vector3 v2 = new Vector3(50, 50, 0);
+            Vector3 v3 = new Vector3(50, -50, 0);
+
+            // 三角形1
+            GL.Vertex3(v0);
+            GL.Vertex3(v1);
+            GL.Vertex3(v2);
+
+            // 三角形2
+            GL.Vertex3(v0);
+            GL.Vertex3(v2);
+            GL.Vertex3(v3);
+
+            GL.End();
+
+
+            // さいころ
+
             GL.Begin(PrimitiveType.Lines);
 
-            //foreach (var entity in Document.Entities)
-            //{
-            //    if (entity is Line ln)
-            //    {
-            //        GL.Vertex3(ln.Start.X, ln.Start.Y, ln.Start.Z);
-            //        GL.Vertex3(ln.End.X, ln.End.Y, ln.End.Z);
-            //    }
-            //}
+            GL.Color3(Color.White);
+
+            // 面1
+            GL.Vertex3(10, 20, 10);
+            GL.Vertex3(10, 10, 10);
+
+            GL.Vertex3(10, 10, 10);
+            GL.Vertex3(20, 10, 10);
+
+            GL.Vertex3(20, 10, 10);
+            GL.Vertex3(20, 20, 10);
+
+            GL.Vertex3(10, 20, 10);
+            GL.Vertex3(20, 20, 10);
+
+            GL.Vertex3(20, 20, 10);
+            GL.Vertex3(10, 20, 10);
+
+            // 面2
+            GL.Vertex3(10, 20, 20);
+            GL.Vertex3(10, 10, 20);
+
+            GL.Vertex3(10, 10, 20);
+            GL.Vertex3(20, 10, 20);
+
+            GL.Vertex3(20, 10, 20);
+            GL.Vertex3(20, 20, 20);
+
+            GL.Vertex3(10, 20, 20);
+            GL.Vertex3(20, 20, 20);
+
+            GL.Vertex3(20, 20, 20);
+            GL.Vertex3(10, 20, 20);
+
+            // 面1と面2の間
+            GL.Vertex3(10, 10, 10);
+            GL.Vertex3(10, 10, 20);
+
+            GL.Vertex3(20, 10, 10);
+            GL.Vertex3(20, 10, 20);
+
+            GL.Vertex3(20, 20, 10);
+            GL.Vertex3(20, 20, 20);
+
+            GL.Vertex3(10, 20, 10);
+            GL.Vertex3(10, 20, 20);
+
 
             GL.End();
         }
 
-        //private Point lastMouse;
+        private Point lastMouse;
         private void CADWindow3D_MouseMove(object sender, MouseEventArgs e)
         {
-            //if (e.Button == MouseButtons.Left)
-            //{
-            //    rotationY += (e.X - lastMouse.X);
-            //    rotationX += (e.Y - lastMouse.Y);
-            //    Invalidate();
-            //}
-            //lastMouse = e.Location;
+            if (e.Button == MouseButtons.Left)
+            {
+                rotationY += (e.X - lastMouse.X);
+                rotationX += (e.Y - lastMouse.Y);
+                Invalidate();
+            }
+            lastMouse = e.Location;
         }
 
         private void CADWindow3D_MouseWheel(object sender, MouseEventArgs e)
