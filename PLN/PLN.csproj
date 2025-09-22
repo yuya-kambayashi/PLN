@@ -1,73 +1,70 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Commands\**" />
-    <EmbeddedResource Remove="Commands\**" />
-    <None Remove="Commands\**" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Commands\**" />
+		<EmbeddedResource Remove="Commands\**" />
+		<None Remove="Commands\**" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Include="Commands\Command.cs" />
+		<Compile Include="Commands\Command_Composite.cs" />
+		<Compile Include="Commands\Command_Edit.cs" />
+		<Compile Include="Commands\Command_Elements.cs" />
+		<Compile Include="Commands\Command_Primitives.cs" />
+		<Compile Include="Commands\Command_Transform.cs" />
+		<Compile Include="Commands\Command_View.cs" />
+		<Compile Include="Commands\Command_Document.cs" />
+		<Compile Include="Commands\Command_Selection.cs" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Remove="Drawables\Triangle.cs" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="DockPanelSuite" Version="3.1.1" />
+		<PackageReference Include="DockPanelSuite.ThemeVS2015" Version="3.1.1" />
+		<PackageReference Include="OpenTK" Version="3.3.3" />
+		<PackageReference Include="OpenTK.GLControl" Version="3.3.3" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Include="Commands\Command.cs" />
-    <Compile Include="Commands\Command_Composite.cs" />
-    <Compile Include="Commands\Command_Edit.cs" />
-    <Compile Include="Commands\Command_Elements.cs" />
-    <Compile Include="Commands\Command_Primitives.cs" />
-    <Compile Include="Commands\Command_Transform.cs" />
-    <Compile Include="Commands\Command_View.cs" />
-    <Compile Include="Commands\Command_Document.cs" />
-    <Compile Include="Commands\Command_Selection.cs" />
-  </ItemGroup>
+	<ItemGroup>
+		<Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="DockPanelSuite" Version="3.1.1" />
-    <PackageReference Include="DockPanelSuite.ThemeVS2015" Version="3.1.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="Document\SettingsProperties.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>SettingsProperties.tt</DependentUpon>
+		</Compile>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
 
-  <ItemGroup>
-    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Document\SettingsProperties.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>SettingsProperties.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Document\SettingsProperties.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>SettingsProperties.cs</LastGenOutput>
-    </None>
-    <None Update="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="Document\SettingsProperties.tt">
+			<Generator>TextTemplatingFileGenerator</Generator>
+			<LastGenOutput>SettingsProperties.cs</LastGenOutput>
+		</None>
+		<None Update="Properties\Settings.settings">
+			<Generator>SettingsSingleFileGenerator</Generator>
+			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
+		</None>
+	</ItemGroup>
 
 </Project>

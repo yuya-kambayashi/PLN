@@ -482,7 +482,9 @@ namespace PLN
                 case "東":
                 case "南":
                 case "北":
+                    break;
                 case "{3D}":
+                    contentViewFloor3D.Show(dockPanel, DockState.Document);
                     break;
                 case "Line":
                     ed.RunCommand("Primitives.Line");

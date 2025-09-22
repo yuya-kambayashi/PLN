@@ -56,6 +56,8 @@ namespace PLN
             cadWindow3 = new CADWindow(doc);
             cadWindow4 = new CADWindow(doc);
             cadWindow5 = new CADWindow(doc);
+            cadWindow3D = new CADWindow3D();
+            cadWindow3D.Document = doc;
             lblSelection = new Label();
             propertyGrid1 = new PropertyGrid();
             tsStandard = new ToolStrip();
@@ -294,9 +296,11 @@ namespace PLN
             contentViewFloor3F = new MainDockContent("3階平面図", cadWindow3);
             contentViewFloor4F = new MainDockContent("4階平面図", cadWindow4);
             contentViewFloor5F = new MainDockContent("5階平面図", cadWindow5);
+            contentViewFloor3D = new MainDockContent("3D", cadWindow3D);
             contentProjectBrowser.Show(dockPanel, DockState.DockLeft);
             contentProperties.Show(dockPanel, DockState.DockRight);
             contentViewFloor1F.Show(dockPanel, DockState.Document);
+            contentViewFloor3D.Show(contentViewFloor1F.Pane, DockAlignment.Right, 0.5);
             // 
             // cadWindow1
             // 
@@ -347,6 +351,10 @@ namespace PLN
             cadWindow5.Name = "cadWindow5";
             cadWindow5.TabIndex = 0;
             cadWindow5.Level = 0;
+            // 
+            // cadWindow3D
+            // 
+            // cadWindow3D.Document = BorderStyle.Fixed3D;
             // 
             // lblSelection
             // 
@@ -858,11 +866,13 @@ namespace PLN
         private MainDockContent contentViewFloor3F;
         private MainDockContent contentViewFloor4F;
         private MainDockContent contentViewFloor5F;
+        private MainDockContent contentViewFloor3D;
         private CADWindow cadWindow1;
         private CADWindow cadWindow2;
         private CADWindow cadWindow3;
         private CADWindow cadWindow4;
         private CADWindow cadWindow5;
+        private CADWindow3D cadWindow3D;
     }
     public class MainDockContent : DockContent
     {
