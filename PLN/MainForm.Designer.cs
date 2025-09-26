@@ -311,7 +311,7 @@ namespace PLN
             cadWindow1.Margin = new Padding(5, 8, 5, 8);
             cadWindow1.Name = "cadWindow1";
             cadWindow1.TabIndex = 0;
-            cadWindow1.Level = 1;
+            cadWindow1.View.Level = 1;
             // 
             // cadWindow2
             // 
@@ -321,7 +321,7 @@ namespace PLN
             cadWindow2.Margin = new Padding(5, 8, 5, 8);
             cadWindow2.Name = "cadWindow2";
             cadWindow2.TabIndex = 0;
-            cadWindow2.Level = 2;
+            cadWindow2.View.Level = 2;
             // 
             // cadWindow3
             // 
@@ -331,7 +331,7 @@ namespace PLN
             cadWindow3.Margin = new Padding(5, 8, 5, 8);
             cadWindow3.Name = "cadWindow3";
             cadWindow3.TabIndex = 0;
-            cadWindow3.Level = 3;
+            cadWindow3.View.Level = 3;
             // 
             // cadWindow4
             // 
@@ -341,7 +341,7 @@ namespace PLN
             cadWindow4.Margin = new Padding(5, 8, 5, 8);
             cadWindow4.Name = "cadWindow4";
             cadWindow4.TabIndex = 0;
-            cadWindow4.Level = 4;
+            cadWindow4.View.Level = 4;
             // 
             // cadWindow5
             // 
@@ -351,7 +351,7 @@ namespace PLN
             cadWindow5.Margin = new Padding(5, 8, 5, 8);
             cadWindow5.Name = "cadWindow5";
             cadWindow5.TabIndex = 0;
-            cadWindow5.Level = 5;
+            cadWindow5.View.Level = 5;
             // 
             // cadWindow3D
             // 

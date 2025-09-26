@@ -22,6 +22,8 @@ namespace PLN
         private bool showAxes = true;
         private bool showCursor = true;
 
+        private int level;
+
         [Category("Behavior"), DefaultValue(true), Description("Indicates whether the control responds to interactive user input.")]
         public bool Interactive { get; set; } = true;
 
@@ -76,6 +78,9 @@ namespace PLN
         [Browsable(false)]
         public Point2D CursorLocation { get; private set; }
         internal Drawables.DrawableList VisibleItems { get; private set; } = new Drawables.DrawableList();
+
+        [Browsable(false)]
+        public int Level { get => level; set { level = value; } }
 
         public CADView(Control ctrl, CADDocument document)
         {

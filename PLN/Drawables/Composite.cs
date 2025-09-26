@@ -44,15 +44,6 @@ namespace PLN.Drawables
         {
             foreach (Drawable item in items)
             {
-                if (item is Column)
-                {
-                    Column column = (Column)item;
-                    if (column.UpperLevel != renderer.getLevel() && column.ReferenceLevel != renderer.getLevel())
-                    {
-                        continue;
-                    }
-                }
-
                 if (item.Visible && (item.Layer == null || item.Layer.Visible))
                 {
                     renderer.Draw(item);

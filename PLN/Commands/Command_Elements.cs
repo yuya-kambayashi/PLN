@@ -67,8 +67,8 @@ namespace PLN.Commands
                 if (p1.Result == ResultMode.OK)
                 {
                     Column column = new Column(p1.Value, 100);
-                    column.ReferenceLevel = 1;
-                    column.UpperLevel = 2;
+                    column.ReferenceLevel = doc.ActiveView.Level;
+                    column.UpperLevel = doc.ActiveView.Level + 1;
                     doc.Model.Add(column);
                 }
                 else

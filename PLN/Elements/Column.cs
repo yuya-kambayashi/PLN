@@ -23,6 +23,13 @@ namespace PLN.Elements
         }
         public override void Draw(Renderer renderer)
         {
+            int renderLevel = renderer.getLevel();
+
+            if (this.UpperLevel != renderLevel && this.ReferenceLevel != renderLevel)
+            {
+                return;
+            }
+
             renderer.FillRectangle(Style.ApplyLayer(Layer),
                 new Point2D(Location.X - d / 2, Location.Y - d / 2),
                 new Point2D(Location.X + d / 2, Location.Y + d / 2));
