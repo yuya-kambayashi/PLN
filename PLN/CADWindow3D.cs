@@ -89,28 +89,28 @@ namespace PLN
         {
             if (Document == null) return;
 
-            // Z=0の面
-            GL.Begin(PrimitiveType.Triangles);
+            //// Z=0の面
+            //GL.Begin(PrimitiveType.Triangles);
 
-            GL.Color3(Color.LightBlue);
+            //GL.Color3(Color.LightBlue);
 
-            // 四角形 (v0, v1, v2, v3)
-            Vector3 v0 = new Vector3(-50, -50, 0);
-            Vector3 v1 = new Vector3(-50, 50, 0);
-            Vector3 v2 = new Vector3(50, 50, 0);
-            Vector3 v3 = new Vector3(50, -50, 0);
+            //// 四角形 (v0, v1, v2, v3)
+            //Vector3 v0 = new Vector3(-50, -50, 0);
+            //Vector3 v1 = new Vector3(-50, 50, 0);
+            //Vector3 v2 = new Vector3(50, 50, 0);
+            //Vector3 v3 = new Vector3(50, -50, 0);
 
-            // 三角形1
-            GL.Vertex3(v0);
-            GL.Vertex3(v1);
-            GL.Vertex3(v2);
+            //// 三角形1
+            //GL.Vertex3(v0);
+            //GL.Vertex3(v1);
+            //GL.Vertex3(v2);
 
-            // 三角形2
-            GL.Vertex3(v0);
-            GL.Vertex3(v2);
-            GL.Vertex3(v3);
+            //// 三角形2
+            //GL.Vertex3(v0);
+            //GL.Vertex3(v2);
+            //GL.Vertex3(v3);
 
-            GL.End();
+            //GL.End();
 
 
             // さいころ

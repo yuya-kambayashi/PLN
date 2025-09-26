@@ -47,7 +47,7 @@ namespace PLN.Drawables
                 if (item is Column)
                 {
                     Column column = (Column)item;
-                    if (column.Level != renderer.getLevel())
+                    if (column.UpperLevel != renderer.getLevel() && column.ReferenceLevel != renderer.getLevel())
                     {
                         continue;
                     }

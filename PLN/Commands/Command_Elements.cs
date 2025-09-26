@@ -66,8 +66,10 @@ namespace PLN.Commands
 
                 if (p1.Result == ResultMode.OK)
                 {
-                    Drawable point = new Column(p1.Value, 100);
-                    doc.Model.Add(point);
+                    Column column = new Column(p1.Value, 100);
+                    column.ReferenceLevel = 1;
+                    column.UpperLevel = 2;
+                    doc.Model.Add(column);
                 }
                 else
                 {
