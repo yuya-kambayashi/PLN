@@ -1,32 +1,34 @@
-﻿using PLN.Geometry;
+﻿using PLN.Drawables;
+using PLN.Geometry;
 using PLN.Graphics;
 using Point = PLN.Drawables.Point;
 
 namespace PLN.Elements
 {
-    internal class Column : Point
+    internal class Column : Element
     {
-        private float d;
-        public float D { get => d; set { d = value; } }
+        public override LayoutType LayoutType => LayoutType.Vertical;
 
-        private int referenceLevel;
-        public int ReferenceLevel { get => referenceLevel; set { referenceLevel = value; } }
+        public Point Fig { get; private set; }
+        public float D { get; private set; }
 
-        private int upperLevel;
-        public int UpperLevel { get => upperLevel; set { upperLevel = value; } }
-
-        public Column(Point2D location, float d)
+        public Column(int referenceLevel, Point location, float d)
         {
-            Location = location;
+            updateLevel(referenceLevel);
 
-            this.d = d;
+            this.Fig = location;
+
+            this.D = d;
         }
         public override void Draw(Renderer renderer)
         {
-
             renderer.FillRectangle(Style.ApplyLayer(Layer),
-                new Point2D(Location.X - d / 2, Location.Y - d / 2),
-                new Point2D(Location.X + d / 2, Location.Y + d / 2));
+                new Point2D(Fig.Location.X - D / 2, Fig.Location.Y - D / 2),
+                new Point2D(Fig.Location.X + D / 2, Fig.Location.Y + D / 2));
+        }
+        public override Extents2D GetExtents()
+        {
+            return Fig.GetExtents();
         }
     }
 }

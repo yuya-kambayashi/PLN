@@ -6,8 +6,10 @@ namespace PLN.Elements
 {
     internal class Room : Element
     {
-        public Polygon Fig { get; private set; }
         public override LayoutType LayoutType => LayoutType.Horizontal;
+
+        public Polygon Fig { get; private set; }
+
         public string Name { get; private set; }
         public Room(string name, Point2DCollection pts)
         {

@@ -67,9 +67,7 @@ namespace PLN.Commands
 
                 if (p1.Result == ResultMode.OK)
                 {
-                    Column column = new Column(p1.Value, 100);
-                    column.ReferenceLevel = doc.ActiveView.Level;
-                    column.UpperLevel = doc.ActiveView.Level + 1;
+                    Column column = new Column(doc.ActiveView.Level, new PLN.Drawables.Point(p1.Value), 100);
                     doc.Model.Add(column);
                 }
                 else

@@ -12,8 +12,9 @@ namespace PLN.Elements
 {
     internal class Wall : Element
     {
-        public Line Fig { get; private set; }
         public override LayoutType LayoutType => LayoutType.Vertical;
+
+        public Line Fig { get; private set; }
 
         public Wall(Line line)
         {
