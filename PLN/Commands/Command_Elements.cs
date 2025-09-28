@@ -1,6 +1,7 @@
 ﻿using PLN.Drawables;
 using PLN.Elements;
 using PLN.Geometry;
+using System.Data.Common;
 
 namespace PLN.Commands
 {
@@ -130,6 +131,7 @@ namespace PLN.Commands
 
             doc.Jigged.Remove(consPoly);
             Room newItem = new Room("Hoge", points);
+            newItem.updateLevel(doc.ActiveView.Level);
             doc.Model.Add(newItem);
         }
     }
@@ -164,8 +166,9 @@ namespace PLN.Commands
                 }
                 else if (p3.Result == ResultMode.Keyword && p3.Keyword == "Close")
                 {
-                    Drawable nextBeam = new Wall(new Line(lastPt, p1.Value));
-                    doc.Model.Add(nextBeam);
+                    Wall nextWall = new Wall(new Line(lastPt, p1.Value));
+                    nextWall.updateLevel(doc.ActiveView.Level);
+                    doc.Model.Add(nextWall);
 
                     lastPt = p3.Value;
                     return;

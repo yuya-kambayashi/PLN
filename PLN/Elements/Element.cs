@@ -11,13 +11,22 @@ namespace PLN.Elements
 {
     public enum LayoutType
     {
+        Vertical,
         Horizontal,
-        Vertical
     }
 
     internal abstract class Element : Drawable
     {
         public abstract LayoutType LayoutType { get; }
+        public int ReferenceLevel { get; set; }
+        public int UpperLevel { get; set; }
+
+        public void updateLevel(int referenceLevel)
+        {
+            ReferenceLevel = referenceLevel;
+
+            UpperLevel = (LayoutType == LayoutType.Vertical) ? referenceLevel + 1 : referenceLevel;
+        }
 
         public override void Draw(Renderer renderer)
         {

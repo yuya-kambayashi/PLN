@@ -12,19 +12,17 @@ namespace PLN.Elements
 {
     internal class Wall : Element
     {
-        private Line fig;
-
-        public Line Fig { get; set; }
+        public Line Fig { get; private set; }
         public override LayoutType LayoutType => LayoutType.Vertical;
 
         public Wall(Line line)
         {
-            fig = line;
+            Fig = line;
         }
         public override void Draw(Renderer renderer)
         {
-            Point2D EndPoint = fig.EndPoint;
-            Point2D StartPoint = fig.StartPoint;
+            Point2D EndPoint = Fig.EndPoint;
+            Point2D StartPoint = Fig.StartPoint;
             int b = 100;
 
             Vector2D dir = EndPoint - StartPoint;

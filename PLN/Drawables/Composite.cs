@@ -44,6 +44,18 @@ namespace PLN.Drawables
         {
             foreach (Drawable item in items)
             {
+                if (item is Element element)
+                {
+                    bool levelMismatch = element.LayoutType == LayoutType.Vertical
+                        ? element.ReferenceLevel != renderer.Level && element.UpperLevel != renderer.Level
+                        : element.ReferenceLevel != renderer.Level;
+
+                    if (levelMismatch)
+                    {
+                        continue;
+                    }
+                }
+
                 if (item.Visible && (item.Layer == null || item.Layer.Visible))
                 {
                     renderer.Draw(item);

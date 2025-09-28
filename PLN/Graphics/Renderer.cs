@@ -52,7 +52,7 @@ namespace PLN.Graphics
             this.control = control;
         }
 
-        public int getLevel() { return ((CADWindow)control).View.Level; }
+        public int Level => ((CADWindow)control).View.Level;
 
         public void InitFrame(System.Drawing.Graphics graphics)
         {
