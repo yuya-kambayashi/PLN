@@ -128,8 +128,7 @@ namespace PLN.Commands
             }
 
             doc.Jigged.Remove(consPoly);
-            Room newItem = new Room("Hoge", points);
-            newItem.updateLevel(doc.ActiveView.Level);
+            Room newItem = new Room(doc.ActiveView.Level, points, "Hoge");
             doc.Model.Add(newItem);
         }
     }
@@ -164,8 +163,7 @@ namespace PLN.Commands
                 }
                 else if (p3.Result == ResultMode.Keyword && p3.Keyword == "Close")
                 {
-                    Wall nextWall = new Wall(new Line(lastPt, p1.Value));
-                    nextWall.updateLevel(doc.ActiveView.Level);
+                    Wall nextWall = new Wall(doc.ActiveView.Level, new Line(lastPt, p1.Value));
                     doc.Model.Add(nextWall);
 
                     lastPt = p3.Value;

@@ -356,11 +356,6 @@ namespace PLN
         {
             ed.RunCommand("Composite.Create");
         }
-        private void btnCreateRoom_Click(object sender, EventArgs e)
-        {
-            ed.RunCommand("Room.Create");
-        }
-
         private void btnAngleDegrees_Click(object sender, EventArgs e)
         {
             doc.Settings.AngleMode = AngleMode.Degrees;

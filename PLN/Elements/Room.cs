@@ -1,6 +1,7 @@
 ﻿using PLN.Drawables;
 using PLN.Geometry;
 using PLN.Graphics;
+using System.Xml.Linq;
 
 namespace PLN.Elements
 {
@@ -11,8 +12,10 @@ namespace PLN.Elements
         public Polygon Fig { get; private set; }
 
         public string Name { get; private set; }
-        public Room(string name, Point2DCollection pts)
+        public Room(int referenceLevel, Point2DCollection pts, string name)
         {
+            updateLevel(referenceLevel);
+
             this.Fig = new Polygon(pts);
             this.Name = name;
         }

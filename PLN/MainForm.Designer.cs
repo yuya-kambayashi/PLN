@@ -96,7 +96,6 @@ namespace PLN
             btnDrawQuadraticBezier = new ToolStripButton();
             toolStripSeparator2 = new ToolStripSeparator();
             btnCreateComposite = new ToolStripButton();
-            btnCreateRoom = new ToolStripButton();
             toolStrip1 = new ToolStrip();
             btnZoom = new ToolStripButton();
             btnPan = new ToolStripButton();
@@ -542,7 +541,7 @@ namespace PLN
             tsPrimitives.Dock = DockStyle.None;
             tsPrimitives.GripStyle = ToolStripGripStyle.Hidden;
             tsPrimitives.ImageScalingSize = new Size(20, 20);
-            tsPrimitives.Items.AddRange(new ToolStripItem[] { btnDrawPoint, btnDrawLine, btnDrawBeam, btnDrawColumn, btnDrawRoom, btnDrawCircle, btnDrawEllipse, btnDrawArc, btnDrawEllipticArc, btnDrawText, btnDrawDimension, btnDrawParabola, btnDrawPolyline, btnDrawRectangle, btnDrawHatch, btnDrawQuadraticBezier, toolStripSeparator2, btnCreateComposite, btnCreateRoom });
+            tsPrimitives.Items.AddRange(new ToolStripItem[] { btnDrawPoint, btnDrawLine, btnDrawBeam, btnDrawColumn, btnDrawRoom, btnDrawCircle, btnDrawEllipse, btnDrawArc, btnDrawEllipticArc, btnDrawText, btnDrawDimension, btnDrawParabola, btnDrawPolyline, btnDrawRectangle, btnDrawHatch, btnDrawQuadraticBezier, toolStripSeparator2, btnCreateComposite });
             tsPrimitives.Location = new Point(65, 54);
             tsPrimitives.Name = "tsPrimitives";
             tsPrimitives.Size = new Size(1235, 27);
@@ -723,15 +722,6 @@ namespace PLN
             btnCreateComposite.Text = "Create Composite";
             btnCreateComposite.Click += btnCreateComposite_Click;
             // 
-            // btnCreateRoom
-            // 
-            btnCreateRoom.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnCreateRoom.ImageTransparentColor = Color.Magenta;
-            btnCreateRoom.Name = "btnCreateRoom";
-            btnCreateRoom.Size = new Size(100, 24);
-            btnCreateRoom.Text = "Create Room";
-            btnCreateRoom.Click += btnCreateRoom_Click;
-            // 
             // toolStrip1
             // 
             toolStrip1.Dock = DockStyle.None;
@@ -855,7 +845,6 @@ namespace PLN
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton btnCreateComposite;
-        private System.Windows.Forms.ToolStripButton btnCreateRoom;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton btnDelete;
         private System.Windows.Forms.TreeView treeProjectBrowser;

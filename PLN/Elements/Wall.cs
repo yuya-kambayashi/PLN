@@ -16,8 +16,10 @@ namespace PLN.Elements
 
         public Line Fig { get; private set; }
 
-        public Wall(Line line)
+        public Wall(int referenceLevel, Line line)
         {
+            updateLevel(referenceLevel);
+
             Fig = line;
         }
         public override void Draw(Renderer renderer)
