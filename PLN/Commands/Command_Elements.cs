@@ -133,4 +133,49 @@ namespace PLN.Commands
             doc.Model.Add(newItem);
         }
     }
+    public class DrawWall : Command
+    {
+        public override string RegisteredName => "Elements.Wall";
+        public override string Name => "Wall";
+
+        public override async Task Apply(CADDocument doc, params string[] args)
+        {
+            Editor ed = doc.Editor;
+            ed.PickedSelection.Clear();
+
+            var p1 = await ed.GetPoint("First point: ");
+            if (p1.Result != ResultMode.OK) return;
+            Point2D lastPt = p1.Value;
+
+            int i = 0;
+            while (true)
+            {
+                var opts = new PointOptions("Next point: ", lastPt);
+                if (i > 1)
+                    opts.AddKeyword("Close");
+                var p3 = await ed.GetPoint(opts);
+
+                if (p3.Result == ResultMode.OK)
+                {
+                    Drawable nextBeam = new Beam(lastPt, p3.Value, 100, 100);
+                    doc.Model.Add(nextBeam);
+
+                    lastPt = p3.Value;
+                }
+                else if (p3.Result == ResultMode.Keyword && p3.Keyword == "Close")
+                {
+                    Drawable nextBeam = new Wall(new Line(lastPt, p1.Value));
+                    doc.Model.Add(nextBeam);
+
+                    lastPt = p3.Value;
+                    return;
+                }
+                else
+                {
+                    return;
+                }
+                i++;
+            }
+        }
+    }
 }

@@ -75,11 +75,13 @@ namespace PLN
             nodeElements.Nodes.Add(new TreeNode("Beam"));
             nodeElements.Nodes.Add(new TreeNode("Column"));
             nodeElements.Nodes.Add(new TreeNode("Room"));
+            nodeElements.Nodes.Add(new TreeNode("Wall"));
 
             treeProjectBrowser.Nodes.Add(nodeView);
             treeProjectBrowser.Nodes.Add(nodeDrawables);
             treeProjectBrowser.Nodes.Add(nodeElements);
             treeProjectBrowser.NodeMouseClick += TreeProjectBrowser_NodeMouseClick;
+            treeProjectBrowser.ExpandAll();
             treeProjectBrowser.EndUpdate();
 
             UpdateUI();
@@ -500,6 +502,9 @@ namespace PLN
                     break;
                 case "Room":
                     ed.RunCommand("Elements.Room");
+                    break;
+                case "Wall":
+                    ed.RunCommand("Elements.Wall");
                     break;
 
             }
