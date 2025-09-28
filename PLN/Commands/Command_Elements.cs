@@ -29,14 +29,14 @@ namespace PLN.Commands
 
                 if (p3.Result == ResultMode.OK)
                 {
-                    Drawable nextBeam = new Beam(lastPt, p3.Value, 100, 100);
+                    Drawable nextBeam = new Beam(doc.ActiveView.Level, new Line(lastPt, p3.Value), 100, 100);
                     doc.Model.Add(nextBeam);
 
                     lastPt = p3.Value;
                 }
                 else if (p3.Result == ResultMode.Keyword && p3.Keyword == "Close")
                 {
-                    Drawable nextBeam = new Beam(lastPt, p1.Value, 100, 100);
+                    Drawable nextBeam = new Beam(doc.ActiveView.Level, new Line(lastPt, p1.Value), 100, 100);
                     doc.Model.Add(nextBeam);
 
                     lastPt = p3.Value;
@@ -156,8 +156,8 @@ namespace PLN.Commands
 
                 if (p3.Result == ResultMode.OK)
                 {
-                    Drawable nextBeam = new Beam(lastPt, p3.Value, 100, 100);
-                    doc.Model.Add(nextBeam);
+                    Wall nextWall = new Wall(doc.ActiveView.Level, new Line(lastPt, p3.Value));
+                    doc.Model.Add(nextWall);
 
                     lastPt = p3.Value;
                 }
