@@ -15,6 +15,7 @@ namespace PLN.Elements
         private Line fig;
 
         public Line Fig { get; set; }
+        public override LayoutType LayoutType => LayoutType.Vertical;
 
         public Wall(Line line)
         {

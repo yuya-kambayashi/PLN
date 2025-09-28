@@ -9,8 +9,16 @@ using System.Threading.Tasks;
 
 namespace PLN.Elements
 {
-    internal class Element : Drawable
+    public enum LayoutType
     {
+        Horizontal,
+        Vertical
+    }
+
+    internal abstract class Element : Drawable
+    {
+        public abstract LayoutType LayoutType { get; }
+
         public override void Draw(Renderer renderer)
         {
             throw new NotImplementedException();
