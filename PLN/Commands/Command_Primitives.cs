@@ -10,7 +10,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Primitives.Point";
         public override string Name => "Point";
 
-        public override async Task Apply(CADDocument doc, params string[] args)
+        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
         {
             Editor ed = doc.Editor;
             ed.PickedSelection.Clear();
@@ -37,7 +37,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Primitives.Line";
         public override string Name => "Line";
 
-        public override async Task Apply(CADDocument doc, params string[] args)
+        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
         {
             Editor ed = doc.Editor;
             ed.PickedSelection.Clear();
@@ -83,7 +83,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Primitives.Arc";
         public override string Name => "Arc";
 
-        public override async Task Apply(CADDocument doc, params string[] args)
+        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
         {
             Editor ed = doc.Editor;
             ed.PickedSelection.Clear();
@@ -111,7 +111,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Primitives.Circle";
         public override string Name => "Circle";
 
-        public override async Task Apply(CADDocument doc, params string[] args)
+        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
         {
             Editor ed = doc.Editor;
             ed.PickedSelection.Clear();
@@ -134,7 +134,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Primitives.Ellipse";
         public override string Name => "Ellipse";
 
-        public override async Task Apply(CADDocument doc, params string[] args)
+        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
         {
             Editor ed = doc.Editor;
             ed.PickedSelection.Clear();
@@ -159,7 +159,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Primitives.Elliptic_Arc";
         public override string Name => "Elliptic Arc";
 
-        public override async Task Apply(CADDocument doc, params string[] args)
+        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
         {
             Editor ed = doc.Editor;
             ed.PickedSelection.Clear();
@@ -202,7 +202,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Primitives.Text";
         public override string Name => "Text";
 
-        public override async Task Apply(CADDocument doc, params string[] args)
+        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
         {
             Editor ed = doc.Editor;
             ed.PickedSelection.Clear();
@@ -231,7 +231,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Primitives.Dimension";
         public override string Name => "Dimension";
 
-        public override async Task Apply(CADDocument doc, params string[] args)
+        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
         {
             Editor ed = doc.Editor;
             ed.PickedSelection.Clear();
@@ -252,7 +252,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Primitives.Quadratic_Bezier";
         public override string Name => "Quadratic Bezier";
 
-        public override async Task Apply(CADDocument doc, params string[] args)
+        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
         {
             Editor ed = doc.Editor;
             ed.PickedSelection.Clear();
@@ -277,7 +277,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Primitives.Parabola";
         public override string Name => "Parabola";
 
-        public override async Task Apply(CADDocument doc, params string[] args)
+        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
         {
             Editor ed = doc.Editor;
             ed.PickedSelection.Clear();
@@ -303,7 +303,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Primitives.Rectangle";
         public override string Name => "Rectangle";
 
-        public override async Task Apply(CADDocument doc, params string[] args)
+        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
         {
             Editor ed = doc.Editor;
             ed.PickedSelection.Clear();
@@ -328,7 +328,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Primitives.Polyline";
         public override string Name => "Polyline";
 
-        public override async Task Apply(CADDocument doc, params string[] args)
+        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
         {
             Editor ed = doc.Editor;
             ed.PickedSelection.Clear();
@@ -388,7 +388,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Primitives.Hatch";
         public override string Name => "Hatch";
 
-        public override async Task Apply(CADDocument doc, params string[] args)
+        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
         {
             Editor ed = doc.Editor;
             ed.PickedSelection.Clear();

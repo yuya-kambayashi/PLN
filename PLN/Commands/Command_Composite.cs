@@ -9,7 +9,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Composite.Create";
         public override string Name => "Create Composite";
 
-        public override async Task Apply(CADDocument doc, params string[] args)
+        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
         {
             Editor ed = doc.Editor;
 

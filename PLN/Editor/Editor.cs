@@ -50,23 +50,29 @@ namespace PLN
             OnPrompt(new EditorPromptEventArgs(message));
         }
 
+        private CancellationTokenSource _cts;
+
         public void RunCommand(string registeredName, params string[] args)
         {
             if (commands.ContainsKey(registeredName))
             {
+                // 前のコマンドを止める
+                _cts?.Cancel();
+                _cts = new CancellationTokenSource();
+
                 CommandInProgress = true;
                 LastCommandName = registeredName;
                 LastCommandArgs = args;
 
                 Command com = commands[registeredName];
                 Command clearSelection = new Commands.SelectionClear();
-                Task runTask = com.Apply(Document, args).ContinueWith(
+                Task runTask = com.Apply(Document, _cts.Token, args).ContinueWith(
                     (t) =>
                     {
                         if (t.IsFaulted)
                             OnError(new EditorErrorEventArgs(t.Exception));
                         else if (t.IsCompleted)
-                            clearSelection.Apply(Document, args);
+                            clearSelection.Apply(Document, _cts.Token, args);
                     }
                 ).ContinueWith(
                     (t) =>

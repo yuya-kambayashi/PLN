@@ -10,7 +10,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Elements.Beam";
         public override string Name => "Beam";
 
-        public override async Task Apply(CADDocument doc, params string[] args)
+        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
         {
             Editor ed = doc.Editor;
             ed.PickedSelection.Clear();
@@ -55,7 +55,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Elements.Column";
         public override string Name => "Column";
 
-        public override async Task Apply(CADDocument doc, params string[] args)
+        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
         {
             Editor ed = doc.Editor;
             ed.PickedSelection.Clear();
@@ -82,7 +82,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Elements.Room";
         public override string Name => "Room";
 
-        public override async Task Apply(CADDocument doc, params string[] args)
+        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
         {
             Editor ed = doc.Editor;
             ed.PickedSelection.Clear();
@@ -137,7 +137,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Elements.Wall";
         public override string Name => "Wall";
 
-        public override async Task Apply(CADDocument doc, params string[] args)
+        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
         {
             Editor ed = doc.Editor;
             ed.PickedSelection.Clear();
