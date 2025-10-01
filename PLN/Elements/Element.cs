@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vector3 = OpenTK.Vector3;
 
 namespace PLN.Elements
 {
@@ -29,6 +30,10 @@ namespace PLN.Elements
         }
 
         public override void Draw(Renderer renderer)
+        {
+            throw new NotImplementedException();
+        }
+        public virtual (Vector3 start, Vector3 end) Draw3D()
         {
             throw new NotImplementedException();
         }

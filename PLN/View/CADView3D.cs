@@ -34,8 +34,11 @@ namespace PLN
             Redraw();
 
             Control.Dock = DockStyle.Fill;
-            Control.Load += CADView3D_Load;
-            Control.Paint += CadView_Paint;
+            Control.Load += CadView3D_Load;
+            Control.Paint += CadView3D_Paint;
+            Control.Resize += CadView3D_Resize;
+            Control.MouseMove += CadView3D_MouseMove;
+            Control.MouseWheel += CadView3D_MouseWheel;
 
             Document.DocumentChanged += Document_Changed;
         }
@@ -43,8 +46,17 @@ namespace PLN
         {
             Control.Invalidate();
         }
+        private void CadView3D_Resize(object sender, EventArgs e)
+        {
+            GL.Viewport(0, 0, Control.Width, Control.Height);
+            Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView(
+                MathHelper.PiOver4, (float)Control.Width / Control.Height, 1.0f, 1000.0f);
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadMatrix(ref projection);
+        }
         public void Render()
         {
+            // Start drawing
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             Matrix4 modelview = Matrix4.LookAt(
@@ -57,7 +69,11 @@ namespace PLN
             GL.Rotate(rotationX, 1, 0, 0);
             GL.Rotate(rotationY, 0, 1, 0);
 
+            // Axes
             DrawAxes();
+
+            // Render drawing objects
+            //DrawDocumentSample();
             DrawDocument();
 
             Control.SwapBuffers();
@@ -85,33 +101,9 @@ namespace PLN
             GL.End();
         }
 
-        private void DrawDocument()
+        private void DrawDocumentSample()
         {
             if (Document == null) return;
-
-            //// Z=0の面
-            //GL.Begin(PrimitiveType.Triangles);
-
-            //GL.Color3(Color.LightBlue);
-
-            //// 四角形 (v0, v1, v2, v3)
-            //Vector3 v0 = new Vector3(-50, -50, 0);
-            //Vector3 v1 = new Vector3(-50, 50, 0);
-            //Vector3 v2 = new Vector3(50, 50, 0);
-            //Vector3 v3 = new Vector3(50, -50, 0);
-
-            //// 三角形1
-            //GL.Vertex3(v0);
-            //GL.Vertex3(v1);
-            //GL.Vertex3(v2);
-
-            //// 三角形2
-            //GL.Vertex3(v0);
-            //GL.Vertex3(v2);
-            //GL.Vertex3(v3);
-
-            //GL.End();
-
 
             // さいころ
 
@@ -167,7 +159,26 @@ namespace PLN
 
             GL.End();
         }
-        private void CADView3D_Load(object sender, EventArgs e)
+        private void DrawDocument()
+        {
+            if (Document == null) return;
+
+            GL.Begin(PrimitiveType.Lines);
+            GL.Color3(Color.White);
+
+            foreach (var element in Document.Model.OfType<Element>())
+            {
+                var (start, end) = element.Draw3D();
+                GL.Vertex3(start);
+                GL.Vertex3(end);
+
+            }
+
+            GL.Color3(Color.White);
+
+            GL.End();
+        }
+        private void CadView3D_Load(object sender, EventArgs e)
         {
             GL.ClearColor(System.Drawing.Color.Black);
             GL.Enable(EnableCap.DepthTest);
@@ -176,7 +187,7 @@ namespace PLN
         {
             Redraw();
         }
-        void CadView_Paint(object sender, PaintEventArgs e)
+        void CadView3D_Paint(object sender, PaintEventArgs e)
         {
             Render();
         }
@@ -202,9 +213,14 @@ namespace PLN
                 //Control.MouseWheel -= CadView_MouseWheel;
                 //Control.KeyDown -= CadView_KeyDown;
                 //Control.KeyPress -= CadView_KeyPress;
-                Control.Paint -= CadView_Paint;
+                Control.Paint -= CadView3D_Paint;
                 //Control.MouseEnter -= CadView_MouseEnter;
                 //Control.MouseLeave -= CadView_MouseLeave;
+                Control.Load -= CadView3D_Load;
+                Control.Paint -= CadView3D_Paint;
+                Control.Resize -= CadView3D_Resize;
+                Control.MouseMove -= CadView3D_MouseMove;
+                Control.MouseWheel -= CadView3D_MouseWheel;
             }
 
             //if (renderer != null)
@@ -212,6 +228,23 @@ namespace PLN
             //    renderer.Dispose();
             //    renderer = null;
             //}
+        }
+        private Point lastMouse;
+        private void CadView3D_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                rotationY += (e.X - lastMouse.X);
+                rotationX += (e.Y - lastMouse.Y);
+                Control.Invalidate();
+            }
+            lastMouse = e.Location;
+        }
+
+        private void CadView3D_MouseWheel(object sender, MouseEventArgs e)
+        {
+            zoom += e.Delta * 0.01f;
+            Control.Invalidate();
         }
     }
 }

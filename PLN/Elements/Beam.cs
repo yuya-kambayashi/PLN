@@ -1,6 +1,7 @@
 ﻿using PLN.Drawables;
 using PLN.Geometry;
 using PLN.Graphics;
+using Vector3 = OpenTK.Vector3;
 
 namespace PLN.Elements
 {
@@ -62,6 +63,13 @@ namespace PLN.Elements
                 renderer.DrawLine(Style.ApplyLayer(Layer), line.StartPoint, line.EndPoint);
             }
 
+        }
+        public override (Vector3 start, Vector3 end) Draw3D()
+        {
+            Vector3 s = new Vector3(Fig.StartPoint.X, Fig.StartPoint.Y, ReferenceLevel * 100);
+            Vector3 e = new Vector3(Fig.EndPoint.X, Fig.EndPoint.Y, ReferenceLevel * 100);
+
+            return (s, e);
         }
         public override Extents2D GetExtents()
         {
