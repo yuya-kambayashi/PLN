@@ -39,8 +39,8 @@ namespace PLN
             View = new CADView3D(this, Document);
 
             this.Dock = DockStyle.Fill;
-            this.Load += CADWindow3D_Load;
-            this.Paint += CADWindow3D_Paint;
+            //this.Load += CADWindow3D_Load;
+            //this.Paint += CADWindow3D_Paint;
             this.Resize += CADWindow3D_Resize;
             this.MouseMove += CADWindow3D_MouseMove;
             this.MouseWheel += CADWindow3D_MouseWheel;
@@ -52,11 +52,11 @@ namespace PLN
             if (View != null)
                 View.Dispose();
         }
-        private void CADWindow3D_Load(object sender, EventArgs e)
-        {
-            GL.ClearColor(Color.Black);
-            GL.Enable(EnableCap.DepthTest);
-        }
+        //private void CADWindow3D_Load(object sender, EventArgs e)
+        //{
+        //    GL.ClearColor(Color.Black);
+        //    GL.Enable(EnableCap.DepthTest);
+        //}
 
         private void CADWindow3D_Resize(object sender, EventArgs e)
         {
@@ -67,131 +67,131 @@ namespace PLN
             GL.LoadMatrix(ref projection);
         }
 
-        private void CADWindow3D_Paint(object sender, PaintEventArgs e)
-        {
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+        // private void CADWindow3D_Paint(object sender, PaintEventArgs e)
+        //{
+        //    GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            Matrix4 modelview = Matrix4.LookAt(
-                new Vector3(0, 0, zoom),
-                Vector3.Zero,
-                Vector3.UnitY);
+        //    Matrix4 modelview = Matrix4.LookAt(
+        //        new Vector3(0, 0, zoom),
+        //        Vector3.Zero,
+        //        Vector3.UnitY);
 
-            GL.MatrixMode(MatrixMode.Modelview);
-            GL.LoadMatrix(ref modelview);
-            GL.Rotate(rotationX, 1, 0, 0);
-            GL.Rotate(rotationY, 0, 1, 0);
+        //    GL.MatrixMode(MatrixMode.Modelview);
+        //    GL.LoadMatrix(ref modelview);
+        //    GL.Rotate(rotationX, 1, 0, 0);
+        //    GL.Rotate(rotationY, 0, 1, 0);
 
-            DrawAxes();
-            DrawDocument();
+        //    DrawAxes();
+        //    DrawDocument();
 
-            this.SwapBuffers();
-        }
+        //    this.SwapBuffers();
+        //}
 
-        private void DrawAxes()
-        {
-            GL.Begin(PrimitiveType.Lines);
-            GL.LineWidth(10.0f);
+        //private void DrawAxes()
+        //{
+        //    GL.Begin(PrimitiveType.Lines);
+        //    GL.LineWidth(10.0f);
 
-            // X軸 (赤)
-            GL.Color3(Color.Red);
-            GL.Vertex3(0, 0, 0);
-            GL.Vertex3(10, 0, 0);
+        //    // X軸 (赤)
+        //    GL.Color3(Color.Red);
+        //    GL.Vertex3(0, 0, 0);
+        //    GL.Vertex3(10, 0, 0);
 
-            // Y軸 (緑)
-            GL.Color3(Color.Green);
-            GL.Vertex3(0, 0, 0);
-            GL.Vertex3(0, 10, 0);
+        //    // Y軸 (緑)
+        //    GL.Color3(Color.Green);
+        //    GL.Vertex3(0, 0, 0);
+        //    GL.Vertex3(0, 10, 0);
 
-            // Z軸 (青)
-            GL.Color3(Color.Blue);
-            GL.Vertex3(0, 0, 0);
-            GL.Vertex3(0, 0, 10);
+        //    // Z軸 (青)
+        //    GL.Color3(Color.Blue);
+        //    GL.Vertex3(0, 0, 0);
+        //    GL.Vertex3(0, 0, 10);
 
-            GL.End();
-        }
+        //    GL.End();
+        //}
 
-        private void DrawDocument()
-        {
-            if (Document == null) return;
+        //private void DrawDocument()
+        //{
+        //    if (Document == null) return;
 
-            //// Z=0の面
-            //GL.Begin(PrimitiveType.Triangles);
+        //    //// Z=0の面
+        //    //GL.Begin(PrimitiveType.Triangles);
 
-            //GL.Color3(Color.LightBlue);
+        //    //GL.Color3(Color.LightBlue);
 
-            //// 四角形 (v0, v1, v2, v3)
-            //Vector3 v0 = new Vector3(-50, -50, 0);
-            //Vector3 v1 = new Vector3(-50, 50, 0);
-            //Vector3 v2 = new Vector3(50, 50, 0);
-            //Vector3 v3 = new Vector3(50, -50, 0);
+        //    //// 四角形 (v0, v1, v2, v3)
+        //    //Vector3 v0 = new Vector3(-50, -50, 0);
+        //    //Vector3 v1 = new Vector3(-50, 50, 0);
+        //    //Vector3 v2 = new Vector3(50, 50, 0);
+        //    //Vector3 v3 = new Vector3(50, -50, 0);
 
-            //// 三角形1
-            //GL.Vertex3(v0);
-            //GL.Vertex3(v1);
-            //GL.Vertex3(v2);
+        //    //// 三角形1
+        //    //GL.Vertex3(v0);
+        //    //GL.Vertex3(v1);
+        //    //GL.Vertex3(v2);
 
-            //// 三角形2
-            //GL.Vertex3(v0);
-            //GL.Vertex3(v2);
-            //GL.Vertex3(v3);
+        //    //// 三角形2
+        //    //GL.Vertex3(v0);
+        //    //GL.Vertex3(v2);
+        //    //GL.Vertex3(v3);
 
-            //GL.End();
-
-
-            // さいころ
-
-            GL.Begin(PrimitiveType.Lines);
-
-            GL.Color3(Color.White);
-
-            // 面1
-            GL.Vertex3(10, 20, 10);
-            GL.Vertex3(10, 10, 10);
-
-            GL.Vertex3(10, 10, 10);
-            GL.Vertex3(20, 10, 10);
-
-            GL.Vertex3(20, 10, 10);
-            GL.Vertex3(20, 20, 10);
-
-            GL.Vertex3(10, 20, 10);
-            GL.Vertex3(20, 20, 10);
-
-            GL.Vertex3(20, 20, 10);
-            GL.Vertex3(10, 20, 10);
-
-            // 面2
-            GL.Vertex3(10, 20, 20);
-            GL.Vertex3(10, 10, 20);
-
-            GL.Vertex3(10, 10, 20);
-            GL.Vertex3(20, 10, 20);
-
-            GL.Vertex3(20, 10, 20);
-            GL.Vertex3(20, 20, 20);
-
-            GL.Vertex3(10, 20, 20);
-            GL.Vertex3(20, 20, 20);
-
-            GL.Vertex3(20, 20, 20);
-            GL.Vertex3(10, 20, 20);
-
-            // 面1と面2の間
-            GL.Vertex3(10, 10, 10);
-            GL.Vertex3(10, 10, 20);
-
-            GL.Vertex3(20, 10, 10);
-            GL.Vertex3(20, 10, 20);
-
-            GL.Vertex3(20, 20, 10);
-            GL.Vertex3(20, 20, 20);
-
-            GL.Vertex3(10, 20, 10);
-            GL.Vertex3(10, 20, 20);
+        //    //GL.End();
 
 
-            GL.End();
-        }
+        //    // さいころ
+
+        //    GL.Begin(PrimitiveType.Lines);
+
+        //    GL.Color3(Color.White);
+
+        //    // 面1
+        //    GL.Vertex3(10, 20, 10);
+        //    GL.Vertex3(10, 10, 10);
+
+        //    GL.Vertex3(10, 10, 10);
+        //    GL.Vertex3(20, 10, 10);
+
+        //    GL.Vertex3(20, 10, 10);
+        //    GL.Vertex3(20, 20, 10);
+
+        //    GL.Vertex3(10, 20, 10);
+        //    GL.Vertex3(20, 20, 10);
+
+        //    GL.Vertex3(20, 20, 10);
+        //    GL.Vertex3(10, 20, 10);
+
+        //    // 面2
+        //    GL.Vertex3(10, 20, 20);
+        //    GL.Vertex3(10, 10, 20);
+
+        //    GL.Vertex3(10, 10, 20);
+        //    GL.Vertex3(20, 10, 20);
+
+        //    GL.Vertex3(20, 10, 20);
+        //    GL.Vertex3(20, 20, 20);
+
+        //    GL.Vertex3(10, 20, 20);
+        //    GL.Vertex3(20, 20, 20);
+
+        //    GL.Vertex3(20, 20, 20);
+        //    GL.Vertex3(10, 20, 20);
+
+        //    // 面1と面2の間
+        //    GL.Vertex3(10, 10, 10);
+        //    GL.Vertex3(10, 10, 20);
+
+        //    GL.Vertex3(20, 10, 10);
+        //    GL.Vertex3(20, 10, 20);
+
+        //    GL.Vertex3(20, 20, 10);
+        //    GL.Vertex3(20, 20, 20);
+
+        //    GL.Vertex3(10, 20, 10);
+        //    GL.Vertex3(10, 20, 20);
+
+
+        //    GL.End();
+        //}
 
         private Point lastMouse;
         private void CADWindow3D_MouseMove(object sender, MouseEventArgs e)
