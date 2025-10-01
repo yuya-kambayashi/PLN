@@ -12,6 +12,8 @@ namespace PLN
     [Docking(DockingBehavior.Ask)]
     public partial class CADWindow3D : GLControl
     {
+        private System.Drawing.Color backColor = System.Drawing.Color.FromArgb(33, 40, 48);
+
         [Browsable(false)]
         public CADDocument Document { get; set; }
         [Browsable(false)]
@@ -23,6 +25,7 @@ namespace PLN
 
         public CADWindow3D(CADDocument doc)
         {
+            InitializeComponent();
 
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.Opaque | ControlStyles.UserPaint | ControlStyles.ResizeRedraw, true);
             SetStyle(ControlStyles.DoubleBuffer, false);
@@ -32,6 +35,7 @@ namespace PLN
             BorderStyle = BorderStyle.Fixed3D;
 
             Document = doc;
+
             View = new CADView3D(this, Document);
 
             this.Dock = DockStyle.Fill;
@@ -40,8 +44,14 @@ namespace PLN
             this.Resize += CADWindow3D_Resize;
             this.MouseMove += CADWindow3D_MouseMove;
             this.MouseWheel += CADWindow3D_MouseWheel;
-        }
 
+            Disposed += CADWindow3D_Disposed;
+        }
+        private void CADWindow3D_Disposed(object sender, System.EventArgs e)
+        {
+            if (View != null)
+                View.Dispose();
+        }
         private void CADWindow3D_Load(object sender, EventArgs e)
         {
             GL.ClearColor(Color.Black);
