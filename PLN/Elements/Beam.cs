@@ -1,7 +1,9 @@
 ﻿using PLN.Drawables;
 using PLN.Geometry;
 using PLN.Graphics;
-using Vector3 = OpenTK.Vector3;
+using OpenTK;
+using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL;
 
 namespace PLN.Elements
 {
@@ -64,12 +66,16 @@ namespace PLN.Elements
             }
 
         }
-        public override (Vector3 start, Vector3 end) Draw3D()
+        public override void Draw3D()
         {
-            Vector3 s = new Vector3(Fig.StartPoint.X, Fig.StartPoint.Y, ReferenceLevel * 100);
-            Vector3 e = new Vector3(Fig.EndPoint.X, Fig.EndPoint.Y, ReferenceLevel * 100);
+            GL.Begin(PrimitiveType.Lines);
 
-            return (s, e);
+            GL.Color3(System.Drawing.Color.White);
+
+            GL.Vertex3(Fig.StartPoint.X, Fig.StartPoint.Y, ReferenceLevel * 100);
+            GL.Vertex3(Fig.EndPoint.X, Fig.EndPoint.Y, ReferenceLevel * 100);
+
+            GL.End();
         }
         public override Extents2D GetExtents()
         {

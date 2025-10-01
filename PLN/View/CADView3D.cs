@@ -163,20 +163,11 @@ namespace PLN
         {
             if (Document == null) return;
 
-            GL.Begin(PrimitiveType.Lines);
-            GL.Color3(Color.White);
-
             foreach (var element in Document.Model.OfType<Element>())
             {
-                var (start, end) = element.Draw3D();
-                GL.Vertex3(start);
-                GL.Vertex3(end);
+                element.Draw3D();
 
             }
-
-            GL.Color3(Color.White);
-
-            GL.End();
         }
         private void CadView3D_Load(object sender, EventArgs e)
         {

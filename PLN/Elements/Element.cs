@@ -33,7 +33,7 @@ namespace PLN.Elements
         {
             throw new NotImplementedException();
         }
-        public virtual (Vector3 start, Vector3 end) Draw3D()
+        public virtual void Draw3D()
         {
             throw new NotImplementedException();
         }

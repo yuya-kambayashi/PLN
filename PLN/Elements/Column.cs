@@ -2,7 +2,8 @@
 using PLN.Geometry;
 using PLN.Graphics;
 using Point = PLN.Drawables.Point;
-using Vector3 = OpenTK.Vector3;
+using OpenTK.Graphics.OpenGL;
+
 
 namespace PLN.Elements
 {
@@ -27,12 +28,16 @@ namespace PLN.Elements
                 new Point2D(Fig.Location.X - D / 2, Fig.Location.Y - D / 2),
                 new Point2D(Fig.Location.X + D / 2, Fig.Location.Y + D / 2));
         }
-        public override (Vector3 start, Vector3 end) Draw3D()
+        public override void Draw3D()
         {
-            Vector3 s = new Vector3(Fig.Location.X, Fig.Location.Y, ReferenceLevel * 100);
-            Vector3 e = new Vector3(Fig.Location.X, Fig.Location.Y, UpperLevel * 100);
+            GL.Begin(PrimitiveType.Lines);
 
-            return (s, e);
+            GL.Color3(System.Drawing.Color.White);
+
+            GL.Vertex3(Fig.Location.X, Fig.Location.Y, ReferenceLevel * 100);
+            GL.Vertex3(Fig.Location.X, Fig.Location.Y, UpperLevel * 100);
+
+            GL.End();
         }
         public override Extents2D GetExtents()
         {
