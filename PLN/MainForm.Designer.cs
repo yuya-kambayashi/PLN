@@ -56,8 +56,7 @@ namespace PLN
             cadWindow3 = new CADWindow(doc);
             cadWindow4 = new CADWindow(doc);
             cadWindow5 = new CADWindow(doc);
-            cadWindow3D = new CADWindow3D();
-            cadWindow3D.Document = doc;
+            cadWindow3D = new CADWindow3D(doc);
             lblSelection = new Label();
             propertyGrid1 = new PropertyGrid();
             tsStandard = new ToolStrip();
@@ -354,7 +353,12 @@ namespace PLN
             // 
             // cadWindow3D
             // 
-            // cadWindow3D.Document = BorderStyle.Fixed3D;
+            cadWindow3D.BorderStyle = BorderStyle.Fixed3D;
+            cadWindow3D.Dock = DockStyle.Fill;
+            cadWindow3D.Location = new Point(0, 0);
+            cadWindow3D.Margin = new Padding(5, 8, 5, 8);
+            cadWindow3D.Name = "cadWindow3D";
+            cadWindow3D.TabIndex = 0;
             // 
             // lblSelection
             // 

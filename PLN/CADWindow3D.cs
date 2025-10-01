@@ -3,22 +3,38 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using PLN.Drawables;
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using Point = System.Drawing.Point;
 
 namespace PLN
 {
+    [Docking(DockingBehavior.Ask)]
     public class CADWindow3D : GLControl
     {
+        [Browsable(false)]
         public CADDocument Document { get; set; }
+        [Browsable(false)]
+        public CADView3D View { get; private set; }
 
         private float rotationX = 30f;
         private float rotationY = -45f;
         private float zoom = -10f;
 
-        public CADWindow3D()
-            : base(new GraphicsMode(32, 24, 0, 4))
+        public CADWindow3D(CADDocument doc)
         {
+            InitializeComponent();
+
+            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.Opaque | ControlStyles.UserPaint | ControlStyles.ResizeRedraw, true);
+            SetStyle(ControlStyles.DoubleBuffer, false);
+            UpdateStyles();
+            DoubleBuffered = false;
+
+            BorderStyle = BorderStyle.Fixed3D;
+
+            Document = doc;
+            View = new CADView3D(this, Document);
+
             this.Dock = DockStyle.Fill;
             this.Load += CADWindow3D_Load;
             this.Paint += CADWindow3D_Paint;
