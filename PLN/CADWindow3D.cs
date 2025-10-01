@@ -10,7 +10,7 @@ using Point = System.Drawing.Point;
 namespace PLN
 {
     [Docking(DockingBehavior.Ask)]
-    public class CADWindow3D : GLControl
+    public partial class CADWindow3D : GLControl
     {
         [Browsable(false)]
         public CADDocument Document { get; set; }
@@ -23,7 +23,6 @@ namespace PLN
 
         public CADWindow3D(CADDocument doc)
         {
-            InitializeComponent();
 
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.Opaque | ControlStyles.UserPaint | ControlStyles.ResizeRedraw, true);
             SetStyle(ControlStyles.DoubleBuffer, false);
