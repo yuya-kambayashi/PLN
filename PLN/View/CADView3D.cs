@@ -102,65 +102,6 @@ namespace PLN
 
             GL.End();
         }
-
-        private void DrawDocumentSample()
-        {
-            if (Document == null) return;
-
-            // さいころ
-
-            GL.Begin(PrimitiveType.Lines);
-
-            GL.Color3(Color.White);
-
-            // 面1
-            GL.Vertex3(10, 20, 10);
-            GL.Vertex3(10, 10, 10);
-
-            GL.Vertex3(10, 10, 10);
-            GL.Vertex3(20, 10, 10);
-
-            GL.Vertex3(20, 10, 10);
-            GL.Vertex3(20, 20, 10);
-
-            GL.Vertex3(10, 20, 10);
-            GL.Vertex3(20, 20, 10);
-
-            GL.Vertex3(20, 20, 10);
-            GL.Vertex3(10, 20, 10);
-
-            // 面2
-            GL.Vertex3(10, 20, 20);
-            GL.Vertex3(10, 10, 20);
-
-            GL.Vertex3(10, 10, 20);
-            GL.Vertex3(20, 10, 20);
-
-            GL.Vertex3(20, 10, 20);
-            GL.Vertex3(20, 20, 20);
-
-            GL.Vertex3(10, 20, 20);
-            GL.Vertex3(20, 20, 20);
-
-            GL.Vertex3(20, 20, 20);
-            GL.Vertex3(10, 20, 20);
-
-            // 面1と面2の間
-            GL.Vertex3(10, 10, 10);
-            GL.Vertex3(10, 10, 20);
-
-            GL.Vertex3(20, 10, 10);
-            GL.Vertex3(20, 10, 20);
-
-            GL.Vertex3(20, 20, 10);
-            GL.Vertex3(20, 20, 20);
-
-            GL.Vertex3(10, 20, 10);
-            GL.Vertex3(10, 20, 20);
-
-
-            GL.End();
-        }
         private void DrawDocument()
         {
             if (Document == null) return;
