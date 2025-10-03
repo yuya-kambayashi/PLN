@@ -16,8 +16,9 @@ namespace PLN
     public sealed class CADView3D : IDisposable
     {
 
-        private float rotationX = 30f;
-        private float rotationY = -45f;
+        private float rotationX = -120f;
+        private float rotationY = 0f;
+        private float rotationZ = 135f;
         private float zoom = -10f;
 
         [Browsable(false)]
@@ -68,6 +69,7 @@ namespace PLN
             GL.LoadMatrix(ref modelview);
             GL.Rotate(rotationX, 1, 0, 0);
             GL.Rotate(rotationY, 0, 1, 0);
+            GL.Rotate(rotationZ, 0, 0, 1);
 
             // Axes
             DrawAxes();
@@ -86,17 +88,17 @@ namespace PLN
             // X軸 (赤)
             GL.Color3(Color.Red);
             GL.Vertex3(0, 0, 0);
-            GL.Vertex3(10, 0, 0);
+            GL.Vertex3(1000, 0, 0);
 
             // Y軸 (緑)
             GL.Color3(Color.Green);
             GL.Vertex3(0, 0, 0);
-            GL.Vertex3(0, 10, 0);
+            GL.Vertex3(0, 1000, 0);
 
             // Z軸 (青)
             GL.Color3(Color.Blue);
             GL.Vertex3(0, 0, 0);
-            GL.Vertex3(0, 0, 10);
+            GL.Vertex3(0, 0, 1000);
 
             GL.End();
         }
