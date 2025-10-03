@@ -17,6 +17,8 @@ namespace PLN
         {
             InitializeComponent();
 
+            this.KeyDown += MainForm_KeyDown;
+
             doc = cadWindow1.Document;
             ed = doc.Editor;
 
@@ -67,11 +69,11 @@ namespace PLN
             nodeView.Nodes.Add(node立面図);
             nodeView.Nodes.Add(node3D);
 
-            TreeNode nodeDrawables = new TreeNode("Drawables");
+            nodeDrawables = new TreeNode("Drawables");
             nodeDrawables.Nodes.Add(new TreeNode("Line"));
             nodeDrawables.Nodes.Add(new TreeNode("Point"));
 
-            TreeNode nodeElements = new TreeNode("Elements");
+            nodeElements = new TreeNode("Elements");
             nodeElements.Nodes.Add(new TreeNode("Beam"));
             nodeElements.Nodes.Add(new TreeNode("Column"));
             nodeElements.Nodes.Add(new TreeNode("Room"));
@@ -80,11 +82,54 @@ namespace PLN
             treeProjectBrowser.Nodes.Add(nodeView);
             treeProjectBrowser.Nodes.Add(nodeDrawables);
             treeProjectBrowser.Nodes.Add(nodeElements);
-            treeProjectBrowser.NodeMouseClick += TreeProjectBrowser_NodeMouseClick;
+            treeProjectBrowser.NodeMouseClick += treeProjectBrowser_NodeMouseClick;
             treeProjectBrowser.ExpandAll();
             treeProjectBrowser.EndUpdate();
 
             UpdateUI();
+        }
+        private void disableLayoutCommand()
+        {
+            disableNode(nodeDrawables);
+            disableNode(nodeElements);
+        }
+        private void disableNode(TreeNode node)
+        {
+            if (node.Nodes.Count == 0)
+            {
+                node.ForeColor = Color.Gray;
+                node.Tag = "disabled";
+                return;
+            }
+
+            foreach (TreeNode n in node.Nodes)
+            {
+                disableNode(n);
+            }
+        }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            enableLayoutCommand();
+        }
+        private void enableLayoutCommand()
+        {
+            enableNode(nodeDrawables);
+            enableNode(nodeElements);
+        }
+        private void enableNode(TreeNode node)
+        {
+            if (node.Nodes.Count == 0)
+            {
+                node.ForeColor = Color.Black;
+                node.Tag = "able";
+                return;
+            }
+
+            foreach (TreeNode n in node.Nodes)
+            {
+                enableNode(n);
+            }
         }
 
         private void doc_DocumentChanged(object sender, EventArgs e)
@@ -221,24 +266,29 @@ namespace PLN
 
         private void btnDrawPoint_Click(object sender, EventArgs e)
         {
+            disableLayoutCommand();
             ed.RunCommand("Primitives.Point");
         }
 
         private void btnDrawLine_Click(object sender, EventArgs e)
         {
+            disableLayoutCommand();
             ed.RunCommand("Primitives.Line");
         }
         private void btnDrawBeam_Click(object sender, EventArgs e)
         {
+            disableLayoutCommand();
             ed.RunCommand("Elements.Beam");
         }
 
         private void btnDrawColumn_Click(object sender, EventArgs e)
         {
+            disableLayoutCommand();
             ed.RunCommand("Elements.Column");
         }
         private void btnDrawRoom_Click(object sender, EventArgs e)
         {
+            disableLayoutCommand();
             ed.RunCommand("Elements.Room");
         }
 
@@ -249,51 +299,60 @@ namespace PLN
 
         private void btnDrawCircle_Click(object sender, EventArgs e)
         {
+            disableLayoutCommand();
             ed.RunCommand("Primitives.Circle");
         }
-
         private void btnDrawEllipse_Click(object sender, EventArgs e)
         {
+            disableLayoutCommand();
             ed.RunCommand("Primitives.Ellipse");
         }
 
         private void btnDrawEllipticArc_Click(object sender, EventArgs e)
         {
+            disableLayoutCommand();
             ed.RunCommand("Primitives.Elliptic_Arc");
         }
 
         private void btnDrawText_Click(object sender, EventArgs e)
         {
+            disableLayoutCommand();
             ed.RunCommand("Primitives.Text");
         }
 
         private void btnDrawDimension_Click(object sender, EventArgs e)
         {
+            disableLayoutCommand();
             ed.RunCommand("Primitives.Dimension");
         }
 
         private void btnDrawParabola_Click(object sender, EventArgs e)
         {
+            disableLayoutCommand();
             ed.RunCommand("Primitives.Parabola");
         }
 
         private void btnDrawPolyline_Click(object sender, EventArgs e)
         {
+            disableLayoutCommand();
             ed.RunCommand("Primitives.Polyline");
         }
 
         private void btnDrawHatch_Click(object sender, EventArgs e)
         {
+            disableLayoutCommand();
             ed.RunCommand("Primitives.Hatch");
         }
 
         private void btnDrawRectangle_Click(object sender, EventArgs e)
         {
+            disableLayoutCommand();
             ed.RunCommand("Primitives.Rectangle");
         }
 
         private void btnDrawQuadraticBezier_Click(object sender, EventArgs e)
         {
+            disableLayoutCommand();
             ed.RunCommand("Primitives.Quadratic_Bezier");
         }
 
@@ -450,9 +509,15 @@ namespace PLN
             cadWindow1.Focus();
             UpdateUI();
         }
-
-        private void TreeProjectBrowser_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        private void treeProjectBrowser_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
+            if (e.Node.Tag != null && e.Node.Tag.ToString() == "disabled")
+            {
+                MessageBox.Show("Another command is running. Press Esc to cancel.", "Error",
+    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (e.Node.Nodes.Count > 0)
             {
                 return;
@@ -484,21 +549,27 @@ namespace PLN
                     contentViewFloor3D.Show(dockPanel, DockState.Document);
                     break;
                 case "Line":
+                    disableLayoutCommand();
                     ed.RunCommand("Primitives.Line");
                     break;
                 case "Point":
+                    disableLayoutCommand();
                     ed.RunCommand("Primitives.Point");
                     break;
                 case "Beam":
+                    disableLayoutCommand();
                     ed.RunCommand("Elements.Beam");
                     break;
                 case "Column":
+                    disableLayoutCommand();
                     ed.RunCommand("Elements.Column");
                     break;
                 case "Room":
+                    disableLayoutCommand();
                     ed.RunCommand("Elements.Room");
                     break;
                 case "Wall":
+                    disableLayoutCommand();
                     ed.RunCommand("Elements.Wall");
                     break;
 

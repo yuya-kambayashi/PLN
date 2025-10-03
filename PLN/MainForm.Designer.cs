@@ -852,6 +852,10 @@ namespace PLN
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton btnDelete;
         private System.Windows.Forms.TreeView treeProjectBrowser;
+        private System.Windows.Forms.TreeNode nodeView;
+        private System.Windows.Forms.TreeNode nodeDrawables;
+        private System.Windows.Forms.TreeNode nodeElements;
+
         private DockPanel dockPanel;
         private MainDockContent contentProjectBrowser;
         private MainDockContent contentProperties;
