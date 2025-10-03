@@ -90,6 +90,24 @@ namespace PLN
         }
         private void disableLayoutCommand()
         {
+            btnDrawPoint.Enabled = false;
+            btnDrawLine.Enabled = false;
+            btnDrawBeam.Enabled = false;
+            btnDrawColumn.Enabled = false;
+            btnDrawRoom.Enabled = false;
+            btnDrawCircle.Enabled = false;
+            btnDrawEllipse.Enabled = false;
+            btnDrawArc.Enabled = false;
+            btnDrawEllipticArc.Enabled = false;
+            btnDrawText.Enabled = false;
+            btnDrawDimension.Enabled = false;
+            btnDrawParabola.Enabled = false;
+            btnDrawPolyline.Enabled = false;
+            btnDrawRectangle.Enabled = false;
+            btnDrawHatch.Enabled = false;
+            btnDrawQuadraticBezier.Enabled = false;
+            btnCreateComposite.Enabled = false;
+
             disableNode(nodeDrawables);
             disableNode(nodeElements);
         }
@@ -114,6 +132,24 @@ namespace PLN
         }
         private void enableLayoutCommand()
         {
+            btnDrawPoint.Enabled = true;
+            btnDrawLine.Enabled = true;
+            btnDrawBeam.Enabled = true;
+            btnDrawColumn.Enabled = true;
+            btnDrawRoom.Enabled = true;
+            btnDrawCircle.Enabled = true;
+            btnDrawEllipse.Enabled = true;
+            btnDrawArc.Enabled = true;
+            btnDrawEllipticArc.Enabled = true;
+            btnDrawText.Enabled = true;
+            btnDrawDimension.Enabled = true;
+            btnDrawParabola.Enabled = true;
+            btnDrawPolyline.Enabled = true;
+            btnDrawRectangle.Enabled = true;
+            btnDrawHatch.Enabled = true;
+            btnDrawQuadraticBezier.Enabled = true;
+            btnCreateComposite.Enabled = true;
+
             enableNode(nodeDrawables);
             enableNode(nodeElements);
         }
