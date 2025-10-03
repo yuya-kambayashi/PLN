@@ -8,7 +8,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Transform.Move";
         public override string Name => "Move";
 
-        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
+        public override async Task Apply(CADDocument doc, params string[] args)
         {
             Editor ed = doc.Editor;
 
@@ -44,7 +44,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Transform.Copy";
         public override string Name => "Copy";
 
-        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
+        public override async Task Apply(CADDocument doc, params string[] args)
         {
             Editor ed = doc.Editor;
 
@@ -93,7 +93,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Transform.Rotate";
         public override string Name => "Rotate";
 
-        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
+        public override async Task Apply(CADDocument doc, params string[] args)
         {
             Editor ed = doc.Editor;
 
@@ -129,7 +129,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Transform.Scale";
         public override string Name => "Scale";
 
-        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
+        public override async Task Apply(CADDocument doc, params string[] args)
         {
             Editor ed = doc.Editor;
 
@@ -169,7 +169,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Transform.Mirror";
         public override string Name => "Mirror";
 
-        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
+        public override async Task Apply(CADDocument doc, params string[] args)
         {
             Editor ed = doc.Editor;
 
@@ -208,7 +208,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Transform.MoveControlPoints";
         public override string Name => "MoveControlPoints";
 
-        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
+        public override async Task Apply(CADDocument doc, params string[] args)
         {
             Editor ed = doc.Editor;
 
@@ -249,7 +249,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Transform.RotateControlPoints";
         public override string Name => "RotateControlPoints";
 
-        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
+        public override async Task Apply(CADDocument doc, params string[] args)
         {
             Editor ed = doc.Editor;
 
@@ -291,7 +291,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Transform.ScaleControlPoints";
         public override string Name => "ScaleControlPoints";
 
-        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
+        public override async Task Apply(CADDocument doc, params string[] args)
         {
             Editor ed = doc.Editor;
 

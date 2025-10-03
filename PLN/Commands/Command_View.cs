@@ -8,7 +8,7 @@ namespace PLN.Commands
         public override string RegisteredName => "View.Zoom";
         public override string Name => "Zoom";
 
-        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
+        public override async Task Apply(CADDocument doc, params string[] args)
         {
             CADView view = doc.ActiveView;
             if (view == null) return;
@@ -60,7 +60,7 @@ namespace PLN.Commands
         public override string RegisteredName => "View.Pan";
         public override string Name => "Pan";
 
-        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
+        public override async Task Apply(CADDocument doc, params string[] args)
         {
             CADView view = doc.ActiveView;
             if (view == null) return;

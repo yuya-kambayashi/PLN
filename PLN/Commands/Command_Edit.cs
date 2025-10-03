@@ -7,7 +7,7 @@ namespace PLN.Commands
         public override string RegisteredName => "Edit.Delete";
         public override string Name => "Delete";
 
-        public override async Task Apply(CADDocument doc, CancellationToken token, params string[] args)
+        public override async Task Apply(CADDocument doc, params string[] args)
         {
             Editor ed = doc.Editor;
 
