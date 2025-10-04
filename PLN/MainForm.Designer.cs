@@ -75,6 +75,7 @@ namespace PLN
             btnRotateCP = new ToolStripButton();
             btnScaleCP = new ToolStripButton();
             toolStripSeparator3 = new ToolStripSeparator();
+            toolStripSeparator4 = new ToolStripSeparator();
             btnDelete = new ToolStripButton();
             tsPrimitives = new ToolStrip();
             btnDrawPoint = new ToolStripButton();
@@ -135,8 +136,8 @@ namespace PLN
             // 
             toolStripContainer1.TopToolStripPanel.Controls.Add(tsStandard);
             toolStripContainer1.TopToolStripPanel.Controls.Add(tsTransform);
-            toolStripContainer1.TopToolStripPanel.Controls.Add(toolStrip1);
-            toolStripContainer1.TopToolStripPanel.Controls.Add(tsPrimitives);
+            //toolStripContainer1.TopToolStripPanel.Controls.Add(toolStrip1);
+            //toolStripContainer1.TopToolStripPanel.Controls.Add(tsPrimitives);
             // 
             // statusStrip1
             // 
@@ -435,7 +436,7 @@ namespace PLN
             tsTransform.Dock = DockStyle.None;
             tsTransform.GripStyle = ToolStripGripStyle.Hidden;
             tsTransform.ImageScalingSize = new Size(20, 20);
-            tsTransform.Items.AddRange(new ToolStripItem[] { btnMove, btnCopy, btnRotate, btnScale, btnMirror, toolStripSeparator1, btnStretch, btnRotateCP, btnScaleCP, toolStripSeparator3, btnDelete });
+            tsTransform.Items.AddRange(new ToolStripItem[] { btnMove, btnCopy, btnRotate, btnScale, btnMirror, toolStripSeparator1, btnStretch, btnRotateCP, btnScaleCP, toolStripSeparator3, btnDelete, toolStripSeparator4, btnZoom, btnPan });
             tsTransform.Location = new Point(4, 27);
             tsTransform.Name = "tsTransform";
             tsTransform.Size = new Size(595, 27);
@@ -531,6 +532,11 @@ namespace PLN
             toolStripSeparator3.Name = "toolStripSeparator3";
             toolStripSeparator3.Size = new Size(6, 27);
             // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new Size(6, 27);
+            // 
             // btnDelete
             // 
             btnDelete.Image = Properties.Resources.cross;
@@ -550,6 +556,7 @@ namespace PLN
             tsPrimitives.Name = "tsPrimitives";
             tsPrimitives.Size = new Size(1235, 27);
             tsPrimitives.TabIndex = 0;
+            tsPrimitives.Visible = false;
             // 
             // btnDrawPoint
             // 
@@ -728,14 +735,14 @@ namespace PLN
             // 
             // toolStrip1
             // 
-            toolStrip1.Dock = DockStyle.None;
-            toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
-            toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnZoom, btnPan });
-            toolStrip1.Location = new Point(4, 54);
-            toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(61, 27);
-            toolStrip1.TabIndex = 4;
+            //toolStrip1.Dock = DockStyle.None;
+            //toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
+            //toolStrip1.ImageScalingSize = new Size(20, 20);
+            //toolStrip1.Items.AddRange(new ToolStripItem[] { btnZoom, btnPan });
+            //toolStrip1.Location = new Point(4, 54);
+            //toolStrip1.Name = "toolStrip1";
+            //toolStrip1.Size = new Size(61, 27);
+            //toolStrip1.TabIndex = 4;
             // 
             // btnZoom
             // 
@@ -850,6 +857,7 @@ namespace PLN
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton btnCreateComposite;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripButton btnDelete;
         private System.Windows.Forms.TreeView treeProjectBrowser;
         private System.Windows.Forms.TreeNode nodeView;

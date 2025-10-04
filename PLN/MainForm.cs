@@ -72,6 +72,17 @@ namespace PLN
             nodeDrawables = new TreeNode("Drawables");
             nodeDrawables.Nodes.Add(new TreeNode("Line"));
             nodeDrawables.Nodes.Add(new TreeNode("Point"));
+            nodeDrawables.Nodes.Add(new TreeNode("Circle"));
+            nodeDrawables.Nodes.Add(new TreeNode("Ellipse"));
+            nodeDrawables.Nodes.Add(new TreeNode("Arc"));
+            nodeDrawables.Nodes.Add(new TreeNode("Elliptic Arc"));
+            nodeDrawables.Nodes.Add(new TreeNode("Text"));
+            nodeDrawables.Nodes.Add(new TreeNode("Dimension"));
+            nodeDrawables.Nodes.Add(new TreeNode("Parabola"));
+            nodeDrawables.Nodes.Add(new TreeNode("Polyline"));
+            nodeDrawables.Nodes.Add(new TreeNode("Rectangle"));
+            nodeDrawables.Nodes.Add(new TreeNode("Hatch"));
+            nodeDrawables.Nodes.Add(new TreeNode("Quadratic Bezier"));
 
             nodeElements = new TreeNode("Elements");
             nodeElements.Nodes.Add(new TreeNode("Beam"));
@@ -83,7 +94,6 @@ namespace PLN
             treeProjectBrowser.Nodes.Add(nodeDrawables);
             treeProjectBrowser.Nodes.Add(nodeElements);
             treeProjectBrowser.NodeMouseClick += treeProjectBrowser_NodeMouseClick;
-            treeProjectBrowser.ExpandAll();
             treeProjectBrowser.EndUpdate();
 
             UpdateUI();
@@ -591,6 +601,50 @@ namespace PLN
                 case "Point":
                     disableLayoutCommand();
                     ed.RunCommand("Primitives.Point");
+                    break;
+                case "Circle":
+                    disableLayoutCommand();
+                    ed.RunCommand("Primitives.Circle");
+                    break;
+                case "Ellipse":
+                    disableLayoutCommand();
+                    ed.RunCommand("Primitives.Ellipse");
+                    break;
+                case "Arc":
+                    disableLayoutCommand();
+                    ed.RunCommand("Primitives.Arc");
+                    break;
+                case "Elliptic Arc":
+                    disableLayoutCommand();
+                    ed.RunCommand("Primitives.Elliptic_Arc");
+                    break;
+                case "Text":
+                    disableLayoutCommand();
+                    ed.RunCommand("Primitives.Text");
+                    break;
+                case "Dimension":
+                    disableLayoutCommand();
+                    ed.RunCommand("Primitives.Dimension");
+                    break;
+                case "Parabola":
+                    disableLayoutCommand();
+                    ed.RunCommand("Primitives.Parabola");
+                    break;
+                case "Polyline":
+                    disableLayoutCommand();
+                    ed.RunCommand("Primitives.Polyline");
+                    break;
+                case "Rectangle":
+                    disableLayoutCommand();
+                    ed.RunCommand("Primitives.Rectangle");
+                    break;
+                case "Hatch":
+                    disableLayoutCommand();
+                    ed.RunCommand("Primitives.Hatch");
+                    break;
+                case "Quadratic Bezier":
+                    disableLayoutCommand();
+                    ed.RunCommand("Primitives.Quadratic_Bezier");
                     break;
                 case "Beam":
                     disableLayoutCommand();
