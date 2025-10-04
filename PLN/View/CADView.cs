@@ -90,7 +90,7 @@ namespace PLN
             Width = 1;
             Height = 1;
 
-            Camera = new Camera(new Point2D(0, 0), 5.0f / 3.0f);
+            Camera = new Camera(new Point2D(0, 0), 50f / 3f);
             renderer = new Renderer(this);
             renderer.Init(Control);
             Redraw();

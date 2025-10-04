@@ -8,7 +8,7 @@ namespace PLN
         private Point2D position;
         private float zoom;
 
-        [Category("Appearance"), DefaultValue(5f / 3f), Description("Determines the zoom factor of the view.")]
+        [Category("Appearance"), DefaultValue(50f / 3f), Description("Determines the zoom factor of the view.")]
         public float Zoom
         {
             get

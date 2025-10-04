@@ -299,7 +299,7 @@ namespace PLN
             contentProperties.Show(dockPanel, DockState.DockRight);
             contentViewFloor1F.Show(dockPanel, DockState.Document);
             //contentViewFloor3D.Show(dockPanel, DockState.Document);
-            contentViewFloor3D.Show(contentViewFloor1F.Pane, DockAlignment.Right, 0.5);
+            //contentViewFloor3D.Show(contentViewFloor1F.Pane, DockAlignment.Right, 0.5);
             // 
             // cadWindow1
             // 

@@ -62,7 +62,7 @@ namespace PLN
 
         public void AddModulePoint(Point2D cursorLocation, float snapDistance)
         {
-            float module = 100;
+            float module = 1000;
             float max = 10 * module;
             List<Point2D> modulePoints = new List<Point2D>();
 
