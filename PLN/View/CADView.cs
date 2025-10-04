@@ -404,11 +404,6 @@ namespace PLN
         {
             Camera.Position += distance;
         }
-        public void Home()
-        {
-            Camera = new Camera(new Point2D(0, 0), 5.0f / 3.0f);
-            Redraw();
-        }
 
         public void Resize(int width, int height)
         {
@@ -469,11 +464,6 @@ namespace PLN
 
         private void CadView_MouseClick(object sender, MouseEventArgs e)
         {
-            if (!ReferenceEquals(Document.ActiveView, this))
-                Document.ActiveView = this;
-
-            Document.ActiveView3D = null;
-
             CadView_CursorClick(sender, new CursorEventArgs(e.Button, e.Clicks, ScreenToWorld(e.X, e.Y), e.Delta));
         }
 
@@ -664,10 +654,8 @@ namespace PLN
             viewCursor.Visible = true;
             Cursor.Hide();
 
-            //if (!ReferenceEquals(Document.ActiveView, this))
-            //    Document.ActiveView = this;
-
-            //Document.ActiveView3D = null;
+            if (!ReferenceEquals(Document.ActiveView, this))
+                Document.ActiveView = this;
 
             Redraw();
         }

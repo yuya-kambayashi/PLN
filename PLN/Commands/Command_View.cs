@@ -74,27 +74,4 @@ namespace PLN.Commands
             view.Pan(p2.Value - p1.Value);
         }
     }
-
-    public class ViewHome : Command
-    {
-        public override string RegisteredName => "View.Home";
-        public override string Name => "Home";
-
-        public override async Task Apply(CADDocument doc, params string[] args)
-        {
-            CADView view = doc.ActiveView;
-            if (view != null)
-            {
-                view.Home();
-                return;
-            }
-
-            CADView3D view3D = doc.ActiveView3D;
-            if (view3D != null)
-            {
-                view3D.Home();
-                return;
-            }
-        }
-    }
 }

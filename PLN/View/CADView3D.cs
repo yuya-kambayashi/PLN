@@ -37,8 +37,6 @@ namespace PLN
             Control.Dock = DockStyle.Fill;
             Control.Load += CadView3D_Load;
             Control.Paint += CadView3D_Paint;
-            Control.MouseClick += CadView3D_MouseClick;
-            Control.MouseEnter += CadView3D_MouseEnter;
             Control.Resize += CadView3D_Resize;
             Control.MouseMove += CadView3D_MouseMove;
             Control.MouseWheel += CadView3D_MouseWheel;
@@ -77,6 +75,7 @@ namespace PLN
             DrawAxes();
 
             // Render drawing objects
+            //DrawDocumentSample();
             DrawDocument();
 
             Control.SwapBuffers();
@@ -110,6 +109,7 @@ namespace PLN
             foreach (var element in Document.Model.OfType<Element>())
             {
                 element.Draw3D();
+
             }
         }
         private void CadView3D_Load(object sender, EventArgs e)
@@ -148,8 +148,7 @@ namespace PLN
                 //Control.KeyDown -= CadView_KeyDown;
                 //Control.KeyPress -= CadView_KeyPress;
                 Control.Paint -= CadView3D_Paint;
-                Control.MouseEnter -= CadView3D_MouseEnter;
-                Control.MouseClick -= CadView3D_MouseClick;
+                //Control.MouseEnter -= CadView_MouseEnter;
                 //Control.MouseLeave -= CadView_MouseLeave;
                 Control.Load -= CadView3D_Load;
                 Control.Paint -= CadView3D_Paint;
@@ -157,6 +156,12 @@ namespace PLN
                 Control.MouseMove -= CadView3D_MouseMove;
                 Control.MouseWheel -= CadView3D_MouseWheel;
             }
+
+            //if (renderer != null)
+            //{
+            //    renderer.Dispose();
+            //    renderer = null;
+            //}
         }
         private Point lastMouse;
         private void CadView3D_MouseMove(object sender, MouseEventArgs e)
@@ -174,30 +179,6 @@ namespace PLN
         {
             zoom += e.Delta * 0.01f;
             Control.Invalidate();
-        }
-        private void CadView3D_MouseEnter(object sender, EventArgs e)
-        {
-            //if (!ReferenceEquals(Document.ActiveView3D, this))
-            //    Document.ActiveView3D = this;
-
-            //Document.ActiveView = null;
-
-            Redraw();
-        }
-        private void CadView3D_MouseClick(object sender, EventArgs e)
-        {
-            if (!ReferenceEquals(Document.ActiveView3D, this))
-                Document.ActiveView3D = this;
-
-            Document.ActiveView = null;
-        }
-        public void Home()
-        {
-            rotationX = -120f;
-            rotationY = 0f;
-            rotationZ = 135f;
-            zoom = -10f;
-            Redraw();
         }
     }
 }
