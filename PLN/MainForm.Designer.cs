@@ -98,6 +98,7 @@ namespace PLN
             toolStrip1 = new ToolStrip();
             btnZoom = new ToolStripButton();
             btnPan = new ToolStripButton();
+            btnHome = new ToolStripButton();
             dockPanel = new DockPanel();
             toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             toolStripContainer1.ContentPanel.SuspendLayout();
@@ -731,7 +732,7 @@ namespace PLN
             toolStrip1.Dock = DockStyle.None;
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
             toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnZoom, btnPan });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnZoom, btnPan, btnHome });
             toolStrip1.Location = new Point(4, 54);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(61, 27);
@@ -756,6 +757,13 @@ namespace PLN
             btnPan.Size = new Size(29, 24);
             btnPan.Text = "Pan";
             btnPan.Click += btnPan_Click;
+            // 
+            // btnHome
+            // 
+            btnHome.Name = "btnHome";
+            btnHome.Size = new Size(29, 24);
+            btnHome.Text = "Home";
+            btnHome.Click += btnHome_Click;
             // 
             // MainForm
             // 
@@ -826,6 +834,7 @@ namespace PLN
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btnZoom;
         private System.Windows.Forms.ToolStripButton btnPan;
+        private System.Windows.Forms.ToolStripButton btnHome;
         private System.Windows.Forms.ToolStripButton btnDrawPoint;
         private System.Windows.Forms.ToolStripButton btnStretch;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;

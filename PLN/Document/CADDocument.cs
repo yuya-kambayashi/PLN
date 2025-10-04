@@ -15,6 +15,7 @@ namespace PLN
         public Editor Editor { get; private set; }
         public Settings Settings { get; private set; }
         public CADView ActiveView { get; set; }
+        public CADView3D ActiveView3D { get; set; }
         public LayerDictionary Layers { get; private set; }
         public TextStyleDictionary TextStyles { get; private set; }
         public CompositeDictionary Composites { get; private set; }
@@ -38,6 +39,7 @@ namespace PLN
             Transients = new Composite();
 
             ActiveView = null;
+            ActiveView3D = null;
 
             Editor.PickedSelection.CollectionChanged += Selection_CollectionChanged;
             Model.CollectionChanged += Model_CollectionChanged;

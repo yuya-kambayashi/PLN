@@ -441,6 +441,10 @@ namespace PLN
         {
             ed.RunCommand("View.Pan");
         }
+        private void btnHome_Click(object sender, EventArgs e)
+        {
+            ed.RunCommand("View.Home");
+        }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {

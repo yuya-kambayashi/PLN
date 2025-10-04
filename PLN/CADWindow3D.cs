@@ -17,7 +17,7 @@ namespace PLN
         [Browsable(false)]
         public CADDocument Document { get; set; }
         [Browsable(false)]
-        public CADView3D View { get; private set; }
+        public CADView3D View3D { get; private set; }
 
         public CADWindow3D(CADDocument doc)
         {
@@ -32,15 +32,17 @@ namespace PLN
 
             Document = doc;
 
-            View = new CADView3D(this, Document);
+            View3D = new CADView3D(this, Document);
+            Document.ActiveView3D = View3D;
 
 
             Disposed += CADWindow3D_Disposed;
         }
         private void CADWindow3D_Disposed(object sender, System.EventArgs e)
         {
-            if (View != null)
-                View.Dispose();
+            Document.ActiveView3D = null;
+            if (View3D != null)
+                View3D.Dispose();
         }
     }
 }
