@@ -89,6 +89,7 @@ namespace PLN
             nodeElements.Nodes.Add(new TreeNode("Column"));
             nodeElements.Nodes.Add(new TreeNode("Room"));
             nodeElements.Nodes.Add(new TreeNode("Wall"));
+            nodeElements.Nodes.Add(new TreeNode("Site"));
 
             treeProjectBrowser.Nodes.Add(nodeView);
             treeProjectBrowser.Nodes.Add(nodeDrawables);
@@ -667,7 +668,10 @@ namespace PLN
                     disableLayoutCommand();
                     ed.RunCommand("Elements.Wall");
                     break;
-
+                case "Site":
+                    disableLayoutCommand();
+                    ed.RunCommand("Elements.Site");
+                    break;
             }
         }
     }
