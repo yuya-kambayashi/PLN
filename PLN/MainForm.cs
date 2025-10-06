@@ -557,7 +557,7 @@ namespace PLN
         }
         private void btnDevelop1_Click(object sender, EventArgs e)
         {
-            ed.RunCommand("View.Pan");
+            ed.RunCommand("Develop.Develop1");
         }
 
         private void treeProjectBrowser_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
