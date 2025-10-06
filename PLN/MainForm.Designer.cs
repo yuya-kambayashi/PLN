@@ -100,6 +100,12 @@ namespace PLN
             btnZoom = new ToolStripButton();
             btnPan = new ToolStripButton();
             dockPanel = new DockPanel();
+            tsDevelop = new ToolStrip();
+            btnDevelop1 = new ToolStripButton();
+            btnDevelop2 = new ToolStripButton();
+            btnDevelop3 = new ToolStripButton();
+            btnDevelop4 = new ToolStripButton();
+            btnDevelop5 = new ToolStripButton();
             toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             toolStripContainer1.ContentPanel.SuspendLayout();
             toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -109,6 +115,7 @@ namespace PLN
             tsStandard.SuspendLayout();
             tsTransform.SuspendLayout();
             tsPrimitives.SuspendLayout();
+            tsDevelop.SuspendLayout();
             toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -138,6 +145,7 @@ namespace PLN
             toolStripContainer1.TopToolStripPanel.Controls.Add(tsTransform);
             //toolStripContainer1.TopToolStripPanel.Controls.Add(toolStrip1);
             //toolStripContainer1.TopToolStripPanel.Controls.Add(tsPrimitives);
+            toolStripContainer1.TopToolStripPanel.Controls.Add(tsDevelop);
             // 
             // statusStrip1
             // 
@@ -764,6 +772,57 @@ namespace PLN
             btnPan.Text = "Pan";
             btnPan.Click += btnPan_Click;
             // 
+            // tsDevelop
+            // 
+            tsDevelop.Dock = DockStyle.None;
+            tsDevelop.GripStyle = ToolStripGripStyle.Hidden;
+            tsDevelop.ImageScalingSize = new Size(20, 20);
+            tsDevelop.Items.AddRange(new ToolStripItem[] { btnDevelop1, btnDevelop2, btnDevelop3, btnDevelop4, btnDevelop5 });
+            tsDevelop.Location = new Point(7, 54);
+            tsDevelop.Name = "tsDevelop";
+            //tsDevelop.Size = new Size(1235, 27);
+            tsDevelop.TabIndex = 3;
+            // 
+            // btnDevelop1
+            // 
+            btnDevelop1.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDevelop1.Name = "btnDevelop1";
+            btnDevelop1.Size = new Size(29, 24);
+            btnDevelop1.Text = "Dev1";
+            btnDevelop1.Click += btnDevelop1_Click;
+            // 
+            // btnDevelop2
+            // 
+            btnDevelop2.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDevelop2.Name = "btnDevelop2";
+            btnDevelop2.Size = new Size(29, 24);
+            btnDevelop2.Text = "Dev2";
+            btnDevelop2.Click += btnDevelop1_Click;
+            // 
+            // btnDevelop3
+            // 
+            btnDevelop3.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDevelop3.Name = "btnDevelop3";
+            btnDevelop3.Size = new Size(29, 24);
+            btnDevelop3.Text = "Dev3";
+            btnDevelop3.Click += btnDevelop1_Click;
+            // 
+            // btnDevelop4
+            // 
+            btnDevelop4.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDevelop4.Name = "btnDevelop4";
+            btnDevelop4.Size = new Size(29, 24);
+            btnDevelop4.Text = "Dev4";
+            btnDevelop4.Click += btnDevelop1_Click;
+            // 
+            // btnDevelop5
+            // 
+            btnDevelop5.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDevelop5.Name = "btnDevelop5";
+            btnDevelop5.Size = new Size(29, 24);
+            btnDevelop5.Text = "Dev5";
+            btnDevelop5.Click += btnDevelop1_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -794,6 +853,8 @@ namespace PLN
             tsPrimitives.PerformLayout();
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
+            tsDevelop.ResumeLayout(false);
+            tsDevelop.PerformLayout();
             ResumeLayout(false);
 
         }
@@ -863,6 +924,13 @@ namespace PLN
         private System.Windows.Forms.TreeNode nodeView;
         private System.Windows.Forms.TreeNode nodeDrawables;
         private System.Windows.Forms.TreeNode nodeElements;
+        private System.Windows.Forms.ToolStrip tsDevelop;
+        private System.Windows.Forms.ToolStripButton btnDevelop1;
+        private System.Windows.Forms.ToolStripButton btnDevelop2;
+        private System.Windows.Forms.ToolStripButton btnDevelop3;
+        private System.Windows.Forms.ToolStripButton btnDevelop4;
+        private System.Windows.Forms.ToolStripButton btnDevelop5;
+
 
         private DockPanel dockPanel;
         private MainDockContent contentProjectBrowser;

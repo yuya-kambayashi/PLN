@@ -555,6 +555,11 @@ namespace PLN
             cadWindow1.Focus();
             UpdateUI();
         }
+        private void btnDevelop1_Click(object sender, EventArgs e)
+        {
+            ed.RunCommand("View.Pan");
+        }
+
         private void treeProjectBrowser_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             if (e.Node.Tag != null && e.Node.Tag.ToString() == "disabled")
