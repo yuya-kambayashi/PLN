@@ -12,6 +12,12 @@ namespace PLN.Commands
 
         public override async Task Apply(CADDocument doc, params string[] args)
         {
+            if (doc.ActiveView.Level == 1)
+            {
+                System.Windows.Forms.MessageBox.Show("This component cannot be placed on the first floor.", "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                return;
+            }
+
             Editor ed = doc.Editor;
             ed.PickedSelection.Clear();
 
@@ -184,6 +190,12 @@ namespace PLN.Commands
 
         public override async Task Apply(CADDocument doc, params string[] args)
         {
+            if (doc.ActiveView.Level != 1)
+            {
+                System.Windows.Forms.MessageBox.Show("This component can only be placed on the ground floor.", "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                return;
+            }
+
             Editor ed = doc.Editor;
             ed.PickedSelection.Clear();
 
