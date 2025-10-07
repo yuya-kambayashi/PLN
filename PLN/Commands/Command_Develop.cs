@@ -18,21 +18,17 @@ namespace PLN.Commands
         {
             Editor ed = doc.Editor;
 
-            var beams = ed.Document.Model.OfType<Beam>();
+            var beams = ed.Document.Model.OfType<Beam>().ToList();
             int cnt = beams.Count();
-
-            List<Drawable> columns = new List<Drawable>();
 
             foreach (var beam in beams)
             {
                 Column c1 = new Column(beam.ReferenceLevel - 1, new Drawables.Point(beam.Fig.StartPoint), 200);
-                columns.Add(c1);
+                ed.Document.Model.Add(c1);
 
                 Column c2 = new Column(beam.ReferenceLevel - 1, new Drawables.Point(beam.Fig.EndPoint), 200);
-                columns.Add(c2);
+                ed.Document.Model.Add(c2);
             }
-
-            ed.Document.Model.AddAll(columns);
         }
     }
 }
