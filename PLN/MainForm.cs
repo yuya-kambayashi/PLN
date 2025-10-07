@@ -227,7 +227,7 @@ namespace PLN
                 return true;
             else
             {
-                ed.RunCommandAsync("Document.Save");
+                ed.RunCommand("Document.Save");
                 return !doc.IsModified;
             }
         }
@@ -235,29 +235,29 @@ namespace PLN
         private void btnNew_Click(object sender, EventArgs e)
         {
             if (EnsureDocumentSaved())
-                ed.RunCommandAsync("Document.New");
+                ed.RunCommand("Document.New");
             UpdateUI();
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
             if (EnsureDocumentSaved())
-                ed.RunCommandAsync("Document.Open", SaveFileName);
+                ed.RunCommand("Document.Open", SaveFileName);
             UpdateUI();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(doc.FileName))
-                ed.RunCommandAsync("Document.SaveAs", SaveFileName);
+                ed.RunCommand("Document.SaveAs", SaveFileName);
             else
-                ed.RunCommandAsync("Document.Save");
+                ed.RunCommand("Document.Save");
             UpdateUI();
         }
 
         private void btnSaveAs_Click(object sender, EventArgs e)
         {
-            ed.RunCommandAsync("Document.SaveAs", doc.FileName ?? SaveFileName);
+            ed.RunCommand("Document.SaveAs", doc.FileName ?? SaveFileName);
             UpdateUI();
         }
 
@@ -314,153 +314,153 @@ namespace PLN
         private void btnDrawPoint_Click(object sender, EventArgs e)
         {
             disableLayoutCommand();
-            ed.RunCommandAsync("Primitives.Point");
+            ed.RunCommand("Primitives.Point");
         }
 
         private void btnDrawLine_Click(object sender, EventArgs e)
         {
             disableLayoutCommand();
-            ed.RunCommandAsync("Primitives.Line");
+            ed.RunCommand("Primitives.Line");
         }
         private void btnDrawBeam_Click(object sender, EventArgs e)
         {
             disableLayoutCommand();
-            ed.RunCommandAsync("Elements.Beam");
+            ed.RunCommand("Elements.Beam");
         }
 
         private void btnDrawColumn_Click(object sender, EventArgs e)
         {
             disableLayoutCommand();
-            ed.RunCommandAsync("Elements.Column");
+            ed.RunCommand("Elements.Column");
         }
         private void btnDrawRoom_Click(object sender, EventArgs e)
         {
             disableLayoutCommand();
-            ed.RunCommandAsync("Elements.Room");
+            ed.RunCommand("Elements.Room");
         }
 
         private void btnDrawArc_Click(object sender, EventArgs e)
         {
-            ed.RunCommandAsync("Primitives.Arc");
+            ed.RunCommand("Primitives.Arc");
         }
 
         private void btnDrawCircle_Click(object sender, EventArgs e)
         {
             disableLayoutCommand();
-            ed.RunCommandAsync("Primitives.Circle");
+            ed.RunCommand("Primitives.Circle");
         }
         private void btnDrawEllipse_Click(object sender, EventArgs e)
         {
             disableLayoutCommand();
-            ed.RunCommandAsync("Primitives.Ellipse");
+            ed.RunCommand("Primitives.Ellipse");
         }
 
         private void btnDrawEllipticArc_Click(object sender, EventArgs e)
         {
             disableLayoutCommand();
-            ed.RunCommandAsync("Primitives.Elliptic_Arc");
+            ed.RunCommand("Primitives.Elliptic_Arc");
         }
 
         private void btnDrawText_Click(object sender, EventArgs e)
         {
             disableLayoutCommand();
-            ed.RunCommandAsync("Primitives.Text");
+            ed.RunCommand("Primitives.Text");
         }
 
         private void btnDrawDimension_Click(object sender, EventArgs e)
         {
             disableLayoutCommand();
-            ed.RunCommandAsync("Primitives.Dimension");
+            ed.RunCommand("Primitives.Dimension");
         }
 
         private void btnDrawParabola_Click(object sender, EventArgs e)
         {
             disableLayoutCommand();
-            ed.RunCommandAsync("Primitives.Parabola");
+            ed.RunCommand("Primitives.Parabola");
         }
 
         private void btnDrawPolyline_Click(object sender, EventArgs e)
         {
             disableLayoutCommand();
-            ed.RunCommandAsync("Primitives.Polyline");
+            ed.RunCommand("Primitives.Polyline");
         }
 
         private void btnDrawHatch_Click(object sender, EventArgs e)
         {
             disableLayoutCommand();
-            ed.RunCommandAsync("Primitives.Hatch");
+            ed.RunCommand("Primitives.Hatch");
         }
 
         private void btnDrawRectangle_Click(object sender, EventArgs e)
         {
             disableLayoutCommand();
-            ed.RunCommandAsync("Primitives.Rectangle");
+            ed.RunCommand("Primitives.Rectangle");
         }
 
         private void btnDrawQuadraticBezier_Click(object sender, EventArgs e)
         {
             disableLayoutCommand();
-            ed.RunCommandAsync("Primitives.Quadratic_Bezier");
+            ed.RunCommand("Primitives.Quadratic_Bezier");
         }
 
         private void btnMove_Click(object sender, EventArgs e)
         {
-            ed.RunCommandAsync("Transform.Move");
+            ed.RunCommand("Transform.Move");
         }
 
         private void btnCopy_Click(object sender, EventArgs e)
         {
-            ed.RunCommandAsync("Transform.Copy");
+            ed.RunCommand("Transform.Copy");
         }
 
         private void btnRotate_Click(object sender, EventArgs e)
         {
-            ed.RunCommandAsync("Transform.Rotate");
+            ed.RunCommand("Transform.Rotate");
         }
 
         private void btnScale_Click(object sender, EventArgs e)
         {
-            ed.RunCommandAsync("Transform.Scale");
+            ed.RunCommand("Transform.Scale");
         }
 
         private void btnMirror_Click(object sender, EventArgs e)
         {
-            ed.RunCommandAsync("Transform.Mirror");
+            ed.RunCommand("Transform.Mirror");
         }
 
         private void btnStretch_Click(object sender, EventArgs e)
         {
-            ed.RunCommandAsync("Transform.MoveControlPoints");
+            ed.RunCommand("Transform.MoveControlPoints");
         }
 
         private void btnRotateCP_Click(object sender, EventArgs e)
         {
-            ed.RunCommandAsync("Transform.RotateControlPoints");
+            ed.RunCommand("Transform.RotateControlPoints");
         }
 
         private void btnScaleCP_Click(object sender, EventArgs e)
         {
-            ed.RunCommandAsync("Transform.ScaleControlPoints");
+            ed.RunCommand("Transform.ScaleControlPoints");
         }
 
         private void btnZoom_Click(object sender, EventArgs e)
         {
-            ed.RunCommandAsync("View.Zoom");
+            ed.RunCommand("View.Zoom");
         }
 
         private void btnPan_Click(object sender, EventArgs e)
         {
-            ed.RunCommandAsync("View.Pan");
+            ed.RunCommand("View.Pan");
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            ed.RunCommandAsync("Edit.Delete");
+            ed.RunCommand("Edit.Delete");
         }
 
         private void btnCreateComposite_Click(object sender, EventArgs e)
         {
-            ed.RunCommandAsync("Composite.Create");
+            ed.RunCommand("Composite.Create");
         }
         private void btnAngleDegrees_Click(object sender, EventArgs e)
         {
@@ -558,7 +558,7 @@ namespace PLN
         }
         private void btnDevelop1_Click(object sender, EventArgs e)
         {
-            ed.RunCommandAsync("Develop.Develop1");
+            ed.RunCommand("Develop.Develop1");
         }
 
         private void treeProjectBrowser_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -602,75 +602,75 @@ namespace PLN
                     break;
                 case "Line":
                     disableLayoutCommand();
-                    ed.RunCommandAsync("Primitives.Line");
+                    ed.RunCommand("Primitives.Line");
                     break;
                 case "Point":
                     disableLayoutCommand();
-                    ed.RunCommandAsync("Primitives.Point");
+                    ed.RunCommand("Primitives.Point");
                     break;
                 case "Circle":
                     disableLayoutCommand();
-                    ed.RunCommandAsync("Primitives.Circle");
+                    ed.RunCommand("Primitives.Circle");
                     break;
                 case "Ellipse":
                     disableLayoutCommand();
-                    ed.RunCommandAsync("Primitives.Ellipse");
+                    ed.RunCommand("Primitives.Ellipse");
                     break;
                 case "Arc":
                     disableLayoutCommand();
-                    ed.RunCommandAsync("Primitives.Arc");
+                    ed.RunCommand("Primitives.Arc");
                     break;
                 case "Elliptic Arc":
                     disableLayoutCommand();
-                    ed.RunCommandAsync("Primitives.Elliptic_Arc");
+                    ed.RunCommand("Primitives.Elliptic_Arc");
                     break;
                 case "Text":
                     disableLayoutCommand();
-                    ed.RunCommandAsync("Primitives.Text");
+                    ed.RunCommand("Primitives.Text");
                     break;
                 case "Dimension":
                     disableLayoutCommand();
-                    ed.RunCommandAsync("Primitives.Dimension");
+                    ed.RunCommand("Primitives.Dimension");
                     break;
                 case "Parabola":
                     disableLayoutCommand();
-                    ed.RunCommandAsync("Primitives.Parabola");
+                    ed.RunCommand("Primitives.Parabola");
                     break;
                 case "Polyline":
                     disableLayoutCommand();
-                    ed.RunCommandAsync("Primitives.Polyline");
+                    ed.RunCommand("Primitives.Polyline");
                     break;
                 case "Rectangle":
                     disableLayoutCommand();
-                    ed.RunCommandAsync("Primitives.Rectangle");
+                    ed.RunCommand("Primitives.Rectangle");
                     break;
                 case "Hatch":
                     disableLayoutCommand();
-                    ed.RunCommandAsync("Primitives.Hatch");
+                    ed.RunCommand("Primitives.Hatch");
                     break;
                 case "Quadratic Bezier":
                     disableLayoutCommand();
-                    ed.RunCommandAsync("Primitives.Quadratic_Bezier");
+                    ed.RunCommand("Primitives.Quadratic_Bezier");
                     break;
                 case "Beam":
                     disableLayoutCommand();
-                    ed.RunCommandAsync("Elements.Beam");
+                    ed.RunCommand("Elements.Beam");
                     break;
                 case "Column":
                     disableLayoutCommand();
-                    ed.RunCommandAsync("Elements.Column");
+                    ed.RunCommand("Elements.Column");
                     break;
                 case "Room":
                     disableLayoutCommand();
-                    ed.RunCommandAsync("Elements.Room");
+                    ed.RunCommand("Elements.Room");
                     break;
                 case "Wall":
                     disableLayoutCommand();
-                    ed.RunCommandAsync("Elements.Wall");
+                    ed.RunCommand("Elements.Wall");
                     break;
                 case "Site":
                     disableLayoutCommand();
-                    ed.RunCommandAsync("Elements.Site");
+                    ed.RunCommand("Elements.Site");
                     break;
             }
         }

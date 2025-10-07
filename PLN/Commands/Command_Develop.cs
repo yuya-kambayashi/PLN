@@ -21,6 +21,8 @@ namespace PLN.Commands
             var beams = ed.Document.Model.OfType<Beam>().ToList();
             int cnt = beams.Count();
 
+            Thread.Sleep(10000);
+
             foreach (var beam in beams)
             {
                 Column c1 = new Column(beam.ReferenceLevel - 1, new Drawables.Point(beam.Fig.StartPoint), 200);

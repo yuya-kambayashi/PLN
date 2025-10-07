@@ -50,7 +50,7 @@ namespace PLN
             OnPrompt(new EditorPromptEventArgs(message));
         }
 
-        public void RunCommandAsync(string registeredName, params string[] args)
+        public void RunCommand(string registeredName, params string[] args)
         {
             if (commands.ContainsKey(registeredName))
             {
@@ -84,7 +84,7 @@ namespace PLN
         {
             if (!string.IsNullOrEmpty(LastCommandName))
             {
-                RunCommandAsync(LastCommandName, LastCommandArgs);
+                RunCommand(LastCommandName, LastCommandArgs);
             }
         }
         #region Helper Functions
