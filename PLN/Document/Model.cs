@@ -17,6 +17,14 @@ namespace PLN.Document
             item.InModel = true;
             base.Add(item);
         }
+        public void AddAll(List<Drawable> items)
+        {
+            foreach (var item in items)
+            {
+                item.InModel = true;
+                base.Add(item);
+            }
+        }
         public override bool Remove(Drawable item)
         {
             item.InModel = false;

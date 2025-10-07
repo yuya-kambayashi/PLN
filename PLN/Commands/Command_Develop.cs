@@ -1,4 +1,6 @@
 ﻿using PLN.Drawables;
+using PLN.Elements;
+using PLN.Geometry;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,38 +18,21 @@ namespace PLN.Commands
         {
             Editor ed = doc.Editor;
 
-            MessageBox.Show("Develop1", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var beams = ed.Document.Model.OfType<Beam>();
+            int cnt = beams.Count();
 
-            //var s = await ed.GetSelection("Select objects: ");
-            //if (s.Result != ResultMode.OK || s.Value.Count == 0) return;
-            //var p = await ed.GetPoint("Base point: ");
-            //if (p.Result != ResultMode.OK) return;
-            //var t = await ed.GetText("Name: ");
-            //if (t.Result != ResultMode.OK || string.IsNullOrEmpty(t.Value)) return;
+            List<Drawable> columns = new List<Drawable>();
 
-            //Composite composite = new Composite();
-            //composite.Name = t.Value;
+            foreach (var beam in beams)
+            {
+                Column c1 = new Column(beam.ReferenceLevel - 1, new Drawables.Point(beam.Fig.StartPoint), 200);
+                columns.Add(c1);
 
-            //Matrix2D matrix = Matrix2D.Translation(-1 * p.Value.AsVector2D());
-            //List<Drawable> toDelete = new List<Drawable>();
-            //foreach (Drawable item in s.Value)
-            //{
-            //    item.TransformBy(matrix);
-            //    toDelete.Add(item);
-            //    composite.Add(item);
-            //}
+                Column c2 = new Column(beam.ReferenceLevel - 1, new Drawables.Point(beam.Fig.EndPoint), 200);
+                columns.Add(c2);
+            }
 
-            //doc.Composites.Add(composite.Name, composite);
-
-            //foreach (Drawable item in toDelete)
-            //{
-            //    doc.Model.Remove(item);
-            //}
-
-            //CompositeReference compRef = new CompositeReference();
-            //compRef.Composite = composite;
-            //compRef.Location = p.Value;
-            //doc.Model.Add(compRef);
+            ed.Document.Model.AddAll(columns);
         }
     }
 }
