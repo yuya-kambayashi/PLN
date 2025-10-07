@@ -558,7 +558,25 @@ namespace PLN
         }
         private void btnDevelop1_Click(object sender, EventArgs e)
         {
-            ed.RunCommand("Develop.Develop1");
+            var form = Form.ActiveForm;
+            try
+            {
+                if (form != null)
+                {
+                    form.Enabled = false;
+                    form.Cursor = Cursors.WaitCursor;
+                }
+
+                ed.RunCommand("Develop.Develop1");
+            }
+            finally
+            {
+                if (form != null)
+                {
+                    form.Enabled = true;
+                    form.Cursor = Cursors.Default;
+                }
+            }
         }
 
         private void treeProjectBrowser_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
