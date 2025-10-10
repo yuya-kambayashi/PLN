@@ -797,7 +797,7 @@ namespace PLN
             btnDevelop2.Name = "btnDevelop2";
             btnDevelop2.Size = new Size(29, 24);
             btnDevelop2.Text = "Dev2";
-            btnDevelop2.Click += btnDevelop1_Click;
+            btnDevelop2.Click += btnDevelop2_Click;
             // 
             // btnDevelop3
             // 
