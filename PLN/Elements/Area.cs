@@ -1,0 +1,38 @@
+﻿using PLN.Drawables;
+using PLN.Geometry;
+using PLN.Graphics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PLN.Elements
+{
+    internal class Area : Element
+    {
+        public override LayoutType LayoutType => LayoutType.Horizontal;
+
+        public Polygon Fig { get; private set; }
+
+        public string Name { get; private set; }
+        public Area(int referenceLevel, Point2DCollection pts, string name)
+        {
+            updateLevel(referenceLevel);
+
+            this.Fig = new Polygon(pts);
+            this.Name = name;
+        }
+        public override void Draw(Renderer renderer)
+        {
+            Layer layer = new Layer("1", new Style(new Graphics.Color(128, Graphics.Color.SkyBlue)));
+
+            renderer.FillPolygon(Style.ApplyLayer(layer), Fig.Points);
+        }
+
+        public override Extents2D GetExtents()
+        {
+            return Fig.GetExtents();
+        }
+    }
+}
