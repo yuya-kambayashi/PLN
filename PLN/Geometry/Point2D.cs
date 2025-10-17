@@ -35,6 +35,26 @@ namespace PLN.Geometry
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Point2D MoveTowards(Point2D target, float distance)
+        {
+            float dx = target.X - X;
+            float dy = target.Y - Y;
+            float len = MathF.Sqrt(dx * dx + dy * dy);
+
+            if (len == 0) return this; // 同一点なら動かない
+
+            float ratio = distance / len;
+            // 目標点を超えないようにする場合は次のように：
+            // ratio = MathF.Min(1, ratio);
+
+            return new Point2D(
+                X + dx * ratio,
+                Y + dy * ratio
+            );
+        }
+
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Distance(Point2D p1, Point2D p2)
         {
             return (p1 - p2).Length;

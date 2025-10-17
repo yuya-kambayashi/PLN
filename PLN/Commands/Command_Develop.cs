@@ -59,8 +59,17 @@ namespace PLN.Commands
             var sumY = site.Fig.Points.Sum(pt => pt.Y);
 
 
-            Column c2 = new Column(1, new Drawables.Point(new Point2D(sumX / site.Fig.Points.Count, sumY / site.Fig.Points.Count)), 200);
-            ed.Document.Model.Add(c2);
+            var ptCenter = new Point2D(sumX / site.Fig.Points.Count, sumY / site.Fig.Points.Count);
+
+
+            var pts = new Point2DCollection();
+            foreach (var ptBase in site.Fig.Points)
+            {
+                var ptNew = ptBase.MoveTowards(ptCenter, 100);
+                pts.Add(ptNew);
+            }
+            var polygon = new Polygon(pts);
+            ed.Document.Model.Add(polygon);
         }
     }
 }
