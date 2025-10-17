@@ -3,6 +3,7 @@ using PLN.Elements;
 using PLN.Geometry;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,10 +55,11 @@ namespace PLN.Commands
             var site = ed.Document.Model.OfType<Site>().First();
 
 
-            var pt = site.Fig.Points[0];
+            var sumX = site.Fig.Points.Sum(pt => pt.X);
+            var sumY = site.Fig.Points.Sum(pt => pt.Y);
 
 
-            Column c2 = new Column(1, new Drawables.Point(pt), 200);
+            Column c2 = new Column(1, new Drawables.Point(new Point2D(sumX / site.Fig.Points.Count, sumY / site.Fig.Points.Count)), 200);
             ed.Document.Model.Add(c2);
         }
     }
