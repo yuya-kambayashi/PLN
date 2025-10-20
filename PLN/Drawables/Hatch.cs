@@ -27,7 +27,9 @@ namespace PLN.Drawables
 
         public override void Draw(Renderer renderer)
         {
-            renderer.FillPolygon(Style.ApplyLayer(Layer), Points);
+            Layer layer = new Layer("1", new Style(new Graphics.Color(128, Graphics.Color.Yellow)));
+
+            renderer.FillPolygon(Style.ApplyLayer(layer), Points);
         }
     }
 }
