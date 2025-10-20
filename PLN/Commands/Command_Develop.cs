@@ -106,58 +106,39 @@ namespace PLN.Commands
             var rect1 = ed.Document.Model.OfType<Hatch>().ElementAt(0);
             var rect2 = ed.Document.Model.OfType<Hatch>().ElementAt(1);
 
-            Path64 subject = new() { };
+            PathD subject = new PathD();
             foreach (var pt in rect1.Points)
             {
-                subject.Add(new Point64((long)(pt.X), (long)(pt.Y)));
+                subject.Add(new PointD(pt.X, (double)pt.Y));
             }
+            PathsD subjects = new PathsD();
+            subjects.Add(subject);
 
-
-            // Polygon2
-            Path64 clip = new() { };
+            PathD clip = new PathD();
             foreach (var pt in rect2.Points)
             {
-                clip.Add(new Point64((long)(pt.X), (long)(pt.Y)));
+                clip.Add(new PointD(pt.X, pt.Y));
             }
+            PathsD clips = new PathsD();
+            clips.Add(clip);
 
-            // 演算オブジェクト作成
-            Clipper64 clipper = new();
-            clipper.AddSubject(subject);
-            clipper.AddClip(clip);
-
-            // 結果格納先
-            Paths64 solution = new();
-
-            // 共通部分（交差）
-            clipper.Execute(ClipType.Intersection, FillRule.NonZero, solution);
-
-            Console.WriteLine("=== Intersection ===");
-            foreach (var p in solution)
-            {
-                foreach (var pt in p)
-                    Console.WriteLine($"{pt.X}, {pt.Y}");
-                Console.WriteLine("---");
-            }
-
-            // 差集合（subject から clip を切り取る）
-            solution.Clear();
-            clipper.Execute(ClipType.Difference, FillRule.NonZero, solution);
+            PathsD intersection = Clipper.Intersect(subjects, clips, FillRule.NonZero);
+            PathsD difference = Clipper.Difference(subjects, clips, FillRule.NonZero);
+            PathsD union = Clipper.Union(subjects, clips, FillRule.NonZero);
 
             Console.WriteLine("=== Difference ===");
-            foreach (var s in solution)
+            foreach (var s in union)
             {
                 var pts = new Point2DCollection();
 
                 foreach (var pt in s)
                 {
-                    Console.WriteLine($"{pt.X}, {pt.Y}");
 
-                    pts.Add(new Point2D(pt.X, pt.Y));
+                    pts.Add(new Point2D((float)pt.x, (float)pt.y));
 
                 }
                 var polygon = new Hatch(pts);
                 ed.Document.Model.Add(polygon);
-                Console.WriteLine("---");
             }
             ed.Document.Model.Remove(rect1);
             ed.Document.Model.Remove(rect2);
