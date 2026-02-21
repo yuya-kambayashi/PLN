@@ -81,18 +81,6 @@ namespace PLN.Commands
 
         public override async Task Apply(CADDocument doc, params string[] args)
         {
-            //Editor ed = doc.Editor;
-
-            //var beams = ed.Document.Model.OfType<Beam>().ToList();
-
-            //foreach (var beam in beams)
-            //{
-            //    Column c1 = new Column(beam.ReferenceLevel - 1, new Drawables.Point(beam.Fig.StartPoint), 200);
-            //    ed.Document.Model.Add(c1);
-
-            //    Column c2 = new Column(beam.ReferenceLevel - 1, new Drawables.Point(beam.Fig.EndPoint), 200);
-            //    ed.Document.Model.Add(c2);
-            //}
 
             Editor ed = doc.Editor;
 
@@ -142,6 +130,71 @@ namespace PLN.Commands
             }
             ed.Document.Model.Remove(rect1);
             ed.Document.Model.Remove(rect2);
+        }
+    }
+    public class Develop4 : Command
+    {
+        public override string RegisteredName => "Develop.Develop4";
+        public override string Name => "Develop Develop4";
+
+        public override async Task Apply(CADDocument doc, params string[] args)
+        {
+
+            Editor ed = doc.Editor;
+
+            var cnth = ed.Document.Model.OfType<Hatch>().Count();
+
+            if (cnth != 1)
+            {
+                throw new Exception("Only two Rectangle is allowed.");
+            }
+
+            var cntl = ed.Document.Model.OfType<Line>().Count();
+
+            if (cntl != 1)
+            {
+                throw new Exception("Only two Rectangle is allowed.");
+            }
+
+            var rect1 = ed.Document.Model.OfType<Hatch>().ElementAt(0);
+
+            var line1 = ed.Document.Model.OfType<Line>().ElementAt(0);
+
+            PathD subject = new PathD();
+            foreach (var pt in rect1.Points)
+            {
+                subject.Add(new PointD(pt.X, (double)pt.Y));
+            }
+            PathsD subjects = new PathsD();
+            subjects.Add(subject);
+
+            PathD clip = new PathD();
+            clip.Add(new PointD(line1.StartPoint.X, line1.StartPoint.Y));
+            clip.Add(new PointD(line1.EndPoint.X, line1.EndPoint.Y));
+
+            PathsD clips = new PathsD();
+            clips.Add(clip);
+
+            PathsD intersection = Clipper.Intersect(subjects, clips, FillRule.NonZero);
+            PathsD difference = Clipper.Difference(subjects, clips, FillRule.NonZero);
+            PathsD union = Clipper.Union(subjects, clips, FillRule.NonZero);
+
+            Console.WriteLine("=== Difference ===");
+            foreach (var s in intersection)
+            {
+                var pts = new Point2DCollection();
+
+                foreach (var pt in s)
+                {
+
+                    pts.Add(new Point2D((float)pt.x, (float)pt.y));
+
+                }
+                var polygon = new Hatch(pts);
+                ed.Document.Model.Add(polygon);
+            }
+            ed.Document.Model.Remove(rect1);
+            ed.Document.Model.Remove(line1);
         }
     }
 }

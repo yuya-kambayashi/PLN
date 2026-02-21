@@ -813,7 +813,7 @@ namespace PLN
             btnDevelop4.Name = "btnDevelop4";
             btnDevelop4.Size = new Size(29, 24);
             btnDevelop4.Text = "Dev4";
-            btnDevelop4.Click += btnDevelop1_Click;
+            btnDevelop4.Click += btnDevelop4_Click;
             // 
             // btnDevelop5
             // 
