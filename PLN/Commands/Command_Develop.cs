@@ -146,14 +146,14 @@ namespace PLN.Commands
 
             if (cnth != 1)
             {
-                throw new Exception("Only two Rectangle is allowed.");
+                throw new Exception("Only one Rectangle is allowed.");
             }
 
             var cntl = ed.Document.Model.OfType<Line>().Count();
 
             if (cntl != 1)
             {
-                throw new Exception("Only two Rectangle is allowed.");
+                throw new Exception("Only one Rectangle is allowed.");
             }
 
             var rect1 = ed.Document.Model.OfType<Hatch>().ElementAt(0);
@@ -180,11 +180,11 @@ namespace PLN.Commands
             PathsD union = Clipper.Union(subjects, clips, FillRule.NonZero);
 
             Console.WriteLine("=== Difference ===");
-            foreach (var s in intersection)
+            foreach (var d in difference)
             {
                 var pts = new Point2DCollection();
 
-                foreach (var pt in s)
+                foreach (var pt in d)
                 {
 
                     pts.Add(new Point2D((float)pt.x, (float)pt.y));
