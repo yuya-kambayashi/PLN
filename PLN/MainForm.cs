@@ -645,6 +645,139 @@ namespace PLN
                 }
             }
         }
+        private void btnDevelop5_Click(object sender, EventArgs e)
+        {
+            var form = Form.ActiveForm;
+            try
+            {
+                if (form != null)
+                {
+                    form.Enabled = false;
+                    form.Cursor = Cursors.WaitCursor;
+                }
+
+                ed.RunCommand("Develop.Develop5");
+            }
+            finally
+            {
+                if (form != null)
+                {
+                    form.Enabled = true;
+                    form.Cursor = Cursors.Default;
+                }
+            }
+        }
+        private void btnDevelop6_Click(object sender, EventArgs e)
+        {
+            var form = Form.ActiveForm;
+            try
+            {
+                if (form != null)
+                {
+                    form.Enabled = false;
+                    form.Cursor = Cursors.WaitCursor;
+                }
+
+                ed.RunCommand("Develop.Develop6");
+            }
+            finally
+            {
+                if (form != null)
+                {
+                    form.Enabled = true;
+                    form.Cursor = Cursors.Default;
+                }
+            }
+        }
+        private void btnDevelop7_Click(object sender, EventArgs e)
+        {
+            var form = Form.ActiveForm;
+            try
+            {
+                if (form != null)
+                {
+                    form.Enabled = false;
+                    form.Cursor = Cursors.WaitCursor;
+                }
+
+                ed.RunCommand("Develop.Develop7");
+            }
+            finally
+            {
+                if (form != null)
+                {
+                    form.Enabled = true;
+                    form.Cursor = Cursors.Default;
+                }
+            }
+        }
+        private void btnDevelop8_Click(object sender, EventArgs e)
+        {
+            var form = Form.ActiveForm;
+            try
+            {
+                if (form != null)
+                {
+                    form.Enabled = false;
+                    form.Cursor = Cursors.WaitCursor;
+                }
+
+                ed.RunCommand("Develop.Develop8");
+            }
+            finally
+            {
+                if (form != null)
+                {
+                    form.Enabled = true;
+                    form.Cursor = Cursors.Default;
+                }
+            }
+        }
+        private void btnDevelop9_Click(object sender, EventArgs e)
+        {
+            var form = Form.ActiveForm;
+            try
+            {
+                if (form != null)
+                {
+                    form.Enabled = false;
+                    form.Cursor = Cursors.WaitCursor;
+                }
+
+                ed.RunCommand("Develop.Develop9");
+            }
+            finally
+            {
+                if (form != null)
+                {
+                    form.Enabled = true;
+                    form.Cursor = Cursors.Default;
+                }
+            }
+        }
+        private void btnDevelop10_Click(object sender, EventArgs e)
+        {
+            var form = Form.ActiveForm;
+            try
+            {
+                if (form != null)
+                {
+                    form.Enabled = false;
+                    form.Cursor = Cursors.WaitCursor;
+                }
+
+                ed.RunCommand("Develop.Develop10");
+            }
+            finally
+            {
+                if (form != null)
+                {
+                    form.Enabled = true;
+                    form.Cursor = Cursors.Default;
+                }
+            }
+        }
+
 
         private void treeProjectBrowser_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {

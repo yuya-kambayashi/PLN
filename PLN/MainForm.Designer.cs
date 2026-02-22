@@ -106,6 +106,11 @@ namespace PLN
             btnDevelop3 = new ToolStripButton();
             btnDevelop4 = new ToolStripButton();
             btnDevelop5 = new ToolStripButton();
+            btnDevelop6 = new ToolStripButton();
+            btnDevelop7 = new ToolStripButton();
+            btnDevelop8 = new ToolStripButton();
+            btnDevelop9 = new ToolStripButton();
+            btnDevelop10 = new ToolStripButton();
             toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             toolStripContainer1.ContentPanel.SuspendLayout();
             toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -777,7 +782,18 @@ namespace PLN
             tsDevelop.Dock = DockStyle.None;
             tsDevelop.GripStyle = ToolStripGripStyle.Hidden;
             tsDevelop.ImageScalingSize = new Size(20, 20);
-            tsDevelop.Items.AddRange(new ToolStripItem[] { btnDevelop1, btnDevelop2, btnDevelop3, btnDevelop4, btnDevelop5 });
+            tsDevelop.Items.AddRange(new ToolStripItem[] {
+                btnDevelop1,
+                btnDevelop2,
+                btnDevelop3,
+                btnDevelop4,
+                btnDevelop5,
+                btnDevelop6,
+                btnDevelop7,
+                btnDevelop8,
+                btnDevelop9,
+                btnDevelop10
+            });
             tsDevelop.Location = new Point(7, 54);
             tsDevelop.Name = "tsDevelop";
             //tsDevelop.Size = new Size(1235, 27);
@@ -821,7 +837,48 @@ namespace PLN
             btnDevelop5.Name = "btnDevelop5";
             btnDevelop5.Size = new Size(29, 24);
             btnDevelop5.Text = "Dev5";
-            btnDevelop5.Click += btnDevelop1_Click;
+            btnDevelop5.Click += btnDevelop5_Click;
+            // 
+            // btnDevelop6
+            // 
+            btnDevelop6.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDevelop6.Name = "btnDevelop6";
+            btnDevelop6.Size = new Size(29, 24);
+            btnDevelop6.Text = "Dev6";
+            btnDevelop6.Click += btnDevelop6_Click;
+            // 
+            // btnDevelop7
+            // 
+            btnDevelop7.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDevelop7.Name = "btnDevelop7";
+            btnDevelop7.Size = new Size(29, 24);
+            btnDevelop7.Text = "Dev7";
+            btnDevelop7.Click += btnDevelop7_Click;
+            // 
+            // btnDevelop8
+            // 
+            btnDevelop8.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDevelop8.Name = "btnDevelop8";
+            btnDevelop8.Size = new Size(29, 24);
+            btnDevelop8.Text = "Dev8";
+            btnDevelop8.Click += btnDevelop8_Click;
+            // 
+            // btnDevelop9
+            // 
+            btnDevelop9.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDevelop9.Name = "btnDevelop9";
+            btnDevelop9.Size = new Size(29, 24);
+            btnDevelop9.Text = "Dev9";
+            btnDevelop9.Click += btnDevelop9_Click;
+            // 
+            // btnDevelop10
+            // 
+            btnDevelop10.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDevelop10.Name = "btnDevelop10";
+            btnDevelop10.Size = new Size(29, 24);
+            btnDevelop10.Text = "Dev10";
+            btnDevelop10.Click += btnDevelop10_Click;
+
             // 
             // MainForm
             // 
@@ -930,7 +987,11 @@ namespace PLN
         private System.Windows.Forms.ToolStripButton btnDevelop3;
         private System.Windows.Forms.ToolStripButton btnDevelop4;
         private System.Windows.Forms.ToolStripButton btnDevelop5;
-
+        private System.Windows.Forms.ToolStripButton btnDevelop6;
+        private System.Windows.Forms.ToolStripButton btnDevelop7;
+        private System.Windows.Forms.ToolStripButton btnDevelop8;
+        private System.Windows.Forms.ToolStripButton btnDevelop9;
+        private System.Windows.Forms.ToolStripButton btnDevelop10;
 
         private DockPanel dockPanel;
         private MainDockContent contentProjectBrowser;
