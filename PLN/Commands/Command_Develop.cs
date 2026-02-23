@@ -267,4 +267,27 @@ namespace PLN.Commands
 
         }
     }
+    public class Develop6 : Command
+    {
+        public override string RegisteredName => "Develop.Develop6";
+        public override string Name => "Develop Develop6";
+
+        public override async Task Apply(CADDocument doc, params string[] args)
+        {
+
+
+            Editor ed = doc.Editor;
+
+            var cnt = ed.Document.Model.OfType<Room>().Count();
+
+
+            var room1 = ed.Document.Model.OfType<Room>().First();
+            var room2 = ed.Document.Model.OfType<Room>().Last();
+
+            room1.Fig.isInside(room2.Fig);
+
+
+
+        }
+    }
 }
