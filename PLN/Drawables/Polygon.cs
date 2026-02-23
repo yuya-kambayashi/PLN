@@ -61,7 +61,7 @@ namespace PLN.Drawables
         {
             // thisがotherの内部か判定
 
-            PathsD intersection = Clipper.Intersect(Paths, other.Paths, FillRule.NonZero);
+            //PathsD intersection = Clipper.Intersect(Paths, other.Paths, FillRule.NonZero);
             PathsD difference = Clipper.Difference(Paths, other.Paths, FillRule.NonZero);
             PathsD union = Clipper.Union(Paths, other.Paths, FillRule.NonZero);
 

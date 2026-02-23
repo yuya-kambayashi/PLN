@@ -134,7 +134,7 @@ namespace PLN.Commands
             }
 
             doc.Jigged.Remove(consPoly);
-            Room newItem = new Room(doc.ActiveView.Level, points, "Hoge");
+            Room newItem = new Room(doc.ActiveView.Level, points, "New Room");
             doc.Model.Add(newItem);
         }
     }
@@ -240,7 +240,7 @@ namespace PLN.Commands
             }
 
             doc.Jigged.Remove(consPoly);
-            Site newItem = new Site(doc.ActiveView.Level, points, "Hoge");
+            Site newItem = new Site(doc.ActiveView.Level, points, "New Site");
             doc.Model.Add(newItem);
         }
     }
@@ -301,7 +301,7 @@ namespace PLN.Commands
             }
 
             doc.Jigged.Remove(consPoly);
-            Area newItem = new Area(doc.ActiveView.Level, points, "Hoge");
+            Area newItem = new Area(doc.ActiveView.Level, points, "New Area");
             doc.Model.Add(newItem);
         }
     }
