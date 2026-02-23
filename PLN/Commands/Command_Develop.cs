@@ -195,6 +195,76 @@ namespace PLN.Commands
             }
             ed.Document.Model.Remove(rect1);
             ed.Document.Model.Remove(line1);
+
+        }
+    }
+    public class Develop5 : Command
+    {
+        public override string RegisteredName => "Develop.Develop5";
+        public override string Name => "Develop Develop5";
+
+        public override async Task Apply(CADDocument doc, params string[] args)
+        {
+
+
+            Editor ed = doc.Editor;
+
+            var cnt = ed.Document.Model.OfType<Hatch>().Count();
+
+            if (cnt != 2)
+            {
+                throw new Exception("Only two Rectangle is allowed.");
+            }
+
+
+
+            var rect1 = ed.Document.Model.OfType<Hatch>().ElementAt(0);
+            var rect2 = ed.Document.Model.OfType<Hatch>().ElementAt(1);
+
+            PathD subject = new PathD();
+            foreach (var pt in rect1.Points)
+            {
+                subject.Add(new PointD(pt.X, (double)pt.Y));
+            }
+            PathsD subjects = new PathsD();
+            subjects.Add(subject);
+
+            PathD clip = new PathD();
+            foreach (var pt in rect2.Points)
+            {
+                clip.Add(new PointD(pt.X, pt.Y));
+            }
+            PathsD clips = new PathsD();
+            clips.Add(clip);
+
+            PathsD intersection = Clipper.Intersect(subjects, clips, FillRule.NonZero);
+            PathsD difference = Clipper.Difference(subjects, clips, FillRule.NonZero);
+            PathsD union = Clipper.Union(subjects, clips, FillRule.NonZero);
+
+            string s = "";
+            if (intersection.Count == 0 && union.Count == 1)
+            {
+                s = "隣接";
+            }
+            else if (intersection.Count > 0 && union.Count == 1)
+            {
+                s = "重複";
+            }
+            else
+            {
+                s = "重複なし";
+            }
+
+            var ts = ed.Document.Model.OfType<Drawables.Text>().ToList();
+            foreach (var tt in ts)
+            {
+                ed.Document.Model.Remove(tt);
+            }
+
+            Text t = new Drawables.Text(Point2D.Zero, s, 100);
+            ed.Document.Model.Add(t);
+
+
         }
     }
 }
