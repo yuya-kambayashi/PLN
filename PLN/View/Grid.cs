@@ -63,12 +63,5 @@ namespace PLN.View
         {
             ;
         }
-        public override SnapPoint[] GetSnapPoints()
-        {
-            return new[]
-            {
-                new SnapPoint("Origin", SnapPointType.Middle, new Point2D(0, 0)),
-            };
-        }
     }
 }
