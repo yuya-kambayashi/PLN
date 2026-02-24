@@ -11,7 +11,7 @@ namespace PLN.Elements
 
         public Polygon Fig { get; private set; }
 
-        public string Name { get; private set; }
+        public string Name { get; set; }
         public Room(int referenceLevel, Point2DCollection pts, string name)
         {
             updateLevel(referenceLevel);
