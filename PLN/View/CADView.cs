@@ -116,6 +116,7 @@ namespace PLN
             Document.DocumentChanged += Document_Changed;
             Document.TransientsChanged += Document_TransientsChanged;
             Document.SelectionChanged += Document_SelectionChanged;
+            Document.MouseOverChanged += Document_MouseOverChanged;
             Document.Editor.Prompt += Editor_Prompt;
             Document.Editor.Error += Editor_Error;
         }
@@ -419,6 +420,11 @@ namespace PLN
             Redraw();
         }
 
+        private void Document_MouseOverChanged(object sender, EventArgs e)
+        {
+            Redraw();
+        }
+
         private void Document_Changed(object sender, EventArgs e)
         {
             Redraw();
@@ -514,6 +520,9 @@ namespace PLN
                         }
                         else
                         {
+                            // アイテムの選択は単一とする場合は、PickedSelectionに追加前にクリアする
+                            //Document.Editor.PickedSelection.Clear();
+
                             float cpSize = ScreenToWorld(new Vector2D(Document.Settings.ControlPointSize + 4, 0)).X;
                             Document.Editor.PickedSelection.Add(mouseDownItem);
                         }
@@ -607,6 +616,16 @@ namespace PLN
             {
                 Document.Editor.OnViewMouseMove(this, e);
             }
+
+
+            // マウスオーバーの更新
+            var mouseOverItem = FindItem(e.Location, ScreenToWorld(new Vector2D(Document.Settings.PickBoxSize, 0)).X);
+
+            if (mouseOverItem != null)
+            {
+                Document.Editor.MouseOverSelection.Clear();
+                Document.Editor.MouseOverSelection.Add(mouseOverItem);
+            }
         }
 
         private void CadView_CursorClick(object sender, CursorEventArgs e)
@@ -662,6 +681,7 @@ namespace PLN
 
         private void CadView_KeyDown(object sender, KeyEventArgs e)
         {
+
             if (Document.Editor.InputMode)
             {
                 Document.Editor.OnViewKeyDown(this, e);
@@ -670,6 +690,8 @@ namespace PLN
             {
                 Document.Editor.PickedSelection.Clear();
                 viewCursor.Message = "";
+                // マウスオーバーのクリア
+                Document.Editor.MouseOverSelection.Clear();
             }
         }
 
@@ -678,6 +700,10 @@ namespace PLN
             if (Document.Editor.InputMode)
             {
                 Document.Editor.OnViewKeyPress(this, e);
+            }
+            else if (e.KeyChar == '\t')
+            {
+                int a = 0;
             }
         }
 
@@ -720,6 +746,7 @@ namespace PLN
                 Document.DocumentChanged -= Document_Changed;
                 Document.TransientsChanged -= Document_TransientsChanged;
                 Document.SelectionChanged -= Document_SelectionChanged;
+                Document.MouseOverChanged -= Document_MouseOverChanged;
                 Document.Editor.Prompt -= Editor_Prompt;
                 Document.Editor.Error -= Editor_Error;
             }

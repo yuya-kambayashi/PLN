@@ -24,6 +24,7 @@ namespace PLN
 
             doc.DocumentChanged += doc_DocumentChanged;
             doc.SelectionChanged += doc_SelectionChanged;
+            doc.MouseOverChanged += doc_MouseOverChanged;
             cadWindow1.MouseMove += cadWindow1_MouseMove;
             cadWindow2.MouseMove += cadWindow2_MouseMove;
 
@@ -192,6 +193,13 @@ namespace PLN
             UpdateUI();
         }
 
+        private void doc_MouseOverChanged(object sender, EventArgs e)
+        {
+            //propertyGrid1.SelectedObjects = ed.PickedSelection.ToArray();
+
+            UpdateUI();
+        }
+
         private void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
             cadWindow1.Refresh();
@@ -304,12 +312,27 @@ namespace PLN
             btnShowGrid.Checked = cadWindow1.View.ShowGrid;
             btnShowAxes.Checked = cadWindow1.View.ShowAxes;
 
-            if (ed.PickedSelection.Count == 0)
-                lblSelection.Text = "No selection";
-            else if (ed.PickedSelection.Count == 1)
-                lblSelection.Text = ed.PickedSelection.First().GetType().Name;
+            //if (ed.PickedSelection.Count == 0)
+            //    lblSelection.Text = "No selection";
+            //else if (ed.PickedSelection.Count == 1)
+            //    lblSelection.Text = ed.PickedSelection.First().GetType().Name;
+            //else
+            //    lblSelection.Text = ed.PickedSelection.Count.ToString() + " selected";
+
+            //if (ed.PickedSelection.Count == 0)
+            //    statusLabel.Text = "No selection";
+            //else if (ed.PickedSelection.Count == 1)
+            //    statusLabel.Text = ed.PickedSelection.First().GetType().Name;
+            //else
+            //    statusLabel.Text = ed.PickedSelection.Count.ToString() + " selected";
+
+            // 現在マウスオーバーされているアイテムの名称を表示する
+            if (ed.MouseOverSelection.Count == 0)
+                statusLabel.Text = "No selection";
+            else if (ed.MouseOverSelection.Count == 1)
+                statusLabel.Text = ed.MouseOverSelection.First().GetType().Name;
             else
-                lblSelection.Text = ed.PickedSelection.Count.ToString() + " selected";
+                statusLabel.Text = ed.MouseOverSelection.Count.ToString() + " selected";
         }
 
         private void btnDrawPoint_Click(object sender, EventArgs e)

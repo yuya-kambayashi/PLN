@@ -93,6 +93,8 @@ namespace PLN
             }
 
             CoordsChanged(e.Location);
+
+            // マウスオーバーの更新
         }
 
         protected void SetCursorText(string text)

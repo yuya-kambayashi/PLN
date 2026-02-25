@@ -8,6 +8,7 @@ namespace PLN
         public delegate void DocumentChangedEventHandler(object sender, EventArgs e);
         public delegate void TransientsChangedEventHandler(object sender, EventArgs e);
         public delegate void SelectionChangedEventHandler(object sender, EventArgs e);
+        public delegate void MouseOverChangedEventHandler(object sender, EventArgs e);
 
         public Model Model { get; private set; }
         public Composite Jigged { get; private set; }
@@ -24,6 +25,7 @@ namespace PLN
         public event DocumentChangedEventHandler DocumentChanged;
         public event TransientsChangedEventHandler TransientsChanged;
         public event SelectionChangedEventHandler SelectionChanged;
+        public event MouseOverChangedEventHandler MouseOverChanged;
 
         public CADDocument()
         {
@@ -40,6 +42,7 @@ namespace PLN
             ActiveView = null;
 
             Editor.PickedSelection.CollectionChanged += Selection_CollectionChanged;
+            Editor.MouseOverSelection.CollectionChanged += MouseOver_CollectionChanged;
             Model.CollectionChanged += Model_CollectionChanged;
             Jigged.CollectionChanged += Jigged_CollectionChanged;
         }
@@ -154,5 +157,13 @@ namespace PLN
             SelectionChanged?.Invoke(this, e);
         }
 
+        private void MouseOver_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            OnMouseOverChanged(new EventArgs());
+        }
+        protected void OnMouseOverChanged(EventArgs e)
+        {
+            MouseOverChanged?.Invoke(this, e);
+        }
     }
 }
