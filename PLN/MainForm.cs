@@ -29,82 +29,13 @@ namespace PLN
 
             InitializeCADWindows();
 
-
-
             InitializeDockContents();
-
 
             InitializeEvents();
 
-            btnShowGrid = new CheckBox();
-            btnShowGrid.Appearance = Appearance.Button;
-            btnShowGrid.Image = Properties.Resources.grid;
-            btnShowGrid.Text = "Grid";
-            btnShowGrid.TextImageRelation = TextImageRelation.ImageBeforeText;
-            tsShowGrid = new ToolStripControlHost(btnShowGrid);
-            tsShowGrid.Click += btnShowGrid_Click;
-            statusStrip1.Items.Add(tsShowGrid);
+            InitializeGrid();
 
-            btnShowAxes = new CheckBox();
-            btnShowAxes.Appearance = Appearance.Button;
-            btnShowAxes.Image = Properties.Resources.axis;
-            btnShowAxes.Text = "Axes";
-            btnShowAxes.TextImageRelation = TextImageRelation.ImageBeforeText;
-            tsShowAxes = new ToolStripControlHost(btnShowAxes);
-            tsShowAxes.Click += btnShowAxes_Click;
-            statusStrip1.Items.Add(tsShowAxes);
-
-            // TreeViewの更新
-            treeProjectBrowser.BeginUpdate();
-
-            TreeNode nodeView = new TreeNode("ビュー");
-            TreeNode node平面図 = new TreeNode("平面図");
-            node平面図.Nodes.Add(new TreeNode("1階"));
-            node平面図.Nodes.Add(new TreeNode("2階"));
-            node平面図.Nodes.Add(new TreeNode("3階"));
-            node平面図.Nodes.Add(new TreeNode("4階"));
-            node平面図.Nodes.Add(new TreeNode("5階"));
-
-            TreeNode node立面図 = new TreeNode("立面図");
-            node立面図.Nodes.Add(new TreeNode("西"));
-            node立面図.Nodes.Add(new TreeNode("東"));
-            node立面図.Nodes.Add(new TreeNode("南"));
-            node立面図.Nodes.Add(new TreeNode("北"));
-
-            TreeNode node3D = new TreeNode("3D");
-            node3D.Nodes.Add(new TreeNode("{3D}"));
-
-            nodeView.Nodes.Add(node平面図);
-            nodeView.Nodes.Add(node立面図);
-            nodeView.Nodes.Add(node3D);
-
-            nodeDrawables = new TreeNode("Drawables");
-            nodeDrawables.Nodes.Add(new TreeNode("Line"));
-            nodeDrawables.Nodes.Add(new TreeNode("Point"));
-            nodeDrawables.Nodes.Add(new TreeNode("Circle"));
-            nodeDrawables.Nodes.Add(new TreeNode("Ellipse"));
-            nodeDrawables.Nodes.Add(new TreeNode("Arc"));
-            nodeDrawables.Nodes.Add(new TreeNode("Elliptic Arc"));
-            nodeDrawables.Nodes.Add(new TreeNode("Text"));
-            nodeDrawables.Nodes.Add(new TreeNode("Dimension"));
-            nodeDrawables.Nodes.Add(new TreeNode("Parabola"));
-            nodeDrawables.Nodes.Add(new TreeNode("Polyline"));
-            nodeDrawables.Nodes.Add(new TreeNode("Rectangle"));
-            nodeDrawables.Nodes.Add(new TreeNode("Hatch"));
-            nodeDrawables.Nodes.Add(new TreeNode("Quadratic Bezier"));
-
-            nodeElements = new TreeNode("Elements");
-            nodeElements.Nodes.Add(new TreeNode("Beam"));
-            nodeElements.Nodes.Add(new TreeNode("Column"));
-            nodeElements.Nodes.Add(new TreeNode("Room"));
-            nodeElements.Nodes.Add(new TreeNode("Wall"));
-            nodeElements.Nodes.Add(new TreeNode("Site"));
-            nodeElements.Nodes.Add(new TreeNode("Area"));
-
-            treeProjectBrowser.Nodes.Add(nodeView);
-            treeProjectBrowser.Nodes.Add(nodeDrawables);
-            treeProjectBrowser.Nodes.Add(nodeElements);
-            treeProjectBrowser.EndUpdate();
+            InitializeTreeView();
 
             UpdateUI();
         }
@@ -214,10 +145,90 @@ namespace PLN
             doc.SelectionChanged += (_, __) => UpdateUI();
             doc.MouseOverChanged += (_, __) => UpdateUI();
 
+            doc.DocumentChanged += doc_DocumentChanged;
+            doc.SelectionChanged += doc_SelectionChanged;
+            doc.MouseOverChanged += doc_MouseOverChanged;
             cadWindow1.MouseMove += cadWindow1_MouseMove;
             cadWindow2.MouseMove += cadWindow2_MouseMove;
+            cadWindow1.KeyDown += cadWindow1_KeyDown;
 
             treeProjectBrowser.NodeMouseClick += treeProjectBrowser_NodeMouseClick;
+        }
+
+        private void InitializeGrid()
+        {
+            btnShowGrid = new CheckBox();
+            btnShowGrid.Appearance = Appearance.Button;
+            btnShowGrid.Image = Properties.Resources.grid;
+            btnShowGrid.Text = "Grid";
+            btnShowGrid.TextImageRelation = TextImageRelation.ImageBeforeText;
+            tsShowGrid = new ToolStripControlHost(btnShowGrid);
+            tsShowGrid.Click += btnShowGrid_Click;
+            statusStrip1.Items.Add(tsShowGrid);
+
+            btnShowAxes = new CheckBox();
+            btnShowAxes.Appearance = Appearance.Button;
+            btnShowAxes.Image = Properties.Resources.axis;
+            btnShowAxes.Text = "Axes";
+            btnShowAxes.TextImageRelation = TextImageRelation.ImageBeforeText;
+            tsShowAxes = new ToolStripControlHost(btnShowAxes);
+            tsShowAxes.Click += btnShowAxes_Click;
+            statusStrip1.Items.Add(tsShowAxes);
+        }
+        private void InitializeTreeView()
+        {
+
+            // TreeViewの更新
+            treeProjectBrowser.BeginUpdate();
+
+            TreeNode nodeView = new TreeNode("ビュー");
+            TreeNode node平面図 = new TreeNode("平面図");
+            node平面図.Nodes.Add(new TreeNode("1階"));
+            node平面図.Nodes.Add(new TreeNode("2階"));
+            node平面図.Nodes.Add(new TreeNode("3階"));
+            node平面図.Nodes.Add(new TreeNode("4階"));
+            node平面図.Nodes.Add(new TreeNode("5階"));
+
+            TreeNode node立面図 = new TreeNode("立面図");
+            node立面図.Nodes.Add(new TreeNode("西"));
+            node立面図.Nodes.Add(new TreeNode("東"));
+            node立面図.Nodes.Add(new TreeNode("南"));
+            node立面図.Nodes.Add(new TreeNode("北"));
+
+            TreeNode node3D = new TreeNode("3D");
+            node3D.Nodes.Add(new TreeNode("{3D}"));
+
+            nodeView.Nodes.Add(node平面図);
+            nodeView.Nodes.Add(node立面図);
+            nodeView.Nodes.Add(node3D);
+
+            nodeDrawables = new TreeNode("Drawables");
+            nodeDrawables.Nodes.Add(new TreeNode("Line"));
+            nodeDrawables.Nodes.Add(new TreeNode("Point"));
+            nodeDrawables.Nodes.Add(new TreeNode("Circle"));
+            nodeDrawables.Nodes.Add(new TreeNode("Ellipse"));
+            nodeDrawables.Nodes.Add(new TreeNode("Arc"));
+            nodeDrawables.Nodes.Add(new TreeNode("Elliptic Arc"));
+            nodeDrawables.Nodes.Add(new TreeNode("Text"));
+            nodeDrawables.Nodes.Add(new TreeNode("Dimension"));
+            nodeDrawables.Nodes.Add(new TreeNode("Parabola"));
+            nodeDrawables.Nodes.Add(new TreeNode("Polyline"));
+            nodeDrawables.Nodes.Add(new TreeNode("Rectangle"));
+            nodeDrawables.Nodes.Add(new TreeNode("Hatch"));
+            nodeDrawables.Nodes.Add(new TreeNode("Quadratic Bezier"));
+
+            nodeElements = new TreeNode("Elements");
+            nodeElements.Nodes.Add(new TreeNode("Beam"));
+            nodeElements.Nodes.Add(new TreeNode("Column"));
+            nodeElements.Nodes.Add(new TreeNode("Room"));
+            nodeElements.Nodes.Add(new TreeNode("Wall"));
+            nodeElements.Nodes.Add(new TreeNode("Site"));
+            nodeElements.Nodes.Add(new TreeNode("Area"));
+
+            treeProjectBrowser.Nodes.Add(nodeView);
+            treeProjectBrowser.Nodes.Add(nodeDrawables);
+            treeProjectBrowser.Nodes.Add(nodeElements);
+            treeProjectBrowser.EndUpdate();
         }
 
         private void disableLayoutCommand()
