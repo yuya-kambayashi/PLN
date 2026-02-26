@@ -40,7 +40,7 @@ namespace PLN
         [Category("Appearance"), DefaultValue(true), Description("Determines whether the cursor is shown.")]
         public bool ShowCursor { get => showCursor; set { showCursor = value; View.ShowCursor = value; } }
 
-        public CADWindow(CADDocument doc)
+        public CADWindow()
         {
             InitializeComponent();
 
@@ -51,6 +51,10 @@ namespace PLN
 
             BorderStyle = BorderStyle.Fixed3D;
 
+            Disposed += CADWindow_Disposed;
+        }
+        public void AttachDocument(CADDocument doc)
+        {
             Document = doc;
 
             Document.Settings.BackColor = Color.FromArgb((uint)backColor.ToArgb());
@@ -61,9 +65,6 @@ namespace PLN
             View.ShowAxes = showAxes;
             View.ShowGrid = showGrid;
             View.ShowCursor = showCursor;
-
-            Disposed += CADWindow_Disposed;
-
         }
         private void CADWindow_Disposed(object sender, System.EventArgs e)
         {

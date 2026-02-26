@@ -19,7 +19,7 @@ namespace PLN
         [Browsable(false)]
         public CADView3D View { get; private set; }
 
-        public CADWindow3D(CADDocument doc)
+        public CADWindow3D()
         {
             InitializeComponent();
 
@@ -30,12 +30,13 @@ namespace PLN
 
             BorderStyle = BorderStyle.Fixed3D;
 
+            Disposed += CADWindow3D_Disposed;
+        }
+        public void AttachDocument(CADDocument doc)
+        {
             Document = doc;
 
             View = new CADView3D(this, Document);
-
-
-            Disposed += CADWindow3D_Disposed;
         }
         private void CADWindow3D_Disposed(object sender, System.EventArgs e)
         {

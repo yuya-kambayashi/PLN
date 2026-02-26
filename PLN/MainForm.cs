@@ -13,21 +13,28 @@ namespace PLN
         private CADDocument doc;
         private Editor ed;
 
+        private MainDockContent contentProjectBrowser;
+        private MainDockContent contentProperties;
+        private MainDockContent contentViewFloor1F;
+        private MainDockContent contentViewFloor2F;
+        private MainDockContent contentViewFloor3F;
+        private MainDockContent contentViewFloor4F;
+        private MainDockContent contentViewFloor5F;
+        private MainDockContent contentViewFloor3D;
         public MainForm()
         {
             InitializeComponent();
 
-            this.KeyDown += MainForm_KeyDown;
+            InitializeDocument();
 
-            doc = cadWindow1.Document;
-            ed = doc.Editor;
+            InitializeCADWindows();
 
-            doc.DocumentChanged += doc_DocumentChanged;
-            doc.SelectionChanged += doc_SelectionChanged;
-            doc.MouseOverChanged += doc_MouseOverChanged;
-            cadWindow1.MouseMove += cadWindow1_MouseMove;
-            cadWindow2.MouseMove += cadWindow2_MouseMove;
-            cadWindow1.KeyDown += cadWindow1_KeyDown;
+
+
+            InitializeDockContents();
+
+
+            InitializeEvents();
 
             btnShowGrid = new CheckBox();
             btnShowGrid.Appearance = Appearance.Button;
@@ -97,11 +104,122 @@ namespace PLN
             treeProjectBrowser.Nodes.Add(nodeView);
             treeProjectBrowser.Nodes.Add(nodeDrawables);
             treeProjectBrowser.Nodes.Add(nodeElements);
-            treeProjectBrowser.NodeMouseClick += treeProjectBrowser_NodeMouseClick;
             treeProjectBrowser.EndUpdate();
 
             UpdateUI();
         }
+        private void InitializeCADWindows()
+        {
+            // 
+            // cadWindow1
+            // 
+            cadWindow1.BorderStyle = BorderStyle.Fixed3D;
+            cadWindow1.Dock = DockStyle.Fill;
+            cadWindow1.Location = new Point(0, 0);
+            cadWindow1.Margin = new Padding(5, 8, 5, 8);
+            cadWindow1.Name = "cadWindow1";
+            cadWindow1.TabIndex = 0;
+            cadWindow1.View.Level = 1;
+
+            // 
+            // cadWindow2
+            // 
+            cadWindow2.BorderStyle = BorderStyle.Fixed3D;
+            cadWindow2.Dock = DockStyle.Fill;
+            cadWindow2.Location = new Point(0, 0);
+            cadWindow2.Margin = new Padding(5, 8, 5, 8);
+            cadWindow2.Name = "cadWindow2";
+            cadWindow2.TabIndex = 0;
+            cadWindow2.View.Level = 2;
+
+            // 
+            // cadWindow3
+            // 
+            cadWindow3.BorderStyle = BorderStyle.Fixed3D;
+            cadWindow3.Dock = DockStyle.Fill;
+            cadWindow3.Location = new Point(0, 0);
+            cadWindow3.Margin = new Padding(5, 8, 5, 8);
+            cadWindow3.Name = "cadWindow3";
+            cadWindow3.TabIndex = 0;
+            cadWindow3.View.Level = 3;
+
+            // 
+            // cadWindow4
+            // 
+            cadWindow4.BorderStyle = BorderStyle.Fixed3D;
+            cadWindow4.Dock = DockStyle.Fill;
+            cadWindow4.Location = new Point(0, 0);
+            cadWindow4.Margin = new Padding(5, 8, 5, 8);
+            cadWindow4.Name = "cadWindow4";
+            cadWindow4.TabIndex = 0;
+            cadWindow4.View.Level = 4;
+
+            // 
+            // cadWindow5
+            // 
+            cadWindow5.BorderStyle = BorderStyle.Fixed3D;
+            cadWindow5.Dock = DockStyle.Fill;
+            cadWindow5.Location = new Point(0, 0);
+            cadWindow5.Margin = new Padding(5, 8, 5, 8);
+            cadWindow5.Name = "cadWindow5";
+            cadWindow5.TabIndex = 0;
+            cadWindow5.View.Level = 5;
+
+            // 
+            // cadWindow3D
+            // 
+            cadWindow3D.BorderStyle = BorderStyle.Fixed3D;
+            cadWindow3D.Dock = DockStyle.Fill;
+            cadWindow3D.Location = new Point(0, 0);
+            cadWindow3D.Margin = new Padding(5, 8, 5, 8);
+            cadWindow3D.Name = "cadWindow3D";
+            cadWindow3D.TabIndex = 0;
+        }
+        private void InitializeDocument()
+        {
+            ed = doc.Editor;
+
+            cadWindow1.AttachDocument(doc);
+            cadWindow2.AttachDocument(doc);
+            cadWindow3.AttachDocument(doc);
+            cadWindow4.AttachDocument(doc);
+            cadWindow5.AttachDocument(doc);
+            cadWindow3D.AttachDocument(doc);
+        }
+        private void InitializeDockContents()
+        {
+
+            contentProjectBrowser = new MainDockContent("プロジェクト ブラウザ", treeProjectBrowser);
+            contentProperties = new MainDockContent("Properties", propertyGrid1);
+            contentViewFloor1F = new MainDockContent("1階平面図", cadWindow1);
+            contentViewFloor2F = new MainDockContent("2階平面図", cadWindow2);
+            contentViewFloor3F = new MainDockContent("3階平面図", cadWindow3);
+            contentViewFloor4F = new MainDockContent("4階平面図", cadWindow4);
+            contentViewFloor5F = new MainDockContent("5階平面図", cadWindow5);
+            contentViewFloor3D = new MainDockContent("3D", cadWindow3D);
+
+            dockPanel.Theme = new VS2015LightTheme();
+
+            contentProjectBrowser.Show(dockPanel, DockState.DockLeft);
+            contentProperties.Show(dockPanel, DockState.DockRight);
+            contentViewFloor1F.Show(dockPanel, DockState.Document);
+        }
+
+
+        private void InitializeEvents()
+        {
+            this.KeyDown += MainForm_KeyDown;
+
+            doc.DocumentChanged += (_, __) => UpdateUI();
+            doc.SelectionChanged += (_, __) => UpdateUI();
+            doc.MouseOverChanged += (_, __) => UpdateUI();
+
+            cadWindow1.MouseMove += cadWindow1_MouseMove;
+            cadWindow2.MouseMove += cadWindow2_MouseMove;
+
+            treeProjectBrowser.NodeMouseClick += treeProjectBrowser_NodeMouseClick;
+        }
+
         private void disableLayoutCommand()
         {
             btnDrawPoint.Enabled = false;

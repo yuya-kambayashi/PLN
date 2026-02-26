@@ -49,16 +49,7 @@ namespace PLN
             btnSnapCenter = new ToolStripMenuItem();
             btnSnapQuadrant = new ToolStripMenuItem();
             btnSnapPoint = new ToolStripMenuItem();
-            treeProjectBrowser = new TreeView();
-            CADDocument doc = new CADDocument();
-            cadWindow1 = new CADWindow(doc);
-            cadWindow2 = new CADWindow(doc);
-            cadWindow3 = new CADWindow(doc);
-            cadWindow4 = new CADWindow(doc);
-            cadWindow5 = new CADWindow(doc);
-            cadWindow3D = new CADWindow3D(doc);
-            lblSelection = new Label();
-            propertyGrid1 = new PropertyGrid();
+            dockPanel = new DockPanel();
             tsStandard = new ToolStrip();
             btnNew = new ToolStripButton();
             btnOpen = new ToolStripButton();
@@ -75,8 +66,24 @@ namespace PLN
             btnRotateCP = new ToolStripButton();
             btnScaleCP = new ToolStripButton();
             toolStripSeparator3 = new ToolStripSeparator();
-            toolStripSeparator4 = new ToolStripSeparator();
             btnDelete = new ToolStripButton();
+            toolStripSeparator4 = new ToolStripSeparator();
+            btnZoom = new ToolStripButton();
+            btnPan = new ToolStripButton();
+            tsDevelop = new ToolStrip();
+            btnDevelop1 = new ToolStripButton();
+            btnDevelop2 = new ToolStripButton();
+            btnDevelop3 = new ToolStripButton();
+            btnDevelop4 = new ToolStripButton();
+            btnDevelop5 = new ToolStripButton();
+            btnDevelop6 = new ToolStripButton();
+            btnDevelop7 = new ToolStripButton();
+            btnDevelop8 = new ToolStripButton();
+            btnDevelop9 = new ToolStripButton();
+            btnDevelop10 = new ToolStripButton();
+            treeProjectBrowser = new TreeView();
+            lblSelection = new Label();
+            propertyGrid1 = new PropertyGrid();
             tsPrimitives = new ToolStrip();
             btnDrawPoint = new ToolStripButton();
             btnDrawLine = new ToolStripButton();
@@ -97,31 +104,23 @@ namespace PLN
             toolStripSeparator2 = new ToolStripSeparator();
             btnCreateComposite = new ToolStripButton();
             toolStrip1 = new ToolStrip();
-            btnZoom = new ToolStripButton();
-            btnPan = new ToolStripButton();
-            dockPanel = new DockPanel();
-            tsDevelop = new ToolStrip();
-            btnDevelop1 = new ToolStripButton();
-            btnDevelop2 = new ToolStripButton();
-            btnDevelop3 = new ToolStripButton();
-            btnDevelop4 = new ToolStripButton();
-            btnDevelop5 = new ToolStripButton();
-            btnDevelop6 = new ToolStripButton();
-            btnDevelop7 = new ToolStripButton();
-            btnDevelop8 = new ToolStripButton();
-            btnDevelop9 = new ToolStripButton();
-            btnDevelop10 = new ToolStripButton();
+            listView1 = new ListView();
+            doc = new CADDocument();
+            cadWindow1 = new CADWindow();
+            cadWindow2 = new CADWindow();
+            cadWindow3 = new CADWindow();
+            cadWindow4 = new CADWindow();
+            cadWindow5 = new CADWindow();
+            cadWindow3D = new CADWindow3D();
             toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             toolStripContainer1.ContentPanel.SuspendLayout();
             toolStripContainer1.TopToolStripPanel.SuspendLayout();
             toolStripContainer1.SuspendLayout();
             statusStrip1.SuspendLayout();
-            dockPanel.SuspendLayout();
             tsStandard.SuspendLayout();
             tsTransform.SuspendLayout();
-            tsPrimitives.SuspendLayout();
             tsDevelop.SuspendLayout();
-            toolStrip1.SuspendLayout();
+            tsPrimitives.SuspendLayout();
             SuspendLayout();
             // 
             // toolStripContainer1
@@ -133,6 +132,7 @@ namespace PLN
             // 
             // toolStripContainer1.ContentPanel
             // 
+            toolStripContainer1.ContentPanel.Controls.Add(listView1);
             toolStripContainer1.ContentPanel.Controls.Add(dockPanel);
             toolStripContainer1.ContentPanel.Margin = new Padding(4, 5, 4, 5);
             toolStripContainer1.ContentPanel.Size = new Size(1344, 687);
@@ -148,8 +148,6 @@ namespace PLN
             // 
             toolStripContainer1.TopToolStripPanel.Controls.Add(tsStandard);
             toolStripContainer1.TopToolStripPanel.Controls.Add(tsTransform);
-            //toolStripContainer1.TopToolStripPanel.Controls.Add(toolStrip1);
-            //toolStripContainer1.TopToolStripPanel.Controls.Add(tsPrimitives);
             toolStripContainer1.TopToolStripPanel.Controls.Add(tsDevelop);
             // 
             // statusStrip1
@@ -287,112 +285,16 @@ namespace PLN
             btnSnapPoint.Text = "Point";
             btnSnapPoint.Click += btnSnapPoint_Click;
             // 
-            // treeProjectBrowser
-            // 
-            treeProjectBrowser.Dock = DockStyle.Fill;
-            treeProjectBrowser.Location = new Point(0, 0);
-            treeProjectBrowser.Name = "treeProjectBrowser";
-            treeProjectBrowser.Size = new Size(198, 687);
-            treeProjectBrowser.TabIndex = 0;
-            // 
             // dockPanel
             // 
-            dockPanel.Theme = new VS2015LightTheme();
             dockPanel.Dock = DockStyle.Fill;
-            dockPanel.Name = "dockPanel1";
+            dockPanel.DockBackColor = Color.FromArgb(238, 238, 242);
+            dockPanel.Location = new Point(0, 0);
+            dockPanel.Name = "dockPanel";
+            dockPanel.Padding = new Padding(6);
+            dockPanel.ShowAutoHideContentOnHover = false;
+            dockPanel.Size = new Size(1344, 687);
             dockPanel.TabIndex = 0;
-            contentProjectBrowser = new MainDockContent("プロジェクト ブラウザ", treeProjectBrowser);
-            contentProperties = new MainDockContent("Properties", propertyGrid1);
-            contentViewFloor1F = new MainDockContent("1階平面図", cadWindow1);
-            contentViewFloor2F = new MainDockContent("2階平面図", cadWindow2);
-            contentViewFloor3F = new MainDockContent("3階平面図", cadWindow3);
-            contentViewFloor4F = new MainDockContent("4階平面図", cadWindow4);
-            contentViewFloor5F = new MainDockContent("5階平面図", cadWindow5);
-            contentViewFloor3D = new MainDockContent("3D", cadWindow3D);
-            contentProjectBrowser.Show(dockPanel, DockState.DockLeft);
-            contentProperties.Show(dockPanel, DockState.DockRight);
-            contentViewFloor1F.Show(dockPanel, DockState.Document);
-            //contentViewFloor3D.Show(dockPanel, DockState.Document);
-            //contentViewFloor3D.Show(contentViewFloor1F.Pane, DockAlignment.Right, 0.5);
-            // 
-            // cadWindow1
-            // 
-            cadWindow1.BorderStyle = BorderStyle.Fixed3D;
-            cadWindow1.Dock = DockStyle.Fill;
-            cadWindow1.Location = new Point(0, 0);
-            cadWindow1.Margin = new Padding(5, 8, 5, 8);
-            cadWindow1.Name = "cadWindow1";
-            cadWindow1.TabIndex = 0;
-            cadWindow1.View.Level = 1;
-            // 
-            // cadWindow2
-            // 
-            cadWindow2.BorderStyle = BorderStyle.Fixed3D;
-            cadWindow2.Dock = DockStyle.Fill;
-            cadWindow2.Location = new Point(0, 0);
-            cadWindow2.Margin = new Padding(5, 8, 5, 8);
-            cadWindow2.Name = "cadWindow2";
-            cadWindow2.TabIndex = 0;
-            cadWindow2.View.Level = 2;
-            // 
-            // cadWindow3
-            // 
-            cadWindow3.BorderStyle = BorderStyle.Fixed3D;
-            cadWindow3.Dock = DockStyle.Fill;
-            cadWindow3.Location = new Point(0, 0);
-            cadWindow3.Margin = new Padding(5, 8, 5, 8);
-            cadWindow3.Name = "cadWindow3";
-            cadWindow3.TabIndex = 0;
-            cadWindow3.View.Level = 3;
-            // 
-            // cadWindow4
-            // 
-            cadWindow4.BorderStyle = BorderStyle.Fixed3D;
-            cadWindow4.Dock = DockStyle.Fill;
-            cadWindow4.Location = new Point(0, 0);
-            cadWindow4.Margin = new Padding(5, 8, 5, 8);
-            cadWindow4.Name = "cadWindow4";
-            cadWindow4.TabIndex = 0;
-            cadWindow4.View.Level = 4;
-            // 
-            // cadWindow5
-            // 
-            cadWindow5.BorderStyle = BorderStyle.Fixed3D;
-            cadWindow5.Dock = DockStyle.Fill;
-            cadWindow5.Location = new Point(0, 0);
-            cadWindow5.Margin = new Padding(5, 8, 5, 8);
-            cadWindow5.Name = "cadWindow5";
-            cadWindow5.TabIndex = 0;
-            cadWindow5.View.Level = 5;
-            // 
-            // cadWindow3D
-            // 
-            cadWindow3D.BorderStyle = BorderStyle.Fixed3D;
-            cadWindow3D.Dock = DockStyle.Fill;
-            cadWindow3D.Location = new Point(0, 0);
-            cadWindow3D.Margin = new Padding(5, 8, 5, 8);
-            cadWindow3D.Name = "cadWindow3D";
-            cadWindow3D.TabIndex = 0;
-            // 
-            // lblSelection
-            // 
-            lblSelection.AutoSize = true;
-            lblSelection.Location = new Point(5, 14);
-            lblSelection.Margin = new Padding(4, 0, 4, 0);
-            lblSelection.Name = "lblSelection";
-            lblSelection.Size = new Size(50, 20);
-            lblSelection.TabIndex = 2;
-            lblSelection.Text = "label1";
-            // 
-            // propertyGrid1
-            // 
-            propertyGrid1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            propertyGrid1.Location = new Point(0, 43);
-            propertyGrid1.Margin = new Padding(4, 5, 4, 5);
-            propertyGrid1.Name = "propertyGrid1";
-            propertyGrid1.Size = new Size(327, 604);
-            propertyGrid1.TabIndex = 1;
-            propertyGrid1.PropertyValueChanged += propertyGrid1_PropertyValueChanged;
             // 
             // tsStandard
             // 
@@ -452,7 +354,7 @@ namespace PLN
             tsTransform.Items.AddRange(new ToolStripItem[] { btnMove, btnCopy, btnRotate, btnScale, btnMirror, toolStripSeparator1, btnStretch, btnRotateCP, btnScaleCP, toolStripSeparator3, btnDelete, toolStripSeparator4, btnZoom, btnPan });
             tsTransform.Location = new Point(4, 27);
             tsTransform.Name = "tsTransform";
-            tsTransform.Size = new Size(595, 27);
+            tsTransform.Size = new Size(659, 27);
             tsTransform.TabIndex = 2;
             // 
             // btnMove
@@ -545,11 +447,6 @@ namespace PLN
             toolStripSeparator3.Name = "toolStripSeparator3";
             toolStripSeparator3.Size = new Size(6, 27);
             // 
-            // toolStripSeparator4
-            // 
-            toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new Size(6, 27);
-            // 
             // btnDelete
             // 
             btnDelete.Image = Properties.Resources.cross;
@@ -558,6 +455,151 @@ namespace PLN
             btnDelete.Size = new Size(77, 24);
             btnDelete.Text = "Delete";
             btnDelete.Click += btnDelete_Click;
+            // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new Size(6, 27);
+            // 
+            // btnZoom
+            // 
+            btnZoom.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnZoom.Image = Properties.Resources.zoom;
+            btnZoom.ImageTransparentColor = Color.Magenta;
+            btnZoom.Name = "btnZoom";
+            btnZoom.Size = new Size(29, 24);
+            btnZoom.Text = "Zoom";
+            btnZoom.Click += btnZoom_Click;
+            // 
+            // btnPan
+            // 
+            btnPan.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnPan.Image = Properties.Resources.arrow_all;
+            btnPan.ImageTransparentColor = Color.Magenta;
+            btnPan.Name = "btnPan";
+            btnPan.Size = new Size(29, 24);
+            btnPan.Text = "Pan";
+            btnPan.Click += btnPan_Click;
+            // 
+            // tsDevelop
+            // 
+            tsDevelop.Dock = DockStyle.None;
+            tsDevelop.GripStyle = ToolStripGripStyle.Hidden;
+            tsDevelop.ImageScalingSize = new Size(20, 20);
+            tsDevelop.Items.AddRange(new ToolStripItem[] { btnDevelop1, btnDevelop2, btnDevelop3, btnDevelop4, btnDevelop5, btnDevelop6, btnDevelop7, btnDevelop8, btnDevelop9, btnDevelop10 });
+            tsDevelop.Location = new Point(4, 54);
+            tsDevelop.Name = "tsDevelop";
+            tsDevelop.Size = new Size(481, 27);
+            tsDevelop.TabIndex = 3;
+            // 
+            // btnDevelop1
+            // 
+            btnDevelop1.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDevelop1.Name = "btnDevelop1";
+            btnDevelop1.Size = new Size(47, 24);
+            btnDevelop1.Text = "Dev1";
+            btnDevelop1.Click += btnDevelop1_Click;
+            // 
+            // btnDevelop2
+            // 
+            btnDevelop2.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDevelop2.Name = "btnDevelop2";
+            btnDevelop2.Size = new Size(47, 24);
+            btnDevelop2.Text = "Dev2";
+            btnDevelop2.Click += btnDevelop2_Click;
+            // 
+            // btnDevelop3
+            // 
+            btnDevelop3.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDevelop3.Name = "btnDevelop3";
+            btnDevelop3.Size = new Size(47, 24);
+            btnDevelop3.Text = "Dev3";
+            btnDevelop3.Click += btnDevelop3_Click;
+            // 
+            // btnDevelop4
+            // 
+            btnDevelop4.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDevelop4.Name = "btnDevelop4";
+            btnDevelop4.Size = new Size(47, 24);
+            btnDevelop4.Text = "Dev4";
+            btnDevelop4.Click += btnDevelop4_Click;
+            // 
+            // btnDevelop5
+            // 
+            btnDevelop5.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDevelop5.Name = "btnDevelop5";
+            btnDevelop5.Size = new Size(47, 24);
+            btnDevelop5.Text = "Dev5";
+            btnDevelop5.Click += btnDevelop5_Click;
+            // 
+            // btnDevelop6
+            // 
+            btnDevelop6.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDevelop6.Name = "btnDevelop6";
+            btnDevelop6.Size = new Size(47, 24);
+            btnDevelop6.Text = "Dev6";
+            btnDevelop6.Click += btnDevelop6_Click;
+            // 
+            // btnDevelop7
+            // 
+            btnDevelop7.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDevelop7.Name = "btnDevelop7";
+            btnDevelop7.Size = new Size(47, 24);
+            btnDevelop7.Text = "Dev7";
+            btnDevelop7.Click += btnDevelop7_Click;
+            // 
+            // btnDevelop8
+            // 
+            btnDevelop8.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDevelop8.Name = "btnDevelop8";
+            btnDevelop8.Size = new Size(47, 24);
+            btnDevelop8.Text = "Dev8";
+            btnDevelop8.Click += btnDevelop8_Click;
+            // 
+            // btnDevelop9
+            // 
+            btnDevelop9.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDevelop9.Name = "btnDevelop9";
+            btnDevelop9.Size = new Size(47, 24);
+            btnDevelop9.Text = "Dev9";
+            btnDevelop9.Click += btnDevelop9_Click;
+            // 
+            // btnDevelop10
+            // 
+            btnDevelop10.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnDevelop10.Name = "btnDevelop10";
+            btnDevelop10.Size = new Size(55, 24);
+            btnDevelop10.Text = "Dev10";
+            btnDevelop10.Click += btnDevelop10_Click;
+            // 
+            // treeProjectBrowser
+            // 
+            treeProjectBrowser.Dock = DockStyle.Fill;
+            treeProjectBrowser.LineColor = Color.Empty;
+            treeProjectBrowser.Location = new Point(0, 0);
+            treeProjectBrowser.Name = "treeProjectBrowser";
+            treeProjectBrowser.Size = new Size(198, 687);
+            treeProjectBrowser.TabIndex = 0;
+            // 
+            // lblSelection
+            // 
+            lblSelection.AutoSize = true;
+            lblSelection.Location = new Point(5, 14);
+            lblSelection.Margin = new Padding(4, 0, 4, 0);
+            lblSelection.Name = "lblSelection";
+            lblSelection.Size = new Size(50, 20);
+            lblSelection.TabIndex = 2;
+            lblSelection.Text = "label1";
+            // 
+            // propertyGrid1
+            // 
+            propertyGrid1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            propertyGrid1.Location = new Point(0, 43);
+            propertyGrid1.Margin = new Padding(4, 5, 4, 5);
+            propertyGrid1.Name = "propertyGrid1";
+            propertyGrid1.Size = new Size(327, 604);
+            propertyGrid1.TabIndex = 1;
+            propertyGrid1.PropertyValueChanged += propertyGrid1_PropertyValueChanged;
             // 
             // tsPrimitives
             // 
@@ -748,137 +790,19 @@ namespace PLN
             // 
             // toolStrip1
             // 
-            //toolStrip1.Dock = DockStyle.None;
-            //toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
-            //toolStrip1.ImageScalingSize = new Size(20, 20);
-            //toolStrip1.Items.AddRange(new ToolStripItem[] { btnZoom, btnPan });
-            //toolStrip1.Location = new Point(4, 54);
-            //toolStrip1.Name = "toolStrip1";
-            //toolStrip1.Size = new Size(61, 27);
-            //toolStrip1.TabIndex = 4;
+            toolStrip1.ImageScalingSize = new Size(20, 20);
+            toolStrip1.Location = new Point(0, 0);
+            toolStrip1.Name = "toolStrip1";
+            toolStrip1.Size = new Size(100, 25);
+            toolStrip1.TabIndex = 0;
             // 
-            // btnZoom
+            // listView1
             // 
-            btnZoom.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnZoom.Image = Properties.Resources.zoom;
-            btnZoom.ImageTransparentColor = Color.Magenta;
-            btnZoom.Name = "btnZoom";
-            btnZoom.Size = new Size(29, 24);
-            btnZoom.Text = "Zoom";
-            btnZoom.Click += btnZoom_Click;
-            // 
-            // btnPan
-            // 
-            btnPan.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnPan.Image = Properties.Resources.arrow_all;
-            btnPan.ImageTransparentColor = Color.Magenta;
-            btnPan.Name = "btnPan";
-            btnPan.Size = new Size(29, 24);
-            btnPan.Text = "Pan";
-            btnPan.Click += btnPan_Click;
-            // 
-            // tsDevelop
-            // 
-            tsDevelop.Dock = DockStyle.None;
-            tsDevelop.GripStyle = ToolStripGripStyle.Hidden;
-            tsDevelop.ImageScalingSize = new Size(20, 20);
-            tsDevelop.Items.AddRange(new ToolStripItem[] {
-                btnDevelop1,
-                btnDevelop2,
-                btnDevelop3,
-                btnDevelop4,
-                btnDevelop5,
-                btnDevelop6,
-                btnDevelop7,
-                btnDevelop8,
-                btnDevelop9,
-                btnDevelop10
-            });
-            tsDevelop.Location = new Point(7, 54);
-            tsDevelop.Name = "tsDevelop";
-            //tsDevelop.Size = new Size(1235, 27);
-            tsDevelop.TabIndex = 3;
-            // 
-            // btnDevelop1
-            // 
-            btnDevelop1.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnDevelop1.Name = "btnDevelop1";
-            btnDevelop1.Size = new Size(29, 24);
-            btnDevelop1.Text = "Dev1";
-            btnDevelop1.Click += btnDevelop1_Click;
-            // 
-            // btnDevelop2
-            // 
-            btnDevelop2.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnDevelop2.Name = "btnDevelop2";
-            btnDevelop2.Size = new Size(29, 24);
-            btnDevelop2.Text = "Dev2";
-            btnDevelop2.Click += btnDevelop2_Click;
-            // 
-            // btnDevelop3
-            // 
-            btnDevelop3.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnDevelop3.Name = "btnDevelop3";
-            btnDevelop3.Size = new Size(29, 24);
-            btnDevelop3.Text = "Dev3";
-            btnDevelop3.Click += btnDevelop3_Click;
-            // 
-            // btnDevelop4
-            // 
-            btnDevelop4.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnDevelop4.Name = "btnDevelop4";
-            btnDevelop4.Size = new Size(29, 24);
-            btnDevelop4.Text = "Dev4";
-            btnDevelop4.Click += btnDevelop4_Click;
-            // 
-            // btnDevelop5
-            // 
-            btnDevelop5.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnDevelop5.Name = "btnDevelop5";
-            btnDevelop5.Size = new Size(29, 24);
-            btnDevelop5.Text = "Dev5";
-            btnDevelop5.Click += btnDevelop5_Click;
-            // 
-            // btnDevelop6
-            // 
-            btnDevelop6.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnDevelop6.Name = "btnDevelop6";
-            btnDevelop6.Size = new Size(29, 24);
-            btnDevelop6.Text = "Dev6";
-            btnDevelop6.Click += btnDevelop6_Click;
-            // 
-            // btnDevelop7
-            // 
-            btnDevelop7.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnDevelop7.Name = "btnDevelop7";
-            btnDevelop7.Size = new Size(29, 24);
-            btnDevelop7.Text = "Dev7";
-            btnDevelop7.Click += btnDevelop7_Click;
-            // 
-            // btnDevelop8
-            // 
-            btnDevelop8.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnDevelop8.Name = "btnDevelop8";
-            btnDevelop8.Size = new Size(29, 24);
-            btnDevelop8.Text = "Dev8";
-            btnDevelop8.Click += btnDevelop8_Click;
-            // 
-            // btnDevelop9
-            // 
-            btnDevelop9.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnDevelop9.Name = "btnDevelop9";
-            btnDevelop9.Size = new Size(29, 24);
-            btnDevelop9.Text = "Dev9";
-            btnDevelop9.Click += btnDevelop9_Click;
-            // 
-            // btnDevelop10
-            // 
-            btnDevelop10.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnDevelop10.Name = "btnDevelop10";
-            btnDevelop10.Size = new Size(29, 24);
-            btnDevelop10.Text = "Dev10";
-            btnDevelop10.Click += btnDevelop10_Click;
-
+            listView1.Location = new Point(8, 8);
+            listView1.Name = "listView1";
+            listView1.Size = new Size(151, 121);
+            listView1.TabIndex = 1;
+            listView1.UseCompatibleStateImageBehavior = false;
             // 
             // MainForm
             // 
@@ -900,18 +824,14 @@ namespace PLN
             toolStripContainer1.PerformLayout();
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
-            dockPanel.ResumeLayout(false);
-            dockPanel.PerformLayout();
             tsStandard.ResumeLayout(false);
             tsStandard.PerformLayout();
             tsTransform.ResumeLayout(false);
             tsTransform.PerformLayout();
-            tsPrimitives.ResumeLayout(false);
-            tsPrimitives.PerformLayout();
-            toolStrip1.ResumeLayout(false);
-            toolStrip1.PerformLayout();
             tsDevelop.ResumeLayout(false);
             tsDevelop.PerformLayout();
+            tsPrimitives.ResumeLayout(false);
+            tsPrimitives.PerformLayout();
             ResumeLayout(false);
 
         }
@@ -994,20 +914,13 @@ namespace PLN
         private System.Windows.Forms.ToolStripButton btnDevelop10;
 
         private DockPanel dockPanel;
-        private MainDockContent contentProjectBrowser;
-        private MainDockContent contentProperties;
-        private MainDockContent contentViewFloor1F;
-        private MainDockContent contentViewFloor2F;
-        private MainDockContent contentViewFloor3F;
-        private MainDockContent contentViewFloor4F;
-        private MainDockContent contentViewFloor5F;
-        private MainDockContent contentViewFloor3D;
         private CADWindow cadWindow1;
         private CADWindow cadWindow2;
         private CADWindow cadWindow3;
         private CADWindow cadWindow4;
         private CADWindow cadWindow5;
         private CADWindow3D cadWindow3D;
+        private ListView listView1;
     }
     public class MainDockContent : DockContent
     {
