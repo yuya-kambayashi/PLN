@@ -1,5 +1,7 @@
 ﻿using PLN.Elements;
+using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
 
 namespace PLN
 {
@@ -122,6 +124,20 @@ namespace PLN
         }
         private void InitializeDockContents()
         {
+            var item1 = new ListViewItem("1");
+            item1.SubItems.Add("aaa");
+            item1.SubItems.Add("bbb");
+            item1.SubItems.Add("ccc");
+            item1.SubItems.Add("ddd");
+            itemList.Items.Add(item1);
+
+
+            itemList.Items.Add(new ListViewItem());
+
+            itemList.Columns.Add("ID", 50);
+            itemList.Columns.Add("名前", 150);
+            itemList.Columns.Add("種類", 100);
+            itemList.Columns.Add("レイヤー", 100);
 
             contentProjectBrowser = new MainDockContent("プロジェクト ブラウザ", treeProjectBrowser);
             contentProperties = new MainDockContent("Properties", propertyGrid1);

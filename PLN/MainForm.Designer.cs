@@ -1,4 +1,5 @@
-﻿using WeifenLuo.WinFormsUI.Docking;
+﻿using System.Windows.Forms;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace PLN
 {
@@ -49,7 +50,6 @@ namespace PLN
             btnSnapCenter = new ToolStripMenuItem();
             btnSnapQuadrant = new ToolStripMenuItem();
             btnSnapPoint = new ToolStripMenuItem();
-            itemList = new ListView();
             dockPanel = new DockPanel();
             tsStandard = new ToolStrip();
             btnNew = new ToolStripButton();
@@ -82,6 +82,7 @@ namespace PLN
             btnDevelop8 = new ToolStripButton();
             btnDevelop9 = new ToolStripButton();
             btnDevelop10 = new ToolStripButton();
+            itemList = new ListView();
             treeProjectBrowser = new TreeView();
             lblSelection = new Label();
             propertyGrid1 = new PropertyGrid();
@@ -133,7 +134,7 @@ namespace PLN
             // 
             toolStripContainer1.ContentPanel.Controls.Add(dockPanel);
             toolStripContainer1.ContentPanel.Margin = new Padding(4, 5, 4, 5);
-            toolStripContainer1.ContentPanel.Size = new Size(1344, 662);
+            toolStripContainer1.ContentPanel.Size = new Size(1344, 687);
             toolStripContainer1.Dock = DockStyle.Fill;
             toolStripContainer1.Location = new Point(0, 0);
             toolStripContainer1.Margin = new Padding(4, 5, 4, 5);
@@ -153,7 +154,7 @@ namespace PLN
             statusStrip1.Dock = DockStyle.None;
             statusStrip1.ImageScalingSize = new Size(20, 20);
             statusStrip1.Items.AddRange(new ToolStripItem[] { statusLabel, statusCoords, btnAngleMode, btnSnapMode });
-            statusStrip1.Location = new Point(0, 25);
+            statusStrip1.Location = new Point(0, 0);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Size = new Size(1344, 26);
             statusStrip1.TabIndex = 0;
@@ -283,14 +284,6 @@ namespace PLN
             btnSnapPoint.Text = "Point";
             btnSnapPoint.Click += btnSnapPoint_Click;
             // 
-            // itemList
-            // 
-            itemList.Location = new Point(343, 580);
-            itemList.Name = "itemList";
-            itemList.Size = new Size(771, 67);
-            itemList.TabIndex = 1;
-            itemList.UseCompatibleStateImageBehavior = false;
-            // 
             // dockPanel
             // 
             dockPanel.Dock = DockStyle.Fill;
@@ -298,7 +291,7 @@ namespace PLN
             dockPanel.Location = new Point(0, 0);
             dockPanel.Name = "dockPanel";
             dockPanel.ShowAutoHideContentOnHover = false;
-            dockPanel.Size = new Size(1344, 662);
+            dockPanel.Size = new Size(1344, 687);
             dockPanel.TabIndex = 0;
             // 
             // tsStandard
@@ -576,6 +569,20 @@ namespace PLN
             btnDevelop10.Size = new Size(55, 24);
             btnDevelop10.Text = "Dev10";
             btnDevelop10.Click += btnDevelop10_Click;
+            // 
+            // itemList
+            // 
+            itemList.Dock = DockStyle.Fill;
+            itemList.Location = new Point(343, 580);
+            itemList.Name = "itemList";
+            itemList.Size = new Size(771, 67);
+            itemList.TabIndex = 1;
+            itemList.UseCompatibleStateImageBehavior = false;
+            itemList.View = System.Windows.Forms.View.Details;
+            itemList.FullRowSelect = true;
+            itemList.GridLines = true;
+            itemList.CheckBoxes = true;
+
             // 
             // treeProjectBrowser
             // 
