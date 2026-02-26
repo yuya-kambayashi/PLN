@@ -6,7 +6,7 @@ namespace PLN
 {
     public sealed class SelectionSet : ISet<Drawable>, INotifyCollectionChanged
     {
-        HashSet<Drawable> items = new HashSet<Drawable>();
+        OrderedSet<Drawable> items = new OrderedSet<Drawable>();
 
         public event NotifyCollectionChangedEventHandler CollectionChanged;
         public static SelectionSet Empty => new SelectionSet();
@@ -77,7 +77,6 @@ namespace PLN
                 Add(item);
             }
         }
-
         #region Not Implemented
         void ISet<Drawable>.IntersectWith(IEnumerable<Drawable> other)
         {

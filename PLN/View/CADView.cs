@@ -520,8 +520,16 @@ namespace PLN
                         }
                         else
                         {
+                            // アイテム選択
+
                             // アイテムの選択は単一とする場合は、PickedSelectionに追加前にクリアする
-                            //Document.Editor.PickedSelection.Clear();
+                            Document.Editor.PickedSelection.Clear();
+
+                            // マウスオーバー地点に複数のアイテムがあり、Tabで切り替えている場合はTabで表示させた部材を選択する
+                            if (!mouseDownItem.Equals(Document.Editor.MouseOverSelection.First()))
+                            {
+                                mouseDownItem = Document.Editor.MouseOverSelection.First();
+                            }
 
                             float cpSize = ScreenToWorld(new Vector2D(Document.Settings.ControlPointSize + 4, 0)).X;
                             Document.Editor.PickedSelection.Add(mouseDownItem);
@@ -619,12 +627,19 @@ namespace PLN
 
 
             // マウスオーバーの更新
-            var mouseOverItem = FindItem(e.Location, ScreenToWorld(new Vector2D(Document.Settings.PickBoxSize, 0)).X);
+            List<Drawable> mouseOverItems = FindItems(e.Location, ScreenToWorld(new Vector2D(Document.Settings.PickBoxSize, 0)).X);
 
-            if (mouseOverItem != null)
+            if (mouseOverItems.Count == 0)
             {
                 Document.Editor.MouseOverSelection.Clear();
-                Document.Editor.MouseOverSelection.Add(mouseOverItem);
+            }
+            else
+            {
+                Document.Editor.MouseOverSelection.Clear();
+                foreach (var item in mouseOverItems)
+                {
+                    Document.Editor.MouseOverSelection.Add(item);
+                }
             }
         }
 
@@ -701,10 +716,6 @@ namespace PLN
             {
                 Document.Editor.OnViewKeyPress(this, e);
             }
-            else if (e.KeyChar == '\t')
-            {
-                int a = 0;
-            }
         }
 
         void CadView_Paint(object sender, PaintEventArgs e)
@@ -720,6 +731,20 @@ namespace PLN
                 if (d.Contains(pt, pickBoxWorld)) return d;
             }
             return null;
+        }
+        private List<Drawable> FindItems(Point2D pt, float pickBox)
+        {
+            float pickBoxWorld = ScreenToWorld(new Vector2D(pickBox, 0)).X;
+
+            var foundItems = new List<Drawable>();
+            foreach (Drawable d in VisibleItems)
+            {
+                if (d.Contains(pt, pickBoxWorld))
+                {
+                    foundItems.Add(d);
+                }
+            }
+            return foundItems;
         }
 
         private Tuple<Drawable, ControlPoint> FindControlPoint(Point2D pt, float controlPointSize)

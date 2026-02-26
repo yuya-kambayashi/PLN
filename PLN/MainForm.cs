@@ -27,6 +27,7 @@ namespace PLN
             doc.MouseOverChanged += doc_MouseOverChanged;
             cadWindow1.MouseMove += cadWindow1_MouseMove;
             cadWindow2.MouseMove += cadWindow2_MouseMove;
+            cadWindow1.KeyDown += cadWindow1_KeyDown;
 
             btnShowGrid = new CheckBox();
             btnShowGrid.Appearance = Appearance.Button;
@@ -208,7 +209,32 @@ namespace PLN
 
         private void cadWindow1_MouseMove(object sender, MouseEventArgs e)
         {
+            if (ed.MouseOverSelection.Count == 0)
+            {
+                statusLabel.Text = "No selection";
+            }
+            else
+            {
+                statusLabel.Text = ed.MouseOverSelection.Count + ":" + ed.MouseOverSelection.First().GetType().Name;
+            }
+
+
             statusCoords.Text = cadWindow1.View.CursorLocation.ToString(doc.Settings.NumberFormat);
+        }
+        private void cadWindow1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Tab)
+            {
+                // MouseOverSelectionの切り替え
+                if (ed.MouseOverSelection.Count > 1)
+                {
+                    var first = ed.MouseOverSelection.First();
+                    ed.MouseOverSelection.Remove(first);
+                    ed.MouseOverSelection.Add(first);
+
+                    statusLabel.Text = ed.MouseOverSelection.Count + ":" + ed.MouseOverSelection.First().GetType().Name;
+                }
+            }
         }
         private void cadWindow2_MouseMove(object sender, MouseEventArgs e)
         {
@@ -311,28 +337,6 @@ namespace PLN
 
             btnShowGrid.Checked = cadWindow1.View.ShowGrid;
             btnShowAxes.Checked = cadWindow1.View.ShowAxes;
-
-            //if (ed.PickedSelection.Count == 0)
-            //    lblSelection.Text = "No selection";
-            //else if (ed.PickedSelection.Count == 1)
-            //    lblSelection.Text = ed.PickedSelection.First().GetType().Name;
-            //else
-            //    lblSelection.Text = ed.PickedSelection.Count.ToString() + " selected";
-
-            //if (ed.PickedSelection.Count == 0)
-            //    statusLabel.Text = "No selection";
-            //else if (ed.PickedSelection.Count == 1)
-            //    statusLabel.Text = ed.PickedSelection.First().GetType().Name;
-            //else
-            //    statusLabel.Text = ed.PickedSelection.Count.ToString() + " selected";
-
-            // 現在マウスオーバーされているアイテムの名称を表示する
-            if (ed.MouseOverSelection.Count == 0)
-                statusLabel.Text = "No selection";
-            else if (ed.MouseOverSelection.Count == 1)
-                statusLabel.Text = ed.MouseOverSelection.First().GetType().Name;
-            else
-                statusLabel.Text = ed.MouseOverSelection.Count.ToString() + " selected";
         }
 
         private void btnDrawPoint_Click(object sender, EventArgs e)
