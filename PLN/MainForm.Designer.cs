@@ -49,6 +49,7 @@ namespace PLN
             btnSnapCenter = new ToolStripMenuItem();
             btnSnapQuadrant = new ToolStripMenuItem();
             btnSnapPoint = new ToolStripMenuItem();
+            itemList = new ListView();
             dockPanel = new DockPanel();
             tsStandard = new ToolStrip();
             btnNew = new ToolStripButton();
@@ -104,8 +105,6 @@ namespace PLN
             toolStripSeparator2 = new ToolStripSeparator();
             btnCreateComposite = new ToolStripButton();
             toolStrip1 = new ToolStrip();
-            listView1 = new ListView();
-            doc = new CADDocument();
             cadWindow1 = new CADWindow();
             cadWindow2 = new CADWindow();
             cadWindow3 = new CADWindow();
@@ -132,10 +131,9 @@ namespace PLN
             // 
             // toolStripContainer1.ContentPanel
             // 
-            toolStripContainer1.ContentPanel.Controls.Add(listView1);
             toolStripContainer1.ContentPanel.Controls.Add(dockPanel);
             toolStripContainer1.ContentPanel.Margin = new Padding(4, 5, 4, 5);
-            toolStripContainer1.ContentPanel.Size = new Size(1344, 687);
+            toolStripContainer1.ContentPanel.Size = new Size(1344, 662);
             toolStripContainer1.Dock = DockStyle.Fill;
             toolStripContainer1.Location = new Point(0, 0);
             toolStripContainer1.Margin = new Padding(4, 5, 4, 5);
@@ -155,7 +153,7 @@ namespace PLN
             statusStrip1.Dock = DockStyle.None;
             statusStrip1.ImageScalingSize = new Size(20, 20);
             statusStrip1.Items.AddRange(new ToolStripItem[] { statusLabel, statusCoords, btnAngleMode, btnSnapMode });
-            statusStrip1.Location = new Point(0, 0);
+            statusStrip1.Location = new Point(0, 25);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Size = new Size(1344, 26);
             statusStrip1.TabIndex = 0;
@@ -285,15 +283,22 @@ namespace PLN
             btnSnapPoint.Text = "Point";
             btnSnapPoint.Click += btnSnapPoint_Click;
             // 
+            // itemList
+            // 
+            itemList.Location = new Point(343, 580);
+            itemList.Name = "itemList";
+            itemList.Size = new Size(771, 67);
+            itemList.TabIndex = 1;
+            itemList.UseCompatibleStateImageBehavior = false;
+            // 
             // dockPanel
             // 
             dockPanel.Dock = DockStyle.Fill;
             dockPanel.DockBackColor = Color.FromArgb(238, 238, 242);
             dockPanel.Location = new Point(0, 0);
             dockPanel.Name = "dockPanel";
-            dockPanel.Padding = new Padding(6);
             dockPanel.ShowAutoHideContentOnHover = false;
-            dockPanel.Size = new Size(1344, 687);
+            dockPanel.Size = new Size(1344, 662);
             dockPanel.TabIndex = 0;
             // 
             // tsStandard
@@ -796,13 +801,67 @@ namespace PLN
             toolStrip1.Size = new Size(100, 25);
             toolStrip1.TabIndex = 0;
             // 
-            // listView1
+            // cadWindow1
             // 
-            listView1.Location = new Point(8, 8);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(151, 121);
-            listView1.TabIndex = 1;
-            listView1.UseCompatibleStateImageBehavior = false;
+            cadWindow1.BorderStyle = BorderStyle.Fixed3D;
+            cadWindow1.Document = null;
+            cadWindow1.Location = new Point(0, 0);
+            cadWindow1.Margin = new Padding(4, 5, 4, 5);
+            cadWindow1.Name = "cadWindow1";
+            cadWindow1.Size = new Size(911, 652);
+            cadWindow1.TabIndex = 0;
+            // 
+            // cadWindow2
+            // 
+            cadWindow2.BorderStyle = BorderStyle.Fixed3D;
+            cadWindow2.Document = null;
+            cadWindow2.Location = new Point(0, 0);
+            cadWindow2.Margin = new Padding(4, 5, 4, 5);
+            cadWindow2.Name = "cadWindow2";
+            cadWindow2.Size = new Size(911, 652);
+            cadWindow2.TabIndex = 0;
+            // 
+            // cadWindow3
+            // 
+            cadWindow3.BorderStyle = BorderStyle.Fixed3D;
+            cadWindow3.Document = null;
+            cadWindow3.Location = new Point(0, 0);
+            cadWindow3.Margin = new Padding(4, 5, 4, 5);
+            cadWindow3.Name = "cadWindow3";
+            cadWindow3.Size = new Size(911, 652);
+            cadWindow3.TabIndex = 0;
+            // 
+            // cadWindow4
+            // 
+            cadWindow4.BorderStyle = BorderStyle.Fixed3D;
+            cadWindow4.Document = null;
+            cadWindow4.Location = new Point(0, 0);
+            cadWindow4.Margin = new Padding(4, 5, 4, 5);
+            cadWindow4.Name = "cadWindow4";
+            cadWindow4.Size = new Size(911, 652);
+            cadWindow4.TabIndex = 0;
+            // 
+            // cadWindow5
+            // 
+            cadWindow5.BorderStyle = BorderStyle.Fixed3D;
+            cadWindow5.Document = null;
+            cadWindow5.Location = new Point(0, 0);
+            cadWindow5.Margin = new Padding(4, 5, 4, 5);
+            cadWindow5.Name = "cadWindow5";
+            cadWindow5.Size = new Size(911, 652);
+            cadWindow5.TabIndex = 0;
+            // 
+            // cadWindow3D
+            // 
+            cadWindow3D.BackColor = Color.Black;
+            cadWindow3D.BorderStyle = BorderStyle.Fixed3D;
+            cadWindow3D.Document = null;
+            cadWindow3D.Location = new Point(0, 0);
+            cadWindow3D.Margin = new Padding(5, 8, 5, 8);
+            cadWindow3D.Name = "cadWindow3D";
+            cadWindow3D.Size = new Size(911, 652);
+            cadWindow3D.TabIndex = 0;
+            cadWindow3D.VSync = true;
             // 
             // MainForm
             // 
@@ -920,7 +979,7 @@ namespace PLN
         private CADWindow cadWindow4;
         private CADWindow cadWindow5;
         private CADWindow3D cadWindow3D;
-        private ListView listView1;
+        private ListView itemList;
     }
     public class MainDockContent : DockContent
     {

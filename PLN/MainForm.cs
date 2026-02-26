@@ -15,12 +15,14 @@ namespace PLN
 
         private MainDockContent contentProjectBrowser;
         private MainDockContent contentProperties;
+        private MainDockContent contentItemList;
         private MainDockContent contentViewFloor1F;
         private MainDockContent contentViewFloor2F;
         private MainDockContent contentViewFloor3F;
         private MainDockContent contentViewFloor4F;
         private MainDockContent contentViewFloor5F;
         private MainDockContent contentViewFloor3D;
+
         public MainForm()
         {
             InitializeComponent();
@@ -108,6 +110,7 @@ namespace PLN
         }
         private void InitializeDocument()
         {
+            doc = new CADDocument();
             ed = doc.Editor;
 
             cadWindow1.AttachDocument(doc);
@@ -129,10 +132,13 @@ namespace PLN
             contentViewFloor5F = new MainDockContent("5階平面図", cadWindow5);
             contentViewFloor3D = new MainDockContent("3D", cadWindow3D);
 
+            contentItemList = new MainDockContent("Item List", itemList);
+
             dockPanel.Theme = new VS2015LightTheme();
 
             contentProjectBrowser.Show(dockPanel, DockState.DockLeft);
             contentProperties.Show(dockPanel, DockState.DockRight);
+            contentItemList.Show(dockPanel, DockState.DockBottom);
             contentViewFloor1F.Show(dockPanel, DockState.Document);
         }
 
