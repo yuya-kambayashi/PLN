@@ -1,5 +1,6 @@
-﻿using PLN.Elements;
-using System.Windows.Forms;
+﻿using PLN.Drawables;
+using PLN.Elements;
+using System.Collections.Specialized;
 using WeifenLuo.WinFormsUI.Docking;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
 
@@ -50,7 +51,7 @@ namespace PLN
             // 
             cadWindow1.BorderStyle = BorderStyle.Fixed3D;
             cadWindow1.Dock = DockStyle.Fill;
-            cadWindow1.Location = new Point(0, 0);
+            cadWindow1.Location = new System.Drawing.Point(0, 0);
             cadWindow1.Margin = new Padding(5, 8, 5, 8);
             cadWindow1.Name = "cadWindow1";
             cadWindow1.TabIndex = 0;
@@ -61,7 +62,7 @@ namespace PLN
             // 
             cadWindow2.BorderStyle = BorderStyle.Fixed3D;
             cadWindow2.Dock = DockStyle.Fill;
-            cadWindow2.Location = new Point(0, 0);
+            cadWindow2.Location = new System.Drawing.Point(0, 0);
             cadWindow2.Margin = new Padding(5, 8, 5, 8);
             cadWindow2.Name = "cadWindow2";
             cadWindow2.TabIndex = 0;
@@ -72,7 +73,7 @@ namespace PLN
             // 
             cadWindow3.BorderStyle = BorderStyle.Fixed3D;
             cadWindow3.Dock = DockStyle.Fill;
-            cadWindow3.Location = new Point(0, 0);
+            cadWindow3.Location = new System.Drawing.Point(0, 0);
             cadWindow3.Margin = new Padding(5, 8, 5, 8);
             cadWindow3.Name = "cadWindow3";
             cadWindow3.TabIndex = 0;
@@ -83,7 +84,7 @@ namespace PLN
             // 
             cadWindow4.BorderStyle = BorderStyle.Fixed3D;
             cadWindow4.Dock = DockStyle.Fill;
-            cadWindow4.Location = new Point(0, 0);
+            cadWindow4.Location = new System.Drawing.Point(0, 0);
             cadWindow4.Margin = new Padding(5, 8, 5, 8);
             cadWindow4.Name = "cadWindow4";
             cadWindow4.TabIndex = 0;
@@ -94,7 +95,7 @@ namespace PLN
             // 
             cadWindow5.BorderStyle = BorderStyle.Fixed3D;
             cadWindow5.Dock = DockStyle.Fill;
-            cadWindow5.Location = new Point(0, 0);
+            cadWindow5.Location = new System.Drawing.Point(0, 0);
             cadWindow5.Margin = new Padding(5, 8, 5, 8);
             cadWindow5.Name = "cadWindow5";
             cadWindow5.TabIndex = 0;
@@ -105,7 +106,7 @@ namespace PLN
             // 
             cadWindow3D.BorderStyle = BorderStyle.Fixed3D;
             cadWindow3D.Dock = DockStyle.Fill;
-            cadWindow3D.Location = new Point(0, 0);
+            cadWindow3D.Location = new System.Drawing.Point(0, 0);
             cadWindow3D.Margin = new Padding(5, 8, 5, 8);
             cadWindow3D.Name = "cadWindow3D";
             cadWindow3D.TabIndex = 0;
@@ -124,20 +125,9 @@ namespace PLN
         }
         private void InitializeDockContents()
         {
-            var item1 = new ListViewItem("1");
-            item1.SubItems.Add("aaa");
-            item1.SubItems.Add("bbb");
-            item1.SubItems.Add("ccc");
-            item1.SubItems.Add("ddd");
-            itemList.Items.Add(item1);
-
-
-            itemList.Items.Add(new ListViewItem());
-
-            itemList.Columns.Add("ID", 50);
             itemList.Columns.Add("名前", 150);
-            itemList.Columns.Add("種類", 100);
-            itemList.Columns.Add("レイヤー", 100);
+            itemList.Columns.Add("配置階", 50);
+            itemList.Columns.Add("上階", 50);
 
             contentProjectBrowser = new MainDockContent("プロジェクト ブラウザ", treeProjectBrowser);
             contentProperties = new MainDockContent("Properties", propertyGrid1);
@@ -175,6 +165,8 @@ namespace PLN
             cadWindow1.KeyDown += cadWindow1_KeyDown;
 
             treeProjectBrowser.NodeMouseClick += treeProjectBrowser_NodeMouseClick;
+
+            doc.Model.CollectionChanged += Model_CollectionChanged;
         }
 
         private void InitializeGrid()
@@ -1073,6 +1065,80 @@ namespace PLN
                     ed.RunCommand("Elements.Area");
                     break;
             }
+        }
+        private void Model_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                foreach (Element item in e.NewItems)
+                {
+                    AddToItemList(item);
+                }
+            }
+
+            if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                foreach (Element item in e.OldItems)
+                {
+                    RemoveFromItemList(item);
+                }
+            }
+
+            if (e.Action == NotifyCollectionChangedAction.Reset)
+            {
+                RefreshEntireItemList();
+            }
+
+
+        }
+        private void AddToItemList(Element item)
+        {
+            if (item is Element element)
+            {
+                var lv = new ListViewItem(element.GetType().Name);
+                lv.SubItems.Add(element.ReferenceLevel.ToString());
+                lv.SubItems.Add(element.UpperLevel.ToString());
+                lv.Tag = element;
+
+                itemList.Items.Add(lv);
+            }
+        }
+        private void RemoveFromItemList(Element item)
+        {
+            foreach (ListViewItem lv in itemList.Items)
+            {
+                if (lv.Tag == item)
+                {
+                    itemList.Items.Remove(lv);
+                    break;
+                }
+            }
+        }
+        private void RefreshEntireItemList()
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(RefreshEntireItemList));
+                return;
+            }
+
+            itemList.BeginUpdate();
+
+            itemList.Items.Clear();
+
+            foreach (var item in doc.Model)
+            {
+                if (item is Room room)
+                {
+                    var lv = new ListViewItem(room.Name);
+                    lv.SubItems.Add(room.LayoutType.ToString());
+                    lv.Tag = room;
+
+                    itemList.Items.Add(lv);
+                }
+            }
+
+            itemList.EndUpdate();
         }
     }
 }
