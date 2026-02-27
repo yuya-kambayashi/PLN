@@ -581,7 +581,6 @@ namespace PLN
             itemList.View = System.Windows.Forms.View.Details;
             itemList.FullRowSelect = true;
             itemList.GridLines = true;
-            itemList.CheckBoxes = true;
 
             // 
             // treeProjectBrowser

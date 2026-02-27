@@ -1,5 +1,6 @@
 ﻿using PLN.Drawables;
 using PLN.Elements;
+using PLN.Geometry;
 using System.Collections.Specialized;
 using WeifenLuo.WinFormsUI.Docking;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
@@ -167,6 +168,8 @@ namespace PLN
             treeProjectBrowser.NodeMouseClick += treeProjectBrowser_NodeMouseClick;
 
             doc.Model.CollectionChanged += Model_CollectionChanged;
+
+            itemList.SelectedIndexChanged += ItemList_SelectedIndexChanged;
         }
 
         private void InitializeGrid()
@@ -1139,6 +1142,38 @@ namespace PLN
             }
 
             itemList.EndUpdate();
+        }
+        private void ItemList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Listで選択した部材にパンする
+
+            if (itemList.SelectedItems.Count == 0)
+                return;
+
+            var selectedRoom = (Room)itemList.SelectedItems[0].Tag;
+
+            var pts = selectedRoom.Fig.Points;
+
+            Point2D ptC = new Point2D(
+                (float)pts.Average(p => p.X),
+                (float)pts.Average(p => p.Y));
+
+
+            float centerX = cadWindow1.Width / 2f;
+            float centerY = cadWindow1.Height / 2f;
+
+            Point2D screenCenter = doc.ActiveView.ScreenToWorld(centerX, centerY);
+
+            float dx = ptC.X - screenCenter.X;
+            float dy = ptC.Y - screenCenter.Y;
+
+            Vector2D moveVector = new Vector2D(dx, dy);
+
+
+            doc.ActiveView.Pan(moveVector);
+
+
+            doc.ActiveView.Redraw();
         }
     }
 }
