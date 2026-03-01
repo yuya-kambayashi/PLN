@@ -17,7 +17,7 @@ namespace PLN.Commands
             if (s.Result != ResultMode.OK || s.Value.Count == 0) return;
             var p = await ed.GetPoint("Base point: ");
             if (p.Result != ResultMode.OK) return;
-            var t = await ed.GetText("Name: ");
+            var t = await ed.GetText("ElementType: ");
             if (t.Result != ResultMode.OK || string.IsNullOrEmpty(t.Value)) return;
 
             Composite composite = new Composite();

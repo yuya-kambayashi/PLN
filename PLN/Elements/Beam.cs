@@ -10,8 +10,6 @@ namespace PLN.Elements
     internal class Beam : Element
     {
         public override LayoutType LayoutType => LayoutType.Horizontal;
-        public Line Fig { get; private set; }
-
         public float H { get; private set; }
         public float B { get; private set; }
 
@@ -21,15 +19,17 @@ namespace PLN.Elements
 
             //Fig.StartPoint = line.StartPoint;
             //Fig.EndPoint = line.EndPoint;
-            Fig = line;
+            Fig = new Line(line.StartPoint, line.EndPoint);
 
             this.H = h;
             this.B = b;
+            this.ElementType = "New Beam";
         }
         public override void Draw(Renderer renderer)
         {
+            Line lineFig = (Line)Fig;
 
-            Vector2D dir = Fig.EndPoint - Fig.StartPoint;
+            Vector2D dir = lineFig.EndPoint - lineFig.StartPoint;
             float angle = dir.Angle;
             float len = dir.Length;
 
@@ -55,7 +55,7 @@ namespace PLN.Elements
             line4.Style = Style.ApplyLayer(Layer);
             items.Add(line4);
 
-            Matrix2D trans = Matrix2D.Transformation(1, 1, angle, Fig.StartPoint.X, Fig.StartPoint.Y);
+            Matrix2D trans = Matrix2D.Transformation(1, 1, angle, lineFig.StartPoint.X, lineFig.StartPoint.Y);
             items.TransformBy(trans);
 
             foreach (var item in items)
@@ -68,12 +68,14 @@ namespace PLN.Elements
         }
         public override void Draw3D()
         {
+            Line line = (Line)Fig;
+
             GL.Begin(PrimitiveType.Lines);
 
             GL.Color3(System.Drawing.Color.White);
 
-            GL.Vertex3(Fig.StartPoint.X, Fig.StartPoint.Y, ReferenceLevel * 100);
-            GL.Vertex3(Fig.EndPoint.X, Fig.EndPoint.Y, ReferenceLevel * 100);
+            GL.Vertex3(line.StartPoint.X, line.StartPoint.Y, ReferenceLevel * 100);
+            GL.Vertex3(line.EndPoint.X, line.EndPoint.Y, ReferenceLevel * 100);
 
             GL.End();
         }

@@ -126,7 +126,8 @@ namespace PLN
         }
         private void InitializeDockContents()
         {
-            itemList.Columns.Add("名前", 150);
+            itemList.Columns.Add("名称", 150);
+            itemList.Columns.Add("タイプ", 150);
             itemList.Columns.Add("配置階", 50);
             itemList.Columns.Add("上階", 50);
 
@@ -1099,6 +1100,7 @@ namespace PLN
             if (item is Element element)
             {
                 var lv = new ListViewItem(element.GetType().Name);
+                lv.SubItems.Add(element.ElementType.ToString());
                 lv.SubItems.Add(element.ReferenceLevel.ToString());
                 lv.SubItems.Add(element.UpperLevel.ToString());
                 lv.Tag = element;
@@ -1131,11 +1133,13 @@ namespace PLN
 
             foreach (var item in doc.Model)
             {
-                if (item is Room room)
+                if (item is Element element)
                 {
-                    var lv = new ListViewItem(room.Name);
-                    lv.SubItems.Add(room.LayoutType.ToString());
-                    lv.Tag = room;
+                    var lv = new ListViewItem(element.GetType().Name);
+                    lv.SubItems.Add(element.ElementType.ToString());
+                    lv.SubItems.Add(element.ReferenceLevel.ToString());
+                    lv.SubItems.Add(element.UpperLevel.ToString());
+                    lv.Tag = element;
 
                     itemList.Items.Add(lv);
                 }
@@ -1150,13 +1154,13 @@ namespace PLN
             if (itemList.SelectedItems.Count == 0)
                 return;
 
-            var selectedRoom = (Room)itemList.SelectedItems[0].Tag;
+            var selected = (Element)itemList.SelectedItems[0].Tag;
 
-            var pts = selectedRoom.Fig.Points;
-
-            Point2D ptC = new Point2D(
-                (float)pts.Average(p => p.X),
-                (float)pts.Average(p => p.Y));
+            if (selected.Fig is not IHasCenter hasCenter)
+            {
+                return;
+            }
+            Point2D ptC = hasCenter.Center;
 
 
             float centerX = cadWindow1.Width / 2f;

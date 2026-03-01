@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,10 +26,10 @@ namespace PLN.Commands
 
             foreach (var beam in beams)
             {
-                Column c1 = new Column(beam.ReferenceLevel - 1, new Drawables.Point(beam.Fig.StartPoint), 200);
+                Column c1 = new Column(beam.ReferenceLevel - 1, new Drawables.Point(((Line)beam.Fig).StartPoint), 200);
                 ed.Document.Model.Add(c1);
 
-                Column c2 = new Column(beam.ReferenceLevel - 1, new Drawables.Point(beam.Fig.EndPoint), 200);
+                Column c2 = new Column(beam.ReferenceLevel - 1, new Drawables.Point(((Line)beam.Fig).EndPoint), 200);
                 ed.Document.Model.Add(c2);
             }
         }
@@ -42,7 +43,7 @@ namespace PLN.Commands
         {
             Editor ed = doc.Editor;
 
-            var cnt = ed.Document.Model.OfType<Site>().Count();
+            var cnt = ed.Document.Model.OfType<PLN.Elements.Site>().Count();
 
             if (cnt == 0)
             {
@@ -54,18 +55,18 @@ namespace PLN.Commands
                 throw new Exception("Only one site is allowed.");
             }
 
-            var site = ed.Document.Model.OfType<Site>().First();
+            var site = ed.Document.Model.OfType<PLN.Elements.Site>().First();
 
 
-            var sumX = site.Fig.Points.Sum(pt => pt.X);
-            var sumY = site.Fig.Points.Sum(pt => pt.Y);
+            var sumX = ((Polygon)site.Fig).Points.Sum(pt => pt.X);
+            var sumY = ((Polygon)site.Fig).Points.Sum(pt => pt.Y);
 
 
-            var ptCenter = new Point2D(sumX / site.Fig.Points.Count, sumY / site.Fig.Points.Count);
+            var ptCenter = new Point2D(sumX / ((Polygon)site.Fig).Points.Count, sumY / ((Polygon)site.Fig).Points.Count);
 
 
             var pts = new Point2DCollection();
-            foreach (var ptBase in site.Fig.Points)
+            foreach (var ptBase in ((Polygon)site.Fig).Points)
             {
                 var ptNew = ptBase.MoveTowards(ptCenter, 100);
                 pts.Add(ptNew);
@@ -284,7 +285,7 @@ namespace PLN.Commands
             var room1 = ed.Document.Model.OfType<Room>().First();
             var room2 = ed.Document.Model.OfType<Room>().Last();
 
-            room1.Fig.isInside(room2.Fig);
+            ((Polygon)room1.Fig).isInside(((Polygon)room2.Fig));
 
 
 

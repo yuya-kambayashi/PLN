@@ -3,7 +3,7 @@ using PLN.Graphics;
 
 namespace PLN.Drawables
 {
-    public class Polyline : Curve
+    public class Polyline : Curve, IHasCenter
     {
         private const float PointOnLineTolerance = 1e-5f;
 
@@ -34,7 +34,15 @@ namespace PLN.Drawables
             Points = new Point2DCollection(pts);
             Points.CollectionChanged += Points_CollectionChanged;
         }
-
+        public Point2D Center
+        {
+            get
+            {
+                return new Point2D(
+                (float)Points.Average(p => p.X),
+                (float)Points.Average(p => p.Y));
+            }
+        }
         private void Points_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             NotifyPropertyChanged("Points");

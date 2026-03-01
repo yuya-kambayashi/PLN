@@ -13,9 +13,6 @@ namespace PLN.Elements
     internal class Wall : Element
     {
         public override LayoutType LayoutType => LayoutType.Vertical;
-
-        public Line Fig { get; private set; }
-
         public Wall(int referenceLevel, Line line)
         {
             updateLevel(referenceLevel);
@@ -24,8 +21,10 @@ namespace PLN.Elements
         }
         public override void Draw(Renderer renderer)
         {
-            Point2D EndPoint = Fig.EndPoint;
-            Point2D StartPoint = Fig.StartPoint;
+            Line lineFig = (Line)Fig;
+
+            Point2D EndPoint = lineFig.EndPoint;
+            Point2D StartPoint = lineFig.StartPoint;
             int b = 100;
 
             Vector2D dir = EndPoint - StartPoint;

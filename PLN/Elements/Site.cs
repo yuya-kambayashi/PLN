@@ -13,21 +13,18 @@ namespace PLN.Elements
     {
         public override LayoutType LayoutType => LayoutType.Horizontal;
 
-        public Polygon Fig { get; private set; }
-
-        public string Name { get; private set; }
-        public Site(int referenceLevel, Point2DCollection pts, string name)
+        public Site(int referenceLevel, Point2DCollection pts, string elementType)
         {
             updateLevel(referenceLevel);
 
             this.Fig = new Polygon(pts);
-            this.Name = name;
+            this.ElementType = elementType;
         }
         public override void Draw(Renderer renderer)
         {
             Layer layer = new Layer("1", new Style(new Graphics.Color(128, Graphics.Color.SkyBlue)));
 
-            renderer.FillPolygon(Style.ApplyLayer(layer), Fig.Points);
+            renderer.FillPolygon(Style.ApplyLayer(layer), ((Polygon)Fig).Points);
         }
 
         public override Extents2D GetExtents()

@@ -18,6 +18,8 @@ namespace PLN.Elements
 
     internal abstract class Element : Drawable
     {
+        public Drawable Fig { get; protected set; }
+        public string ElementType { get; protected set; }
         public abstract LayoutType LayoutType { get; }
         public int ReferenceLevel { get; set; }
         public int UpperLevel { get; set; }

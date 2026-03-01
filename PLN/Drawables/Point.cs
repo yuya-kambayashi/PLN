@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace PLN.Drawables
 {
-    public class Point : Drawable
+    public class Point : Drawable, IHasCenter
     {
         private Point2D p;
 
@@ -27,7 +27,13 @@ namespace PLN.Drawables
         {
             ;
         }
-
+        public Point2D Center
+        {
+            get
+            {
+                return p;
+            }
+        }
         public override void Draw(Renderer renderer)
         {
             float size = renderer.View.ScreenToWorld(new Vector2D(renderer.View.Document.Settings.PointSize, 0)).X / 2;

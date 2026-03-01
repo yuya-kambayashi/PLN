@@ -14,14 +14,12 @@ namespace PLN.Elements
         public override LayoutType LayoutType => LayoutType.Horizontal;
 
         public Polygon Fig { get; private set; }
-
-        public string Name { get; private set; }
-        public Area(int referenceLevel, Point2DCollection pts, string name)
+        public Area(int referenceLevel, Point2DCollection pts, string elementType)
         {
             updateLevel(referenceLevel);
 
             this.Fig = new Polygon(pts);
-            this.Name = name;
+            this.ElementType = elementType;
         }
         public override void Draw(Renderer renderer)
         {

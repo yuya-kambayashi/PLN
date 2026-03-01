@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace PLN.Drawables
 {
-    public class Line : Curve
+    public class Line : Curve, IHasCenter
     {
         private Point2D p1;
         private Point2D p2;
@@ -31,6 +31,13 @@ namespace PLN.Drawables
             : this(new Point2D(x1, y1), new Point2D(x2, y2))
         {
             ;
+        }
+        public Point2D Center
+        {
+            get
+            {
+                return new Point2D((p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2);
+            }
         }
 
         public override void Draw(Renderer renderer)
