@@ -3,6 +3,7 @@ using PLN.Elements;
 using PLN.Geometry;
 using System.Collections.Specialized;
 using WeifenLuo.WinFormsUI.Docking;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
 
 namespace PLN
@@ -362,7 +363,13 @@ namespace PLN
             }
             else
             {
-                statusLabel.Text = ed.MouseOverSelection.Count + ":" + ed.MouseOverSelection.First().GetType().Name;
+                var first = ed.MouseOverSelection.First();
+                if (first is not Element element)
+                {
+                    return;
+                }
+
+                statusLabel.Text = "Element : " + element.GetType().Name + " : " + element.ElementType.ToString();
             }
 
 
@@ -379,7 +386,13 @@ namespace PLN
                     ed.MouseOverSelection.Remove(first);
                     ed.MouseOverSelection.Add(first);
 
-                    statusLabel.Text = ed.MouseOverSelection.Count + ":" + ed.MouseOverSelection.First().GetType().Name;
+                    var first2 = ed.MouseOverSelection.First();
+                    if (first2 is not Element element)
+                    {
+                        return;
+                    }
+
+                    statusLabel.Text = "Element : " + element.GetType().Name + " : " + element.ElementType.ToString();
                 }
             }
         }
