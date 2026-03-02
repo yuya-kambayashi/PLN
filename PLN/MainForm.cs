@@ -141,7 +141,7 @@ namespace PLN
             contentViewFloor5F = new MainDockContent("5階平面図", cadWindow5);
             contentViewFloor3D = new MainDockContent("3D", cadWindow3D);
 
-            contentItemList = new MainDockContent("Item List", itemList);
+            contentItemList = new MainDockContent("部材一覧", itemList);
 
             dockPanel.Theme = new VS2015LightTheme();
 
