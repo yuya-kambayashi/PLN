@@ -112,6 +112,7 @@ namespace PLN
             cadWindow4 = new CADWindow();
             cadWindow5 = new CADWindow();
             cadWindow3D = new CADWindow3D();
+            testExplorer = new ListView();
             toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             toolStripContainer1.ContentPanel.SuspendLayout();
             toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -132,6 +133,7 @@ namespace PLN
             // 
             // toolStripContainer1.ContentPanel
             // 
+            toolStripContainer1.ContentPanel.Controls.Add(testExplorer);
             toolStripContainer1.ContentPanel.Controls.Add(dockPanel);
             toolStripContainer1.ContentPanel.Margin = new Padding(4, 5, 4, 5);
             toolStripContainer1.ContentPanel.Size = new Size(1344, 687);
@@ -573,15 +575,14 @@ namespace PLN
             // itemList
             // 
             itemList.Dock = DockStyle.Fill;
+            itemList.FullRowSelect = true;
+            itemList.GridLines = true;
             itemList.Location = new Point(343, 580);
             itemList.Name = "itemList";
             itemList.Size = new Size(771, 67);
             itemList.TabIndex = 1;
             itemList.UseCompatibleStateImageBehavior = false;
             itemList.View = System.Windows.Forms.View.Details;
-            itemList.FullRowSelect = true;
-            itemList.GridLines = true;
-
             // 
             // treeProjectBrowser
             // 
@@ -869,6 +870,18 @@ namespace PLN
             cadWindow3D.TabIndex = 0;
             cadWindow3D.VSync = true;
             // 
+            // testExplorer
+            // 
+            testExplorer.Dock = DockStyle.Fill;
+            testExplorer.Location = new Point(359, 431);
+            testExplorer.Name = "testExplorer";
+            testExplorer.Size = new Size(151, 121);
+            testExplorer.TabIndex = 2;
+            testExplorer.View = System.Windows.Forms.View.Details;
+            testExplorer.FullRowSelect = true;
+            testExplorer.GridLines = true;
+            testExplorer.UseCompatibleStateImageBehavior = false;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -986,6 +999,7 @@ namespace PLN
         private CADWindow cadWindow5;
         private CADWindow3D cadWindow3D;
         private ListView itemList;
+        private ListView testExplorer;
     }
     public class MainDockContent : DockContent
     {

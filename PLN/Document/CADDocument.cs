@@ -1,10 +1,13 @@
 ﻿using PLN.Document;
 using PLN.Drawables;
+using PLN.Validation;
 
 namespace PLN
 {
     public class CADDocument
     {
+        private ValidationReport validation;
+
         public delegate void DocumentChangedEventHandler(object sender, EventArgs e);
         public delegate void TransientsChangedEventHandler(object sender, EventArgs e);
         public delegate void SelectionChangedEventHandler(object sender, EventArgs e);
@@ -21,6 +24,7 @@ namespace PLN
         public CompositeDictionary Composites { get; private set; }
         public string FileName { get; private set; }
         public bool IsModified { get; private set; } = false;
+        internal ValidationReport Validation { get; private set; }
 
         public event DocumentChangedEventHandler DocumentChanged;
         public event TransientsChangedEventHandler TransientsChanged;
@@ -39,6 +43,8 @@ namespace PLN
             Jigged = new Composite();
             Transients = new Composite();
 
+            Validation = new ValidationReport();
+
             ActiveView = null;
 
             Editor.PickedSelection.CollectionChanged += Selection_CollectionChanged;
@@ -56,6 +62,7 @@ namespace PLN
             Model.Clear();
             Jigged.Clear();
             Transients.Clear();
+            Validation.Clear();
 
             FileName = "";
             IsModified = false;

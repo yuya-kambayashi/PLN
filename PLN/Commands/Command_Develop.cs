@@ -2,6 +2,7 @@
 using PLN.Drawables;
 using PLN.Elements;
 using PLN.Geometry;
+using PLN.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using ValidationResult = PLN.Validation.ValidationResult;
 
 
 namespace PLN.Commands
@@ -279,15 +281,19 @@ namespace PLN.Commands
 
             Editor ed = doc.Editor;
 
-            var cnt = ed.Document.Model.OfType<Room>().Count();
+            //var cnt = ed.Document.Model.OfType<Room>().Count();
 
 
-            var room1 = ed.Document.Model.OfType<Room>().First();
-            var room2 = ed.Document.Model.OfType<Room>().Last();
+            //var room1 = ed.Document.Model.OfType<Room>().First();
+            //var room2 = ed.Document.Model.OfType<Room>().Last();
 
-            ((Polygon)room1.Fig).isInside(((Polygon)room2.Fig));
+            //((Polygon)room1.Fig).isInside(((Polygon)room2.Fig));
 
+            var vr = new ValidationResult("check abx", true, "aaa");
+            var vr2 = new ValidationResult("check abx2", false, "bbb");
 
+            ed.Document.Validation.Add(vr);
+            ed.Document.Validation.Add(vr2);
 
         }
     }

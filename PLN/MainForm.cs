@@ -2,9 +2,12 @@
 using PLN.Elements;
 using PLN.Geometry;
 using System.Collections.Specialized;
+using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
 using WeifenLuo.WinFormsUI.Docking;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
+using ValidationResult = PLN.Validation.ValidationResult;
 
 namespace PLN
 {
@@ -21,6 +24,7 @@ namespace PLN
         private MainDockContent contentProjectBrowser;
         private MainDockContent contentProperties;
         private MainDockContent contentItemList;
+        private MainDockContent contentTestExplorer;
         private MainDockContent contentViewFloor1F;
         private MainDockContent contentViewFloor2F;
         private MainDockContent contentViewFloor3F;
@@ -132,6 +136,10 @@ namespace PLN
             itemList.Columns.Add("配置階", 50);
             itemList.Columns.Add("上階", 50);
 
+            testExplorer.Columns.Add("名称", 150);
+            testExplorer.Columns.Add("成否", 150);
+            testExplorer.Columns.Add("エラーメッセージ", 150);
+
             contentProjectBrowser = new MainDockContent("プロジェクト ブラウザ", treeProjectBrowser);
             contentProperties = new MainDockContent("Properties", propertyGrid1);
             contentViewFloor1F = new MainDockContent("1階平面図", cadWindow1);
@@ -142,12 +150,14 @@ namespace PLN
             contentViewFloor3D = new MainDockContent("3D", cadWindow3D);
 
             contentItemList = new MainDockContent("部材一覧", itemList);
+            contentTestExplorer = new MainDockContent("テスト エクスプローラー", testExplorer);
 
             dockPanel.Theme = new VS2015LightTheme();
 
             contentProjectBrowser.Show(dockPanel, DockState.DockLeft);
             contentProperties.Show(dockPanel, DockState.DockRight);
             contentItemList.Show(dockPanel, DockState.DockBottom);
+            contentTestExplorer.Show(dockPanel, DockState.DockBottom);
             contentViewFloor1F.Show(dockPanel, DockState.Document);
         }
 
@@ -170,6 +180,7 @@ namespace PLN
             treeProjectBrowser.NodeMouseClick += treeProjectBrowser_NodeMouseClick;
 
             doc.Model.CollectionChanged += Model_CollectionChanged;
+            doc.Validation.CollectionChanged += Validation_CollectionChanged;
 
             itemList.SelectedIndexChanged += ItemList_SelectedIndexChanged;
         }
@@ -1105,8 +1116,6 @@ namespace PLN
             {
                 RefreshEntireItemList();
             }
-
-
         }
         private void AddToItemList(Element item)
         {
@@ -1191,6 +1200,23 @@ namespace PLN
 
 
             doc.ActiveView.Redraw();
+        }
+        private void Validation_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                var eee = e.NewItems[0];
+
+                foreach (ValidationResult vr in e.NewItems)
+                {
+                    var lv = new ListViewItem(vr.Name);
+                    lv.SubItems.Add(vr.IsSuccess.ToString());
+                    lv.SubItems.Add(vr.Message.ToString());
+                    lv.Tag = vr;
+
+                    testExplorer.Items.Add(lv);
+                }
+            }
         }
     }
 }
